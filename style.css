@@ -7,19 +7,46 @@ aside {
     height: 100vh;
     width: 200px;
     background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 main {
     width: calc(100% - 200px);
-    background-color: var(--secondary-color);
+    background-color: var(--background-color);
 }
 
 header {
     height: 90px;
-
+    background-color: white;
 }
 
 #mainContent {
     margin: 50px;
-    /* height: 100%; */
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+nav a, #legal a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    text-decoration: none;
+    color: white;
+}
+
+.active {
+    background-color: #091931;
 }
