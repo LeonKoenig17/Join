@@ -6,15 +6,17 @@ body {
 aside {
     height: 100vh;
     width: 200px;
-    background-color: #2A3647;
+    background-color: var(--primary-color);
 }
 
 main {
     width: calc(100% - 200px);
+    background-color: var(--secondary-color);
 }
 
 header {
     height: 90px;
+
 }
 
 #mainContent {
