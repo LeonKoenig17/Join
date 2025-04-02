@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+aside {
+    height: 100vh;
+    width: 200px;
+    background-color: #2A3647;
+}
+
+main {
+    width: calc(100% - 200px);
+}
+
+header {
+    height: 90px;
+}
+
+#mainContent {
+    margin: 50px;
+    /* height: 100%; */
+}
