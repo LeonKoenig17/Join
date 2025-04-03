@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/board.css">
+    <link rel="stylesheet" href="../styles/taskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
@@ -49,7 +50,7 @@
         </header>
         <div id="mainContent">
             <div id="boardHeader">
-                <h1>Board</h1>
+                <h2>Board</h2>
                 <div>
                     <div id="searchInput">
                         <input type="text" placeholder="Find Task">
@@ -64,26 +65,79 @@
             <div id="boardMain">
                 <div id="toDo">
                     <span>To do</span>
-                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                    <button></button>
                 </div>
                 <div id="inProgress">
                     <span>In progress</span>
-                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                    <button></button>
                 </div>
                 <div id="feedback">
                     <span>Await feedback</span>
-                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                    <button></button>
                 </div>
                 <div id="done">
                     <span>Done</span>
-                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                    <button></button>
                 </div>
             </div>
             <div id="boardContent">
-                <div id="toDoContainer">content</div>
-                <div id="toDoContainer">content</div>
-                <div id="toDoContainer">content</div>
-                <div id="toDoContainer">content</div>
+                <div id="toDoContainer">
+                    <div class="noTasks">
+                        <span>No tasks To do</span>
+                    </div>
+                </div>
+                <div id="inProgress">
+                    <div class="noTasks">
+                        <span>No tasks To do</span>
+                    </div>
+                </div>
+                <div id="awaitFeedback">
+                    <div class="noTasks">
+                        <span>No tasks To do</span>
+                    </div>
+                </div>
+                <div id="done">
+                    <div class="noTasks">
+                        <span>No tasks To do</span>
+                    </div>
+                </div>
+            </div>
+            <div id="taskOverlay">
+                <div>
+                    <div id="taskOverlayHeading">
+                        <span>User Story</span>
+                        <button><img src="../images/close.svg" alt="close"></button>
+                    </div>
+                    <h2>Kochwelt</h2>
+                    <span id="description">DescriptionDescriptionDescriptionDescriptionDescription</span>
+                    <p id="dueDate">Due Date: <span>10/05/2025</span></p>
+                    <p id="priority">Priority: <span>Medium<img src="../images/medium.svg" alt="priority"></span></p>
+                    <p id="assigned">Assigned To: 
+                        <div class="assigned">
+                            <div class="profile">LK</div>
+                            <span>Leon König</span>
+                        </div>
+                        <div class="assigned">
+                            <div class="profile">DB</div>
+                            <span>Duebel</span>
+                        </div>
+                        <div class="assigned">
+                            <div class="profile">HP</div>
+                            <span>Harry Potter</span>
+                        </div>
+                    </p>
+                    <p id="subtasks">Subtasks
+                        <div class="subtask">
+                            <button></button>
+                            <span>Subtask</span>
+                        </div>
+                        <div class="subtask">
+                            <button></button>
+                            <span>Subtask</span>
+                        </div>
+                    </p>
+
+                </div>
             </div>
         </div>
     </main>
