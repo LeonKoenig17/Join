@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="style.css">
+    <script src="./script/script.js"></script>
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
@@ -46,7 +47,18 @@
                 <a href="" id="userLink">LK</a>
             </div>
         </header>
-        <div id="mainContent">mainContent</div>
+        <div id="mainContent">
+            
+            <div id="loginDiv" class="loginDiv">
+
+                <span>Log in</span>
+                <input type="text" id="emailInput" placeholder="E-Mail">
+                <input type="password" id="passwordInput" placeholder="Password">
+                <button onclick="login()">Log in</button>
+        
+            </div>
+
+        </div>
     </main>
 </body>
 
