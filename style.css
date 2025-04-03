@@ -67,7 +67,8 @@ nav {
     text-align: center;
 }
 
-nav a, #legal a{
+nav a,
+#legal a {
     display: flex;
     align-items: center;
     margin: 5px 0;
@@ -108,4 +109,37 @@ nav img {
 
 .active:hover {
     cursor: default;
+}
+
+.loginDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: fit-content;
+}
+.loginInput {
+    border: solid 1px #D1D1D1;
+    border-radius: 10px;
+    height: 46px;
+    border-width: 1px;
+    width: 375px;
+    font-size: 20px;
+    /* background-image: url(/images/mail.svg); */
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    padding: 0px 20px;
+    margin: 20px 0px;
+}
+
+.loginInput::placeholder {
+    color: #D1D1D1;
+}
+
+.accountHeader{
+    font-size: 61px;
+    font-weight: bold;
+    text-decoration: underline 2px var(--text-underline-color);
+    text-underline-offset: 20px;
 }
