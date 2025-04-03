@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/board.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
@@ -46,7 +47,45 @@
                 <a href="" id="userLink">LK</a>
             </div>
         </header>
-        <div id="mainContent">mainContent</div>
+        <div id="mainContent">
+            <div id="boardHeader">
+                <h1>Board</h1>
+                <div>
+                    <div id="searchInput">
+                        <input type="text" placeholder="Find Task">
+                        <button><img src="../images/search.svg" alt="search"></button>
+                    </div>
+                    <button id="addTaskBtn">
+                        <span>Add Task</span>
+                        <img src="../images/add.svg" alt="plus">
+                    </button>
+                </div>
+            </div>
+            <div id="boardMain">
+                <div id="toDo">
+                    <span>To do</span>
+                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                </div>
+                <div id="inProgress">
+                    <span>In progress</span>
+                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                </div>
+                <div id="feedback">
+                    <span>Await feedback</span>
+                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                </div>
+                <div id="done">
+                    <span>Done</span>
+                    <button><img src="../images/tasksPlus.svg" alt="plus"></button>
+                </div>
+            </div>
+            <div id="boardContent">
+                <div id="toDoContainer">content</div>
+                <div id="toDoContainer">content</div>
+                <div id="toDoContainer">content</div>
+                <div id="toDoContainer">content</div>
+            </div>
+        </div>
     </main>
 </body>
 
