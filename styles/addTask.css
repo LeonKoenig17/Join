@@ -157,20 +157,36 @@ select {
   cursor: pointer;
 }
 
-.custom-select-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+.custom-select-container, .subtask-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
 
-.custom-select-container select {
+.custom-select-container select, .subtask-input input {
   appearance: none;
 }
 
 .custom-select-container .select-icon {
   position: absolute;
   right: 10px;
-  pointer-events: none; /* Prevent interaction with the icon */
+  pointer-events: none;
+}
+
+.subtask-input input {
+    padding-right: 40px;
+}
+
+.subtask-input img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.subtask-icon:hover {
+  transform: scale(1.2);
 }
 
 select:focus {
@@ -200,15 +216,14 @@ select:focus {
 }
 
 .subtask-input {
-  display: flex;
-  gap: 10px;
+  
 }
 
 .subtask-input input {
   flex: 1;
   padding: 10px;
   border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .subtask-input button {
@@ -216,7 +231,6 @@ select:focus {
   background-color: var(--accent-color);
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
 }
