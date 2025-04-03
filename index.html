@@ -14,9 +14,9 @@
 </head>
 
 <body>
-    <aside>
-        <div id="logo"><img src="../images/joinlogowhite.svg" alt=""></div>
-        <nav>
+    <!-- <aside> -->
+        <img src="../images/joinlogodark.svg" alt="" class="logo">
+        <!-- <nav>
             <a href="">
                 <img src="../images/summarygray.svg" alt="logo">
                 <span>Summary</span>
@@ -33,32 +33,38 @@
                 <img src="../images/contactsgray.svg" alt="logo">
                 <span>Contacts</span>
             </a>
-        </nav>
-        <div id="legal">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal Notice</a>
-        </div>
-    </aside>
+        </nav> -->
+
+    <!-- </aside> -->
     <main>
-        <header>
+        <!-- <header>
             <span>Kanban Project Management Tool</span>
             <div>
                 <a href=""><img src="../images/help20x20.svg" alt="help"></a>
                 <a href="" id="userLink">LK</a>
             </div>
-        </header>
+        </header> -->
         <div id="mainContent">
-            
+
             <div id="loginDiv" class="loginDiv">
-                
+
                 <span class="accountHeader">Log in</span>
-                <input type="text" id="emailInput" placeholder="Email" class="loginInput" style="background-image: url(/images/mail.svg);">
+                <input type="text" id="emailInput" placeholder="Email" class="loginInput"
+                    style="background-image: url(/images/mail.svg);">
                 <!-- <img src="./images/Frame 14.svg" alt="" style="position: absolute;left:298px;top:186px"> -->
-                <input type="password" id="passwordInput" placeholder="Password" class="loginInput" style="background-image: url(/images/lock.svg);">
-                <button onclick="login()">Log in</button>
-        
+                <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
+                    style="background-image: url(/images/lock.svg);">
+                <div class="loginButtonDiv">
+                    <button onclick="login()" class="loginBtn">Log in</button>
+                    <button onclick="login()" class="guestLoginBtn">Guest Log in</button>
+                </div>
             </div>
 
+        </div>
+        
+        <div id="legal">
+            <a href="">Privacy Policy</a>
+            <a href="">Legal Notice</a>
         </div>
     </main>
 </body>
