@@ -35,7 +35,7 @@
 .forms input,
 .forms textarea {
   width: 100%;
-  padding: 18px 16px 18px 16px;
+  padding:  12px 21px;
   margin: 20px 0;
   border: 1px solid var(--border-color);
   border-radius: 10px;
@@ -95,8 +95,7 @@
 
 .priority {
   width: 136px;
-  align-items: center;
-  padding: 16px 10px 16px 10px;
+  padding: 16px 10px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   text-align: center;
@@ -155,10 +154,30 @@ select {
   font-size: 14px;
   background-color: white;
   color: var(--text-color);
+  cursor: pointer;
+}
+
+.custom-select-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-select-container select {
+  appearance: none;
+}
+
+.custom-select-container .select-icon {
+  position: absolute;
+  right: 10px;
+  pointer-events: none; /* Prevent interaction with the icon */
 }
 
 select:focus {
   outline: 2px solid var(--accent-color);
+}
+.select-icon img:hover {
+  background-color: var(--background-color);
 }
 
 .assigned-contacts {
@@ -223,10 +242,10 @@ select:focus {
 .create-task-footer img {
   padding-left: 10px;
 }
-.create-task-footer p{
-    color: var(--text-color);
-    font-weight: 400;
-    font-size: 10px;
+.create-task-footer p {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 10px;
 }
 
 .clear-button {
@@ -244,7 +263,6 @@ select:focus {
 .clear-button:hover {
   border-color: var(--hover-color);
   color: var(--hover-color);
- 
 }
 
 .clear-button:hover img {
@@ -252,9 +270,9 @@ select:focus {
 }
 
 .clear-button:hover::after {
-    content: url("../images/cancelblue.svg");
-    padding-left: 10px;
-    display: inline-block;
+  content: url("../images/cancelblue.svg");
+  padding-left: 10px;
+  display: inline-block;
 }
 
 .create-button {
