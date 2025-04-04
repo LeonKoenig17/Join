@@ -14,40 +14,12 @@
 </head>
 
 <body>
-    <!-- <aside> -->
     <img src="../images/joinlogodark.svg" alt="" class="logo">
-    <!-- <nav>
-            <a href="">
-                <img src="../images/summarygray.svg" alt="logo">
-                <span>Summary</span>
-            </a>
-            <a href="">
-                <img src="../images/addtaskgray.svg" alt="logo">
-                <span>Add Task</span>
-            </a>
-            <a href="" class="active">
-                <img src="../images/boardwhite.svg" alt="logo">
-                <span>Board</span>
-            </a>
-            <a href="">
-                <img src="../images/contactsgray.svg" alt="logo">
-                <span>Contacts</span>
-            </a>
-        </nav> -->
-
-    <!-- </aside> -->
     <main>
-        <!-- <header>
-            <span>Kanban Project Management Tool</span>
-            <div>
-                <a href=""><img src="../images/help20x20.svg" alt="help"></a>
-                <a href="" id="userLink">LK</a>
-            </div>
-        </header> -->
         <div id="mainContent">
 
             <div id="createAccountDiv" class="createAccountDiv">
-                <img src="./images/arrow-left-line.svg" alt="" style="position: relative;left: -200px;top: 30px">
+                <a href="./index.html"><img id="backToLogin" src="./images/arrow-left-line.svg" alt=""></a>
                 <span class="accountHeader" style="position: relative;top: -25px;">Sign up</span>
                 <div class="loginInputDiv">
                     <input type="text" id="nameInput" placeholder="Name" class="loginInput"
@@ -60,19 +32,14 @@
                         style="background-image: url(/images/lock.svg);">
                 </div>
                 <div id="acceptPrivacy">
-                    <img src="./images/checkboxfalseblack.svg" alt="" style="margin-right: 10px;">
+                    <img id="acceptPrivacyPolicy" class="hover" src="./images/checkboxfalseblack.svg" alt="" style="margin-right: 10px;" onclick="acceptPrivacyPolicy(this.id)">
                     <span style="margin-right: 5px;">I accept the </span>
-                    <a href="">Privacy policy</a>
+                    <a href="" class="linkPrivacyPolicy">Privacy policy</a>
                 </div>
                 <div class="loginButtonDiv">
                     <button onclick="createAccount()" class="blueBtn">Sign up</button>
 
-                    <!-- <button onclick="login()" class="whiteBtn">Guest Log in</button> -->
                 </div>
-                <!-- <div id="signUpDiv">
-                    <span class="signUpSpan">Not a Join User?</span>
-                    <a href="./createaccount.html">Sign up</a>
-                </div> -->
             </div>
 
         </div>

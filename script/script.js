@@ -34,31 +34,42 @@ async function deleteData(path = "") {
 
 
 async function createAccount() {
+    let chkboxPrivacy = document.getElementById("acceptPrivacyPolicy");
+    let privacyBoolean = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
     let userName = document.getElementById("nameInput").value;
     let email = document.getElementById("emailInput").value;
     let password = document.getElementById("passwordInput").value;
     let confirmPassword = document.getElementById("confirmPasswordInput").value;
 
+
+    if(privacyBoolean =="false"){
+        window.alert("Please confirm our Privacy Policy")
+        return
+    }
+
     let myValue = await findUser(email);
+
+    
     if (myValue != null) {
         window.alert("Account already exists")
     } else {
-        if (password == confirmPassword && password != "") {
+        if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             postData("login", { "name": userName, "email": email, "password": password })
-            window.alert("Account created - have fun")
-        }else{
+            window.location = "./summary.html";
+            // window.alert("Account created - have fun")
+        } else {
             window.alert("Passwords do not match")
         }
     }
 }
-async function login(){
+async function login() {
     let myValue = await checkPassword(document.getElementById("emailInput").value);
     let password = document.getElementById("passwordInput").value;
 
-    if(password == myValue){
+    if (password == myValue) {
         // window.alert("Login successfull")
         window.location = "./summary.html";
-    }else{
+    } else {
         window.alert("Wrong Password")
         // window.location = "./login.html";
 
@@ -83,4 +94,16 @@ async function findUser(email) {
         }
     }
     return null;
+}
+
+function acceptPrivacyPolicy(element) {
+    let myChk = document.getElementById(element);
+    let myValue = myChk.src.search("true") > 0 ? "true" : "false";
+
+    if (myValue == "false") {
+        myChk.src = "./images/checkboxtrueblack.svg"
+    } else {
+        myChk.src = "./images/checkboxfalseblack.svg"
+    }
+
 }
