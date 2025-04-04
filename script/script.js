@@ -56,8 +56,8 @@ async function login(){
     let password = document.getElementById("passwordInput").value;
 
     if(password == myValue){
-        window.alert("Login successfull")
-        window.location = "./login.html";
+        // window.alert("Login successfull")
+        window.location = "./summary.html";
     }else{
         window.alert("Wrong Password")
         // window.location = "./login.html";
