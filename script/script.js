@@ -49,14 +49,13 @@ async function createAccount() {
 
     let myValue = await findUser(email);
 
-    
+
     if (myValue != null) {
         window.alert("Account already exists")
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             postData("login", { "name": userName, "email": email, "password": password })
             window.location = "./summary.html";
-            // window.alert("Account created - have fun")
         } else {
             window.alert("Passwords do not match")
         }
