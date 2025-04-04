@@ -186,7 +186,8 @@ nav img {
     border: none;
     border-radius: 10px;
     height: 48px;
-    width: 110px;
+    width: fit-content;
+    padding: 0px 20px;
 }
 
 
@@ -215,16 +216,16 @@ nav img {
 }
 
 .whiteBtn {
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 16px;
+    background-color: white;
+    color: black;
+    font-size: 21px;
     font-weight: bold;
-    border: none;
+    border: solid 1px var(--primary-color);
     border-radius: 10px;
     height: 48px;
-    width: 110px;
-    text-decoration: none;
-    padding: 10px 20px;
+    width: fit-content;
+    text-wrap: nowrap;
+    padding: 0px 20px;
 }
 
 .createAccountSpan {
@@ -246,6 +247,6 @@ nav img {
 
 #createAccountDiv {
     position: absolute;
-    top: 50px;
+    top: 75px;
     right: 100px;
 }

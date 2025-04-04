@@ -57,8 +57,11 @@ async function login(){
 
     if(password == myValue){
         window.alert("Login successfull")
+        window.location = "./login.html";
     }else{
         window.alert("Wrong Password")
+        // window.location = "./login.html";
+
     }
 
 }
