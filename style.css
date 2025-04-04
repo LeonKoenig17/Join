@@ -142,7 +142,7 @@ nav img {
 }
 
 .createAccountDiv {
-    height: 450px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -262,4 +262,11 @@ nav img {
     position: absolute;
     top: 75px;
     right: 100px;
+}
+
+#acceptPrivacy {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: 20px 0px;
 }

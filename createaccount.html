@@ -47,8 +47,8 @@
         <div id="mainContent">
 
             <div id="createAccountDiv" class="createAccountDiv">
-
-                <span class="accountHeader">Sign up</span>
+                <img src="./images/arrow-left-line.svg" alt="" style="position: relative;left: -200px;top: 30px">
+                <span class="accountHeader" style="position: relative;top: -25px;">Sign up</span>
                 <div class="loginInputDiv">
                     <input type="text" id="nameInput" placeholder="Name" class="loginInput"
                         style="background-image: url(/images/person.svg);">
@@ -59,9 +59,15 @@
                     <input type="password" id="confirmPasswordInput" placeholder="Confirm Password" class="loginInput"
                         style="background-image: url(/images/lock.svg);">
                 </div>
+                <div id="acceptPrivacy">
+                    <img src="./images/checkboxfalseblack.svg" alt="" style="margin-right: 10px;">
+                    <span style="margin-right: 5px;">I accept the </span>
+                    <a href="">Privacy policy</a>
+                </div>
                 <div class="loginButtonDiv">
-                    <button onclick="login()" class="blueBtn">Log in</button>
-                    <button onclick="login()" class="whiteBtn">Guest Log in</button>
+                    <button onclick="createAccount()" class="blueBtn">Sign up</button>
+
+                    <!-- <button onclick="login()" class="whiteBtn">Guest Log in</button> -->
                 </div>
                 <!-- <div id="signUpDiv">
                     <span class="signUpSpan">Not a Join User?</span>
