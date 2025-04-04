@@ -185,10 +185,6 @@ select {
     pointer-events: none;
 }
 
-.subtask-icon:hover {
-  transform: scale(1.2);
-}
-
 select:focus {
   outline: 2px solid var(--accent-color);
 }
@@ -213,10 +209,6 @@ select:focus {
   color: white;
   font-size: 12px;
   font-weight: bold;
-}
-
-.subtask-input {
-  
 }
 
 .subtask-input input {
@@ -311,4 +303,30 @@ select:focus {
   width: 1px;
   background-color: var(--border-color);
   margin: 0 20px;
+}
+
+
+.assigned-user-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+.assigned-user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #29ABE2; /* oder beliebige Farbe */
+  color: #fff;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.assigned-user-name {
+  flex-grow: 1;
+}
+.assign-checkbox {
+  margin-left: 10px;
 }
