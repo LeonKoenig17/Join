@@ -1,4 +1,32 @@
-// Alle globalen Variablen und DOM-Elemente
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: addTask.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: addTask.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Alle globalen Variablen und DOM-Elemente
 const BASE_URL =
   "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
 let subtasks = [];
@@ -14,7 +42,7 @@ const messageDiv = document.getElementById("message");
 let subtaskList = document.getElementById("subtask-list");
 if (!subtaskList) {
   document.querySelector(".subtask-input").innerHTML +=
-    "<div id='subtask-list'></div>";
+    "&lt;div id='subtask-list'>&lt;/div>";
   subtaskList = document.getElementById("subtask-list");
 }
 
@@ -39,7 +67,7 @@ function init() {
  * Asynchronously loads JSON data from a specified path.
  *
  * @param {string} [path=""] - The relative path to the JSON file (excluding the ".json" extension).
- * @returns {Promise<any>} A promise that resolves to the parsed JSON data.
+ * @returns {Promise&lt;any>} A promise that resolves to the parsed JSON data.
  * @throws {Error} If the fetch request fails or the response cannot be parsed as JSON.
  */
 async function loadData(path = "") {
@@ -55,7 +83,7 @@ async function loadData(path = "") {
  * @function postData
  * @param {string} path - The endpoint path to which the data will be sent (relative to the base URL).
  * @param {Object} data - The data to be sent in the request body.
- * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
+ * @returns {Promise&lt;Object>} A promise that resolves to the JSON response from the server.
  */
 async function postData(path = "", data = {}) {
   const response = await fetch(BASE_URL + path + ".json", {
@@ -73,7 +101,7 @@ async function postData(path = "", data = {}) {
  * @function
  * @param {string} [path=""] - The relative path to the resource to be updated.
  * @param {Object} [data={}] - The data to be sent in the request body.
- * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
+ * @returns {Promise&lt;Object>} A promise that resolves to the JSON response from the server.
  */
 async function updateData(path = "", data = {}) {
   const response = await fetch(BASE_URL + path + ".json", {
@@ -91,7 +119,7 @@ async function updateData(path = "", data = {}) {
  * @async
  * @function deleteData
  * @param {string} [path=""] - The relative path to the resource to be deleted.
- * @returns {Promise<Object>} A promise that resolves to an object indicating the success of the operation.
+ * @returns {Promise&lt;Object>} A promise that resolves to an object indicating the success of the operation.
  *                             If the response contains JSON, it will return the parsed JSON object.
  *                             If an error occurs or no JSON is returned, it defaults to `{ success: true }`.
  */
@@ -133,9 +161,9 @@ function setupDatePicker() {
  * @returns {void}
  */
 function setupPriorityButtons() {
-  for (let i = 0; i < priorityButtons.length; i++) {
+  for (let i = 0; i &lt; priorityButtons.length; i++) {
     priorityButtons[i].addEventListener("click", function () {
-      for (let j = 0; j < priorityButtons.length; j++) {
+      for (let j = 0; j &lt; priorityButtons.length; j++) {
         priorityButtons[j].classList.remove("active-btn");
       }
       this.classList.add("active-btn");
@@ -150,7 +178,7 @@ function setupPriorityButtons() {
  *
  * @async
  * @function createTask
- * @returns {Promise<void>} Resolves when the task is successfully created or 
+ * @returns {Promise&lt;void>} Resolves when the task is successfully created or 
  * handles errors if the operation fails.
  *
  * @throws {Error} Logs and displays an error message if the task creation fails.
@@ -214,16 +242,16 @@ function setupSubtaskInput() {
  */
 function updateSubtaskList() {
   let html = "";
-  for (let i = 0; i < subtasks.length; i++) {
+  for (let i = 0; i &lt; subtasks.length; i++) {
     html += subtaskTemplate(subtasks[i], i);
   }
   subtaskList.innerHTML = html;
   const btns = subtaskList.getElementsByClassName("delete-subtask");
-  for (let j = 0; j < btns.length; j++) {
+  for (let j = 0; j &lt; btns.length; j++) {
     btns[j].addEventListener("click", function () {
       const index = parseInt(this.getAttribute("data-index"), 10);
       let newSubs = [];
-      for (let k = 0; k < subtasks.length; k++) {
+      for (let k = 0; k &lt; subtasks.length; k++) {
         if (k !== index) {
           newSubs.push(subtasks[k]);
         }
@@ -252,7 +280,7 @@ function getFormData() {
   const description = document.getElementById("description").value.trim();
   const dueDate = dateInput.value;
   let priority = "";
-  for (let i = 0; i < priorityButtons.length; i++) {
+  for (let i = 0; i &lt; priorityButtons.length; i++) {
     if (priorityButtons[i].classList.contains("active-btn")) {
       priority = priorityButtons[i].textContent.trim();
       break;
@@ -281,9 +309,9 @@ function getFormData() {
  */
 function validateFormData(data) {
   return (
-    data.title &&
-    data.dueDate &&
-    data.category &&
+    data.title &amp;&amp;
+    data.dueDate &amp;&amp;
+    data.category &amp;&amp;
     data.category !== "Select task category"
   );
 }
@@ -301,7 +329,7 @@ function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   dateInput.value = "";
-  for (let i = 0; i < priorityButtons.length; i++) {
+  for (let i = 0; i &lt; priorityButtons.length; i++) {
     priorityButtons[i].classList.remove("active-btn");
   }
   if (priorityButtons[1]) {
@@ -345,7 +373,7 @@ function setupCreateTaskButton() {
  * @function
  * @param {string} taskId - The unique identifier of the task to be updated.
  * @param {Object} updatedTask - An object containing the updated task data.
- * @returns {Promise<void>} Resolves when the task is successfully updated.
+ * @returns {Promise&lt;void>} Resolves when the task is successfully updated.
  * @throws {Error} If an error occurs during the update process.
  */
 async function updateTask(taskId, updatedTask) {
@@ -367,7 +395,7 @@ async function updateTask(taskId, updatedTask) {
  * @async
  * @function
  * @param {string} taskId - The unique identifier of the task to be removed.
- * @returns {Promise<void>} A promise that resolves when the task is successfully deleted.
+ * @returns {Promise&lt;void>} A promise that resolves when the task is successfully deleted.
  * @throws {Error} Logs an error message if the task deletion fails.
  */
 async function removeTask(taskId) {
@@ -424,7 +452,7 @@ function getInitials(name) {
  * 
  * @async
  * @function
- * @returns {Promise<void>} Resolves when the user data is loaded and rendered.
+ * @returns {Promise&lt;void>} Resolves when the user data is loaded and rendered.
  * @throws {Error} Logs an error if the target element is not found.
  */
 async function loadAndRenderAssignedContacts() {
@@ -436,7 +464,7 @@ async function loadAndRenderAssignedContacts() {
   }
   if (users) {
     const keys = Object.keys(users);
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i &lt; keys.length; i++) {
       const id = keys[i],
             user = users[id];
       assignedEl.innerHTML += assignedUserTemplate(user, i);
@@ -444,3 +472,26 @@ async function loadAndRenderAssignedContacts() {
   }
 }
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteData">deleteData</a></li><li><a href="global.html#getFormData">getFormData</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadAndRenderAssignedContacts">loadAndRenderAssignedContacts</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#postData">postData</a></li><li><a href="global.html#removeTask">removeTask</a></li><li><a href="global.html#setupCreateTaskButton">setupCreateTaskButton</a></li><li><a href="global.html#setupDatePicker">setupDatePicker</a></li><li><a href="global.html#setupPriorityButtons">setupPriorityButtons</a></li><li><a href="global.html#setupSubtaskInput">setupSubtaskInput</a></li><li><a href="global.html#showMessage">showMessage</a></li><li><a href="global.html#updateData">updateData</a></li><li><a href="global.html#updateSubtaskList">updateSubtaskList</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#validateFormData">validateFormData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 04 2025 13:39:55 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

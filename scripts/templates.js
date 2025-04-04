@@ -18,7 +18,17 @@ function userOptionTemplate(user, id) {
     return '<option value="' + id + '">' + (user.name || user.email) + '</option>';
   }
   
-/** 3) Template für einen Benutzer mit Avatar, Name und Checkbox */
+
+/**
+ * Generates an HTML template string for an assigned user item.
+ *
+ * @param {Object} user - The user object containing user details.
+ * @param {number} user.id - The unique identifier of the user.
+ * @param {string} user.name - The name of the user.
+ * @param {string} user.email - The email of the user.
+ * @param {number} index - The index of the user in the list.
+ * @returns {string} The HTML template string for the assigned user item.
+ */
 function assignedUserTemplate(user, index) {
     return `
       <div class="assigned-user-item">
