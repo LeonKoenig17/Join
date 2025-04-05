@@ -1,0 +1,171 @@
+summary {}
+
+.frame-40 {
+  display: flex;
+  align-items: center;
+  width: 625px;
+  height: 73px;
+  gap: 30px;
+  position: absolute;
+  top: 206px;
+  left: 328px;
+}
+
+.frame-40 h1 {
+  font-size: 61px;
+  font-weight: 700;
+  height: 73px;
+  width: 264px;
+  line-height: 120%;
+  margin: 0;
+}
+
+.frame-40-vektor {
+  border: 3px solid #29ABE2;
+  height: 59px;
+}
+
+
+.frame-40 p {
+  margin: 0;
+  height: 32px;
+  line-height: 120%;
+  font-weight: 400;
+  font-size: 27px;
+  color: #2A3647;
+}
+
+.frame-69 {
+  position: absolute;
+  top: 547.5px;
+  left: 968px;
+  width: 385px;
+  height: 136px;
+  gap: 3px;
+}
+
+.frame-69 h2 {
+  margin: 0;
+  width: 338px;
+  height: 56px;
+  font-weight: 500;
+  font-size: 47px;
+  line-height: 120%;
+  color: #2A3647;
+}
+
+.frame-69 h3 {
+  margin: 0;
+  width: 385px;
+  height: 77px;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 120%;
+  color: #29ABE2;
+}
+
+.frame-71 {
+  width: 560px;
+  height: 562px;
+  position: absolute;
+  top: 335px;
+  left: 328px;
+}
+
+.frame-64 {
+  position: absolute;
+  display: flex;
+  width: 560px;
+  height: 170px;
+  top: 382px;
+}
+
+.square-button-v1 {
+  width: 168px;
+  height: 168px;
+  position: absolute;
+  top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.frame-61 {
+  width: 93px;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frame-61 h3 {
+  margin: 0;
+  width: 40px;
+  height: 77px;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 120%;
+  text-align: center;
+}
+
+.frame-61 p {
+  margin: 0;
+  text-align: center;
+  width: 93px;
+  height: 48px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #2A3647;
+}
+
+.left-392 {
+  left: 392px;
+}
+
+.left-196 {
+  left: 196px;
+}
+
+.urgency-summary-v1 {
+  width: 560px;
+  height: 168px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 196px;
+  border-radius: 30px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.frame-67 {
+  width: 130px;
+  height: 96px;
+  gap: 18px;
+}
+
+.group-7 {
+  width: 60px;
+  height: 60px;
+}
+
+.group-7 img {
+  z-index: 2;
+  position: absolute;
+  width: 34.19px;
+  height: 25.12px;
+  top: 16.05px;
+  left: 12.56px;
+}
+
+.group-7 div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: #FF3D00;
+  border-radius: 50%;
+}

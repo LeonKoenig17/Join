@@ -3,14 +3,14 @@ body {
 }
 
 body * {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Inter", sans-serif
 }
 
 :root {
-   
+
     --primary-color: #2A3647;
     --background-color: #F6F7F8;
-    
+
     --text-color: #004d40;
     --accent-color: #0288d1;
     --border-color: #00796b;
