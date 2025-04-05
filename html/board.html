@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../styles/taskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
+     <script src="../scripts/board.js"></script>
 </head>
 
 <body>
@@ -63,43 +64,38 @@
                 </div>
             </div>
             <div id="boardMain">
-                <div id="toDo">
+                <div id="toDoHeader">
                     <span>To do</span>
-                    <button></button>
+                    <button id="toDoBtn" onclick="addTask(0)"></button>
                 </div>
-                <div id="inProgress">
+                <div id="inProgressHeader">
                     <span>In progress</span>
-                    <button></button>
+                    <button id="inProgressBtn" onclick="addTask(1)"></button>
                 </div>
-                <div id="feedback">
+                <div id="feedbackHeader">
                     <span>Await feedback</span>
-                    <button></button>
+                    <button id="feedbackBtn" onclick="addTask(2)"></button>
                 </div>
-                <div id="done">
+                <div id="doneHeader">
                     <span>Done</span>
-                    <button></button>
+                    <button id="doneBtn" onclick="addTask(3)"></button>
                 </div>
             </div>
             <div id="boardContent">
-                <div id="toDoContainer">
-                    <div class="noTasks">
-                        <span>No tasks To do</span>
-                    </div>
+                <div id="toDo">
                 </div>
                 <div id="inProgress">
-                    <div class="noTasks">
-                        <span>No tasks To do</span>
-                    </div>
                 </div>
                 <div id="awaitFeedback">
-                    <div class="noTasks">
-                        <span>No tasks To do</span>
-                    </div>
                 </div>
                 <div id="done">
-                    <div class="noTasks">
-                        <span>No tasks To do</span>
-                    </div>
+                </div>
+            </div>
+            <div id="addTaskOverlay">
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text">
+                    <button>Add Task</button>
                 </div>
             </div>
             <div id="taskOverlay">

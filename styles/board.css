@@ -84,6 +84,9 @@
 
 
 
+
+
+
 #boardMain {
     display: flex;
     justify-content: space-between;
@@ -121,6 +124,10 @@
 
 
 
+
+
+
+
 #boardContent {
     display: flex;
     justify-content: space-between;
@@ -129,6 +136,8 @@
 
 #boardContent > div {
     width: 100%;
+    min-height: 500px;
+    background-color: white;
 }
 
 .noTasks {
@@ -138,4 +147,11 @@
     padding: 14px 0;
     border-radius: 10px;
     border: 1px dashed #A8A8A8;
+}
+
+.task {
+    background-color: green;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
 }
