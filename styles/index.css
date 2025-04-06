@@ -201,8 +201,15 @@ nav img {
     height: 48px;
     width: fit-content;
     padding: 0px 20px;
+    cursor: pointer;
+
 }
 
+.blueBtn:hover {
+    background-color: var(--text-underline-color);
+    box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.1s ease-in-out;
+}
 
 .loginLinkBlue {
     background-color: var(--primary-color);
@@ -241,7 +248,15 @@ nav img {
     padding: 0px 20px;
 }
 
-.signUSpan {
+.whiteBtn:hover {
+    /* background-color: var(--text-underline-color); */
+    box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+    border-color: var(--text-underline-color);
+    color: var(--text-underline-color);
+    transition: all 0.1s ease-in-out;
+}
+
+.signUpSpan {
     margin-right: 20px;
     font-size: 16px;
 }
@@ -256,6 +271,12 @@ nav img {
     width: 110px;
     text-decoration: none;
     padding: 10px 20px;
+}
+
+#signUpDiv a:hover {
+    background-color: var(--text-underline-color);
+    box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.1s ease-in-out;
 }
 
 #signUpDiv {
