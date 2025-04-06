@@ -310,3 +310,21 @@ nav img {
     top: 30px;
     cursor: pointer;
 }
+
+.logoStart{
+    background-color: green;
+    width: 200px;
+}
+
+.logoDiv{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.displayNone{
+    display: none;
+}

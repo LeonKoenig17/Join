@@ -106,3 +106,7 @@ function acceptPrivacyPolicy(element) {
     }
 
 }
+
+function myFunction(){
+    window.alert("hello worLd")
+}
