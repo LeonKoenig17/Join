@@ -108,5 +108,6 @@ function acceptPrivacyPolicy(element) {
 }
 
 function myFunction(){
-    window.alert("hello worLd")
+    // window.alert("hello worLd")
+    document.getElementById("logoImg").classList.remove("displayNone");
 }

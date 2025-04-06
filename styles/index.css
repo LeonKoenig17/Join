@@ -311,20 +311,57 @@ nav img {
     cursor: pointer;
 }
 
-.logoStart{
-    background-color: green;
-    width: 200px;
+.logoStart {
+    max-width: 100%;
+    /* position: absolute; */
+    /* width: 80px; */
+    /* margin: 50px 50px; */
+    /* height: fit-content; */
+    /* background-color: green; */
+    /* width: 100%; */
+
 }
 
-.logoDiv{
+.logoDiv {
+    background-color: yellow;
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* animation-name: mymove; */
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
 }
 
+@keyframes mymove {
+    0% {
+        width: 0px;
+        /* margin: 0px 0px;*/
+        left: 0px;
+        top: 0px;
+    }
 
-.displayNone{
+    40% {
+        width: 80px;
+        /* margin: 50px 50px; */
+        left: 50px;
+        top: 50px;
+    }
+    
+    100% {
+        width: 80px;
+        /* margin: 50px 50px; */
+        left: 50px;
+        top: 50px;
+    }
+}
+
+.displayNone {
     display: none;
 }
+
+
+/* display: flex; */
+/* justify-content: center; */
