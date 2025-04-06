@@ -1,9 +1,14 @@
-
-  const subtaskTemplate = (task, index) => {
-    return '<li data-index="' + index + '">' + task +
-           ' <button class="delete-subtask" data-index="' + index + '">Delete</button></li>';
-  };
-
+const subtaskTemplate = (task, index) => {
+  return (
+    '<li data-index="' +
+    index +
+    '">' +
+    task +
+    ' <button class="delete-subtask" data-index="' +
+    index +
+    '">Delete</button></li>'
+  );
+};
 
 /**
  * Generates an HTML option element as a string for a given user.
@@ -15,9 +20,10 @@
  * @returns {string} An HTML string representing an option element with the user's name or email as the display text.
  */
 function userOptionTemplate(user, id) {
-    return '<option value="' + id + '">' + (user.name || user.email) + '</option>';
-  }
-  
+  return (
+    '<option value="' + id + '">' + (user.name || user.email) + "</option>"
+  );
+}
 
 /**
  * Generates an HTML template string for an assigned user item.
@@ -30,7 +36,7 @@ function userOptionTemplate(user, id) {
  * @returns {string} The HTML template string for the assigned user item.
  */
 function assignedUserTemplate(user, index) {
-    return `
+  return `
       <div class="assigned-user-item">
         <input
           type="checkbox"
@@ -40,8 +46,10 @@ function assignedUserTemplate(user, index) {
           data-user-email="${user.email}"
           data-user-index="${index}"
         />
-        <p class="assigned-user-avatar">${getInitials(user.name || user.email)}</p>
+        <p class="assigned-user-avatar">${getInitials(
+          user.name || user.email
+        )}</p>
         <p class="assigned-user-name">${user.name || user.email}</p>
       </div>
     `;
-  }
+}

@@ -4,7 +4,9 @@ const BASE_URL =
 let subtasks = [];
 const dateInput = document.getElementById("due-date");
 const pickerIcon = document.querySelector(".custom-date-input img");
-const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+const priorityButtons = document.querySelectorAll(
+  ".priority-buttons .priority"
+);
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
 const subtaskInput = document.getElementById("subtaskInput");
@@ -34,7 +36,6 @@ function init() {
   setupCreateTaskButton();
 }
 
-
 /**
  * Asynchronously loads JSON data from a specified path.
  *
@@ -46,7 +47,6 @@ async function loadData(path = "") {
   const response = await fetch(BASE_URL + path + ".json");
   return await response.json();
 }
-
 
 /**
  * Sends a POST request to the specified path with the provided data.
@@ -77,13 +77,12 @@ async function postData(path = "", data = {}) {
  */
 async function updateData(path = "", data = {}) {
   const response = await fetch(BASE_URL + path + ".json", {
-    method: "PATCH",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   return await response.json();
 }
-
 
 /**
  * Deletes data from the specified path on the server.
@@ -104,10 +103,9 @@ async function deleteData(path = "") {
   }
 }
 
-
 /**
  * Sets up a date picker functionality by adding an event listener to the picker icon.
- * When the picker icon is clicked, it either shows the date picker (if supported) 
+ * When the picker icon is clicked, it either shows the date picker (if supported)
  * or focuses on the date input field as a fallback.
  *
  * @function
@@ -122,7 +120,6 @@ function setupDatePicker() {
     }
   });
 }
-
 
 /**
  * Sets up event listeners for priority buttons to handle their active state.
@@ -144,13 +141,13 @@ function setupPriorityButtons() {
 }
 
 /**
- * Asynchronously creates a new task by collecting form data, validating it, 
- * and sending it to the server. Displays appropriate messages based on the 
+ * Asynchronously creates a new task by collecting form data, validating it,
+ * and sending it to the server. Displays appropriate messages based on the
  * success or failure of the operation.
  *
  * @async
  * @function createTask
- * @returns {Promise<void>} Resolves when the task is successfully created or 
+ * @returns {Promise<void>} Resolves when the task is successfully created or
  * handles errors if the operation fails.
  *
  * @throws {Error} Logs and displays an error message if the task creation fails.
@@ -198,7 +195,6 @@ function setupSubtaskInput() {
   });
 }
 
-
 /**
  * Updates the subtask list in the DOM by generating HTML for each subtask
  * and attaching event listeners to delete buttons for removing subtasks.
@@ -234,7 +230,6 @@ function updateSubtaskList() {
   }
 }
 
-
 /**
  * Retrieves and organizes form data into an object.
  *
@@ -269,7 +264,6 @@ function getFormData() {
   };
 }
 
-
 /**
  * Validates the provided form data to ensure all required fields are present and valid.
  *
@@ -287,7 +281,6 @@ function validateFormData(data) {
     data.category !== "Select task category"
   );
 }
-
 
 /**
  * Clears the task form by resetting all input fields, selections, and states.
@@ -391,19 +384,17 @@ document
     dateInput.showPicker ? dateInput.showPicker() : dateInput.focus();
   });
 
-
-
 /**
  * Generates the initials from a given name.
  *
- * @param {string} name - The full name from which to extract initials. 
+ * @param {string} name - The full name from which to extract initials.
  *                        If the name is empty or undefined, "NN" (No Name) is returned.
- * @returns {string} The initials derived from the name. If the name contains only one word, 
- *                   the first letter of that word is returned in uppercase. 
- *                   If the name contains multiple words, the first letter of the first 
+ * @returns {string} The initials derived from the name. If the name contains only one word,
+ *                   the first letter of that word is returned in uppercase.
+ *                   If the name contains multiple words, the first letter of the first
  *                   and last words are returned in uppercase.
  */
-function getInitials(name) {
+/*function getInitials(name) {
   if (!name) return "NN"; // "No Name"
   const parts = name.trim().split(" ");
   if (parts.length === 1) {
@@ -417,11 +408,11 @@ function getInitials(name) {
 
 /**
  * Asynchronously loads user data and renders assigned contacts into a dropdown element.
- * 
+ *
  * This function retrieves user data from storage using the key "login", then dynamically
  * populates the HTML element with the ID "assignedDropdownSelected" with user information.
  * If the target element is not found, an error is logged to the console.
- * 
+ *
  * @async
  * @function
  * @returns {Promise<void>} Resolves when the user data is loaded and rendered.
@@ -438,9 +429,8 @@ async function loadAndRenderAssignedContacts() {
     const keys = Object.keys(users);
     for (let i = 0; i < keys.length; i++) {
       const id = keys[i],
-            user = users[id];
+        user = users[id];
       assignedEl.innerHTML += assignedUserTemplate(user, i);
     }
   }
 }
-
