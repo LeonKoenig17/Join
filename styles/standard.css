@@ -8,11 +8,11 @@ body {
 }
 
 body * {
-    font-family: "Inter";
+    font-family: "Inter", sans-serif
 }
 
 :root {
-   
+
     --primary-color: #2A3647;
     --background-color: #F6F7F8;
     
