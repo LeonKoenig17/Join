@@ -1,5 +1,17 @@
-let toDoArray = [{title: "Chicken",index: 1}];
-let inProgressArray = [{title: "Human",index: 2}];
+let exammpleTaskObject = {
+    title: "Title",
+    description: "description",
+    dueDate: "02/05/2025",
+    priority: 1, // index: urgent
+    assignedTo: 0, // index
+    category: 1, // index
+    subtasks: [{"task1": "ticked"}, {"task2": "unticked"}],
+    stage: 0, // toDoArray
+    index: 100,
+};
+
+let toDoArray = [];
+let inProgressArray = [];
 let awaitFeedbackArray = [];
 let doneArray = [];
 
@@ -11,6 +23,7 @@ const noTaskHtml = `
 `;
 
 window.onload = () => {
+    fetchData();
     renderLists();
     addDragFunction();
 
@@ -42,6 +55,12 @@ window.onload = () => {
             addDragFunction();
         })
     })
+}
+
+async function fetchData() {
+    const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+    const data = await fetch(BASE_URL + ".json").then(res => res.json());
+    console.log(data);
 }
 
 function addDragFunction() {
@@ -78,12 +97,24 @@ function renderLists() {
 
 let targetIndex = 0;
 
-function addTask(index) {
+function openOverlay(index) {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
     addTaskOverlay.style.display = "flex";
     targetIndex = index;
 }
-function closeAddTaskOverlay() {
+
+function clearInputFields() {
+    const allInputs = document.querySelectorAll("#addTaskOverlay input, #addTaskOverlay textarea");
+    allInputs.forEach(input => input.value = "");
+}
+
+function closeOverlay() {
+    const addTaskOverlay = document.getElementById("addTaskOverlay");
+    addTaskOverlay.style.display = "none";
+    clearInputFields();
+}
+
+function addTask() {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
     const title = addTaskOverlay.querySelector("input").value.trim();
     const taskIndex = arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
@@ -92,7 +123,9 @@ function closeAddTaskOverlay() {
         title: title,
         index: taskIndex
     })
-    addTaskOverlay.style.display = "none";
+
+    clearInputFields();
+    closeOverlay();
     renderLists();
     addDragFunction();
 }
