@@ -168,6 +168,7 @@ async function createTask() {
   }
 }
 
+
 function addSubtask() {
   const subtaskValue = subtaskInput.value.trim(); 
   if (subtaskValue) {
@@ -209,9 +210,9 @@ function setupSubtaskInput() {
  */
 function updateSubtaskList() {
   let html = "";
-  for (let i = 0; i < subtasks.length; i++) {
-    html += subtaskTemplate(subtasks[i], i);
-  }
+  subtasks.forEach((subtask, index) => {
+    html += subtaskTemplate(subtask, index);
+  });
   subtaskList.innerHTML = html;
 }
 
@@ -379,7 +380,7 @@ document
  *                   If the name contains multiple words, the first letter of the first
  *                   and last words are returned in uppercase.
  */
-/*function getInitials(name) {
+function getInitials(name) {
   if (!name) return "NN"; // "No Name"
   const parts = name.trim().split(" ");
   if (parts.length === 1) {

@@ -25,16 +25,7 @@ async function loadFirebaseUsers() {
 }
 
 
-/**
- * Generates the initials from a given string.
- * Each word in the string is represented by its first letter, converted to uppercase.
- *
- * @param {string} str - The input string from which to extract initials.
- * @returns {string} The initials of the input string in uppercase.
- */
-function getInitials(str) {
-  return str.split(" ").map(s => s[0].toUpperCase()).join("");
-}
+
 
 
 /**

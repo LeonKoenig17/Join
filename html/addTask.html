@@ -20,11 +20,11 @@
           <img src="../images/summarygray.svg" alt="logo" />
           <span>Summary</span>
         </a>
-        <a href="">
+        <a href="addTask.html" class="active">
           <img src="../images/addtaskgray.svg" alt="logo" />
           <span>Add Task</span>
         </a>
-        <a href="" class="active">
+        <a href="board.html">
           <img src="../images/boardwhite.svg" alt="logo" />
           <span>Board</span>
         </a>
@@ -47,6 +47,7 @@
         </div>
       </header>
       <div id="mainContent">
+        <div>
         <!-- Hier werden Statusmeldungen angezeigt -->
         <div id="message"></div>
         <h1>Add Task</h1>
@@ -142,12 +143,12 @@
                   alt="Subtask Icon"
                   class="subtask-icon"
                 />
-                <button type="button" class="add-subtask" disabled>+</button>
-                <!-- Der Container für Subtasks wird dynamisch per JS befüllt -->
+                <button type="button" class="add-subtask" onclick="addSubtask()" disabled>+</button>                <!-- Der Container für Subtasks wird dynamisch per JS befüllt -->
               </div>
             </div>
           </div>
         </section>
+      </div>
         <div class="create-task-footer">
           <p><span>*</span>This field is required</p>
           <div class="form-actions">
@@ -158,7 +159,7 @@
               </button>
             </div>
             <div class="create-btn-container">
-              <button type="button" class="create-button">
+              <button onclick="addSubtask()" type="button" class="create-button">
                 Create Task
                 <img src="../images/checkDark.svg" alt="create icon" />
               </button>

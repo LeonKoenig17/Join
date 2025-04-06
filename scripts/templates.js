@@ -11,21 +11,6 @@ const subtaskTemplate = (task, index) => {
 };
 
 /**
- * Generates an HTML option element as a string for a given user.
- *
- * @param {Object} user - The user object containing user details.
- * @param {string} user.name - The name of the user (optional).
- * @param {string} user.email - The email of the user (used if name is not provided).
- * @param {number|string} id - The unique identifier for the user, used as the value of the option element.
- * @returns {string} An HTML string representing an option element with the user's name or email as the display text.
- */
-function userOptionTemplate(user, id) {
-  return (
-    '<option value="' + id + '">' + (user.name || user.email) + "</option>"
-  );
-}
-
-/**
  * Generates an HTML template string for an assigned user item.
  *
  * @param {Object} user - The user object containing user details.
@@ -38,7 +23,11 @@ function userOptionTemplate(user, id) {
 function assignedUserTemplate(user, index) {
   return `
       <div class="assigned-user-item">
-        <input
+        <p class="assigned-user-avatar">${getInitials(
+          user.name || user.email
+        )}</p>
+        <p class="assigned-user-name">${user.name || user.email}</p>
+            <input
           type="checkbox"
           class="assign-checkbox"
           data-user-id="${user.id}"
@@ -46,10 +35,6 @@ function assignedUserTemplate(user, index) {
           data-user-email="${user.email}"
           data-user-index="${index}"
         />
-        <p class="assigned-user-avatar">${getInitials(
-          user.name || user.email
-        )}</p>
-        <p class="assigned-user-name">${user.name || user.email}</p>
       </div>
     `;
 }
