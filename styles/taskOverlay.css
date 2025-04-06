@@ -116,3 +116,10 @@
     justify-content: center;
     align-items: center;
 }
+
+#addTaskOverlay > div {
+    background-color: white;
+    width: 1000px;
+    padding: 40px;
+    border-radius: 30px;
+}
