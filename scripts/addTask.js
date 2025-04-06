@@ -168,6 +168,16 @@ async function createTask() {
   }
 }
 
+function addSubtask() {
+  const subtaskValue = subtaskInput.value.trim(); 
+  if (subtaskValue) {
+    subtasks.push(subtaskValue);
+    updateSubtaskList();
+    subtaskInput.value = "";
+    addSubtaskBtn.disabled = true;
+  }
+}
+
 /**
  * Initializes the subtask input functionality by setting up event listeners
  * for the subtask input field and the add subtask button. This function:
@@ -181,20 +191,9 @@ async function createTask() {
  */
 function setupSubtaskInput() {
   subtaskInput.addEventListener("input", function () {
-    addSubtaskBtn.disabled = subtaskInput.value.trim() === "";
-  });
-  addSubtaskBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    const text = subtaskInput.value.trim();
-    if (text !== "") {
-      subtasks.push(text);
-      updateSubtaskList();
-      subtaskInput.value = "";
-      addSubtaskBtn.disabled = true;
-    }
+    addSubtaskBtn.disabled = subtaskInput.value.trim() === ""; // Button aktivieren/deaktivieren
   });
 }
-
 /**
  * Updates the subtask list in the DOM by generating HTML for each subtask
  * and attaching event listeners to delete buttons for removing subtasks.
@@ -214,20 +213,6 @@ function updateSubtaskList() {
     html += subtaskTemplate(subtasks[i], i);
   }
   subtaskList.innerHTML = html;
-  const btns = subtaskList.getElementsByClassName("delete-subtask");
-  for (let j = 0; j < btns.length; j++) {
-    btns[j].addEventListener("click", function () {
-      const index = parseInt(this.getAttribute("data-index"), 10);
-      let newSubs = [];
-      for (let k = 0; k < subtasks.length; k++) {
-        if (k !== index) {
-          newSubs.push(subtasks[k]);
-        }
-      }
-      subtasks = newSubs;
-      updateSubtaskList();
-    });
-  }
 }
 
 /**
