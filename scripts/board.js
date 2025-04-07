@@ -15,6 +15,7 @@ let inProgressArray = [];
 let awaitFeedbackArray = [];
 let doneArray = [];
 
+const firebaseTasks = [];
 const arrays = [toDoArray, inProgressArray, awaitFeedbackArray, doneArray];
 const noTaskHtml = `
     <div class="noTasks">
@@ -59,20 +60,43 @@ window.onload = () => {
 
 async function fetchData() {
     const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-    const data = await fetch(BASE_URL + ".json").then(res => res.json());
-    console.log(data);
+    const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
+    console.log(tasks);
+
+    if (tasks) {
+        Object.entries(tasks).forEach(entry => {
+            let task = entry[1];
+            console.log(task);
+
+            
+            // pushToArray(toDoArray);
+
+            toDoArray.push({
+                title: task.title,
+                description: task.description,
+                dueDate: task.dueDate,
+                priority: task.priority, // index: urgent
+                assignedTo: task.assignedTo, // index
+                category: task.category, // index
+                subtasks: [{"task1": "ticked"}, {"task2": "unticked"}],
+                stage: "toDo", // toDoArray
+                index: getTaskNumber(),
+            })
+        })
+
+        renderLists();
+        addDragFunction();
+    }
 }
 
 function addDragFunction() {
     const tasks  = document.querySelectorAll(".task");
-
     tasks.forEach(task => {
         task.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("task", task.id);
         })
     });
 }
-
 
 function renderLists() {
     const containers = document.querySelectorAll("#boardContent > div");
@@ -83,7 +107,15 @@ function renderLists() {
         arrays[i].forEach(task => {
             containers[i].innerHTML += `
                 <div id="task${task.index}" class="task" draggable="true">
-                    <span>${task.title}</span>
+                    <p>${task.title}</p>
+                    <p>${task.description}</p>
+                    <p>${task.dueDate}</p>
+                    <p>${task.priority}</p>
+                    <p>${task.assignedTo}</p>
+                    <p>${task.subtasks}</p>
+                    <p>${task.category}</p>
+                    <p>${task.stage}</p>
+                    <p>${task.index}</p>
                 </div>
             `;
         })
@@ -114,18 +146,31 @@ function closeOverlay() {
     clearInputFields();
 }
 
+function getTaskNumber() {
+    return arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
+}
+
 function addTask() {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
-    const title = addTaskOverlay.querySelector("input").value.trim();
-    const taskIndex = arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
-    
-    arrays[targetIndex].push({
-        title: title,
-        index: taskIndex
-    })
+    const title = addTaskOverlay.querySelector("#title").value.trim();
+    const dueDate = addTaskOverlay.querySelector("#dueDate").value;
+    let inputValid;
 
+    if (title != "" && dueDate !="") {
+        inputValid = true;
+    }
+    
+    // if all fields != ""
+    // post to firebase
+    
+    // arrays[targetIndex].push({
+    //     title: title,
+    //     index: getTaskNumber()
+    // })
+    
     clearInputFields();
     closeOverlay();
+    // fetchData()
     renderLists();
     addDragFunction();
 }

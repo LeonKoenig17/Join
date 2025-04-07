@@ -50,7 +50,145 @@
                 <a href="" id="userLink">LK</a>
             </div>
         </header>
-        <div id="mainContent">mainContent</div>
+        <div id="mainContent">
+            <div id="boardHeader">
+                <h2>Board</h2>
+                <div>
+                    <div id="searchInput">
+                        <input type="text" placeholder="Find Task">
+                        <button><img src="../images/search.svg" alt="search"></button>
+                    </div>
+                    <button id="addTaskBtn">
+                        <span>Add Task</span>
+                        <img src="../images/add.svg" alt="plus">
+                    </button>
+                </div>
+            </div>
+            <div id="boardMain">
+                <div id="toDoHeader">
+                    <span>To do</span>
+                    <button id="toDoBtn" onclick="openOverlay(0)"></button>
+                </div>
+                <div id="inProgressHeader">
+                    <span>In progress</span>
+                    <button id="inProgressBtn" onclick="openOverlay(1)"></button>
+                </div>
+                <div id="feedbackHeader">
+                    <span>Await feedback</span>
+                    <button id="feedbackBtn" onclick="openOverlay(2)"></button>
+                </div>
+                <div id="doneHeader">
+                    <span>Done</span>
+                    <button id="doneBtn" onclick="openOverlay(3)"></button>
+                </div>
+            </div>
+            <div id="boardContent">
+                <div id="toDo">
+                </div>
+                <div id="inProgress">
+                </div>
+                <div id="awaitFeedback">
+                </div>
+                <div id="done">
+                </div>
+            </div>
+            <div id="addTaskOverlay">
+                <div>
+                    <div id="overlayHeader">
+                        <h2>Add Task</h2>
+                        <button id="close" onclick="closeOverlay()">x</button>
+                    </div>
+                    <div id="overlayMain">
+                        <div id="left">
+                            <label for="title">Title<span class="requiredMark">*</span></label>
+                            <input type="text" id="title" placeholder="Enter a title">
+                            <label for="description">Description</label>
+                            <textarea name="" id="description" placeholder="Enter a description"></textarea>
+                            <label for="dueDate">Due date<span class="requiredMark">*</span></label>
+                            <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="line"></div>
+                        <div id="right">
+                            <label for="priority">Priority</label>
+                            <div id="priorityBtns">
+                                <button>Urgent<i class="urgentBtn"></i></button>
+                                <button>Medium<i class="mediumBtn"></i></button>
+                                <button>Low<i class="lowBtn"></i></button>
+                            </div>
+                            <label for="assignedTo">Assigned To</label>
+                            <div id="assignedTo">
+                                <div class="dropDown">
+                                    <span>Select contacts to assign</span>
+                                    <i></i>
+                                </div>
+                            </div>
+                            <label for="category">Category<span class="requiredMark">*</span></label>
+                            <div id="category">
+                                <div class="dropDown">
+                                    <span>Select task category</span>
+                                    <i></i>
+                                </div>
+                                <div id="categoryDrop" class="dropSelection">
+                                    <p>Technical Task</p>
+                                    <p>Technical Task</p>
+                                </div>
+                            </div>
+                            <label for="subtaks">Subtasks</label>
+                            <input type="text" placeholder="Add new subtask">
+                        </div>
+                    </div>
+                    <div id="overlayFooter">
+                        <span><span class="requiredMark">*</span>This field is required</span>
+                        <div id="closeBtns">
+                            <button id="cancel" onclick="closeOverlay()">Cancel</button>
+                            <button id="addTaskOverlayBtn" onclick="addTask()">Add Task</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div>
+                    <label for="title">Title:</label>
+                    <input type="text">
+                    <button onclick="closeAddTaskOverlay()">Add Task</button>
+                </div> -->
+            </div>
+            <div id="taskOverlay">
+                <div>
+                    <div id="taskOverlayHeading">
+                        <span>User Story</span>
+                        <button><img src="../images/close.svg" alt="close"></button>
+                    </div>
+                    <h2>Kochwelt</h2>
+                    <span id="description">DescriptionDescriptionDescriptionDescriptionDescription</span>
+                    <p id="dueDate">Due Date: <span>10/05/2025</span></p>
+                    <p id="priority">Priority: <span>Medium<img src="../images/medium.svg" alt="priority"></span></p>
+                    <p id="assigned">Assigned To: 
+                        <div class="assigned">
+                            <div class="profile">LK</div>
+                            <span>Leon König</span>
+                        </div>
+                        <div class="assigned">
+                            <div class="profile">DB</div>
+                            <span>Duebel</span>
+                        </div>
+                        <div class="assigned">
+                            <div class="profile">HP</div>
+                            <span>Harry Potter</span>
+                        </div>
+                    </p>
+                    <p id="subtasks">Subtasks
+                        <div class="subtask">
+                            <button></button>
+                            <span>Subtask</span>
+                        </div>
+                        <div class="subtask">
+                            <button></button>
+                            <span>Subtask</span>
+                        </div>
+                    </p>
+
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 
