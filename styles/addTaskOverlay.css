@@ -22,8 +22,10 @@
 #addTaskOverlay > div {
   background-color: white;
   width: 1000px;
+  height: 800px;
   padding: 40px;
   border-radius: 30px;
+  position: relative;
 }
 
 #overlayHeader {
@@ -34,7 +36,7 @@
 
 #overlayMain {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 #left, #right {
@@ -51,10 +53,15 @@
   border: 1px solid #D1D1D1;
 }
 
+#assignedTo, #category {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
 #priorityBtns {
   display: flex;
   justify-content: space-between;
-
   gap: 20px;
 }
 
@@ -96,13 +103,15 @@
 }
 
 .dropDown i:hover {
-  background-color: #d1d1d1;
+  background-color: #EEEEEE;
 }
 
 .dropDown {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0;
+  padding: 14px;
 }
 
 .dropDown:hover {
@@ -110,13 +119,25 @@
 }
 
 .dropSelection {
-  padding: 14px;
-  /* padding-top: 0; */
-  box-shadow: 0 0 5px #d1d1d1;
-  display: flex;
+  box-shadow: 0 0 5px #EEEEEE;
+  display: none;
   flex-direction: column;
   justify-content: flex-end;
-  height: 200px;
+}
+
+.dropSelection p {
+  padding: 10px 14px;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.dropSelection p:hover {
+  background-color: #EEEEEE;
+  cursor: pointer;
+}
+
+.toggleSelection {
+  display: flex !important;
 }
 
 .line {
@@ -130,6 +151,7 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 100px;
+  /* top: 100%; */
 }
 
 #overlayFooter > span {

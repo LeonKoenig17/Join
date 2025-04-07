@@ -79,7 +79,7 @@ async function fetchData() {
                 assignedTo: task.assignedTo, // index
                 category: task.category, // index
                 subtasks: [{"task1": "ticked"}, {"task2": "unticked"}],
-                stage: "toDo", // toDoArray
+                stage: task.stage, // toDoArray
                 index: getTaskNumber(),
             })
         })
@@ -147,7 +147,9 @@ function closeOverlay() {
 }
 
 function getTaskNumber() {
-    return arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
+    let number = arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
+    console.log(number);
+    return number;
 }
 
 function addTask() {
@@ -173,4 +175,16 @@ function addTask() {
     // fetchData()
     renderLists();
     addDragFunction();
+}
+
+function openSelection(id) {
+    const container = document.getElementById(id);
+    const selection = container.querySelector(".dropSelection");
+    selection.classList.toggle("toggleSelection");
+    const arrow = container.querySelector("i");
+    if (selection.classList.contains("toggleSelection")) {
+        arrow.style.backgroundImage = "url(../images/arrowUp.svg)";
+    } else {
+        arrow.style.backgroundImage = "url(../images/arrowDown.svg)";
+    }
 }

@@ -117,20 +117,24 @@
                             </div>
                             <label for="assignedTo">Assigned To</label>
                             <div id="assignedTo">
-                                <div class="dropDown">
+                                <div class="dropDown" onclick="openSelection(`assignedTo`)">
                                     <span>Select contacts to assign</span>
                                     <i></i>
+                                </div>
+                                <div class="dropSelection">
+                                    <p>user</p>
+                                    <p>user</p>
                                 </div>
                             </div>
                             <label for="category">Category<span class="requiredMark">*</span></label>
                             <div id="category">
-                                <div class="dropDown">
+                                <div class="dropDown" onclick="openSelection(`category`)">
                                     <span>Select task category</span>
                                     <i></i>
                                 </div>
-                                <div id="categoryDrop" class="dropSelection">
+                                <div class="dropSelection">
                                     <p>Technical Task</p>
-                                    <p>Technical Task</p>
+                                    <p>User Story</p>
                                 </div>
                             </div>
                             <label for="subtaks">Subtasks</label>
