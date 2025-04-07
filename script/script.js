@@ -111,13 +111,12 @@ function onLoad() {
     const logoImg = document.getElementById('logoImg');
     const mainDiv = document.getElementById('main');
 
-    // Schritt 1: Animieren von logoImg auf 200x200
     setTimeout(() => {
         logoImg.style.width = '0px';
         logoImg.style.height = '0px';
         logoImg.style.top = '50%';
         logoImg.style.left = '50%';
-        logoImg.style.transform = 'translate(-50%, -50%)'; // Damit es genau zentriert ist
+        logoImg.style.transform = 'translate(-50%, -50%)';
     }, 0);
 
     setTimeout(() => {
@@ -125,20 +124,16 @@ function onLoad() {
         logoImg.style.height = '200px';
         logoImg.style.top = '50%';
         logoImg.style.left = '50%';
-        logoImg.style.transform = 'translate(-50%, -50%)'; // Damit es genau zentriert ist
+        logoImg.style.transform = 'translate(-50%, -50%)';
     }, 500);
 
-    // Schritt 2: Nach 0.5 Sekunden ändere die Größe auf 50x50 und die Position
     setTimeout(() => {
         logoImg.style.width = '80px';
         logoImg.style.height = '96px';
         logoImg.style.left = 'calc(50px + 40px)';
         logoImg.style.top = 'calc(50px + 48px)';
-        // logoImg.style.transform = 'translate(00%, 0%)'; // Damit es genau zentriert ist
-
     }, 2000);
 
-    // Schritt 3: Main-Element nach 2 Sekunden anzeigen (fade-in)
     setTimeout(() => {
         mainDiv.style.opacity = '1';
     }, 2500);
