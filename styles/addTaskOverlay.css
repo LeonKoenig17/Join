@@ -1,0 +1,152 @@
+#addTaskOverlay {
+  background-color: rgb(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#addTaskOverlay * {
+  font-size: 20px;
+}
+
+#addTaskOverlay h2 {
+  font-size: 60px;
+  margin-top: 0;
+}
+
+#addTaskOverlay > div {
+  background-color: white;
+  width: 1000px;
+  padding: 40px;
+  border-radius: 30px;
+}
+
+#overlayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#overlayMain {
+  display: flex;
+  justify-content: center;
+}
+
+#left, #right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#left input, #left textarea, #right input, .dropDown{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #D1D1D1;
+}
+
+#priorityBtns {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+#priorityBtns button{
+  padding: 14px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #d1d1d1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#left input::placeholder, #left textarea::placeholder {
+  color: #D1D1D1;
+}
+
+#left textarea {
+  height: 120px;
+}
+
+#left label, #right label {
+  color: var(--primary-color);
+}
+
+.dropDown i {
+  background-image: url(../images/arrowDown.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 5px;
+  border-radius: 100%;
+}
+
+.dropDown i:hover {
+  background-color: #d1d1d1;
+}
+
+.dropDown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropDown:hover {
+  cursor: pointer;
+}
+
+.line {
+  margin: 30px;
+  width: 1px;
+  background-color: #D1D1D1;
+}
+
+#overlayFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 100px;
+}
+
+#overlayFooter > span {
+  font-size: 16px;
+}
+
+.requiredMark {
+  color: #FF8090;
+}
+
+.urgentBtn, .mediumBtn, .lowBtn {
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 20px;
+  height: 15px;
+  padding-left: 10px;
+}
+
+.urgentBtn {
+  background-image: url(../images/urgent.svg);
+}
+
+.mediumBtn {
+  background-image: url(../images/medium.svg);
+}
+
+.lowBtn {
+  background-image: url(../images/low.svg);
+}

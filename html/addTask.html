@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/addTask.css" />
+    <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
+    <!-- <script src="../scripts/containerDebugger.js"></script> -->
+  </head>
+  <body onload="init()">
+    <aside>
+      <div id="logo">
+        <img src="../images/joinlogowhite.svg" alt="" />
+      </div>
+      <nav>
+        <a href="">
+          <img src="../images/summarygray.svg" alt="logo" />
+          <span>Summary</span>
+        </a>
+        <a href="">
+          <img src="../images/addtaskgray.svg" alt="logo" />
+          <span>Add Task</span>
+        </a>
+        <a href="" class="active">
+          <img src="../images/boardwhite.svg" alt="logo" />
+          <span>Board</span>
+        </a>
+        <a href="">
+          <img src="../images/contactsgray.svg" alt="logo" />
+          <span>Contacts</span>
+        </a>
+      </nav>
+      <div id="legal">
+        <a href="">Privacy Policy</a>
+        <a href="">Legal Notice</a>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <span>Kanban Project Management Tool</span>
+        <div>
+          <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
+          <a href="" id="userLink">LK</a>
+        </div>
+      </header>
+      <div id="mainContent">
+        <!-- Hier werden Statusmeldungen angezeigt -->
+        <div id="message"></div>
+        <h1>Add Task</h1>
+        <section id="addTask">
+          <div class="half-width addTask-left">
+            <form class="forms">
+              <label for="title">Title<span>*</span></label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter a title"
+                required
+              />
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Enter a Description"
+                style="resize: none"
+              ></textarea>
+              <label for="due-date">Due date<span>*</span></label>
+              <div class="custom-date-input">
+                <input type="date" id="due-date" name="due-date" required />
+                <img src="../images/calendar.svg" alt="Calendar Icon" />
+              </div>
+            </form>
+          </div>
+          <div class="separator"></div>
+          <div class="half-width addTask-right">
+            <h3 class="h3-priority">Priority</h3>
+            <div class="priority-buttons">
+              <button type="button" class="priority priority-urgent">
+                Urgent
+                <img src="../images/urgent.svg" alt="Urgent" />
+              </button>
+              <button type="button" class="priority priority-medium active-btn">
+                Medium
+                <img src="../images/medium.svg" alt="Medium" />
+              </button>
+              <button type="button" class="priority priority-low">
+                Low
+                <img src="../images/low.svg" alt="Low" />
+              </button>
+            </div>
+            <div>
+              <h3>Assigned to</h3>
+              <div class="custom-assigned-dropdown" id="assignedDropdown">
+                <!-- Klick-Bereich zum Öffnen/Schließen -->
+                <div class="dropdown-selected" id="assignedDropdownSelected">
+                  Select contacts to assign
+                  <img
+                    src="../images/arrow_drop_down.svg"
+                    alt="Dropdown Icon"
+                    class="select-icon"
+                  />
+                </div>
+                <!-- Badges/Chips der aktuell zugewiesenen Kontakte -->
+                <div class="assigned-chips" id="assignedChips">
+                  <!-- Wird per JS gefüllt -->
+                </div>
+                <!-- Aufklappbare Liste mit Checkboxes -->
+                <div class="dropdown-options" id="assignedDropdownOptions">
+                  <!-- Wird per JS gefüllt -->
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3>Category<span>*</span></h3>
+              <div class="custom-select-container">
+                <select id="categorySelect">
+                  <option>Select task category</option>
+                  <option>Technical Task</option>
+                  <option>User Story</option>
+                </select>
+                <img
+                  src="../images/arrow_drop_down.svg"
+                  alt=""
+                  class="select-icon"
+                />
+              </div>
+            </div>
+            <div>
+              <h3>Subtasks</h3>
+              <div class="subtask-input">
+                <input
+                  type="text"
+                  id="subtaskInput"
+                  placeholder="Add new subtask"
+                />
+                <img
+                  src="../images/addDark.svg"
+                  alt="Subtask Icon"
+                  class="subtask-icon"
+                />
+                <button type="button" class="add-subtask" disabled>+</button>
+                <!-- Der Container für Subtasks wird dynamisch per JS befüllt -->
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="create-task-footer">
+          <p><span>*</span>This field is required</p>
+          <div class="form-actions">
+            <div class="clear-btn-container">
+              <button type="button" class="clear-button">
+                Clear
+                <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
+              </button>
+            </div>
+            <div class="create-btn-container">
+              <button type="button" class="create-button">
+                Create Task
+                <img src="../images/checkDark.svg" alt="create icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="../scripts/templates.js"></script>
+    <script src="../scripts/addTask.js"></script>
+    <script src="../scripts/addTaskDropDown.js"></script>
+  </body>
+</html>

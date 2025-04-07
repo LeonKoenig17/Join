@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/board.css">
     <link rel="stylesheet" href="../styles/taskOverlay.css">
+    <link rel="stylesheet" href="../styles/addTaskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
      <script src="../scripts/board.js"></script>
@@ -49,93 +50,7 @@
                 <a href="" id="userLink">LK</a>
             </div>
         </header>
-        <div id="mainContent">
-            <div id="boardHeader">
-                <h2>Board</h2>
-                <div>
-                    <div id="searchInput">
-                        <input type="text" placeholder="Find Task">
-                        <button><img src="../images/search.svg" alt="search"></button>
-                    </div>
-                    <button id="addTaskBtn">
-                        <span>Add Task</span>
-                        <img src="../images/add.svg" alt="plus">
-                    </button>
-                </div>
-            </div>
-            <div id="boardMain">
-                <div id="toDoHeader">
-                    <span>To do</span>
-                    <button id="toDoBtn" onclick="addTask(0)"></button>
-                </div>
-                <div id="inProgressHeader">
-                    <span>In progress</span>
-                    <button id="inProgressBtn" onclick="addTask(1)"></button>
-                </div>
-                <div id="feedbackHeader">
-                    <span>Await feedback</span>
-                    <button id="feedbackBtn" onclick="addTask(2)"></button>
-                </div>
-                <div id="doneHeader">
-                    <span>Done</span>
-                    <button id="doneBtn" onclick="addTask(3)"></button>
-                </div>
-            </div>
-            <div id="boardContent">
-                <div id="toDo">
-                </div>
-                <div id="inProgress">
-                </div>
-                <div id="awaitFeedback">
-                </div>
-                <div id="done">
-                </div>
-            </div>
-            <div id="addTaskOverlay">
-                <div>
-                    <label for="title">Title:</label>
-                    <input type="text">
-                    <button>Add Task</button>
-                </div>
-            </div>
-            <div id="taskOverlay">
-                <div>
-                    <div id="taskOverlayHeading">
-                        <span>User Story</span>
-                        <button><img src="../images/close.svg" alt="close"></button>
-                    </div>
-                    <h2>Kochwelt</h2>
-                    <span id="description">DescriptionDescriptionDescriptionDescriptionDescription</span>
-                    <p id="dueDate">Due Date: <span>10/05/2025</span></p>
-                    <p id="priority">Priority: <span>Medium<img src="../images/medium.svg" alt="priority"></span></p>
-                    <p id="assigned">Assigned To: 
-                        <div class="assigned">
-                            <div class="profile">LK</div>
-                            <span>Leon König</span>
-                        </div>
-                        <div class="assigned">
-                            <div class="profile">DB</div>
-                            <span>Duebel</span>
-                        </div>
-                        <div class="assigned">
-                            <div class="profile">HP</div>
-                            <span>Harry Potter</span>
-                        </div>
-                    </p>
-                    <p id="subtasks">Subtasks
-                        <div class="subtask">
-                            <button></button>
-                            <span>Subtask</span>
-                        </div>
-                        <div class="subtask">
-                            <button></button>
-                            <span>Subtask</span>
-                        </div>
-                    </p>
-
-                </div>
-            </div>
-        </div>
+        <div id="mainContent">mainContent</div>
     </main>
 </body>
 
