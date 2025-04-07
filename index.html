@@ -13,14 +13,11 @@
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
-<body onload="setTimeout(myFunction, 500);">
-    <!-- <body> -->
+    <body onload="onLoad()">
 
-    <div class="logoDiv">
-        <img src="../images/joinlogodark.svg" id="logoImg" alt="" class="displayNone logoStart">
-    </div>
+        <img src="../images/joinlogodark.svg" id="logoImg" style="width: 0%;transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;z-index: 2;position: absolute;">
 
-    <main class="displayNone">
+    <main id="main" class="mainDiv">
         <div id="mainContent">
 
             <div id="loginDiv" class="loginDiv">
@@ -35,13 +32,9 @@
                 <div class="loginButtonDiv">
                     <button onclick="login()" class="blueBtn">Log in</button>
                     <button onclick="login()" class="whiteBtn">Guest Log in</button>
-                    <!-- <a href="" class="whiteBtn">Sign up</a> -->
-                    <!-- <a href="" onclick="login()" class="loginLinkBlue" style="text-decoration: none;">Log In</a> -->
-                    <!-- <a href="" class="loginLinkWhite" style="text-decoration: none;">Guest Log In</a> -->
                 </div>
                 <div id="signUpDiv">
                     <span class="signUpSpan">Not a Join User?</span>
-                    <!-- <button onclick="" class="blueBtn" style="font-size: 16px; width: 100px;">Sign up</button> -->
                     <a href="./createaccount.html">Sign up</a>
                 </div>
             </div>
