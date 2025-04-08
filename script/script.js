@@ -42,8 +42,9 @@ async function createAccount() {
     let confirmPassword = document.getElementById("confirmPasswordInput").value;
 
 
-    if(privacyBoolean =="false"){
-        window.alert("Please confirm our Privacy Policy")
+    if (privacyBoolean == "false") {
+        // window.alert("Please confirm our Privacy Policy")
+        // checkbox und privacy policy größer und kleiner skalieren lassen ?
         return
     }
 
@@ -57,7 +58,9 @@ async function createAccount() {
             postData("login", { "name": userName, "email": email, "password": password })
             window.location = "./summary.html";
         } else {
-            window.alert("Passwords do not match")
+            // window.alert("Passwords do not match")
+            document.getElementById("confirmPasswordInput").classList.add("redBorder")
+            // border-color red von confirmpasswordinput + Text unter Input "Your passwords dont't match. Please try again."
         }
     }
 }
@@ -70,6 +73,7 @@ async function login() {
         window.location = "./summary.html";
     } else {
         window.alert("Wrong Password")
+        // border-color red von passwordinput + Text unter Input "Check your Email and password. Please try again."
         // window.location = "./login.html";
 
     }
@@ -101,8 +105,12 @@ function acceptPrivacyPolicy(element) {
 
     if (myValue == "false") {
         myChk.src = "./images/checkboxtrueblack.svg"
+        document.getElementById("signUpBtn").classList.remove("disabled")
+        document.getElementById("signUpBtn").removeAttribute("disabled")
     } else {
         myChk.src = "./images/checkboxfalseblack.svg"
+        document.getElementById("signUpBtn").classList.add("disabled")
+        document.getElementById("signUpBtn").setAttribute("disabled")
     }
 
 }
@@ -137,4 +145,49 @@ function onLoad() {
     setTimeout(() => {
         mainDiv.style.opacity = '1';
     }, 2500);
+}
+
+function passwordVisibility(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Img", "Input");
+    myInputContent = document.getElementById(myInputContent);
+
+    let myValue = myContent.src.search("on") > 0 ? "true" : "false";
+
+    if (myValue == "true") {
+        myContent.src = "./images/visibilityoff.svg"
+        myInputContent.type = "text";
+    } else {
+        myContent.src = "./images/visibilityon.svg"
+        myInputContent.type = "password";
+    }
+
+
+}
+
+function changeIconToVisibility(element) {
+    let myInputContent = element.replace("Input", "Img");
+    myInputContent = document.getElementById(myInputContent);
+    myInputContent.src = "./images/visibilityon.svg"
+}
+
+function showLockIcon(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Input", "Img");
+    myInputContent = document.getElementById(myInputContent)
+
+    if (myContent.value.length == 0) {
+        myInputContent.src = "./images/lock.svg"
+    }
+
+    let password = document.getElementById("passwordInput").value;
+    let confirmPassword = document.getElementById("confirmPasswordInput").value;
+
+    if (password != confirmPassword && element == "confirmPasswordInput") {
+        document.getElementById("confirmPasswordInput").classList.add("redBorder")
+        document.getElementById("errorSpan").classList.remove("displayNone")
+    }else{
+        document.getElementById("confirmPasswordInput").classList.remove("redBorder")
+        document.getElementById("errorSpan").classList.add("displayNone")
+    }
 }

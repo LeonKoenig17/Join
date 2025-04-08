@@ -151,7 +151,7 @@ nav img {
 }
 
 .loginInput {
-    border: solid 1px #D1D1D1;
+    border: solid 1px #c73e3e;
     border-radius: 10px;
     height: 46px;
     border-width: 1px;
@@ -161,12 +161,20 @@ nav img {
     background-position: right 20px center;
     padding: 0px 20px;
     margin: 10px 0px;
+    outline: none;
 }
 
 .loginInput::placeholder {
     color: #D1D1D1;
 }
 
+input[type=text]:focus {
+    border-color: var(--text-underline-color);
+}
+
+input[type=password]:focus {
+    border-color: var(--text-underline-color);
+}
 .loginInputDiv {
     display: flex;
     justify-content: center;
@@ -272,6 +280,22 @@ nav img {
     position: absolute;
     top: 75px;
     right: 100px;
+}
+
+.inputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding-left: 25px;
+}
+
+.inputImg {
+    position: relative;
+    right: 45px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
 }
 
 .displayNone {

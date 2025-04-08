@@ -13,9 +13,10 @@
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
-    <body onload="onLoad()">
+<body onload="onLoad()">
 
-        <img src="../images/joinlogodark.svg" id="logoImg" style="width: 0%;transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;z-index: 2;position: absolute;">
+    <img src="../images/joinlogodark.svg" id="logoImg"
+        style="width: 0%;transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;z-index: 2;position: absolute;">
 
     <main id="main" class="mainDiv">
         <div id="mainContent">
@@ -24,10 +25,26 @@
 
                 <span class="accountHeader">Log in</span>
                 <div class="loginInputDiv">
-                    <input type="text" id="emailInput" placeholder="Email" class="loginInput"
-                        style="background-image: url(/images/mail.svg);">
-                    <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
-                        style="background-image: url(/images/lock.svg);">
+
+
+                    <div class="inputDiv">
+                        <input type="text" id="emailInput" placeholder="Email" class="loginInput">
+                        <img src="./images/mail.svg" alt="" class="inputImg">
+                    </div>
+
+                    <!-- <input type="text" id="emailInput" placeholder="Email" class="loginInput"
+                        style="background-image: url(/images/mail.svg);"> -->
+
+
+                    <div class="inputDiv">
+                        <input type="password" id="passwordInput" placeholder="Password" class="loginInput">
+                        <img id="passwordImg" src="./images/lock.svg" alt="" class="inputImg" onclick="passwordVisibility(this.id)">
+                    </div>
+
+                    <!-- <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
+                        style="background-image: url(/images/lock.svg);"> -->
+
+                        
                 </div>
                 <div class="loginButtonDiv">
                     <button onclick="login()" class="blueBtn">Log in</button>
