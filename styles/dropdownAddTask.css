@@ -1,6 +1,5 @@
 .custom-assigned-dropdown {
     position: relative;
-    width: 100%;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     background-color: #fff;
