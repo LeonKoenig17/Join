@@ -11,45 +11,64 @@ const noTaskHtml = `
     </div>
 `;
 
-window.onload = () => {
-    fetchData();
-    renderLists();
-    addDragFunction();
+window.onload = async () => {
+    await fetchData();
 
     const containers = document.querySelectorAll("#boardContent > div");
     containers.forEach(container => {
         container.addEventListener("dragover", (e) => e.preventDefault());
-        container.addEventListener("drop", (e) => {
+        container.addEventListener("drop", async(e) => {
             e.preventDefault();
             const id = e.dataTransfer.getData("task");
             const taskId = parseInt(id.replace("task", ""));
-            let task = null;
-
-            for (const arr of arrays) {
-                const index = arr.findIndex(t => t.index === taskId);
-                if (index !== -1) {
-                    task = arr.splice(index, 1)[0]; // remove the task from original array
-                    break;
-                }
-            }
-            if (!task) return;
-            switch (container.id) {
-                case "toDo": toDoArray.push(task); break;
-                case "inProgress": inProgressArray.push(task); break;
-                case "awaitFeedback": awaitFeedbackArray.push(task); break;
-                case "done": doneArray.push(task); break;
-                default: break;
-            }
-            renderLists();
-            addDragFunction();
+            await updateStage(container, taskId);
+            await fetchData();
         })
     })
+}
+
+async function updateStage(container, taskId) {
+    let newStage = null;
+
+    switch (container.id) {
+        case "toDo": newStage = 0; break;
+        case "inProgress": newStage = 1; break;
+        case "awaitFeedback": newStage = 2; break;
+        case "done": newStage = 3; break;
+        default: break;
+    }
+
+    const data = await fetch("https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks.json").then(res => res.json());
+
+    let targetKey = null;
+    for (let key in data) {
+        if (data[key].index === taskId) {
+            targetKey = key;
+            break;
+        }
+    }
+
+    if (targetKey) {
+        const targetURL = `https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks/${targetKey}.json`;
+        const task = await fetch(targetURL).then(res => res.json());
+        task.stage = newStage;
+
+        const updateRes = await fetch(targetURL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(task)
+        });
+        const updated = await updateRes.json();
+        console.log(updated);
+    }
 }
 
 async function fetchData() {
     const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
     const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
-    console.log(tasks);
+    arrays.forEach(array => array.length = 0);
 
     if (tasks) {
         Object.entries(tasks).forEach(entry => {
@@ -63,17 +82,16 @@ async function fetchData() {
                 category: task.category,
                 subtasks: task.subtasks,
                 stage: task.stage,
-                index: getTaskNumber(),
+                index: task.index,
             }
             if (task.stage != null) {
                 arrays[task.stage].push(taskData);
-                console.log(task.stage, taskData);
             }
         })
 
-        renderLists();
-        addDragFunction();
     }
+    renderLists();
+    addDragFunction();
 }
 
 function addDragFunction() {
@@ -94,15 +112,44 @@ function renderLists() {
         arrays[i].forEach(task => {
             containers[i].innerHTML += `
                 <div id="task${task.index}" class="task" draggable="true">
-                    <p>${task.title}</p>
-                    <p>${task.description}</p>
-                    <p>${task.dueDate}</p>
-                    <p>${task.priority}</p>
-                    <p>${task.assignedTo}</p>
-                    <p>${task.subtasks}</p>
-                    <p>${task.category}</p>
-                    <p>${task.stage}</p>
-                    <p>${task.index}</p>
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>${task.title}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>${task.description}</td>
+                        </tr>
+                        <tr>
+                            <td>DueDate</td>
+                            <td>${task.dueDate}</td>
+                        </tr>
+                        <tr>
+                            <td>Priority</td>
+                            <td>${task.priority}</td>
+                        </tr>
+                        <tr>
+                            <td>AssignedTo</td>
+                            <td>${task.assignedTo}</td>
+                        </tr>
+                        <tr>
+                            <td>Subtasks</td>
+                            <td>${task.subtasks}</td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>${task.category}</td>
+                        </tr>
+                        <tr>
+                            <td>Stage</td>
+                            <td>${task.stage}</td>
+                        </tr>
+                        <tr>
+                            <td>Index</td>
+                            <td>${task.index}</td>
+                        </tr>
+                    </table>
                 </div>
             `;
         })
@@ -133,22 +180,18 @@ function closeOverlay() {
     clearInputFields();
 }
 
-function getTaskNumber() {
-    let number = arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
-    return number;
-}
-
-function addTask() {
+async function addTask() {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
     const title = addTaskOverlay.querySelector("#title").value.trim();
     const dueDate = addTaskOverlay.querySelector("#dueDate").value;
     const category = addTaskOverlay.querySelector("#category .dropDown span");
     let inputValid;
-
+    
     const description = addTaskOverlay.querySelector("#description").value;
     let priority = addTaskOverlay.querySelector(".selectedPrio");
+    console.log(priority);
     if (priority == null) { priority = "" }
-
+    
     if (title != "" && dueDate != "" && category.textContent != "Select task category") {
         inputValid = true;
     } else {
@@ -159,34 +202,34 @@ function addTask() {
         console.log("input invalid")
         return;
     } else {
+        const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+        const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
+        let number = await Object.entries(tasks).length + 1;
+        
         console.log("input valid, data posted");
-        postData("tasks", {
+        await postData("tasks", {
             title: title, 
             description: description,
             dueDate: dueDate,
             priority: priority,
             assignedTo: "",
-            category: category,
+            category: category.textContent,
             subtasks: {"task1": "ticked", "task2": "unticked"},
-            stage: targetIndex
+            stage: targetIndex,
+            index: number
         })
     }
     
-    // if all fields != ""
-    // post to firebase
-    
-    // clearInputFields();
-    // closeOverlay();
-    // // fetchData()
-    // renderLists();
-    // addDragFunction();
+    clearInputFields();
+    closeOverlay();
+    fetchData();
 }
 
 async function postData(path, data) {
     const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
     await fetch(BASE_URL + path + ".json", {
         method: "POST",
-        header: {
+        headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
