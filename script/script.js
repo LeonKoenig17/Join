@@ -65,14 +65,28 @@ async function createAccount() {
     }
 }
 async function login() {
-    let myValue = await checkPassword(document.getElementById("emailInput").value);
+    let myPassword = await checkPassword(document.getElementById("emailInput").value);
+    let myEmail = await findUser(document.getElementById("emailInput").value);
+
     let password = document.getElementById("passwordInput").value;
 
-    if (password == myValue) {
+    if(myEmail == null){
+        document.getElementById("passwordInput").classList.add("redBorder")
+        document.getElementById("emailInput").classList.add("redBorder")
+        document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
+        return
+    }
+    if (password == myPassword) {
         // window.alert("Login successfull")
         window.location = "./summary.html";
     } else {
-        window.alert("Wrong Password")
+        // window.alert("Wrong Password")
+        document.getElementById("passwordInput").classList.add("redBorder")
+        document.getElementById("emailInput").classList.add("redBorder")
+        document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
+
         // border-color red von passwordinput + Text unter Input "Check your Email and password. Please try again."
         // window.location = "./login.html";
 
@@ -140,11 +154,11 @@ function onLoad() {
         logoImg.style.height = '96px';
         logoImg.style.left = 'calc(50px + 40px)';
         logoImg.style.top = 'calc(50px + 48px)';
-    }, 2000);
+    }, 1500);
 
     setTimeout(() => {
         mainDiv.style.opacity = '1';
-    }, 2500);
+    }, 2000);
 }
 
 function passwordVisibility(element) {
@@ -171,7 +185,27 @@ function changeIconToVisibility(element) {
     myInputContent.src = "./images/visibilityon.svg"
 }
 
-function showLockIcon(element) {
+function showLockIconCreateAccount(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Input", "Img");
+    let password = document.getElementById("passwordInput").value;
+    let confirmPassword = document.getElementById("confirmPasswordInput").value;
+    myInputContent = document.getElementById(myInputContent)
+
+    if (myContent.value.length == 0) {
+        myInputContent.src = "./images/lock.svg"
+    }
+
+    if (password != confirmPassword && element == "confirmPasswordInput") {
+        document.getElementById("confirmPasswordInput").classList.add("redBorder")
+        document.getElementById("errorSpan").classList.remove("displayNone")
+    }else{
+        document.getElementById("confirmPasswordInput").classList.remove("redBorder")
+        document.getElementById("errorSpan").classList.add("displayNone")
+    }
+}
+
+function showLockIconLogin(element) {
     let myContent = document.getElementById(element);
     let myInputContent = element.replace("Input", "Img");
     myInputContent = document.getElementById(myInputContent)
