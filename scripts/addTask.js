@@ -285,7 +285,7 @@ function clearForm() {
     priorityButtons[1].classList.add("active-btn");
   }
   if (assignedToSelect) {
-    assignedToSelect.selectedIndex = 0;
+    assignedToSelect.selectedIndex = -1;
   }
   if (categorySelect) {
     categorySelect.selectedIndex = 0;
@@ -294,14 +294,6 @@ function clearForm() {
   updateSubtaskList();
 }
 
-/**
- * Displays a message by setting the inner HTML of the messageDiv element.
- *
- * @param {string} msg - The message to be displayed.
- */
-function showMessage(msg) {
-  messageDiv.innerHTML = msg;
-}
 
 /**
  * Sets up the event listener for the "Create Task" button.

@@ -32,7 +32,10 @@ function userOptionTemplate(user, id) {
 function assignedUserTemplate(user, index) {
     return `
       <div class="assigned-user-item">
-        <input
+       
+        <p class="assigned-user-avatar">${getInitials(user.name || user.email)}</p>
+        <p class="assigned-user-name">${user.name || user.email}</p>
+         <input
           type="checkbox"
           class="assign-checkbox"
           data-user-id="${user.id}"
@@ -40,8 +43,6 @@ function assignedUserTemplate(user, index) {
           data-user-email="${user.email}"
           data-user-index="${index}"
         />
-        <p class="assigned-user-avatar">${getInitials(user.name || user.email)}</p>
-        <p class="assigned-user-name">${user.name || user.email}</p>
       </div>
     `;
   }
