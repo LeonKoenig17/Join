@@ -111,30 +111,30 @@
                         <div id="right">
                             <label for="priority">Priority</label>
                             <div id="priorityBtns">
-                                <button>Urgent<i class="urgentBtn"></i></button>
-                                <button>Medium<i class="mediumBtn"></i></button>
-                                <button>Low<i class="lowBtn"></i></button>
+                                <button id="urgentBtn" onclick="selectPrio(this.id)">Urgent<i class="urgentBtn"></i></button>
+                                <button id="mediumBtn" onclick="selectPrio(this.id)">Medium<i class="mediumBtn"></i></button>
+                                <button id="lowBtn" onclick="selectPrio(this.id)">Low<i class="lowBtn"></i></button>
                             </div>
                             <label for="assignedTo">Assigned To</label>
                             <div id="assignedTo">
-                                <div class="dropDown" onclick="openSelection(`assignedTo`)">
+                                <div class="dropDown" onclick="toggleDropMenu(`assignedTo`)">
                                     <span>Select contacts to assign</span>
                                     <i></i>
                                 </div>
                                 <div class="dropSelection">
-                                    <p>user</p>
-                                    <p>user</p>
+                                    <p>user1</p>
+                                    <p>user2</p>
                                 </div>
                             </div>
                             <label for="category">Category<span class="requiredMark">*</span></label>
                             <div id="category">
-                                <div class="dropDown" onclick="openSelection(`category`)">
+                                <div class="dropDown" onclick="toggleDropMenu(`category`)">
                                     <span>Select task category</span>
                                     <i></i>
                                 </div>
                                 <div class="dropSelection">
-                                    <p>Technical Task</p>
-                                    <p>User Story</p>
+                                    <p onclick="selectCategory(this)">Technical Task</p>
+                                    <p onclick="selectCategory(this)">User Story</p>
                                 </div>
                             </div>
                             <label for="subtaks">Subtasks</label>
@@ -149,11 +149,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div>
-                    <label for="title">Title:</label>
-                    <input type="text">
-                    <button onclick="closeAddTaskOverlay()">Add Task</button>
-                </div> -->
             </div>
             <div id="taskOverlay">
                 <div>
@@ -189,7 +184,6 @@
                             <span>Subtask</span>
                         </div>
                     </p>
-
                 </div>
             </div>
         </div>

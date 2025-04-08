@@ -1,15 +1,3 @@
-let exammpleTaskObject = {
-    title: "Title",
-    description: "description",
-    dueDate: "02/05/2025",
-    priority: 1, // index: urgent
-    assignedTo: 0, // index
-    category: 1, // index
-    subtasks: [{"task1": "ticked"}, {"task2": "unticked"}],
-    stage: 0, // toDoArray
-    index: 100,
-};
-
 let toDoArray = [];
 let inProgressArray = [];
 let awaitFeedbackArray = [];
@@ -66,22 +54,21 @@ async function fetchData() {
     if (tasks) {
         Object.entries(tasks).forEach(entry => {
             let task = entry[1];
-            console.log(task);
-
-            
-            // pushToArray(toDoArray);
-
-            toDoArray.push({
+            let taskData = {
                 title: task.title,
                 description: task.description,
                 dueDate: task.dueDate,
-                priority: task.priority, // index: urgent
-                assignedTo: task.assignedTo, // index
-                category: task.category, // index
-                subtasks: [{"task1": "ticked"}, {"task2": "unticked"}],
-                stage: task.stage, // toDoArray
+                priority: task.priority,
+                assignedTo: task.assignedTo,
+                category: task.category,
+                subtasks: task.subtasks,
+                stage: task.stage,
                 index: getTaskNumber(),
-            })
+            }
+            if (task.stage != null) {
+                arrays[task.stage].push(taskData);
+                console.log(task.stage, taskData);
+            }
         })
 
         renderLists();
@@ -148,7 +135,6 @@ function closeOverlay() {
 
 function getTaskNumber() {
     let number = arrays.reduce((sum, arr) => sum + arr.length, 0) + 1;
-    console.log(number);
     return number;
 }
 
@@ -156,28 +142,58 @@ function addTask() {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
     const title = addTaskOverlay.querySelector("#title").value.trim();
     const dueDate = addTaskOverlay.querySelector("#dueDate").value;
+    const category = addTaskOverlay.querySelector("#category .dropDown span");
     let inputValid;
 
-    if (title != "" && dueDate !="") {
+    const description = addTaskOverlay.querySelector("#description").value;
+    let priority = addTaskOverlay.querySelector(".selectedPrio");
+    if (priority == null) { priority = "" }
+
+    if (title != "" && dueDate != "" && category.textContent != "Select task category") {
         inputValid = true;
+    } else {
+        inputValid = false;
+    }
+    
+    if (!inputValid) {
+        console.log("input invalid")
+        return;
+    } else {
+        console.log("input valid, data posted");
+        postData("tasks", {
+            title: title, 
+            description: description,
+            dueDate: dueDate,
+            priority: priority,
+            assignedTo: "",
+            category: category,
+            subtasks: {"task1": "ticked", "task2": "unticked"},
+            stage: targetIndex
+        })
     }
     
     // if all fields != ""
     // post to firebase
     
-    // arrays[targetIndex].push({
-    //     title: title,
-    //     index: getTaskNumber()
-    // })
-    
-    clearInputFields();
-    closeOverlay();
-    // fetchData()
-    renderLists();
-    addDragFunction();
+    // clearInputFields();
+    // closeOverlay();
+    // // fetchData()
+    // renderLists();
+    // addDragFunction();
 }
 
-function openSelection(id) {
+async function postData(path, data) {
+    const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+    await fetch(BASE_URL + path + ".json", {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+}
+
+function toggleDropMenu(id) {
     const container = document.getElementById(id);
     const selection = container.querySelector(".dropSelection");
     selection.classList.toggle("toggleSelection");
@@ -187,4 +203,21 @@ function openSelection(id) {
     } else {
         arrow.style.backgroundImage = "url(../images/arrowDown.svg)";
     }
+}
+
+function selectCategory(selected) {
+    const parent = selected.parentElement.parentElement;
+    const inputField = parent.querySelector(".dropDown span");
+    inputField.textContent = selected.textContent;
+    toggleDropMenu(parent.id);
+}
+
+function selectPrio(id) {
+    const prioBtns = document.querySelectorAll("#priorityBtns button");
+    prioBtns.forEach(btn => {
+        btn.classList.remove("selectedPrio");
+    })
+
+    const selected = document.getElementById(id);
+    selected.classList.add("selectedPrio");
 }

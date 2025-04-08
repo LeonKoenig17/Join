@@ -79,6 +79,10 @@
   width: 100%;
 }
 
+#priorityBtns button:hover {
+  box-shadow: 0 8px 10px #d1d1d1;
+}
+
 #left input::placeholder, #left textarea::placeholder {
   color: #D1D1D1;
 }
@@ -181,4 +185,9 @@
 
 .lowBtn {
   background-image: url(../images/low.svg);
+}
+
+.selectedPrio {
+  background-color: red !important;
+  color: white;
 }

@@ -155,3 +155,7 @@
     border-radius: 10px;
     text-align: center;
 }
+
+.task p {
+    margin: 1px;
+}
