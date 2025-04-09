@@ -12,13 +12,27 @@ body * {
 }
 
 :root {
-   
+ 
     --primary-color: #2A3647;
     --background-color: #F6F7F8;
-    --text-underline-color: #29ABE2;
+
     --text-color: #004d40;
     --accent-color: #0288d1;
     --border-color: #00796b;
     --shadow-color: #004d40;
     --highlight-color: #b2ebf2;
+    --text-color: #2A3647;
+   /* --accent-color: #0288d1;*/
+    --shadow-color: #00000040;
+    --hover-color: #29ABE2;
+    --border-color: #D1D1D1;
+    --border-color-focus-filled: #29ABE2;
+    --border-color-required: #FF8190;
+    --priority-color-low: #7AE229;
+    --priority-color-medium: #FFA800;
+    --priority-color-urgent: #FF3D00;
+   
+
+  /*  --shadow-color: #004d40;*/
+   /* --highlight-color: #b2ebf2;*/
 }
