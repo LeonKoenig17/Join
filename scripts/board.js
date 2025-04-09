@@ -25,6 +25,23 @@ window.onload = async () => {
             await fetchData();
         })
     })
+
+    const inputField = document.querySelector("#subtasks input");
+    const plus = document.getElementById("subtaskPlus");
+    const cross = document.getElementById("subtaskCross");
+    const check = document.getElementById("subtaskCheck");
+
+    inputField.addEventListener("input", () => {
+        if (inputField.value.trim() != "") {
+            plus.style.display = "none";
+            cross.style.display = "unset";
+            check.style.display = "unset";
+        } else {
+            plus.style.display = "unset";
+            cross.style.display = "none";
+            check.style.display = "none";
+        }
+    })
 }
 
 async function updateStage(container, taskId) {
