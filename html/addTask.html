@@ -61,18 +61,22 @@
                 placeholder="Enter a title"
                 required
               />
+              <span class="error-message" id="title-error"></span>
               <label for="description">Description</label>
               <textarea
                 id="description"
                 name="description"
                 placeholder="Enter a Description"
                 style="resize: none"
+                spellcheck="false"
               ></textarea>
+              <span class="error-message" id="description-error"></span>
               <label for="due-date">Due date<span>*</span></label>
               <div class="custom-date-input">
                 <input type="date" id="due-date" name="due-date" required />
                 <img src="../images/calendar.svg" alt="Calendar Icon" />
               </div>
+              <span class="error-message" id="due-date-error"></span>
             </form>
           </div>
           <div class="separator"></div>
@@ -104,6 +108,7 @@
                     class="select-icon"
                   />
                 </div>
+                <span class="error-message" id="assigned-error"></span>
                 <!-- Badges/Chips der aktuell zugewiesenen Kontakte -->
                 <div class="assigned-chips" id="assignedChips">
                   <!-- Wird per JS gefüllt -->
@@ -128,6 +133,7 @@
                   class="select-icon"
                 />
               </div>
+              <span class="error-message" id="category-error"></span>
             </div>
             <div>
               <h3>Subtasks</h3>
@@ -145,6 +151,7 @@
                 <button type="button" class="add-subtask" disabled>+</button>
                 <!-- Der Container für Subtasks wird dynamisch per JS befüllt -->
               </div>
+              <span class="error-message" id="subTask-error"></span>
             </div>
           </div>
         </section>
@@ -152,7 +159,7 @@
           <p><span>*</span>This field is required</p>
           <div class="form-actions">
             <div class="clear-btn-container">
-              <button type="button" class="clear-button">
+              <button type="button" class="clear-button" onclick="clearForm()">
                 Clear
                 <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
               </button>
@@ -168,6 +175,7 @@
       </div>
     </main>
     <script src="../scripts/templates.js"></script>
+    <script src="../scripts/firebase.js"></script>
     <script src="../scripts/addTask.js"></script>
     <script src="../scripts/addTaskDropDown.js"></script>
   </body>
