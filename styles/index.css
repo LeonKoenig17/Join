@@ -5,7 +5,7 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
-
+    overflow: hidden;
 }
 
 aside {
@@ -175,6 +175,7 @@ input[type=text]:focus {
 input[type=password]:focus {
     border-color: var(--text-underline-color);
 }
+
 .loginInputDiv {
     display: flex;
     justify-content: center;
@@ -311,6 +312,27 @@ input[type=password]:focus {
     position: relative;
     top: -5px;
     left: 25px;
+}
+
+.loginSuccess {
+    /* transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s; */
+    /* z-index: 2; */
+    /* position: absolute; */
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 0%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+
+.animation {
+    transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+    z-index: 2;
+    position: absolute;
 }
 
 .displayNone {

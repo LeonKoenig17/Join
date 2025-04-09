@@ -1,6 +1,7 @@
 body {
     display: flex;
     background: var(--background-color);
+    overflow: hidden;
 }
 
 main {
@@ -185,11 +186,10 @@ header img:hover {
     margin: 20px 0px;
 }
 
-.hover:hover {
+#acceptPrivacyPolicy:hover {
     cursor: pointer;
-    transform: scale(1.2);
-    transform-origin: center center;
-    transition: all 0.05s ease-in-out;
+    background-color: #eeeeee;
+    border-radius: 1rem;
 }
 
 .linkPrivacyPolicy {
@@ -251,6 +251,27 @@ input[type=password]:focus {
     left: 25px;
 }
 
+
+
+.signUpSuccess{
+    /* position: absolute; */
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 0%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+
+.animation {
+    transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+    z-index: 2;
+    position: absolute;
+}
+
 .displayNone {
     display: none;
 }
@@ -264,4 +285,3 @@ input[type=password]:focus {
     box-shadow: none;
     background-color: var(--primary-color);
 }
-

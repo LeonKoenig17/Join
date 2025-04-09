@@ -43,8 +43,6 @@ async function createAccount() {
 
 
     if (privacyBoolean == "false") {
-        // window.alert("Please confirm our Privacy Policy")
-        // checkbox und privacy policy größer und kleiner skalieren lassen ?
         return
     }
 
@@ -56,21 +54,21 @@ async function createAccount() {
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             postData("login", { "name": userName, "email": email, "password": password })
-            window.location = "./summary.html";
+            showSuccess('signUpSuccess');
         } else {
-            // window.alert("Passwords do not match")
             document.getElementById("confirmPasswordInput").classList.add("redBorder")
-            // border-color red von confirmpasswordinput + Text unter Input "Your passwords dont't match. Please try again."
         }
     }
 }
+
+
+
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
     let myEmail = await findUser(document.getElementById("emailInput").value);
-
     let password = document.getElementById("passwordInput").value;
 
-    if(myEmail == null){
+    if (myEmail == null) {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
         document.getElementById("errorSpan").classList.remove("displayNone")
@@ -78,21 +76,28 @@ async function login() {
         return
     }
     if (password == myPassword) {
-        // window.alert("Login successfull")
-        window.location = "./summary.html";
+        showSuccess('loginSuccess');
+        // window.location = "./summary.html";
     } else {
-        // window.alert("Wrong Password")
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
         document.getElementById("errorSpan").classList.remove("displayNone")
         document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
 
-        // border-color red von passwordinput + Text unter Input "Check your Email and password. Please try again."
-        // window.location = "./login.html";
-
     }
 
 }
+
+function guestLogin() {
+    document.getElementById("emailInput").value = 'sofiam@gmail.com'
+    document.getElementById("passwordInput").value = '123456789'
+
+    setTimeout(() => {
+        window.location = './summary.html'
+    }, 1500);
+
+}
+
 async function checkPassword(email) {
     let ergebnisse = await loadData("login")
     for (let userId in ergebnisse) {
@@ -130,35 +135,38 @@ function acceptPrivacyPolicy(element) {
 }
 
 function onLoad() {
-    const logoImg = document.getElementById('logoImg');
-    const mainDiv = document.getElementById('main');
+    let logoImg = document.getElementById('logoImg');
+    let mainDiv = document.getElementById('main');
 
     setTimeout(() => {
-        logoImg.style.width = '0px';
-        logoImg.style.height = '0px';
-        logoImg.style.top = '50%';
-        logoImg.style.left = '50%';
-        logoImg.style.transform = 'translate(-50%, -50%)';
+        logoImg.style.width = '0px'; logoImg.style.height = '0px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
     }, 0);
 
     setTimeout(() => {
-        logoImg.style.width = '200px';
-        logoImg.style.height = '200px';
-        logoImg.style.top = '50%';
-        logoImg.style.left = '50%';
-        logoImg.style.transform = 'translate(-50%, -50%)';
+        logoImg.style.width = '200px'; logoImg.style.height = '200px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
     }, 500);
 
     setTimeout(() => {
-        logoImg.style.width = '80px';
-        logoImg.style.height = '96px';
-        logoImg.style.left = 'calc(50px + 40px)';
-        logoImg.style.top = 'calc(50px + 48px)';
+        logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = 'calc(50px + 40px)'; logoImg.style.top = 'calc(50px + 48px)';
     }, 1500);
 
     setTimeout(() => {
         mainDiv.style.opacity = '1';
     }, 2000);
+}
+
+
+function showSuccess(element) {
+    let mySpan = document.getElementById(element);
+    mySpan.classList.remove("displayNone");
+
+    setTimeout(() => {
+        mySpan.style.top = '50%'; mySpan.style.transform = 'translate(-50%, -50%)';
+    }, 500)
+
+    setTimeout(() => {
+        window.location = "./summary.html";
+    }, 2000)
 }
 
 function passwordVisibility(element) {
@@ -199,7 +207,7 @@ function showLockIconCreateAccount(element) {
     if (password != confirmPassword && element == "confirmPasswordInput") {
         document.getElementById("confirmPasswordInput").classList.add("redBorder")
         document.getElementById("errorSpan").classList.remove("displayNone")
-    }else{
+    } else {
         document.getElementById("confirmPasswordInput").classList.remove("redBorder")
         document.getElementById("errorSpan").classList.add("displayNone")
     }
@@ -220,7 +228,7 @@ function showLockIconLogin(element) {
     if (password != confirmPassword && element == "confirmPasswordInput") {
         document.getElementById("confirmPasswordInput").classList.add("redBorder")
         document.getElementById("errorSpan").classList.remove("displayNone")
-    }else{
+    } else {
         document.getElementById("confirmPasswordInput").classList.remove("redBorder")
         document.getElementById("errorSpan").classList.add("displayNone")
     }
