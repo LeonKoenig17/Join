@@ -77,7 +77,6 @@ async function login() {
     }
     if (password == myPassword) {
         showSuccess('loginSuccess');
-        // window.location = "./summary.html";
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
@@ -93,7 +92,7 @@ function guestLogin() {
     document.getElementById("passwordInput").value = '123456789'
 
     setTimeout(() => {
-        window.location = './summary.html'
+        window.location = '../html/summary.html'
     }, 1500);
 
 }
@@ -123,11 +122,11 @@ function acceptPrivacyPolicy(element) {
     let myValue = myChk.src.search("true") > 0 ? "true" : "false";
 
     if (myValue == "false") {
-        myChk.src = "./images/checkboxtrueblack.svg"
+        myChk.src = "../images/checkboxtrueblack.svg"
         document.getElementById("signUpBtn").classList.remove("disabled")
         document.getElementById("signUpBtn").removeAttribute("disabled")
     } else {
-        myChk.src = "./images/checkboxfalseblack.svg"
+        myChk.src = "../images/checkboxfalseblack.svg"
         document.getElementById("signUpBtn").classList.add("disabled")
         document.getElementById("signUpBtn").setAttribute("disabled")
     }
@@ -165,7 +164,7 @@ function showSuccess(element) {
     }, 500)
 
     setTimeout(() => {
-        window.location = "./summary.html";
+        window.location = "../html/summary.html";
     }, 2000)
 }
 
@@ -177,10 +176,10 @@ function passwordVisibility(element) {
     let myValue = myContent.src.search("on") > 0 ? "true" : "false";
 
     if (myValue == "true") {
-        myContent.src = "./images/visibilityoff.svg"
+        myContent.src = "../images/visibilityoff.svg"
         myInputContent.type = "text";
     } else {
-        myContent.src = "./images/visibilityon.svg"
+        myContent.src = "../images/visibilityon.svg"
         myInputContent.type = "password";
     }
 
@@ -190,7 +189,7 @@ function passwordVisibility(element) {
 function changeIconToVisibility(element) {
     let myInputContent = element.replace("Input", "Img");
     myInputContent = document.getElementById(myInputContent);
-    myInputContent.src = "./images/visibilityon.svg"
+    myInputContent.src = "../images/visibilityon.svg"
 }
 
 function showLockIconCreateAccount(element) {
@@ -201,7 +200,7 @@ function showLockIconCreateAccount(element) {
     myInputContent = document.getElementById(myInputContent)
 
     if (myContent.value.length == 0) {
-        myInputContent.src = "./images/lock.svg"
+        myInputContent.src = "../images/lock.svg"
     }
 
     if (password != confirmPassword && element == "confirmPasswordInput") {
@@ -219,7 +218,7 @@ function showLockIconLogin(element) {
     myInputContent = document.getElementById(myInputContent)
 
     if (myContent.value.length == 0) {
-        myInputContent.src = "./images/lock.svg"
+        myInputContent.src = "../images/lock.svg"
     }
 
     let password = document.getElementById("passwordInput").value;

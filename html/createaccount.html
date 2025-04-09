@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
 
-    <link rel="stylesheet" href="./styles/standard.css">
-    <link rel="stylesheet" href="./styles/createaccount.css ">
-    <script src="./script/script.js"></script>
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../styles/createaccount.css ">
+    <script src="../script/script.js"></script>
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
@@ -19,26 +19,26 @@
         <div id="mainContent">
 
             <div id="createAccountDiv" class="createAccountDiv">
-                <a href="./index.html">
-                    <img id="backToLogin" src="./images/arrow-left-line.svg" alt="" >
+                <a href="../index.html">
+                    <img id="backToLogin" src="../images/arrow-left-line.svg" alt="" >
                 </a>
                 <span class="accountHeader" style="position: relative;top: -25px;">Sign up</span>
                 <div class="loginInputDiv">
 
                     <div class="inputDiv">
                         <input type="text" id="nameInput" placeholder="Name" class="loginInput">
-                        <img src="./images/person.svg" alt="" class="inputImg">
+                        <img src="../images/person.svg" alt="" class="inputImg">
                     </div>
 
                     <div class="inputDiv">
                         <input type="text" id="emailInput" placeholder="Email" class="loginInput">
-                        <img src="./images/mail.svg" alt="" class="inputImg">
+                        <img src="../images/mail.svg" alt="" class="inputImg">
                     </div>
 
                     <div class="inputDiv">
                         <input type="password" id="passwordInput" placeholder="Password" class="loginInput passwordIcon"
                             onfocus="changeIconToVisibility(this.id)" onblur="showLockIconCreateAccount(this.id)">
-                        <img id="passwordImg" src="./images/lock.svg" alt="" class="inputImg"
+                        <img id="passwordImg" src="../images/lock.svg" alt="" class="inputImg"
                             onclick="passwordVisibility(this.id)">
                     </div>
 
@@ -46,7 +46,7 @@
                         <input type="password" id="confirmPasswordInput" placeholder="Confirm Password"
                             class="loginInput passwordIcon" onfocus="changeIconToVisibility(this.id)"
                             onblur="showLockIconCreateAccount(this.id)">
-                        <img id="confirmPasswordImg" src="./images/lock.svg" alt="" class="inputImg"
+                        <img id="confirmPasswordImg" src="../images/lock.svg" alt="" class="inputImg"
                             onclick="passwordVisibility(this.id)">
                     </div>
                     <span id="errorSpan" class="errorSpan displayNone">Your passwords don't match. Please try
@@ -54,7 +54,7 @@
 
                 </div>
                 <div id="acceptPrivacy">
-                    <img id="acceptPrivacyPolicy" class="hover" src="./images/checkboxfalseblack.svg" alt=""
+                    <img id="acceptPrivacyPolicy" class="hover" src="../images/checkboxfalseblack.svg" alt=""
                         onclick="acceptPrivacyPolicy(this.id)">
                     <span style="margin-right: 5px;">I accept the </span>
                     <a href="" class="linkPrivacyPolicy">Privacy policy</a>
