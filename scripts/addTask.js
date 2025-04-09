@@ -1,7 +1,6 @@
 // Alle globalen Variablen und DOM-Elemente
-const BASE_URL =
-  "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-let subtasks = [];
+const titleInput = document.getElementById("title");
+const descriptionInput = document.getElementById("description");
 const dateInput = document.getElementById("due-date");
 const pickerIcon = document.querySelector(".custom-date-input img");
 const priorityButtons = document.querySelectorAll(
@@ -12,7 +11,8 @@ const categorySelect = document.getElementById("categorySelect");
 const subtaskInput = document.getElementById("subtaskInput");
 const addSubtaskBtn = document.querySelector(".add-subtask");
 const createTaskBtn = document.querySelector(".create-button");
-const messageDiv = document.getElementById("message");
+
+let subtasks = [];
 let subtaskList = document.getElementById("subtask-list");
 if (!subtaskList) {
   document.querySelector(".subtask-input").innerHTML +=
@@ -34,73 +34,7 @@ function init() {
   loadAndRenderAssignedContacts();
   setupSubtaskInput();
   setupCreateTaskButton();
-}
-
-/**
- * Asynchronously loads JSON data from a specified path.
- *
- * @param {string} [path=""] - The relative path to the JSON file (excluding the ".json" extension).
- * @returns {Promise<any>} A promise that resolves to the parsed JSON data.
- * @throws {Error} If the fetch request fails or the response cannot be parsed as JSON.
- */
-async function loadData(path = "") {
-  const response = await fetch(BASE_URL + path + ".json");
-  return await response.json();
-}
-
-/**
- * Sends a POST request to the specified path with the provided data.
- *
- * @async
- * @function postData
- * @param {string} path - The endpoint path to which the data will be sent (relative to the base URL).
- * @param {Object} data - The data to be sent in the request body.
- * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
- */
-async function postData(path = "", data = {}) {
-  const response = await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
-}
-
-/**
- * Sends a PATCH request to update data at the specified path on the server.
- *
- * @async
- * @function
- * @param {string} [path=""] - The relative path to the resource to be updated.
- * @param {Object} [data={}] - The data to be sent in the request body.
- * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
- */
-async function updateData(path = "", data = {}) {
-  const response = await fetch(BASE_URL + path + ".json", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
-}
-
-/**
- * Deletes data from the specified path on the server.
- *
- * @async
- * @function deleteData
- * @param {string} [path=""] - The relative path to the resource to be deleted.
- * @returns {Promise<Object>} A promise that resolves to an object indicating the success of the operation.
- *                             If the response contains JSON, it will return the parsed JSON object.
- *                             If an error occurs or no JSON is returned, it defaults to `{ success: true }`.
- */
-async function deleteData(path = "") {
-  const response = await fetch(BASE_URL + path + ".json", { method: "DELETE" });
-  try {
-    return (await response.json()) || { success: true };
-  } catch (e) {
-    return { success: true };
-  }
+  setupFieldListeners();
 }
 
 /**
@@ -140,41 +74,17 @@ function setupPriorityButtons() {
   }
 }
 
-/**
- * Asynchronously creates a new task by collecting form data, validating it,
- * and sending it to the server. Displays appropriate messages based on the
- * success or failure of the operation.
- *
- * @async
- * @function createTask
- * @returns {Promise<void>} Resolves when the task is successfully created or
- * handles errors if the operation fails.
- *
- * @throws {Error} Logs and displays an error message if the task creation fails.
- */
 async function createTask() {
   const data = getFormData();
   if (!validateFormData(data)) {
-    showMessage("Bitte fülle alle erforderlichen Felder aus.");
     return;
   }
   try {
-    await postData("tasks", data); // Speichert den Task in Firebase
-    showMessage("Aufgabe wurde erfolgreich erstellt.");
+    await postData("tasks", data);
     clearForm();
+    window.location.href = "board.html"; // Weiterleitung zur board.html
   } catch (err) {
     console.error("Fehler:", err);
-    showMessage("Fehler beim Erstellen der Aufgabe.");
-  }
-}
-
-function addSubtask() {
-  const subtaskValue = subtaskInput.value.trim(); 
-  if (subtaskValue) {
-    subtasks.push(subtaskValue);
-    updateSubtaskList();
-    subtaskInput.value = "";
-    addSubtaskBtn.disabled = true;
   }
 }
 
@@ -191,9 +101,20 @@ function addSubtask() {
  */
 function setupSubtaskInput() {
   subtaskInput.addEventListener("input", function () {
-    addSubtaskBtn.disabled = subtaskInput.value.trim() === ""; // Button aktivieren/deaktivieren
+    addSubtaskBtn.disabled = subtaskInput.value.trim() === "";
+  });
+  addSubtaskBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const text = subtaskInput.value.trim();
+    if (text !== "") {
+      subtasks.push(text);
+      updateSubtaskList();
+      subtaskInput.value = "";
+      addSubtaskBtn.disabled = true;
+    }
   });
 }
+
 /**
  * Updates the subtask list in the DOM by generating HTML for each subtask
  * and attaching event listeners to delete buttons for removing subtasks.
@@ -213,6 +134,20 @@ function updateSubtaskList() {
     html += subtaskTemplate(subtasks[i], i);
   }
   subtaskList.innerHTML = html;
+  const btns = subtaskList.getElementsByClassName("delete-subtask");
+  for (let j = 0; j < btns.length; j++) {
+    btns[j].addEventListener("click", function () {
+      const index = parseInt(this.getAttribute("data-index"), 10);
+      let newSubs = [];
+      for (let k = 0; k < subtasks.length; k++) {
+        if (k !== index) {
+          newSubs.push(subtasks[k]);
+        }
+      }
+      subtasks = newSubs;
+      updateSubtaskList();
+    });
+  }
 }
 
 /**
@@ -249,23 +184,87 @@ function getFormData() {
   };
 }
 
-/**
- * Validates the provided form data to ensure all required fields are present and valid.
- *
- * @param {Object} data - The form data to validate.
- * @param {string} data.title - The title of the task.
- * @param {string} data.dueDate - The due date of the task.
- * @param {string} data.category - The category of the task.
- * @returns {boolean} Returns `true` if the form data is valid, otherwise `false`.
- */
 function validateFormData(data) {
-  return (
-    data.title &&
-    data.dueDate &&
-    data.category &&
-    data.category !== "Select task category"
-  );
+  let isValid = true;
+
+  if (!data.title) {
+    titleInput.classList.add("fieldIsRequired");
+    document.getElementById("title-error").textContent =
+      "This field is required";
+    isValid = false;
+  } else {
+    titleInput.classList.remove("fieldIsRequired");
+    document.getElementById("title-error").textContent = "";
+  }
+
+  if (!data.description) {
+    descriptionInput.classList.add("fieldIsRequired");
+    document.getElementById("description-error").textContent =
+      "This field is required";
+    isValid = false;
+  } else {
+    descriptionInput.classList.remove("fieldIsRequired");
+    document.getElementById("description-error").textContent = "";
+  }
+
+  if (!data.dueDate) {
+    dateInput.classList.add("fieldIsRequired");
+    document.getElementById("due-date-error").textContent =
+      "This field is required";
+    isValid = false;
+  } else {
+    dateInput.classList.remove("fieldIsRequired");
+    document.getElementById("due-date-error").textContent = "";
+  }
+
+  if (!data.category || data.category === "Select task category") {
+    categorySelect.classList.add("fieldIsRequired");
+    document.getElementById("category-error").textContent =
+      "This field is required";
+    isValid = false;
+  } else {
+    categorySelect.classList.remove("fieldIsRequired");
+    document.getElementById("category-error").textContent = "";
+  }
+
+  return isValid;
 }
+
+function setupFieldListeners() {
+  const fields = [titleInput, descriptionInput, dateInput, categorySelect];
+
+  fields.forEach((field) => {
+    field.addEventListener("blur", () => {
+      if (
+        (field === categorySelect && field.value === "Select task category") ||
+        field.value.trim() === ""
+      ) {
+        field.classList.add("fieldIsRequired");
+      } else {
+        field.classList.remove("fieldIsRequired");
+        field.nextElementSibling.textContent = ""; // Clear error message
+      }
+    });
+  });
+}
+
+document.getElementById("description").addEventListener("click", function () {
+  document.getElementById("category-error").textContent = "";
+  this.textContent = "Create a contact form and imprint page.";
+});
+
+dateInput.addEventListener("change", function () {
+  if (dateInput.value) {
+    // Entferne die rote Border (über die CSS-Klasse)
+    dateInput.classList.remove("fieldIsRequired");
+
+    // Entferne die Fehlermeldung
+    document.getElementById("due-date-error").textContent = "";
+
+    // Setze den Border direkt auf blau zurück (falls du es direkt überschreiben möchtest)
+    dateInput.style.borderColor = "var(--border-color)";
+  }
+});
 
 /**
  * Clears the task form by resetting all input fields, selections, and states.
@@ -286,7 +285,7 @@ function clearForm() {
     priorityButtons[1].classList.add("active-btn");
   }
   if (assignedToSelect) {
-    assignedToSelect.selectedIndex = 0;
+    assignedToSelect.selectedIndex = -1;
   }
   if (categorySelect) {
     categorySelect.selectedIndex = 0;
@@ -295,14 +294,6 @@ function clearForm() {
   updateSubtaskList();
 }
 
-/**
- * Displays a message by setting the inner HTML of the messageDiv element.
- *
- * @param {string} msg - The message to be displayed.
- */
-function showMessage(msg) {
-  messageDiv.innerHTML = msg;
-}
 
 /**
  * Sets up the event listener for the "Create Task" button.
@@ -379,7 +370,7 @@ document
  *                   If the name contains multiple words, the first letter of the first
  *                   and last words are returned in uppercase.
  */
-/*function getInitials(name) {
+function getInitials(name) {
   if (!name) return "NN"; // "No Name"
   const parts = name.trim().split(" ");
   if (parts.length === 1) {

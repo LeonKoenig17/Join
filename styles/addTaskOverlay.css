@@ -1,10 +1,3 @@
-#mainContent {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--background-color);
-  margin: 10px 50px;
-}
-
 #addTask {
   display: flex;
   gap: 20px;
@@ -24,19 +17,14 @@
   font-size: 20px;
   font-weight: 400;
   color: var(--text-color);
-  margin-top: 20px !important;
-}
-
-#mainContent span {
-  color: #ff8190;
-  padding-left: 2px;
+  margin-top: 20px;
 }
 
 .forms input,
 .forms textarea {
   width: 100%;
   padding:  12px 21px;
-  margin-top: 16px;
+  margin: 20px 0;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   font-size: 14px;
@@ -59,7 +47,7 @@
 
 .custom-date-input img {
   position: absolute;
-  top: 64%;
+  top: 50%;
   left: 100%;
   transform: translateY(-50%);
 }
@@ -329,16 +317,4 @@ select:focus {
 }
 .assign-checkbox {
   margin-left: 10px;
-}
-
-.fieldIsRequired {
-  border-color: var(--border-color-required) !important;
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 16px;
-  display: block;
 }
