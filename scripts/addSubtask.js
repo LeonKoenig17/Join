@@ -1,4 +1,3 @@
-// addSubtask.js
 const subtasks = [];
 const subInput = document.getElementById("subtask-input");
 const addIcon = document.getElementById("add-icon");
@@ -29,8 +28,10 @@ function confirmSubtaskEntry() {
   const val = subInput.value.trim();
   if (val !== "") {
   
-    subtasks.push({ stage: 0 });
-   
+    subtasks.push({ name: val });
+    updateSubtaskList();
+    console.log(subtasks);
+    
   }
   initSubtaskUI();
 }
@@ -38,40 +39,49 @@ function confirmSubtaskEntry() {
 function updateSubtaskList() {
   let html = "";
   for (let i = 0; i < subtasks.length; i++) {
-    html += subtasksTemplate(subtasks, index);
+    html += subtasksTemplate(subtasks[i], i);
   }
   listContainer.innerHTML = html;
 }
 
-function addSubtask() {
-  const subtaskInput = document.getElementById("subtask-input");
-  const subtaskList = document.getElementById("subtask-list");
-  const subtaskValue = subtaskInput.value.trim();
+function editSubtask(index) {
+  const subtaskItem = document.querySelectorAll(".subtask-item")[index];
+  const subtaskText = subtaskItem.querySelector(".subtask-text");
+  const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
 
-  if (subtaskValue !== "") {
-    // Erstelle ein neues Listenelement
-    const listItem = document.createElement("div");
-    listItem.classList.add("subtask-item");
-    listItem.innerHTML = `
-      <span>${subtaskValue}</span>
-      <img src="../images/paperbasketdelet.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask(this)">
-    `;
+  subtaskItem.classList.add("editing");
 
-    // Füge das Listenelement zur Liste hinzu
-    subtaskList.appendChild(listItem);
+  subtaskText.innerHTML = `
+    <input type="text" class="edit-input" value="${subtasks[index].name}" onkeypress="handleEditKeyPress(event, ${index})">
+  `;
 
-    // Leere das Eingabefeld
-    subtaskInput.value = "";
+  subtaskIcons.innerHTML = `
+    <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
+    <img src="../images/checkDark.svg" alt="Save" class="subtask-icon save-icon" onclick="saveSubtask(${index})">
+  `;
+  subtaskText.querySelector(".edit-input").focus();
+}
+
+function saveSubtask(index) {
+  const input = document.querySelectorAll(".edit-input")[0];
+  const newValue = input.value.trim();
+
+  if (newValue !== "") {
+    subtasks[index].name = newValue;
+
+    updateSubtaskList();
+  }
+}
+
+function handleEditKeyPress(event, index) {
+  if (event.key === "Enter") {
+    saveSubtask(index);
   }
 }
 
 function deleteSubtask(index) {
-  // Einfache Methode: Verschiebe alle Elemente ab index um eins nach vorne
-  for (let i = index; i < subtasks.length - 1; i++) {
-    subtasks[i] = subtasks[i + 1];
-  }
-  subtasks.length = subtasks.length - 1;
- 
+  subtasks.splice(index, 1);
+  updateSubtaskList();
 }
 
 function setupSubtaskListeners() {

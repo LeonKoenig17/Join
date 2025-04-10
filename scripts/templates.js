@@ -1,14 +1,15 @@
-const subtaskTemplate = (task, index) => {
-  return (
-    '<li data-index="' +
-    index +
-    '">' +
-    task +
-    ' <button class="delete-subtask" data-index="' +
-    index +
-    '">Delete</button></li>'
-  );
-};
+function subtasksTemplate(subtask, index) {
+  return `  
+    <div class="subtask-item">
+      <p class="subtask-text">• ${subtask.name}</p>
+      <div class="subtask-icons">
+        <img src="../images/edit-2.svg" alt="Edit" class="subtask-icon edit-icon" onclick="editSubtask(${index})">
+        <div class="vertical-line-subtask-dark"></div>
+        <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
+      </div>
+    </div>
+  `;
+}
 
 /**
  * Generates an HTML option element as a string for a given user.
@@ -50,17 +51,4 @@ function assignedUserTemplate(user, index) {
         />
       </div>
     `;
-  }
-
-  function subtasksTemplate(subtask, index) {
-    return `
-        <div class="subtask-item">
-          <span class="subtask-text" onclick="editSubtask(${index})">• ${subtask}</span>
-          <div class="subtask-icons">
-            <img src="assets/icons/edit.svg" id="" alt="Edit" class="subtask-icon edit-icon" onclick="editSubtask(${index})">
-            <div class="vertical-line-subtask-dark"></div>
-            <img src="assets/icons/paperbasketdelet.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
-          </div>
-        </div>
-      `;
   }

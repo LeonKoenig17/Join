@@ -9,10 +9,6 @@ const priorityButtons = document.querySelectorAll(
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
 
-
-
-
-
 /**
  * Initializes the task creation page by setting up various UI components and functionalities.
  * - Configures the date picker for task deadlines.
@@ -80,8 +76,6 @@ async function createTask() {
     console.error("Fehler:", err);
   }
 }
-
-
 
 /**
  * Retrieves and organizes form data into an object.
@@ -228,125 +222,5 @@ function setupCreateTaskButton() {
   const createTaskBtn = document.querySelector(".create-button");
   createTaskBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    createTask();
   });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  setupCreateTaskButton();
-});
-/**
- * Sets up the event listener for the "Create Task" button.
- * When the button is clicked, it prevents the default form submission
- * behavior and triggers the `createTask` function.
- */
-/*function setupCreateTaskButton() {
-  createTaskBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    createTask();
-  });
-}
-
-/**
- * Updates an existing task with new data.
- *
- * @async
- * @function
- * @param {string} taskId - The unique identifier of the task to be updated.
- * @param {Object} updatedTask - An object containing the updated task data.
- * @returns {Promise<void>} Resolves when the task is successfully updated.
- * @throws {Error} If an error occurs during the update process.
- */
-/*async function updateTask(taskId, updatedTask) {
-  try {
-    await updateData("tasks/" + taskId, updatedTask);
-    console.log("Task updated");
-  } catch (err) {
-    console.error("Error updating task:", err);
-  }
-}
-
-/**
- * Asynchronously removes a task by its ID.
- *
- * This function deletes a task from the data source using the provided task ID.
- * If the deletion is successful, a confirmation message is logged to the console.
- * If an error occurs during the deletion process, it is caught and logged as an error.
- *
- * @async
- * @function
- * @param {string} taskId - The unique identifier of the task to be removed.
- * @returns {Promise<void>} A promise that resolves when the task is successfully deleted.
- * @throws {Error} Logs an error message if the task deletion fails.
- */
-/*async function removeTask(taskId) {
-  try {
-    await deleteData("tasks/" + taskId);
-    console.log("Task deleted");
-  } catch (err) {
-    console.error("Error deleting task:", err);
-  }
-}
-
-/**
- * A reference to the HTML input element for selecting a due date.
- * This element is expected to have the ID 'due-date'.
- *
- * @type {HTMLInputElement | null}
- */
-/*document
-  .querySelector(".custom-date-input img")
-  .addEventListener("click", () => {
-    dateInput.showPicker ? dateInput.showPicker() : dateInput.focus();
-  });
-
-/**
- * Generates the initials from a given name.
- *
- * @param {string} name - The full name from which to extract initials.
- *                        If the name is empty or undefined, "NN" (No Name) is returned.
- * @returns {string} The initials derived from the name. If the name contains only one word,
- *                   the first letter of that word is returned in uppercase.
- *                   If the name contains multiple words, the first letter of the first
- *                   and last words are returned in uppercase.
- */
-/*function getInitials(name) {
-  if (!name) return "NN"; // "No Name"
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) {
-    return parts[0].charAt(0).toUpperCase();
-  } else {
-    const first = parts[0].charAt(0).toUpperCase();
-    const last = parts[parts.length - 1].charAt(0).toUpperCase();
-    return first + last;
-  }
-}
-
-/**
- * Asynchronously loads user data and renders assigned contacts into a dropdown element.
- *
- * This function retrieves user data from storage using the key "login", then dynamically
- * populates the HTML element with the ID "assignedDropdownSelected" with user information.
- * If the target element is not found, an error is logged to the console.
- *
- * @async
- * @function
- * @returns {Promise<void>} Resolves when the user data is loaded and rendered.
- * @throws {Error} Logs an error if the target element is not found.
- */
-/*async function loadAndRenderAssignedContacts() {
-  const users = await loadData("login");
-  const assignedEl = document.getElementById("assignedDropdownSelected");
-  if (!assignedEl) {
-    console.error("Element with id 'assignedDropdownSelected' not found!");
-    return;
-  }
-  if (users) {
-    const keys = Object.keys(users);
-    for (let i = 0; i < keys.length; i++) {
-      const id = keys[i],
-        user = users[id];
-      assignedEl.innerHTML += assignedUserTemplate(user, i);
-    }
-  }
-/**/ 

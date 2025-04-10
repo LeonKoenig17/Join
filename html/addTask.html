@@ -18,19 +18,19 @@
       </div>
       <nav>
         <a href="./summary.html">
-          <img src="../images/summarygray.svg" alt="logo">
+          <img src="../images/summarygray.svg" alt="logo" />
           <span>Summary</span>
         </a>
         <a href="./addTask.html" class="active">
-          <img src="../images/addtaskwhite.svg" alt="logo">
+          <img src="../images/addtaskwhite.svg" alt="logo" />
           <span>Add Task</span>
         </a>
         <a href="./board.html">
-          <img src="../images/boardgray.svg" alt="logo">
+          <img src="../images/boardgray.svg" alt="logo" />
           <span>Board</span>
         </a>
         <a href="">
-          <img src="../images/contactsgray.svg" alt="logo">
+          <img src="../images/contactsgray.svg" alt="logo" />
           <span>Contacts</span>
         </a>
       </nav>
@@ -150,24 +150,25 @@
                     onclick="activateSubtaskInput()"
                   />
                   <img
-                    id="add-icon"
-                    src="../images/addDark.svg"
-                    alt="subtask-icon"
-                    class="subtask-icon"
-                  />
-
-                  <img
+                    onclick="confirmSubtaskEntry()"
                     id="check-subtask-icon"
                     src="../images/checkDark.svg"
                     alt="Confirm"
                     class="subtask-icon-check d-none"
                   />
-                  <div class="seperator"></div>
                   <img
                     id="close-subtask-icon"
                     src="../images/close.svg"
                     alt="Cancel"
                     class="subtask-icon d-none"
+                  />
+                  <div class="seperator"></div>
+
+                  <img
+                    id="add-icon"
+                    src="../images/addDark.svg"
+                    alt="subtask-icon"
+                    class="subtask-icon"
                   />
                 </div>
                 <div id="subtask-list"></div>
