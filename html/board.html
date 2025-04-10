@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/board.css">
     <link rel="stylesheet" href="../styles/taskOverlay.css">
-    <link rel="stylesheet" href="../styles/addTask.css">
-    <link rel="stylesheet" href="../styles/dropdownAddTask.css">
+    <link rel="stylesheet" href="../styles/addTaskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
      <script src="../scripts/board.js"></script>
@@ -21,23 +20,23 @@
     <aside>
         <div id="logo"><img src="../images/joinlogowhite.svg" alt=""></div>
         <nav>
-            <a href="summary.html">
-                <img src="../images/summarygray.svg" alt="logo">
-                <span>Summary</span>
+            <a href="./summary.html">
+              <img src="../images/summarygray.svg" alt="logo">
+              <span>Summary</span>
             </a>
-            <a href="addTask.html">
-                <img src="../images/addtaskgray.svg" alt="logo">
-                <span>Add Task</span>
+            <a href="./addTask.html">
+              <img src="../images/addtaskgray.svg" alt="logo">
+              <span>Add Task</span>
             </a>
-            <a href="board.html" class="active">
-                <img src="../images/boardwhite.svg" alt="logo">
-                <span>Board</span>
+            <a href="./board.html" class="active">
+              <img src="../images/boardwhite.svg" alt="logo">
+              <span>Board</span>
             </a>
             <a href="">
-                <img src="../images/contactsgray.svg" alt="logo">
-                <span>Contacts</span>
+              <img src="../images/contactsgray.svg" alt="logo">
+              <span>Contacts</span>
             </a>
-        </nav>
+          </nav>
         <div id="legal">
             <a href="">Privacy Policy</a>
             <a href="">Legal Notice</a>
@@ -68,19 +67,19 @@
             <div id="boardMain">
                 <div id="toDoHeader">
                     <span>To do</span>
-                    <button id="toDoBtn" onclick="addTask(0)"></button>
+                    <button id="toDoBtn" onclick="openOverlay(0)"></button>
                 </div>
                 <div id="inProgressHeader">
                     <span>In progress</span>
-                    <button id="inProgressBtn" onclick="addTask(1)"></button>
+                    <button id="inProgressBtn" onclick="openOverlay(1)"></button>
                 </div>
                 <div id="feedbackHeader">
                     <span>Await feedback</span>
-                    <button id="feedbackBtn" onclick="addTask(2)"></button>
+                    <button id="feedbackBtn" onclick="openOverlay(2)"></button>
                 </div>
                 <div id="doneHeader">
                     <span>Done</span>
-                    <button id="doneBtn" onclick="addTask(3)"></button>
+                    <button id="doneBtn" onclick="openOverlay(3)"></button>
                 </div>
             </div>
             <div id="boardContent">
@@ -95,101 +94,68 @@
             </div>
             <div id="addTaskOverlay">
                 <div>
-                    <h1>Add Task</h1>
-                    <section id="addTask">
-                        <div class="half-width addTask-left">
-                            <form class="forms">
-                                <label for="title">Title<span>*</span></label>
-                                <input type="text" id="title" name="title" placeholder="Enter a title" required/>
-                                <label for="description">Description</label>
-                                <textarea id="description" name="description" placeholder="Enter a Description" style="resize: none"></textarea>
-                                <label for="due-date">Due date<span>*</span></label>
-                                <div class="custom-date-input">
-                                    <input type="date" id="due-date" name="due-date" required />
-                                    <img src="../images/calendar.svg" alt="Calendar Icon" />
-                                </div>
-                            </form>
+                    <div id="overlayHeader">
+                        <h2>Add Task</h2>
+                        <button id="close" onclick="closeOverlay()">x</button>
+                    </div>
+                    <div id="overlayMain">
+                        <div id="left">
+                            <label for="title">Title<span class="requiredMark">*</span></label>
+                            <input type="text" id="title" placeholder="Enter a title">
+                            <label for="description">Description</label>
+                            <textarea name="" id="description" placeholder="Enter a description"></textarea>
+                            <label for="dueDate">Due date<span class="requiredMark">*</span></label>
+                            <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
                         </div>
-                        <div class="separator"></div>
-                        <div class="half-width addTask-right">
-                            <h3 class="h3-priority">Priority</h3>
-                            <div class="priority-buttons">
-                                <button type="button" class="priority priority-urgent">
-                                    Urgent
-                                    <img src="../images/urgent.svg" alt="Urgent" />
-                                </button>
-                                <button type="button" class="priority priority-medium active-btn">
-                                    Medium
-                                    <img src="../images/medium.svg" alt="Medium" />
-                                </button>
-                                <button type="button" class="priority priority-low">
-                                    Low
-                                    <img src="../images/low.svg" alt="Low" />
-                                </button>
+                        <div class="line"></div>
+                        <div id="right">
+                            <label for="priority">Priority</label>
+                            <div id="priorityBtns">
+                                <button id="urgentBtn" onclick="selectPrio(this.id)">Urgent<i class="urgentBtn"></i></button>
+                                <button id="mediumBtn" onclick="selectPrio(this.id)">Medium<i class="mediumBtn"></i></button>
+                                <button id="lowBtn" onclick="selectPrio(this.id)">Low<i class="lowBtn"></i></button>
                             </div>
-                            <div>
-                                <h3>Assigned to</h3>
-                                <div class="custom-assigned-dropdown" id="assignedDropdown">
-                                    <!-- Klick-Bereich zum Öffnen/Schließen -->
-                                    <div class="dropdown-selected" id="assignedDropdownSelected">
-                                        Select contacts to assign
-                                        <img src="../images/arrow_drop_down.svg" alt="Dropdown Icon" class="select-icon"/>
-                                    </div>
-                                    <!-- Badges/Chips der aktuell zugewiesenen Kontakte -->
-                                    <div class="assigned-chips" id="assignedChips">
-                                        <!-- Wird per JS gefüllt -->
-                                    </div>
-                                    <!-- Aufklappbare Liste mit Checkboxes -->
-                                    <div class="dropdown-options" id="assignedDropdownOptions">
-                                        <!-- Wird per JS gefüllt -->
-                                    </div>
+                            <label for="assignedTo">Assigned To</label>
+                            <div id="assignedTo">
+                                <div class="dropDown" onclick="toggleDropMenu(`assignedTo`)">
+                                    <span>Select contacts to assign</span>
+                                    <i></i>
+                                </div>
+                                <div class="dropSelection">
+                                    <p>user1</p>
+                                    <p>user2</p>
                                 </div>
                             </div>
-                            <div>
-                                <h3>Category<span>*</span></h3>
-                                <div class="custom-select-container">
-                                    <select id="categorySelect">
-                                        <option>Select task category</option>
-                                        <option>Technical Task</option>
-                                        <option>User Story</option>
-                                    </select>
-                                    <img src="../images/arrow_drop_down.svg" alt="" class="select-icon"/>
+                            <label for="category">Category<span class="requiredMark">*</span></label>
+                            <div id="category">
+                                <div class="dropDown" onclick="toggleDropMenu(`category`)">
+                                    <span>Select task category</span>
+                                    <i></i>
+                                </div>
+                                <div class="dropSelection">
+                                    <p onclick="selectCategory(this)">Technical Task</p>
+                                    <p onclick="selectCategory(this)">User Story</p>
                                 </div>
                             </div>
-                            <div>
-                                <h3>Subtasks</h3>
-                                <div class="subtask-input">
-                                    <input type="text" id="subtaskInput" placeholder="Add new subtask"/>
-                                    <img src="../images/addDark.svg" alt="Subtask Icon" class="subtask-icon"/>
-                                    <button type="button" class="add-subtask" disabled>+</button>
-                                    <!-- Der Container für Subtasks wird dynamisch per JS befüllt -->
+                            <label for="subtaks">Subtasks</label>
+                            <div id="subtasks" class="dropDown">
+                                <input type="text" placeholder="Add new subtask">
+                                <div id="subtaskBtns">
+                                    <button id="subtaskPlus" class="subtaskBtn"><img src="../images/subtaskPlus.svg" alt=""></button>
+                                    <button id="subtaskCross" class="subtaskBtn"><img src="../images/subtaskX.svg" alt=""></button>
+                                    <button id="subtaskCheck" class="subtaskBtn"><img src="../images/subtaskCheck.svg" alt=""></button>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
-                    <div class="create-task-footer">
-                        <p><span>*</span>This field is required</p>
-                        <div class="form-actions">
-                            <div class="clear-btn-container">
-                                <button type="button" class="clear-button">
-                                    Clear
-                                    <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
-                                </button>
-                            </div>
-                            <div class="create-btn-container">
-                                <button type="button" class="create-button" onclick="closeAddTaskOverlay()">
-                                    Create Task
-                                    <img src="../images/checkDark.svg" alt="create icon" />
-                                </button>
                             </div>
                         </div>
                     </div>
+                    <div id="overlayFooter">
+                        <span><span class="requiredMark">*</span>This field is required</span>
+                        <div id="closeBtns">
+                            <button id="cancel" onclick="closeOverlay()">Cancel</button>
+                            <button id="addTaskOverlayBtn" onclick="addTask()">Add Task</button>
+                        </div>
+                    </div>
                 </div>
-                <!-- <div>
-                    <label for="title">Title:</label>
-                    <input type="text">
-                    <button onclick="closeAddTaskOverlay()">Add Task</button>
-                </div> -->
             </div>
             <div id="taskOverlay">
                 <div>
@@ -225,7 +191,6 @@
                             <span>Subtask</span>
                         </div>
                     </p>
-
                 </div>
             </div>
         </div>
