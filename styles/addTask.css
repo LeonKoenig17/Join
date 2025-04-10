@@ -9,7 +9,7 @@
 }
 
 #mainContent > div {
-  max-width: 750px;
+  max-width: 850px;
 }
 
 #addTask {
@@ -189,7 +189,6 @@ select {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
 }
 
 select:focus {
@@ -350,4 +349,14 @@ select:focus {
   margin-top: 4px;
   margin-bottom: 16px;
   display: block;
+}
+
+
+.d-none {
+  display: none;
+}
+
+.input-base-icon-active {
+   opacity: 1; 
+  transition: opacity 0.2s ease-in-out;
 }

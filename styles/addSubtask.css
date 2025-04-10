@@ -1,0 +1,46 @@
+.subtask-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .subtask-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .subtask-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .vertical-line-subtask-dark {
+    width: 1px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 0 8px;
+  }
+
+  .checkCloseContainer {
+    display: flex;
+    
+  }
+
+  .subtask-icon-check {
+    position: absolute;
+    right: 40px!important;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .seperator {
+    position: absolute;
+    right: 25px!important;
+    width: 1px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 0 8px;
+  }
