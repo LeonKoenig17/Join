@@ -1,3 +1,8 @@
+// make textarea non-scalable
+// subtask in overlay: "- subtask           edit delete"
+// can be edited be double clicking or button press
+// editing shows inputfield: "[inputfield           delete check]"
+
 let toDoArray = [];
 let inProgressArray = [];
 let awaitFeedbackArray = [];
@@ -9,6 +14,10 @@ const noTaskHtml = `
     <div class="noTasks">
         <span>No tasks To do</span>
     </div>
+`;
+
+const newSubtask = `
+
 `;
 
 window.onload = async () => {
@@ -27,21 +36,15 @@ window.onload = async () => {
     })
 
     const inputField = document.querySelector("#subtasks input");
-    const plus = document.getElementById("subtaskPlus");
-    const cross = document.getElementById("subtaskCross");
-    const check = document.getElementById("subtaskCheck");
-
     inputField.addEventListener("input", () => {
         if (inputField.value.trim() != "") {
-            plus.style.display = "none";
-            cross.style.display = "unset";
-            check.style.display = "unset";
+            showSubtaskBtns();
         } else {
-            plus.style.display = "unset";
-            cross.style.display = "none";
-            check.style.display = "none";
+            hideSubtaskBtns();
         }
     })
+
+    subtaskHover();
 }
 
 async function updateStage(container, taskId) {
@@ -281,3 +284,86 @@ function selectPrio(id) {
     const selected = document.getElementById(id);
     selected.classList.add("selectedPrio");
 }
+
+function clearSubtaskInput() {
+    const inputField = document.querySelector("#subtasks input");
+    inputField.value = "";
+    hideSubtaskBtns();
+}
+
+function showSubtaskBtns() {
+    const plus = document.getElementById("subtaskPlus");
+    const cross = document.getElementById("subtaskCross");
+    const check = document.getElementById("subtaskCheck");
+    
+    plus.style.display = "none";
+    cross.style.display = "unset";
+    check.style.display = "unset";
+}
+
+function hideSubtaskBtns() {
+    const plus = document.getElementById("subtaskPlus");
+    const cross = document.getElementById("subtaskCross");
+    const check = document.getElementById("subtaskCheck");
+    
+    plus.style.display = "unset";
+    cross.style.display = "none";
+    check.style.display = "none";
+}
+
+function focusInputField() {
+    const inputField = document.querySelector("#subtasks input");
+    inputField.focus();
+}
+
+function subtaskHover(){
+    const subtasks = document.querySelectorAll("#addedSubContainer .addedSub");
+    subtasks.forEach(task => {
+        task.removeEventListener("mouseenter", onMouseEnter);
+        task.removeEventListener("mouseleave", onMouseLeave);
+        task.addEventListener("mouseenter", onMouseEnter);
+        task.addEventListener("mouseleave", onMouseLeave);
+    });
+}
+
+function onMouseEnter(e) {
+    const buttons = e.currentTarget.querySelectorAll("#addedSubBtns button");
+    buttons.forEach(btn => {
+        btn.style.visibility = "visible";
+    });
+}
+
+function onMouseLeave(e) {
+    const buttons = e.currentTarget.querySelectorAll("#addedSubBtns button");
+    buttons.forEach(btn => {
+        btn.style.visibility = "hidden";
+    })
+}
+
+function enableEditMode(parent) {
+    const editBtn = parent.querySelector("#addedSubEdit");
+    editBtn.style.display = "none";
+    const confirmBtn = parent.querySelector("#addedSubConfirm")
+    confirmBtn.style.display = "unset";
+    parent.removeEventListener("mouseenter", onMouseEnter);
+    parent.removeEventListener("mouseleave", onMouseLeave);
+    parent.style.borderBottom = "1px solid #29ABE2";
+    parent.style.borderRadius = "0";
+    parent.style.backgroundColor = "initial";
+}
+
+function disableEditMode(parent) {
+    // span.textContent = input.value
+
+    const editBtn = parent.querySelector("#addedSubEdit");
+    editBtn.style.display = "unset";
+    const confirmBtn = parent.querySelector("#addedSubConfirm")
+    confirmBtn.style.display = "none";
+    parent.addEventListener("mouseenter", onMouseEnter);
+    parent.addEventListener("mouseleave", onMouseLeave);
+    parent.style.borderBottom = "none";
+}
+
+// when editing subtask: .addedSub border-bottom: blue;
+    // remove .addedSub hovereffect
+    // change buttons

@@ -137,13 +137,31 @@
                                     <p onclick="selectCategory(this)">User Story</p>
                                 </div>
                             </div>
-                            <label for="subtaks">Subtasks</label>
+                            <label for="subtasks">Subtasks</label>
                             <div id="subtasks" class="dropDown">
                                 <input type="text" placeholder="Add new subtask">
                                 <div id="subtaskBtns">
-                                    <button id="subtaskPlus" class="subtaskBtn"><img src="../images/subtaskPlus.svg" alt=""></button>
-                                    <button id="subtaskCross" class="subtaskBtn"><img src="../images/subtaskX.svg" alt=""></button>
-                                    <button id="subtaskCheck" class="subtaskBtn"><img src="../images/subtaskCheck.svg" alt=""></button>
+                                    <button id="subtaskPlus" class="subtaskBtn" onclick="focusInputField()"><img src="../images/subtaskPlus.svg" alt=""></button>
+                                    <button id="subtaskCross" class="subtaskBtn" onclick="clearSubtaskInput()"><img src="../images/subtaskX.svg" alt=""></button>
+                                    <button id="subtaskCheck" class="subtaskBtn" onclick="subtaskHover()"><img src="../images/subtaskCheck.svg" alt=""></button>
+                                </div>
+                            </div>
+                            <div id="addedSubContainer">
+                                <div class="addedSub">
+                                    <!-- <span>subtask</span> -->
+                                    <input type="text" class="subEditor" value="subtask">
+                                    <div id="addedSubBtns">
+                                        <button id="addedSubEdit" class="subtaskBtn" onclick="enableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskEdit.svg" alt=""></button>
+                                        <button id="addedSubDelete" class="subtaskBtn"><img src="../images/subtaskBin.svg" alt=""></button>
+                                        <button id="addedSubConfirm" class="subtaskBtn"><img src="../images/subtaskCheck.svg" alt=""></button>
+                                    </div>
+                                </div>
+                                <div class="addedSub">
+                                    <span>subtask</span>
+                                    <div id="addedSubBtns">
+                                        <button id="addedSubEdit" class="subtaskBtn"><img src="../images/subtaskEdit.svg" alt=""></button>
+                                        <button id="addedSubDelete" class="subtaskBtn"><img src="../images/subtaskBin.svg" alt=""></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
