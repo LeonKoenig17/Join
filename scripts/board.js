@@ -1,8 +1,3 @@
-// make textarea non-scalable
-// subtask in overlay: "- subtask           edit delete"
-// can be edited be double clicking or button press
-// editing shows inputfield: "[inputfield           delete check]"
-
 let toDoArray = [];
 let inProgressArray = [];
 let awaitFeedbackArray = [];
@@ -341,6 +336,12 @@ function onMouseLeave(e) {
 }
 
 function enableEditMode(parent) {
+    const inputField = parent.querySelector("input");
+    inputField.style.display = "block";
+    inputField.focus();
+    const span = parent.querySelector("span");
+    inputField.value = span.textContent;
+    span.style.display = "none";
     const editBtn = parent.querySelector("#addedSubEdit");
     editBtn.style.display = "none";
     const confirmBtn = parent.querySelector("#addedSubConfirm")
@@ -349,12 +350,16 @@ function enableEditMode(parent) {
     parent.removeEventListener("mouseleave", onMouseLeave);
     parent.style.borderBottom = "1px solid #29ABE2";
     parent.style.borderRadius = "0";
-    parent.style.backgroundColor = "initial";
+    parent.style.backgroundColor = "unset";
 }
 
 function disableEditMode(parent) {
-    // span.textContent = input.value
-
+    const span = parent.querySelector("span");
+    span.style.display = "block";
+    const inputField = parent.querySelector("input");
+    span.textContent = inputField.value;
+    inputField.value = "";
+    inputField.style.display = "none";
     const editBtn = parent.querySelector("#addedSubEdit");
     editBtn.style.display = "unset";
     const confirmBtn = parent.querySelector("#addedSubConfirm")
@@ -362,8 +367,27 @@ function disableEditMode(parent) {
     parent.addEventListener("mouseenter", onMouseEnter);
     parent.addEventListener("mouseleave", onMouseLeave);
     parent.style.borderBottom = "none";
+    parent.style.borderRadius = "10px";
+    parent.style.backgroundColor = "";
 }
 
-// when editing subtask: .addedSub border-bottom: blue;
-    // remove .addedSub hovereffect
-    // change buttons
+function deleteElement(element) {
+    element.remove();
+}
+
+function addSubtask() {
+    const inputField = document.querySelector("#subtasks input");
+    const subtaskContainer = document.getElementById("addedSubContainer");
+    subtaskContainer.innerHTML += `
+        <div class="addedSub">
+            <span>${inputField.value}</span>
+            <input type="text" class="subEditor">
+            <div id="addedSubBtns">
+                <button id="addedSubEdit" class="subtaskBtn" onclick="enableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskEdit.svg" alt=""></button>
+                <button id="addedSubDelete" class="subtaskBtn" onclick="deleteElement(this.parentElement.parentElement)"><img src="../images/subtaskBin.svg" alt=""></button>
+                <button id="addedSubConfirm" class="subtaskBtn" onclick="disableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskCheck.svg" alt=""></button>
+            </div>
+        </div>
+    `;
+    clearSubtaskInput();
+}
