@@ -21,7 +21,7 @@ function init() {
   setupDatePicker();
   setupPriorityButtons();
   loadAndRenderAssignedContacts();
-  /*setupSubtaskInput();*/
+  applyUserColors();
   setupCreateTaskButton();
   setupFieldListeners();
 }

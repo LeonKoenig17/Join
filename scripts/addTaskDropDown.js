@@ -7,9 +7,16 @@ async function loadFirebaseUsers() {
     const res = await fetch(url);
     const data = await res.json();
     if (!data) return [];
-    return Object.keys(data).map(id => ({ id, ...data[id] }));
+    
+    // Konvertiere die Firebase-Daten in ein Array von Benutzern
+    const users = Object.keys(data).map((id) => ({
+      id, // Firebase-Schlüssel als Benutzer-ID
+      ...data[id], // Restliche Daten wie name, email, color
+    }));
+
+    return users;
   } catch (e) {
-    console.error("Fehler beim Laden:", e);
+    console.error("Fehler beim Laden der Benutzer aus Firebase:", e);
     return [];
   }
 }
@@ -19,40 +26,61 @@ function getInitials(str) {
   return str.split(" ").map(s => s[0].toUpperCase()).join("");
 }
 
+function applyUserColors() {
+  const userColors = document.querySelectorAll(".user-color");
+  userColors.forEach((el) => {
+    const color = el.parentElement.getAttribute("data-color");
+    if (color) {
+      el.style.backgroundColor = color;
+    }
+  });
+}
+
+// Rufe diese Funktion nach dem Rendern der Benutzer auf
+applyUserColors();
 
 
-
-/** 4) Erstellt/aktualisiert die "Chips" (Kreise) der ausgewählten User */
 function updateAssignedChips(users) {
-  const c = document.getElementById("assignedChips");
-  c.innerHTML = "";
-  document.querySelectorAll(".assign-checkbox").forEach(cb => {
-    if (cb.checked) {
-      const idx = parseInt(cb.dataset.userIndex);
-      const u = users[idx];
-      const i = getInitials(u.name || u.email);
-      c.innerHTML += `<div class="assigned-chip">${i}</div>`;
+  const chipsContainer = document.getElementById("assignedChips");
+  chipsContainer.innerHTML = ""; // Leere die Chips, bevor neue hinzugefügt werden
+
+  document.querySelectorAll(".assign-checkbox").forEach((checkbox) => {
+    if (checkbox.checked) {
+      const userIndex = parseInt(checkbox.dataset.userIndex);
+      const user = users[userIndex];
+
+      // Erstelle den Chip mit der richtigen Farbe
+      const chip = `
+        <div class="assigned-chip" style="background-color: ${user.color};">
+          ${getInitials(user.name || user.email)}
+        </div>
+      `;
+      chipsContainer.innerHTML += chip;
     }
   });
 }
 
 
 async function loadAndRenderAssignedContacts() {
-    const users = await loadData("login");
-    const opts = document.getElementById("assignedDropdownOptions");
-    if (!opts) {
-      console.error("Element with id 'assignedDropdownOptions' not found!");
-      return;
-    }
-    if (users) {
-      const keys = Object.keys(users);
-      for (let i = 0; i < keys.length; i++) {
-        const id = keys[i],
-              user = users[id];
-        opts.innerHTML += assignedUserTemplate(user, i);
-      }
+  const users = await loadData("login");
+  const opts = document.getElementById("assignedDropdownOptions");
+
+  if (!opts) {
+    console.error("Element with id 'assignedDropdownOptions' not found!");
+    return;
+  }
+
+  opts.innerHTML = "";
+
+  if (users) {
+    const keys = Object.keys(users);
+    for (let i = 0; i < keys.length; i++) {
+      const id = keys[i],
+        user = users[id];
+      opts.innerHTML += assignedUserTemplate(user, i);
     }
   }
+}
   
 
   function getAssignedContacts() {
@@ -70,20 +98,42 @@ async function loadAndRenderAssignedContacts() {
     return assigned;
   }
   
+  function applyUserColors() {
+    const userColors = document.querySelectorAll(".user-color");
+    userColors.forEach((el) => {
+      const color = el.parentElement.getAttribute("data-color");
+      if (color) {
+        el.style.backgroundColor = color;
+      }
+    });
+  }
+ 
 
-/** 5) Initialisiert das benutzerdefinierte Assigned-to-Dropdown */
-async function initAssignedDropdown() {
+  async function initAssignedDropdown() {
   const users = await loadFirebaseUsers();
   const opts = document.getElementById("assignedDropdownOptions");
   const sel = document.getElementById("assignedDropdownSelected");
   const dd = document.getElementById("assignedDropdown");
-  opts.innerHTML = users.map((u,i)=>assignedUserTemplate(u,i)).join("");
-  sel.onclick = e => { e.stopPropagation(); opts.classList.toggle("show"); };
-  document.addEventListener("click", e => {
+
+  // Leere das Dropdown-Menü, bevor neue Optionen hinzugefügt werden
+  opts.innerHTML = "";
+
+  // Füge die Benutzer als Optionen hinzu
+  opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
+
+  // Wende die Farben an
+  applyUserColors();
+
+  sel.onclick = (e) => {
+    e.stopPropagation();
+    opts.classList.toggle("show");
+  };
+
+  document.addEventListener("click", (e) => {
     if (!dd.contains(e.target)) opts.classList.remove("show");
   });
+
   opts.addEventListener("change", () => updateAssignedChips(users));
 }
 
-/** Ruft die Initialisierung auf, sobald das DOM bereit ist */
 document.addEventListener("DOMContentLoaded", initAssignedDropdown);

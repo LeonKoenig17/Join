@@ -104,7 +104,6 @@
               <div>
                 <h3>Assigned to</h3>
                 <div class="custom-assigned-dropdown" id="assignedDropdown">
-                  <!-- Klick-Bereich zum Öffnen/Schließen -->
                   <div class="dropdown-selected" id="assignedDropdownSelected">
                     Select contacts to assign
                     <img
@@ -114,15 +113,13 @@
                     />
                   </div>
                   <span class="error-message" id="assigned-error"></span>
-                  <!-- Badges/Chips der aktuell zugewiesenen Kontakte -->
-                  <div class="assigned-chips" id="assignedChips">
-                    <!-- Wird per JS gefüllt -->
-                  </div>
-                  <!-- Aufklappbare Liste mit Checkboxes -->
+                  
                   <div class="dropdown-options" id="assignedDropdownOptions">
                     <!-- Wird per JS gefüllt -->
                   </div>
                 </div>
+              </div>
+              <div class="assigned-chips" id="assignedChips">
               </div>
               <div>
                 <h3>Category<span>*</span></h3>
@@ -149,26 +146,29 @@
                     placeholder="Add new subtask"
                     onclick="activateSubtaskInput()"
                   />
-                  <img
+                  <div class="subTask-icons">
+                    <img
                     onclick="confirmSubtaskEntry()"
                     id="check-subtask-icon"
                     src="../images/checkDark.svg"
                     alt="Confirm"
-                    class="subtask-icon-check d-none"
+                    class="subtask-icon-check d-none select-icon"
                   />
                   <img
                     id="close-subtask-icon"
                     src="../images/close.svg"
                     alt="Cancel"
-                    class="subtask-icon d-none"
+                    class="subtask-icon d-none select-icon"
                   />
-                  <div class="seperator"></div>
+                
+                </div>
+                  <div class="seperator d-none" id="seperator"></div>
 
                   <img
                     id="add-icon"
                     src="../images/addDark.svg"
                     alt="subtask-icon"
-                    class="subtask-icon"
+                    class="select-icon"
                   />
                 </div>
                 <div id="subtask-list"></div>

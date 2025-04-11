@@ -4,6 +4,7 @@ const addIcon = document.getElementById("add-icon");
 const checkIcon = document.getElementById("check-subtask-icon");
 const closeIcon = document.getElementById("close-subtask-icon");
 const listContainer = document.getElementById("subtask-list");
+const seperator = document.getElementById("seperator");
 
 function initSubtaskUI() {
   subInput.value = "";
@@ -17,6 +18,7 @@ function activateSubtaskInput() {
   addIcon.classList.add("d-none");
   checkIcon.classList.remove("d-none");
   closeIcon.classList.remove("d-none");
+  seperator.classList.remove("d-none");
   subInput.focus();
 }
 

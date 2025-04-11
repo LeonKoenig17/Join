@@ -170,6 +170,8 @@ select {
     align-items: center;
   }
 
+
+
 .custom-select-container select, .subtask-input input {
   appearance: none;
 }
@@ -186,7 +188,7 @@ select {
 
 .subtask-input img {
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -194,7 +196,7 @@ select {
 select:focus {
   outline: 2px solid var(--accent-color);
 }
-.select-icon img:hover {
+.select-icon:hover {
   background-color: var(--background-color);
 }
 
@@ -259,7 +261,7 @@ select:focus {
 .create-task-footer p {
   color: var(--text-color);
   font-weight: 400;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .clear-button {
@@ -311,32 +313,6 @@ select:focus {
   width: 1px;
   background-color: var(--border-color);
   margin: 0 20px;
-}
-
-
-.assigned-user-item {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  cursor: pointer;
-}
-.assigned-user-avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #29ABE2; /* oder beliebige Farbe */
-  color: #fff;
-  font-weight: bold;
-  margin-right: 10px;
-}
-.assigned-user-name {
-  flex-grow: 1;
-}
-.assign-checkbox {
-  margin-left: 10px;
 }
 
 .fieldIsRequired {
