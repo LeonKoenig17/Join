@@ -1,62 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/contacts.css" />
-    <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
-    <!-- <script src="../scripts/containerDebugger.js"></script> -->
-  </head>
-  <!-- <body onload="init()"> -->
-  <body>
-    <aside>
-      <div id="logo">
-        <img src="../images/joinlogowhite.svg" alt="" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/contacts.css" />
+  <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
+
+  <script src="../scripts/db.js"></script>
+  <!-- <script src="../scripts/containerDebugger.js"></script> -->
+</head>
+<!-- <body onload="init()"> -->
+
+<body>
+  <aside>
+    <div id="logo">
+      <img src="../images/joinlogowhite.svg" alt="" />
+    </div>
+    <nav>
+      <a href="./summary.html">
+        <img src="../images/summarygray.svg" alt="logo">
+        <span>Summary</span>
+      </a>
+      <a href="./addTask.html">
+        <img src="../images/addtaskgray.svg" alt="logo">
+        <span>Add Task</span>
+      </a>
+      <a href="./board.html">
+        <img src="../images/boardgray.svg" alt="logo">
+        <span>Board</span>
+      </a>
+      <a href="./contacts.html" class="active">
+        <img src="../images/contactswhite.svg" alt="logo">
+        <span>Contacts</span>
+      </a>
+    </nav>
+    <div id="legal">
+      <a href="">Privacy Policy</a>
+      <a href="">Legal Notice</a>
+    </div>
+  </aside>
+  <main>
+    <header>
+      <span>Kanban Project Management Tool</span>
+      <div>
+        <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
+        <a href="" id="userLink">LK</a>
       </div>
-      <nav>
-        <a href="./summary.html">
-          <img src="../images/summarygray.svg" alt="logo">
-          <span>Summary</span>
-        </a>
-        <a href="./addTask.html">
-          <img src="../images/addtaskgray.svg" alt="logo">
-          <span>Add Task</span>
-        </a>
-        <a href="./board.html">
-          <img src="../images/boardgray.svg" alt="logo">
-          <span>Board</span>
-        </a>
-        <a href="./contacts.html"  class="active">
-          <img src="../images/contactswhite.svg" alt="logo">
-          <span>Contacts</span>
-        </a>
-      </nav>
-      <div id="legal">
-        <a href="">Privacy Policy</a>
-        <a href="">Legal Notice</a>
-      </div>
-    </aside>
-    <main>
-      <header>
-        <span>Kanban Project Management Tool</span>
-        <div>
-          <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
-          <a href="" id="userLink">LK</a>
+    </header>
+    <div id="mainContent">
+      <div id="contentLeft">
+        
+        <div style="display: flex;align-items: center;flex-direction: column;">
+
+          <div
+            style="display: flex;align-items: center;background-color: var(--primary-color);height: fit-content;color: white; font-size: 16px;font-weight: bold; margin:20px;width: 300px; justify-content: center;border-radius: 10px;">
+            <p style="margin:15px 10px">Add new contant</p>
+            <img src="../images/person_add.svg" alt="">
+          </div>
+
+          <!-- <div style="background-color: black; width: 200px;height: 2px;"></div> -->
+
         </div>
-      </header>
-      <div id="mainContent">
-        <div id="contentLeft" style="background-color: red;width: 100px;height: calc(100vh - 90px);">
-          
-        </div>
-        <div id="contentRight" style="background-color: yellow;width: 100px;height: calc(100vh - 90px);"></div>
+
+
       </div>
-    </main>
-    <!-- <script src="../scripts/templates.js"></script> -->
-    <!-- <script src="../scripts/firebase.js"></script> -->
-    <!-- <script src="../scripts/contacts.js"></script> -->
-    <!-- <script src="../scripts/addTaskDropDown.js"></script> -->
-  </body>
+      <div id="contentRight" style="background-color: yellow;width: 100px;height: calc(100vh - 90px);"></div>
+    </div>
+  </main>
+  <!-- <script src="../scripts/templates.js"></script> -->
+  <!-- <script src="../scripts/firebase.js"></script> -->
+  <!-- <script src="../scripts/contacts.js"></script> -->
+  <!-- <script src="../scripts/addTaskDropDown.js"></script> -->
+</body>
+
 </html>

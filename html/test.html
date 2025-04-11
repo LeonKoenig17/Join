@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: fit-content;
+            width: fit-content;
+            margin: 20px 100px;
+            gap: 10px;
+            font-family: "Arial";
+            overflow: hidden;
+        }
+
+        #contentLeft {
+            background-color: antiquewhite;
+            gap: 50px;
+            height: 100vh;
+            /* overflow: auto; */
+        }
+
+        .personAddBtn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            background-color: darkblue;
+            width: fit-content;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 50px;
+            gap: 20px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .capital {
+            display: flex;
+            justify-content: start;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .userInitials {
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .singleUser {
+            background-color: yellow;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0px;
+        }
+
+        .userDetails {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .userName {
+            margin: 5px 0px;
+        }
+
+        .separator {
+            background-color: black;
+            width: 100%;
+            height: 1px;
+            margin: 20px 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main id="contentLeft">
+
+        <div class="personAddBtn">
+            <span>Add new Contact</span>
+            <img src="../images/person_add.svg" alt="">
+        </div>
+
+        <nav style="overflow: auto;height: 100vh;">
+
+
+        <div class="capital"> <!-- pro buchstabe ein div "capital" -->
+            <span>A</span>
+            <div class="separator"></div>
+
+            <nav class="singleUser">
+                <!-- nav wiederholt einfügen, anhand anzahl von erstem buchstaben des users (wenn inhalt = span "buchstabe") -->
+                <span class="userInitials">AM</span>
+                <!-- jedem user neue farbe aus kreislauf geben, am ende kreislauf von vorne -->
+                <div class="userDetails">
+                    <span class="userName">Anton Mayer</span>
+                    <a href="">antonm@gmail.com</a>
+                </div>
+            </nav>
+
+            <nav class="singleUser">
+                <span class="userInitials">AS</span>
+                <div class="userDetails">
+                    <span class="userName">Anja Schulz</span>
+                    <a href="">schulz@hotmail.com</a>
+                </div>
+            </nav>
+
+        </div>
+
+
+        <div class="capital">
+            <span>B</span>
+            <div class="separator"></div>
+            <nav class="singleUser">
+                <span class="userInitials">BZ</span>
+                <div class="userDetails">
+                    <span class="userName">Benedikt Ziegler</span>
+                    <a href="mailto:benedikt@gmail.com">benedikt@gmail.com</a>
+                </div>
+            </nav>
+        </div>
+
+    </nav>
+    </main>
+
+
+</body>
+
+</html>

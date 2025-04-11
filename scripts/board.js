@@ -52,7 +52,7 @@ async function updateStage(container, taskId) {
         case "inProgress": newStage = 1; break;
         case "awaitFeedback": newStage = 2; break;
         case "done": newStage = 3; break;
-        default: break;
+        default: break;0
     }
 
     const data = await fetch("https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks.json").then(res => res.json());

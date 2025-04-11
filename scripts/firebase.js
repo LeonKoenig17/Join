@@ -22,7 +22,7 @@ async function loadData(path = "") {
    * @param {string} path - The endpoint path to which the data will be sent (relative to the base URL).
    * @param {Object} data - The data to be sent in the request body.
    * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
-   */
+   */ 
   async function postData(path = "", data = {}) {
     const response = await fetch(BASE_URL + path + ".json", {
       method: "POST",
