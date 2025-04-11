@@ -196,9 +196,6 @@ select {
 select:focus {
   outline: 2px solid var(--accent-color);
 }
-.select-icon:hover {
-  background-color: var(--background-color);
-}
 
 .assigned-contacts {
   display: flex;
@@ -240,9 +237,9 @@ select:focus {
 }
 
 .create-task-footer {
-  align-items: center;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
   margin-top: 160px;
 }
@@ -269,11 +266,11 @@ select:focus {
   align-items: center;
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);
-  padding: 6px 16px;
+  padding: 10px 19px;
   border-radius: 10px;
   cursor: pointer;
   color: var(--text-color);
-  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, content 0.2s ease-in-out;
 }
 
 .clear-button:hover {
