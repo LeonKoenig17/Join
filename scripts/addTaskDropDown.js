@@ -1,6 +1,3 @@
-
-
-/** 1) Lädt Benutzer aus Firebase (Knoten "login") */
 async function loadFirebaseUsers() {
   const url = BASE_URL + "login.json";
   try {
@@ -8,10 +5,9 @@ async function loadFirebaseUsers() {
     const data = await res.json();
     if (!data) return [];
     
-    // Konvertiere die Firebase-Daten in ein Array von Benutzern
     const users = Object.keys(data).map((id) => ({
-      id, // Firebase-Schlüssel als Benutzer-ID
-      ...data[id], // Restliche Daten wie name, email, color
+      id,
+      ...data[id],
     }));
 
     return users;
@@ -21,7 +17,6 @@ async function loadFirebaseUsers() {
   }
 }
 
-/** 2) Berechnet die Initialen eines Namens oder E-Mails */
 function getInitials(str) {
   return str.split(" ").map(s => s[0].toUpperCase()).join("");
 }
@@ -36,20 +31,19 @@ function applyUserColors() {
   });
 }
 
-// Rufe diese Funktion nach dem Rendern der Benutzer auf
+
 applyUserColors();
 
 
 function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
-  chipsContainer.innerHTML = ""; // Leere die Chips, bevor neue hinzugefügt werden
+  chipsContainer.innerHTML = "";
 
   document.querySelectorAll(".assign-checkbox").forEach((checkbox) => {
     if (checkbox.checked) {
       const userIndex = parseInt(checkbox.dataset.userIndex);
       const user = users[userIndex];
 
-      // Erstelle den Chip mit der richtigen Farbe
       const chip = `
         <div class="assigned-chip" style="background-color: ${user.color};">
           ${getInitials(user.name || user.email)}
@@ -115,13 +109,10 @@ async function loadAndRenderAssignedContacts() {
   const sel = document.getElementById("assignedDropdownSelected");
   const dd = document.getElementById("assignedDropdown");
 
-  // Leere das Dropdown-Menü, bevor neue Optionen hinzugefügt werden
   opts.innerHTML = "";
 
-  // Füge die Benutzer als Optionen hinzu
   opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
 
-  // Wende die Farben an
   applyUserColors();
 
   sel.onclick = (e) => {
