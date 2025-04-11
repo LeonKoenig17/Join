@@ -391,3 +391,19 @@ function addSubtask() {
     `;
     clearSubtaskInput();
 }
+
+// due Date:
+    // add calender button
+    // rescript inputField.value to date format
+// finish priority button style
+// fetch users to display in assignedTo dropdown menu
+// when editing subtask, if inputField is empty delete subtask
+// close button style
+// cancel and addtask button style
+// finish layout when opening dropdown menu
+
+// create taskCard in board
+
+// create taskOverlay
+
+// implement search function and addTask function on button
