@@ -32,8 +32,6 @@ function confirmSubtaskEntry() {
   
     subtasks.push({ name: val });
     updateSubtaskList();
-    console.log(subtasks);
-    
   }
   initSubtaskUI();
 }

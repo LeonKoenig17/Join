@@ -191,31 +191,40 @@ dateInput.addEventListener("change", function () {
   }
 });
 
-/**
- * Clears the task form by resetting all input fields, selections, and states.
- * - Resets the title and description input fields to empty strings.
- * - Clears the date input field.
- * - Removes the "active-btn" class from all priority buttons and sets the second button as active if it exists.
- * - Resets the "Assigned To" and "Category" dropdowns to their default selections if they exist.
- * - Empties the subtasks array and updates the subtask list display.
- */
+
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   dateInput.value = "";
+
   for (let i = 0; i < priorityButtons.length; i++) {
     priorityButtons[i].classList.remove("active-btn");
   }
   if (priorityButtons[1]) {
     priorityButtons[1].classList.add("active-btn");
   }
+
   if (assignedToSelect) {
     assignedToSelect.selectedIndex = -1;
   }
   if (categorySelect) {
     categorySelect.selectedIndex = 0;
   }
+
+  clearFieldErrors();
   updateSubtaskList();
+}
+
+function clearFieldErrors() {
+  document.getElementById("title-error").textContent = "";
+  document.getElementById("description-error").textContent = "";
+  document.getElementById("due-date-error").textContent = "";
+  document.getElementById("category-error").textContent = "";
+
+  const inputFields = [titleInput, descriptionInput, dateInput, categorySelect];
+  inputFields.forEach((field) => {
+    field.classList.remove("fieldIsRequired");
+  });
 }
 
 function setupCreateTaskButton() {

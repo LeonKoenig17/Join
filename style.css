@@ -52,10 +52,6 @@ header img:hover {
     background-color: #E2E6EC;
 }
 
-#mainContent {
-    margin: 50px;
-}
-
 #logo {
     display: flex;
     justify-content: center;

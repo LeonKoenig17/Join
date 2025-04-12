@@ -1,3 +1,26 @@
+async function initAssignedDropdown() {
+  const users = await loadFirebaseUsers();
+  const opts = document.getElementById("assignedDropdownOptions");
+  const sel = document.getElementById("assignedDropdownSelected");
+  const dd = document.getElementById("assignedDropdown");
+
+  opts.innerHTML = "";
+  opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
+
+  applyUserColors();
+
+  sel.onclick = (e) => {
+    e.stopPropagation();
+    opts.classList.toggle("show");
+  };
+
+  document.addEventListener("click", (e) => {
+    if (!dd.contains(e.target)) opts.classList.remove("show");
+  });
+
+  opts.addEventListener("change", () => updateAssignedChips(users));
+}
+
 async function loadFirebaseUsers() {
   const url = BASE_URL + "login.json";
   try {
@@ -17,10 +40,6 @@ async function loadFirebaseUsers() {
   }
 }
 
-function getInitials(str) {
-  return str.split(" ").map(s => s[0].toUpperCase()).join("");
-}
-
 function applyUserColors() {
   const userColors = document.querySelectorAll(".user-color");
   userColors.forEach((el) => {
@@ -30,10 +49,6 @@ function applyUserColors() {
     }
   });
 }
-
-
-applyUserColors();
-
 
 function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
@@ -54,6 +69,9 @@ function updateAssignedChips(users) {
   });
 }
 
+function getInitials(str) {
+  return str.split(" ").map(s => s[0].toUpperCase()).join("");
+}
 
 async function loadAndRenderAssignedContacts() {
   const users = await loadData("login");
@@ -76,7 +94,6 @@ async function loadAndRenderAssignedContacts() {
   }
 }
   
-
   function getAssignedContacts() {
     const checkboxes = document.querySelectorAll(".assign-checkbox");
     const assigned = [];
@@ -91,40 +108,5 @@ async function loadAndRenderAssignedContacts() {
     });
     return assigned;
   }
-  
-  function applyUserColors() {
-    const userColors = document.querySelectorAll(".user-color");
-    userColors.forEach((el) => {
-      const color = el.parentElement.getAttribute("data-color");
-      if (color) {
-        el.style.backgroundColor = color;
-      }
-    });
-  }
- 
-
-  async function initAssignedDropdown() {
-  const users = await loadFirebaseUsers();
-  const opts = document.getElementById("assignedDropdownOptions");
-  const sel = document.getElementById("assignedDropdownSelected");
-  const dd = document.getElementById("assignedDropdown");
-
-  opts.innerHTML = "";
-
-  opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
-
-  applyUserColors();
-
-  sel.onclick = (e) => {
-    e.stopPropagation();
-    opts.classList.toggle("show");
-  };
-
-  document.addEventListener("click", (e) => {
-    if (!dd.contains(e.target)) opts.classList.remove("show");
-  });
-
-  opts.addEventListener("change", () => updateAssignedChips(users));
-}
 
 document.addEventListener("DOMContentLoaded", initAssignedDropdown);
