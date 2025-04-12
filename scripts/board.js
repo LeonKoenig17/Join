@@ -394,7 +394,7 @@ function addSubtask() {
 
 // due Date:
     // add calender button
-    // rescript inputField.value to date format
+    // restrict inputField.value to date format
 // finish priority button style
 // fetch users to display in assignedTo dropdown menu
 // when editing subtask, if inputField is empty delete subtask
