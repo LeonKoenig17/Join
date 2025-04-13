@@ -6,19 +6,43 @@ const closeIcon = document.getElementById("close-subtask-icon");
 const listContainer = document.getElementById("subtask-list");
 const seperator = document.getElementById("seperator");
 
+/**
+ * Initializes the subtask user interface by clearing the input field
+ * and toggling the visibility of icons.
+ *
+ * @function
+ */
 function initSubtaskUI() {
   subInput.value = "";
-  addIcon.classList.remove("d-none");
-  checkIcon.classList.add("d-none");
-  closeIcon.classList.add("d-none");
+  toggleIcons(false);
 }
 
+/**
+ * Toggles the visibility of specific icons based on the provided state.
+ *
+ * @param {boolean} isActive - Determines the visibility of the icons.
+ *                              If true, the `addIcon` is hidden and the `checkIcon`, `closeIcon`, and `seperator` are shown.
+ *                              If false, the `addIcon` is shown and the `checkIcon`, `closeIcon`, and `seperator` are hidden.
+ */
+function toggleIcons(isActive) {
+  addIcon.classList.toggle("d-none", isActive);
+  checkIcon.classList.toggle("d-none", !isActive);
+  closeIcon.classList.toggle("d-none", !isActive);
+  seperator.classList.toggle("d-none", !isActive);
+}
+
+/**
+ * Activates the subtask input field by setting its value, toggling icons, and focusing on the input.
+ * 
+ * @function
+ * @description This function sets the value of the subtask input field to "Contact Form",
+ *              displays the appropriate icons by toggling their visibility, and focuses
+ *              on the input field to allow user interaction.
+ */
 function activateSubtaskInput() {
   subInput.value = "Contact Form";
-  addIcon.classList.add("d-none");
-  checkIcon.classList.remove("d-none");
-  closeIcon.classList.remove("d-none");
-  seperator.classList.remove("d-none");
+  subInput.style.color = "#000000";
+  toggleIcons(true);
   subInput.focus();
 }
 
@@ -28,8 +52,7 @@ function cancelSubtaskEntry() {
 
 function confirmSubtaskEntry() {
   const val = subInput.value.trim();
-  if (val !== "") {
-  
+  if (val) {
     subtasks.push({ name: val });
     updateSubtaskList();
   }
@@ -37,11 +60,10 @@ function confirmSubtaskEntry() {
 }
 
 function updateSubtaskList() {
-  let html = "";
+  listContainer.innerHTML = "";
   for (let i = 0; i < subtasks.length; i++) {
-    html += subtasksTemplate(subtasks[i], i);
+    listContainer.innerHTML += subtasksTemplate(subtasks[i], i);
   }
-  listContainer.innerHTML = html;
 }
 
 function editSubtask(index) {
@@ -50,11 +72,7 @@ function editSubtask(index) {
   const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
 
   subtaskItem.classList.add("editing");
-
-  subtaskText.innerHTML = `
-    <input type="text" class="edit-input" value="${subtasks[index].name}" onkeypress="handleEditKeyPress(event, ${index})">
-  `;
-
+  subtaskText.innerHTML = `<input type="text" class="edit-input" value="${subtasks[index].name}" onkeypress="handleEditKeyPress(event, ${index})">`;
   subtaskIcons.innerHTML = `
     <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
     <img src="../images/checkDark.svg" alt="Save" class="subtask-icon save-icon" onclick="saveSubtask(${index})">
@@ -63,12 +81,10 @@ function editSubtask(index) {
 }
 
 function saveSubtask(index) {
-  const input = document.querySelectorAll(".edit-input")[0];
+  const input = document.querySelector(".edit-input");
   const newValue = input.value.trim();
-
-  if (newValue !== "") {
+  if (newValue) {
     subtasks[index].name = newValue;
-
     updateSubtaskList();
   }
 }
@@ -88,14 +104,14 @@ function setupSubtaskListeners() {
   addIcon.addEventListener("click", activateSubtaskInput);
   closeIcon.addEventListener("click", cancelSubtaskEntry);
   checkIcon.addEventListener("click", confirmSubtaskEntry);
-  subInput.addEventListener("keypress", function (e) {
+  subInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       confirmSubtaskEntry();
     }
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   initSubtaskUI();
   setupSubtaskListeners();
 });

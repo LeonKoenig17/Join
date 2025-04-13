@@ -22,6 +22,7 @@ function init() {
   loadAndRenderAssignedContacts();
   applyUserColors();
   setupFieldListeners();
+  fillDescription();
 }
 
 /**
@@ -159,8 +160,21 @@ function validateFormData(data) {
   return isValid;
 }
 
+/**
+ * Sets up event listeners for input fields to handle validation and styling.
+ * 
+ * This function adds `focus` and `blur` event listeners to a predefined set of fields.
+ * - On `focus`, it tracks if the field has been interacted with and removes validation styling if applicable.
+ * - On `blur`, it validates the field's value and applies or removes a "fieldIsRequired" class based on the input's validity.
+ * 
+ * Fields include:
+ * - `titleInput`: The input field for the task title.
+ * - `descriptionInput`: The input field for the task description.
+ * - `dateInput`: The input field for the task date.
+ * - `categorySelect`: The dropdown for selecting a task category.
+ */
 function setupFieldListeners() {
-  const fields = [titleInput, descriptionInput, dateInput, categorySelect];
+  const fields = [titleInput, dateInput, categorySelect];
 
   fields.forEach((field) => {
     let fieldClicked = false;
@@ -171,39 +185,29 @@ function setupFieldListeners() {
 
     field.addEventListener("blur", () => {
       if (
-      (field === categorySelect && field.value === "Select task category") ||
-      field.value.trim() === ""
+        (field === categorySelect && field.value === "Select task category") ||
+        field.value.trim() === ""
       ) {
-      field.classList.add("fieldIsRequired");
+        field.classList.add("fieldIsRequired");
       } else {
-      field.classList.remove("fieldIsRequired");
-      field.nextElementSibling.textContent = "";
+        field.classList.remove("fieldIsRequired");
+        field.nextElementSibling.textContent = "";
       }
     });
 
     field.addEventListener("focus", () => {
       if (fieldClicked) {
-      field.classList.remove("fieldIsRequired");
+        field.classList.remove("fieldIsRequired");
       }
     });
   });
 }
 
-document.getElementById("description").addEventListener("click", function () {
-  document.getElementById("category-error").textContent = "";
-  this.textContent = "Create a contact form and imprint page.";
-});
-
-dateInput.addEventListener("change", function () {
-  if (dateInput.value) {
-    dateInput.classList.remove("fieldIsRequired");
-
-    document.getElementById("due-date-error").textContent = "";
-
-    dateInput.style.borderColor = "var(--border-color)";
-  }
-});
-
+function fillDescription() {
+  descriptionInput.addEventListener("click", () => {
+    descriptionInput.value = "Create a contact form and imprint page.";
+  });
+}
 
 function clearForm() {
   document.getElementById("title").value = "";

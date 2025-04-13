@@ -5,7 +5,14 @@
   margin-top: 8px;
   height: 32px;
   padding: 2px 10px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.subtask-item:hover {
+  border-radius: 10px;
+  box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid var(--border-color-focus-filled);
+  cursor: pointer;
 }
 
 .subtask-icon {
@@ -48,12 +55,7 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.subtask-item:hover {
-  background-color: var(--border-color-light);
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+
 
 .subtask-list {
   height: 20px !important;

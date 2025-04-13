@@ -50,7 +50,7 @@
 
 .forms input:focus,
 .forms textarea:focus {
-  outline: 2px solid var(--accent-color);
+  outline: 1px solid var(--accent-color);
 }
 
 .custom-date-input {
@@ -155,7 +155,7 @@ select {
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   background-color: white;
   color: var(--text-color);
   cursor: pointer;
@@ -189,7 +189,7 @@ select {
 }
 
 select:focus {
-  outline: 2px solid var(--accent-color);
+  outline: 1px solid var(--accent-color);
 }
 
 .assigned-contacts {
@@ -216,6 +216,15 @@ select:focus {
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--border-color);
+}
+
+.subtask-input input:focus {
+  border: 1px solid var(--accent-color);
+  outline: none;
 }
 
 .subtask-input button {
