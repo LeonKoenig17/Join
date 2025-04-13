@@ -21,7 +21,6 @@ function init() {
   setupPriorityButtons();
   loadAndRenderAssignedContacts();
   applyUserColors();
-  setupCreateTaskButton();
   setupFieldListeners();
 }
 
@@ -164,15 +163,27 @@ function setupFieldListeners() {
   const fields = [titleInput, descriptionInput, dateInput, categorySelect];
 
   fields.forEach((field) => {
+    let fieldClicked = false;
+
+    field.addEventListener("focus", () => {
+      fieldClicked = true;
+    });
+
     field.addEventListener("blur", () => {
       if (
-        (field === categorySelect && field.value === "Select task category") ||
-        field.value.trim() === ""
+      (field === categorySelect && field.value === "Select task category") ||
+      field.value.trim() === ""
       ) {
-        field.classList.add("fieldIsRequired");
+      field.classList.add("fieldIsRequired");
       } else {
-        field.classList.remove("fieldIsRequired");
-        field.nextElementSibling.textContent = "";
+      field.classList.remove("fieldIsRequired");
+      field.nextElementSibling.textContent = "";
+      }
+    });
+
+    field.addEventListener("focus", () => {
+      if (fieldClicked) {
+      field.classList.remove("fieldIsRequired");
       }
     });
   });
@@ -226,12 +237,5 @@ function clearFieldErrors() {
   const inputFields = [titleInput, descriptionInput, dateInput, categorySelect];
   inputFields.forEach((field) => {
     field.classList.remove("fieldIsRequired");
-  });
-}
-
-function setupCreateTaskButton() {
-  const createTaskBtn = document.querySelector(".create-button");
-  createTaskBtn.addEventListener("click", function (e) {
-    e.preventDefault();
   });
 }
