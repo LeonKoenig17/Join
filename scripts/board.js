@@ -11,10 +11,6 @@ const noTaskHtml = `
     </div>
 `;
 
-const newSubtask = `
-
-`;
-
 window.onload = async () => {
     await fetchData();
 
@@ -24,7 +20,7 @@ window.onload = async () => {
         container.addEventListener("drop", async(e) => {
             e.preventDefault();
             const id = e.dataTransfer.getData("task");
-            const taskId = parseInt(id.replace("task", ""));
+            const taskId = id.replace("task", "");
             await updateStage(container, taskId);
             await fetchData();
         })
@@ -75,8 +71,8 @@ async function updateStage(container, taskId) {
             },
             body: JSON.stringify(task)
         });
-        const updated = await updateRes.json();
-        console.log(updated);
+        // const updated = await updateRes.json();
+        // console.log(updated);
     }
 }
 
@@ -99,7 +95,7 @@ async function fetchData() {
                 stage: task.stage,
                 index: task.index,
             }
-            if (task.stage != null) {
+            if (task.stage != null && task.index != null) {
                 arrays[task.stage].push(taskData);
             }
         })
@@ -123,8 +119,17 @@ function renderLists() {
     containers.forEach(e => {
         e.innerHTML = "";
     });
+
     for (let i = 0; i < arrays.length; i++) {
         arrays[i].forEach(task => {
+            let subtasks = "";
+            if (task.subtasks) {
+                task.subtasks.forEach(subtask => {
+                    subtasks += `
+                        <i>${subtask.title}: </i><i>${subtask.status}</i>
+                    `;
+                })
+            }
             containers[i].innerHTML += `
                 <div id="task${task.index}" class="task" draggable="true">
                     <table>
@@ -150,7 +155,7 @@ function renderLists() {
                         </tr>
                         <tr>
                             <td>Subtasks</td>
-                            <td>${task.subtasks}</td>
+                            <td>${subtasks}</td>
                         </tr>
                         <tr>
                             <td>Category</td>
@@ -204,8 +209,11 @@ async function addTask() {
     
     const description = addTaskOverlay.querySelector("#description").value;
     let priority = addTaskOverlay.querySelector(".selectedPrio");
-    console.log(priority);
-    if (priority == null) { priority = "" }
+    if (priority != null) {
+        priority = priority.textContent;
+    } else {
+        priority = "Medium";
+    }
     
     if (title != "" && dueDate != "" && category.textContent != "Select task category") {
         inputValid = true;
@@ -216,11 +224,7 @@ async function addTask() {
     if (!inputValid) {
         console.log("input invalid")
         return;
-    } else {
-        const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-        const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
-        let number = await Object.entries(tasks).length + 1;
-        
+    } else {     
         console.log("input valid, data posted");
         await postData("tasks", {
             title: title, 
@@ -229,15 +233,30 @@ async function addTask() {
             priority: priority,
             assignedTo: "",
             category: category.textContent,
-            subtasks: {"task1": "ticked", "task2": "unticked"},
+            subtasks: getSubtasks(),
             stage: targetIndex,
-            index: number
+            index: new Date().toLocaleTimeString()
         })
     }
     
     clearInputFields();
     closeOverlay();
     fetchData();
+}
+
+function getSubtasks() {
+    const subConts = document.querySelectorAll("#addedSubContainer .addedSub");
+    if (subConts.length == 0) return;
+
+    let subtaskArray = [];
+    subConts.forEach(cont => {
+        const subtask = cont.querySelector("span").textContent.replace("\u2022 ", "");
+        subtaskArray.push({
+            title: subtask,
+            status: 0
+        })
+    })
+    return subtaskArray;
 }
 
 async function postData(path, data) {
@@ -340,7 +359,7 @@ function enableEditMode(parent) {
     inputField.style.display = "block";
     inputField.focus();
     const span = parent.querySelector("span");
-    inputField.value = span.textContent;
+    inputField.value = span.textContent.replace("\u2022 ", "");
     span.style.display = "none";
     const editBtn = parent.querySelector("#addedSubEdit");
     editBtn.style.display = "none";
@@ -355,9 +374,13 @@ function enableEditMode(parent) {
 
 function disableEditMode(parent) {
     const span = parent.querySelector("span");
-    span.style.display = "block";
     const inputField = parent.querySelector("input");
-    span.textContent = inputField.value;
+    if (inputField.value.trim() == "") {
+        parent.remove();
+        return;
+    }
+    span.style.display = "block";
+    span.textContent = "\u2022 " + inputField.value;
     inputField.value = "";
     inputField.style.display = "none";
     const editBtn = parent.querySelector("#addedSubEdit");
@@ -380,12 +403,12 @@ function addSubtask() {
     const subtaskContainer = document.getElementById("addedSubContainer");
     subtaskContainer.innerHTML += `
         <div class="addedSub">
-            <span>${inputField.value}</span>
+            <span>\u2022 ${inputField.value}</span>
             <input type="text" class="subEditor">
-            <div id="addedSubBtns">
-                <button id="addedSubEdit" class="subtaskBtn" onclick="enableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskEdit.svg" alt=""></button>
-                <button id="addedSubDelete" class="subtaskBtn" onclick="deleteElement(this.parentElement.parentElement)"><img src="../images/subtaskBin.svg" alt=""></button>
-                <button id="addedSubConfirm" class="subtaskBtn" onclick="disableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskCheck.svg" alt=""></button>
+            <div class="btnInInput">
+                <button id="addedSubEdit" class="smallButton" onclick="enableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskEdit.svg" alt=""></button>
+                <button id="addedSubDelete" class="smallButton" onclick="deleteElement(this.parentElement.parentElement)"><img src="../images/subtaskBin.svg" alt=""></button>
+                <button id="addedSubConfirm" class="smallButton" onclick="disableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskCheck.svg" alt=""></button>
             </div>
         </div>
     `;
@@ -401,6 +424,7 @@ function addSubtask() {
 // close button style
 // cancel and addtask button style
 // finish layout when opening dropdown menu
+// warning when required fields are not filled
 
 // create taskCard in board
 

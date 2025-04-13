@@ -105,7 +105,10 @@
                             <label for="description">Description</label>
                             <textarea name="" id="description" placeholder="Enter a description"></textarea>
                             <label for="dueDate">Due date<span class="requiredMark">*</span></label>
-                            <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
+                            <div id="dueDateContainer" class="dropDown inputHover">
+                                <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
+                                <button id="calenderBtn" class="smallButton btnInInput"><img src="../images/calendar.svg" alt=""></button>
+                            </div>
                         </div>
                         <div class="line"></div>
                         <div id="right">
@@ -138,12 +141,12 @@
                                 </div>
                             </div>
                             <label for="subtasks">Subtasks</label>
-                            <div id="subtasks" class="dropDown">
+                            <div id="subtasks" class="dropDown inputHover">
                                 <input type="text" placeholder="Add new subtask">
-                                <div id="subtaskBtns">
-                                    <button id="subtaskPlus" class="subtaskBtn" onclick="focusInputField()"><img src="../images/subtaskPlus.svg" alt=""></button>
-                                    <button id="subtaskCross" class="subtaskBtn" onclick="clearSubtaskInput()"><img src="../images/subtaskX.svg" alt=""></button>
-                                    <button id="subtaskCheck" class="subtaskBtn" onclick="addSubtask(); subtaskHover()"><img src="../images/subtaskCheck.svg" alt=""></button>
+                                <div class="btnInInput">
+                                    <button id="subtaskPlus" class="smallButton" onclick="focusInputField()"><img src="../images/subtaskPlus.svg" alt=""></button>
+                                    <button id="subtaskCross" class="smallButton" onclick="clearSubtaskInput()"><img src="../images/subtaskX.svg" alt=""></button>
+                                    <button id="subtaskCheck" class="smallButton" onclick="addSubtask(); subtaskHover()"><img src="../images/subtaskCheck.svg" alt=""></button>
                                 </div>
                             </div>
                             <div id="addedSubContainer"></div>

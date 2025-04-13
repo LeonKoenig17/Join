@@ -24,7 +24,6 @@
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     display: flex;
-    /* align-items: center; */
 }
 
 #searchInput * {
