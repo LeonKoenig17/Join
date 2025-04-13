@@ -1,4 +1,3 @@
-// Alle globalen Variablen und DOM-Elemente
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const dateInput = document.getElementById("due-date");
@@ -68,10 +67,14 @@ async function createTask() {
   if (!validateFormData(data)) {
     return;
   }
+
+  data.taskIndex = Date.now();
+  data.stage = 0;
+
   try {
     await postData("tasks", data);
     clearForm();
-    window.location.href = "board.html"; // Weiterleitung zur board.html
+    window.location.href = "board.html";
   } catch (err) {
     console.error("Fehler:", err);
   }
@@ -169,7 +172,7 @@ function setupFieldListeners() {
         field.classList.add("fieldIsRequired");
       } else {
         field.classList.remove("fieldIsRequired");
-        field.nextElementSibling.textContent = ""; // Clear error message
+        field.nextElementSibling.textContent = "";
       }
     });
   });
@@ -182,7 +185,6 @@ document.getElementById("description").addEventListener("click", function () {
 
 dateInput.addEventListener("change", function () {
   if (dateInput.value) {
-    // Entferne die rote Border (über die CSS-Klasse)
     dateInput.classList.remove("fieldIsRequired");
 
     document.getElementById("due-date-error").textContent = "";
