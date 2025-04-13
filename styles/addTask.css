@@ -41,13 +41,11 @@
 .forms input,
 .forms textarea {
   width: 100%;
-  padding:  12px 21px;
+  padding: 12px 21px;
   margin-top: 16px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   font-size: 14px;
-  background-color: white;
-  cursor: pointer;
 }
 
 .forms input:focus,
@@ -168,8 +166,6 @@ select {
     display: flex;
     align-items: center;
   }
-
-
 
 .custom-select-container select, .subtask-input input {
   appearance: none;
