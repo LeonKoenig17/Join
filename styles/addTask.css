@@ -1,8 +1,15 @@
 #mainContent {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 90px);
   background-color: var(--background-color);
   margin: 10px 50px;
+}
+
+#mainContent > div {
+  max-width: 850px;
 }
 
 #addTask {
@@ -106,7 +113,7 @@
 }
 
 .priority img {
-  padding-left: 5px;
+  padding-left: 8px;
 }
 
 .priority-urgent,
@@ -163,6 +170,8 @@ select {
     align-items: center;
   }
 
+
+
 .custom-select-container select, .subtask-input input {
   appearance: none;
 }
@@ -179,16 +188,15 @@ select {
 
 .subtask-input img {
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
 }
 
 select:focus {
   outline: 2px solid var(--accent-color);
 }
-.select-icon img:hover {
+.select-icon:hover {
   background-color: var(--background-color);
 }
 
@@ -235,6 +243,8 @@ select:focus {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-top: 160px;
 }
 
 .form-actions {
@@ -251,7 +261,7 @@ select:focus {
 .create-task-footer p {
   color: var(--text-color);
   font-weight: 400;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .clear-button {
@@ -305,32 +315,6 @@ select:focus {
   margin: 0 20px;
 }
 
-
-.assigned-user-item {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  cursor: pointer;
-}
-.assigned-user-avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #29ABE2; /* oder beliebige Farbe */
-  color: #fff;
-  font-weight: bold;
-  margin-right: 10px;
-}
-.assigned-user-name {
-  flex-grow: 1;
-}
-.assign-checkbox {
-  margin-left: 10px;
-}
-
 .fieldIsRequired {
   border-color: var(--border-color-required) !important;
 }
@@ -341,4 +325,14 @@ select:focus {
   margin-top: 4px;
   margin-bottom: 16px;
   display: block;
+}
+
+
+.d-none {
+  display: none;
+}
+
+.input-base-icon-active {
+   opacity: 1; 
+  transition: opacity 0.2s ease-in-out;
 }
