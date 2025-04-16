@@ -12,6 +12,9 @@ const noTaskHtml = `
 `;
 
 window.onload = async () => {
+    // const addTaskOverlay = document.getElementById("addTaskOverlay");
+    // addTaskOverlay.innerHTML = addTaskOverlayTemplate();
+
     await fetchData();
 
     const containers = document.querySelectorAll("#boardContent > div");
@@ -20,8 +23,7 @@ window.onload = async () => {
         container.addEventListener("drop", async(e) => {
             e.preventDefault();
             const id = e.dataTransfer.getData("task");
-            const taskId = id.replace("task", "");
-            await updateStage(container, taskId);
+            await updateStage(container, id);
             await fetchData();
         })
     })
@@ -53,7 +55,7 @@ async function updateStage(container, taskId) {
 
     let targetKey = null;
     for (let key in data) {
-        if (data[key].index === taskId) {
+        if (data[key].taskIndex == taskId) {
             targetKey = key;
             break;
         }
@@ -71,8 +73,8 @@ async function updateStage(container, taskId) {
             },
             body: JSON.stringify(task)
         });
-        // const updated = await updateRes.json();
-        // console.log(updated);
+        const updated = await updateRes.json();
+        console.log(updated);
     }
 }
 
@@ -93,9 +95,9 @@ async function fetchData() {
                 category: task.category,
                 subtasks: task.subtasks,
                 stage: task.stage,
-                index: task.index,
+                index: task.taskIndex,
             }
-            if (task.stage != null && task.index != null) {
+            if (task.stage != null && task.taskIndex != null) {
                 arrays[task.stage].push(taskData);
             }
         })
@@ -131,7 +133,7 @@ function renderLists() {
                 })
             }
             containers[i].innerHTML += `
-                <div id="task${task.index}" class="task" draggable="true">
+                <div id="${task.index}" class="task" draggable="true">
                     <table>
                         <tr>
                             <td>Title</td>
@@ -235,7 +237,7 @@ async function addTask() {
             category: category.textContent,
             subtasks: getSubtasks(),
             stage: targetIndex,
-            index: new Date().toLocaleTimeString()
+            taskIndex: new Date().toLocaleTimeString()
         })
     }
     
@@ -401,17 +403,7 @@ function deleteElement(element) {
 function addSubtask() {
     const inputField = document.querySelector("#subtasks input");
     const subtaskContainer = document.getElementById("addedSubContainer");
-    subtaskContainer.innerHTML += `
-        <div class="addedSub">
-            <span>\u2022 ${inputField.value}</span>
-            <input type="text" class="subEditor">
-            <div class="btnInInput">
-                <button id="addedSubEdit" class="smallButton" onclick="enableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskEdit.svg" alt=""></button>
-                <button id="addedSubDelete" class="smallButton" onclick="deleteElement(this.parentElement.parentElement)"><img src="../images/subtaskBin.svg" alt=""></button>
-                <button id="addedSubConfirm" class="smallButton" onclick="disableEditMode(this.parentElement.parentElement)"><img src="../images/subtaskCheck.svg" alt=""></button>
-            </div>
-        </div>
-    `;
+    subtaskContainer.innerHTML += addedSubContainerTemplate(inputField.value);
     clearSubtaskInput();
 }
 
