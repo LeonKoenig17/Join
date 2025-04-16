@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="../styles/addTaskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
-    <script src="../scripts/board.js"></script>
+     <script src="../scripts/board.js"></script>
+     <script src="../scripts/templates.js"></script>
 </head>
 
 <body>
@@ -105,7 +106,10 @@
                             <label for="description">Description</label>
                             <textarea name="" id="description" placeholder="Enter a description"></textarea>
                             <label for="dueDate">Due date<span class="requiredMark">*</span></label>
-                            <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
+                            <div id="dueDateContainer" class="dropDown inputHover">
+                                <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
+                                <button id="calenderBtn" class="smallButton btnInInput"><img src="../images/calendar.svg" alt=""></button>
+                            </div>
                         </div>
                         <div class="line"></div>
                         <div id="right">
@@ -139,18 +143,16 @@
                                     <p onclick="selectCategory(this)">User Story</p>
                                 </div>
                             </div>
-                            <label for="subtaks">Subtasks</label>
-                            <div id="subtasks" class="dropDown">
+                            <label for="subtasks">Subtasks</label>
+                            <div id="subtasks" class="dropDown inputHover">
                                 <input type="text" placeholder="Add new subtask">
-                                <div id="subtaskBtns">
-                                    <button id="subtaskPlus" class="subtaskBtn"><img src="../images/subtaskPlus.svg"
-                                            alt=""></button>
-                                    <button id="subtaskCross" class="subtaskBtn"><img src="../images/subtaskX.svg"
-                                            alt=""></button>
-                                    <button id="subtaskCheck" class="subtaskBtn"><img src="../images/subtaskCheck.svg"
-                                            alt=""></button>
+                                <div class="btnInInput">
+                                    <button id="subtaskPlus" class="smallButton" onclick="focusInputField()"><img src="../images/subtaskPlus.svg" alt=""></button>
+                                    <button id="subtaskCross" class="smallButton" onclick="clearSubtaskInput()"><img src="../images/subtaskX.svg" alt=""></button>
+                                    <button id="subtaskCheck" class="smallButton" onclick="addSubtask(); subtaskHover()"><img src="../images/subtaskCheck.svg" alt=""></button>
                                 </div>
                             </div>
+                            <div id="addedSubContainer"></div>
                         </div>
                     </div>
                     <div id="overlayFooter">
