@@ -133,22 +133,23 @@ function renderLists() {
 
   for (let i = 0; i < arrays.length; i++) {
     arrays[i].forEach((task) => {
+
+      const subtasks = task.subtasks || {};
       containers[i].innerHTML += `
-                <div id="task${task.taskIndex}" class="task" draggable="true">
-                    <p>Category: ${task.category}</p>
-                    <h3>${task.title}</h3>
-                    <p>${task.description}</p>
-                    <p>Due: ${task.dueDate}</p>
-                    <p>Priority: ${task.priority}</p>
-                
-                    <p>Subtasks: ${Object.values(task.subtasks)
-                      .map((subtask) => subtask.name)
-                      .join(", ")}</p>
-                    <p>Assigned to: ${task.assignedTo
-                      .map((user) => user.name || user.email)
-                      .join(", ")}</p>
-                    </div>
-                    `;
+        <div id="task${task.taskIndex}" class="task" draggable="true" onclick="openOverlay(${task.taskIndex})">
+          <p>Category: ${task.category}</p>
+          <h3>${task.title}</h3>
+          <p>${task.description}</p>
+          <p>Due: ${task.dueDate}</p>
+          <p>Priority: ${task.priority}</p>
+          <p>Subtasks: ${Object.values(subtasks)
+            .map((subtask) => subtask.name || subtask)
+            .join(", ")}</p>
+          <p>Assigned to: ${task.assignedTo
+            .map((user) => user.name || user.email)
+            .join(", ")}</p>
+        </div>
+      `;
     });
   }
 
@@ -158,6 +159,7 @@ function renderLists() {
     }
   });
 }
+
 
 let targetIndex = 0;
 
@@ -274,3 +276,5 @@ function selectPrio(id) {
   const selected = document.getElementById(id);
   selected.classList.add("selectedPrio");
 }
+
+

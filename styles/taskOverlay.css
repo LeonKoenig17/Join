@@ -1,106 +1,244 @@
 #taskOverlay {
-    background-color: rgb(0, 0, 0, 0.3);
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 20%;
+    left: 30%;
     width: 100%;
-    height: 100vh;
-    display: none;
+    height: 100%;
+    z-index: 1000;
     justify-content: center;
     align-items: center;
-}
-
-#taskOverlay > div {
-    background-color: white;
-    width: 500px;
-    border-radius: 30px;
-    padding: 50px;
-}
-
-#taskOverlayHeading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#taskOverlayHeading span {
-    background-color: #0038FF;
-    color: white;
-    padding: 5px 16px;
-    border-radius: 8px;
-    font-size: 23px;
-}
-
-#taskOverlayHeading button {
-    background: none;
-    border: none;
-    border-radius: 100%;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#taskOverlayHeading img {
-    cursor: pointer !important;
-}
-
-#taskOverlay > div button:hover {
-    background-color: #D9D9D9;
-}
-
-#taskOverlay > div img {
-    width: 24px;
-}
-
-#taskOverlay > div * {
-    font-size: 20px;
-    cursor: default;
-}
-
-#taskOverlay p {
-    color: #2A3647;
-}
-
-#taskOverlay p span {
-    color: black;
-}
-
-#taskOverlay h2 {
-    font-size: 60px;
-    margin: 10px 0;
-}
-
-.assigned {
-    display: flex;
-    align-items: center;
+  }
+  
+  /* Container für den Overlay-Inhalt – entspricht dem addTask-Formular */
+  .overlay-content {
+    background-color: var(--background-color);
     border-radius: 10px;
-}
-
-.assigned:hover {
-    background-color: #D9D9D9;
-    cursor: pointer !important;
-}
-
-.assigned *:hover {
-    cursor: pointer !important;
-}
-
-.profile {
-    font-size: 12px !important;
-    background-color: red;
-    border: 1px solid white;
-    border-radius: 100%;
-    margin: 6px 10px;
-    width: 32px;
-    height: 32px;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px 40px;
+    box-shadow: var(--shadow-color) 0px 5px 10px;
+  }
+  
+  /* Überschrift (z. B. „Add Task“) */
+  .overlay-content h1 {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-color);
+    margin: 20px 0;
+  }
+  
+  /* Formularbereich (ähnlich der .forms-Klasse in addTask.css) */
+  .overlay-content .forms {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+  }
+  
+  /* Labels */
+  .overlay-content .forms label {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-color);
+    margin-top: 20px;
+    display: block;
+  }
+  
+  /* Inputfelder und Textareas */
+  .overlay-content .forms input,
+  .overlay-content .forms textarea {
+    width: 100%;
+    padding: 12px 21px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .overlay-content .forms input:focus,
+  .overlay-content .forms textarea:focus {
+    outline: 2px solid var(--accent-color);
+  }
+  
+  /* Custom Date Input wie in addTask.css */
+  .overlay-content .custom-date-input {
+    position: relative;
+  }
+  
+  .overlay-content .custom-date-input input[type="date"] {
+    padding-right: 20px;
+  }
+  
+  .overlay-content .custom-date-input img {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .overlay-content .custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+  .overlay-content .custom-date-input:hover {
+    cursor: pointer;
+  }
+  
+  /* Bereich für die Priority-Buttons */
+  .overlay-content .priority-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .overlay-content .priority {
+    width: 136px;
+    padding: 16px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .overlay-content .priority img {
+    padding-left: 5px;
+  }
+  
+  .overlay-content .priority-urgent,
+  .overlay-content .priority-medium,
+  .overlay-content .priority-low {
+    background-color: #ffffff;
+  }
+  
+  .overlay-content .priority-urgent:focus {
+    background-color: var(--priority-color-urgent);
+    color: white;
+  }
+  
+  .overlay-content .priority-urgent:focus img,
+  .overlay-content .priority-medium:focus img,
+  .overlay-content .priority-low:focus img {
+    filter: brightness(0) invert(1);
+  }
+  
+  .overlay-content .priority-medium:focus {
+    background-color: var(--priority-color-medium);
+    color: white;
+  }
+  
+  .overlay-content .priority-low:focus {
+    background-color: var(--priority-color-low);
+    color: white;
+  }
+  
+  .overlay-content .priority:hover {
+    box-shadow: var(--shadow-color) 0px 5px 10px;
+  }
+  
+  /* Custom Select Dropdown – analog zur .custom-select-container in addTask.css */
+  .overlay-content .custom-select-container {
+    position: relative;
+    display: flex;
     align-items: center;
-}
-
-.subtask button {
-    /* background-image: url(); */
-}
+  }
+  
+  .overlay-content .custom-select-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    appearance: none;
+  }
+  
+  .overlay-content .custom-select-container .select-icon {
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+  }
+  
+  /* Subtask-Input – entspricht dem Stil in addTask.css */
+  .overlay-content .subtask-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .overlay-content .subtask-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+  }
+  
+  .overlay-content .subtask-input img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  /* Footer mit Clear- und Create-Button */
+  .overlay-content .create-task-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .overlay-content .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  .overlay-content .clear-button {
+    display: flex;
+    align-items: center;
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .overlay-content .clear-button:hover {
+    border-color: var(--hover-color);
+    color: var(--hover-color);
+  }
+  
+  .overlay-content .create-button {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .overlay-content .create-button:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+  }
+  
+  /* Falls ein Trenner (separator) benötigt wird */
+  .overlay-content .separator {
+    width: 1px;
+    background-color: var(--border-color);
+    margin: 0 20px;
+  }

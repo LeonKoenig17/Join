@@ -81,14 +81,14 @@ async function loadAndRenderAssignedContacts() {
     console.error("Element with id 'assignedDropdownOptions' not found!");
     return;
   }
-
   opts.innerHTML = "";
 
   if (users) {
     const keys = Object.keys(users);
     for (let i = 0; i < keys.length; i++) {
-      const id = keys[i],
-        user = users[id];
+      const id = keys[i];
+      const userData = users[id];
+      const user = { id, ...userData };
       opts.innerHTML += assignedUserTemplate(user, i);
     }
   }
