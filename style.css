@@ -26,6 +26,7 @@ header {
 
 header span {
     margin-left: 200px;
+    cursor: context-menu;
 }
 
 header div {
@@ -63,7 +64,8 @@ nav {
     text-align: center;
 }
 
-nav a, #legal a{
+nav a,
+#legal a {
     display: flex;
     align-items: center;
     margin: 5px 0;
