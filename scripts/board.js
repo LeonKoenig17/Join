@@ -30,6 +30,7 @@ window.onload = async () => {
   const cross = document.getElementById("subtaskCross");
   const check = document.getElementById("subtaskCheck");
 
+ if (inputField) {
   inputField.addEventListener("input", () => {
     if (inputField.value.trim() != "") {
       plus.style.display = "none";
@@ -41,7 +42,7 @@ window.onload = async () => {
       check.style.display = "none";
     }
   });
-};
+}
 
 async function updateStage(container, taskId) {
   const newStage = getStageFromContainer(container.id);
@@ -145,9 +146,9 @@ function renderLists() {
           <p>Subtasks: ${Object.values(subtasks)
             .map((subtask) => subtask.name || subtask)
             .join(", ")}</p>
-          <p>Assigned to: ${task.assignedTo
+          <p>Assigned to: ${(Array.isArray(task.assignedTo) ? task.assignedTo
             .map((user) => user.name || user.email)
-            .join(", ")}</p>
+            .join(", ") : "None")}</p>
         </div>
       `;
     });
@@ -163,7 +164,7 @@ function renderLists() {
 
 let targetIndex = 0;
 
-function openOverlay(index) {
+/*function openOverlay(index) {
   const addTaskOverlay = document.getElementById("addTaskOverlay");
   addTaskOverlay.style.display = "flex";
   targetIndex = index;
@@ -180,7 +181,7 @@ function closeOverlay() {
   const addTaskOverlay = document.getElementById("addTaskOverlay");
   addTaskOverlay.style.display = "none";
   clearInputFields();
-}
+}*/
 
 async function addTask() {
   const addTaskOverlay = document.getElementById("addTaskOverlay");
@@ -275,6 +276,6 @@ function selectPrio(id) {
 
   const selected = document.getElementById(id);
   selected.classList.add("selectedPrio");
-}
+}}
 
 

@@ -13,7 +13,12 @@ const seperator = document.getElementById("seperator");
  * @function
  */
 function initSubtaskUI() {
-  subInput.value = "";
+  const inputField = document.querySelector("#subtasks input");
+  if (inputField) {
+    inputField.value = ""; // Nur ausführen, wenn das Element existiert
+  } else {
+    console.error("Element #subtasks input nicht gefunden");
+  }
   toggleIcons(false);
 }
 

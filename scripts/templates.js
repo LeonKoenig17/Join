@@ -29,7 +29,6 @@ function userOptionTemplate(user, id) {
 function assignedUserTemplate(user, index) {
   return `
       <div class="assigned-user-item">
-  
         <div class="assigned-user-avatar-container"
              style="background-color: ${user.color};">
           <p class="assigned-user-avatar">${getInitials(
@@ -51,113 +50,77 @@ function assignedUserTemplate(user, index) {
     `;
 }
 
-function boardOverlayTemplate(task) {
+function editOverlayTemplate(task) {
   return `
-  <div class="overlay-content">
-    <div id="overlayHeader">
-      <h1>Edit Task</h1>
-      <button id="closeOverlayBtn" onclick="closeOverlay()">x</button>
-    </div>
-    <div id="overlayMain">
-      <div id="message"></div>
-      <section id="addTask">
-        <div class="half-width addTask-left">
-          <form class="forms" id="editTaskForm">
-            <label for="editTitle">Title<span>*</span></label>
-            <input type="text" id="editTitle" name="editTitle" placeholder="Enter a title" value="${task.title}" required>
-            <span class="error-message" id="edit-title-error"></span>
-            
-            <label for="editDescription">Description</label>
-            <textarea id="editDescription" name="editDescription" placeholder="Enter a Description">${task.description}</textarea>
-            <span class="error-message" id="edit-description-error"></span>
-            
-            <label for="editDueDate">Due date<span>*</span></label>
-            <div class="custom-date-input">
-              <input type="date" id="editDueDate" name="editDueDate" value="${task.dueDate}" required>
-              <img src="../images/calendar.svg" alt="Calendar Icon">
-            </div>
-            <span class="error-message" id="edit-due-date-error"></span>
-          </form>
+    <div class="overlay">
+      <div class="task-overlay-header">
+        <span class="task-overlay-category" style="background-color: ${
+          task.categoryColor
+        };">${task.category}</span>
+        <img src="../images/close.svg" alt="Close" class="task-overlay-close" onclick="closeOverlay()">
+      </div>
+      <h2 class="task-overlay-title">${task.title}</h2>
+      <p class="task-overlay-description">${task.description}</p>
+      <div class="task-overlay-details">
+        <div class="task-overlay-detail">
+          <span class="task-overlay-detail-label">Due date:</span>
+          <span class="task-overlay-detail-value">${task.dueDate}</span>
         </div>
-        <div class="separator"></div>
-        <div class="half-width addTask-right">
-          <h3 class="h3-priority">Priority</h3>
-          <div class="priority-buttons">
-            <button type="button" class="priority priority-urgent ${task.priority === 'Urgent' ? 'active-btn' : ''}">
-              Urgent
-              <img src="../images/urgent.svg" alt="Urgent">
-            </button>
-            <button type="button" class="priority priority-medium ${task.priority === 'Medium' ? 'active-btn' : ''}">
-              Medium
-              <img src="../images/medium.svg" alt="Medium">
-            </button>
-            <button type="button" class="priority priority-low ${task.priority === 'Low' ? 'active-btn' : ''}">
-              Low
-              <img src="../images/low.svg" alt="Low">
-            </button>
-          </div>
-          
-          <div>
-            <h3>Assigned to</h3>
-            <div class="custom-select-container" id="editAssignedDropdown">
-              <select id="editAssignedSelect">
-                <option>Select contacts to assign</option>
-                <!-- Dynamisch zu befüllende Optionen -->
-              </select>
-              <img src="../images/arrow_drop_down.svg" alt="Dropdown Icon" class="select-icon">
-            </div>
-            <span class="error-message" id="edit-assigned-error"></span>
-          </div>
-          
-          <div>
-            <h3>Category<span>*</span></h3>
-            <div class="custom-select-container">
-              <select id="editCategorySelect">
-                <option disabled>Select task category</option>
-                <option ${task.category === 'Technical Task' ? 'selected' : ''}>Technical Task</option>
-                <option ${task.category === 'User Story' ? 'selected' : ''}>User Story</option>
-              </select>
-              <img src="../images/arrow_drop_down.svg" alt="Dropdown Icon" class="select-icon">
-            </div>
-            <span class="error-message" id="edit-category-error"></span>
-          </div>
-          
-          <div>
-            <h3>Subtasks</h3>
-            <div class="subtask-input">
-              <input type="text" id="editSubtaskInput" placeholder="Add new subtask" autocomplete="off">
-              <div class="subTask-icons">
-                <img onclick="confirmSubtaskEditEntry()" id="check-edit-subtask-icon" src="../images/checkDark.svg" alt="Confirm" class="subtask-icon-check d-none select-icon">
-                <img id="close-edit-subtask-icon" src="../images/close.svg" alt="Cancel" class="subtask-icon d-none select-icon">
+        <div class="task-overlay-detail">
+          <span class="task-overlay-detail-label-priority">Priority:</span>
+          <span class="task-overlay-detail-value-priority task-overlay-priority-${
+            task.priority ? task.priority.toLowerCase() : "default"
+          }">
+            ${task.priority || "No priority"}
+            <img src="../images/${
+              task.priority ? task.priority.toLowerCase() : "default"
+            }.svg" alt="${task.priority || "No priority"}">
+          </span>
+        </div>
+        <div class="assignedto-detail">
+          <span class="task-overlay-detail-label">Assigned To:</span>
+          <div class="task-overlay-assigned-users">
+            ${(Array.isArray(task.assignedTo) ? task.assignedTo : [])
+              .map(
+                (user) => `
+        <div class="assigned-user-avatar-edit-container"
+             style="background-color: ${user.color};">
+          <p class="assigned-user-avatar user-color">${getInitials(
+            user.name || user.email
+          )}</p>
+          <p>${user.name || user.email}</p>
+        </div>
               </div>
-              <div class="seperator d-none" id="editSeperator"></div>
-              <img id="add-edit-icon" src="../images/addDark.svg" alt="Subtask Icon" class="select-icon">
-            </div>
-            <div id="editSubtaskList">
-              <!-- Hier werden die bestehenden Subtasks (falls vorhanden) dynamisch eingebunden -->
-            </div>
+            `
+              )
+              .join("")}
           </div>
-        </div>
-      </section>
-    </div>
-    <div class="create-task-footer">
-      <p><span>*</span>This field is required</p>
-      <div class="form-actions">
-        <div class="clear-btn-container">
-          <button type="button" class="clear-button" onclick="clearEditForm()">
-            Clear
-            <img src="../images/canceldarkblue.svg" alt="Cancel icon">
-          </button>
-        </div>
-        <div class="create-btn-container">
-          <button id="save-task-btn" type="button" class="create-button" onclick="updateTask(${task.taskIndex})">
-            Save Changes
-            <img src="../images/checkDark.svg" alt="Save icon">
-          </button>
-        </div>
+      <div class="task-overlay-subtasks">
+        <h3>Subtasks</h3>
+        ${(Array.isArray(task.subtasks) ? task.subtasks : [])
+          .map(
+            (subtask) => `
+          <div class="subtask">
+            <img src="../images/${
+              subtask.completed ? "subtaskBoxTicked" : "subtaskBoxUnticked"
+            }.svg" alt="${subtask.completed ? "Completed" : "Incomplete"}">
+            <span>${subtask.name}</span>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+      <div class="task-overlay-actions">
+        <button class="task-overlay-delete" onclick="deleteTask(${task.id})">
+          <img src="../images/subtaskBin.svg" alt="Delete"> Delete
+        </button>
+        <div id="seperator"></div>
+        <button class="task-overlay-edit" onclick="editTask(${task.id})">
+          <img src="../images/edit-2.svg" alt="Edit"> Edit
+        </button>
       </div>
     </div>
-  </div>
+    </div>
+      </div>
   `;
 }
-

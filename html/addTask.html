@@ -6,10 +6,10 @@
     <title>Join</title>
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
-    
-   <!-- <link rel="stylesheet" href="../styles/addTask.css" />
+
+   <link rel="stylesheet" href="../styles/addTask.css" />
     <link rel="stylesheet" href="../styles/addSubtask.css" />
-    <link rel="stylesheet" href="../styles/dropdownAddTask.css" />-->
+    <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
   </head>
   <body onload="init()">
@@ -48,9 +48,8 @@
           <a href="" id="userLink">LK</a>
         </div>
       </header>
-      <div id="mainContent">
+      <div id="main">
         <div>
-          <!-- Hier werden Statusmeldungen angezeigt -->
           <div id="message"></div>
           <h1>Add Task</h1>
           <section id="addTask">
@@ -114,14 +113,14 @@
                     />
                   </div>
                   <span class="error-message" id="assigned-error"></span>
-                  
-                  <div class="dropdown-options" id="assignedDropdownOptions">
-                  
-                  </div>
+
+                  <div
+                    class="dropdown-options"
+                    id="assignedDropdownOptions"
+                  ></div>
                 </div>
               </div>
-              <div class="assigned-chips" id="assignedChips">
-              </div>
+              <div class="assigned-chips" id="assignedChips"></div>
               <div>
                 <h3>Category<span>*</span></h3>
                 <div class="custom-select-container">
@@ -150,20 +149,19 @@
                   />
                   <div class="subTask-icons">
                     <img
-                    onclick="confirmSubtaskEntry()"
-                    id="check-subtask-icon"
-                    src="../images/checkDark.svg"
-                    alt="Confirm"
-                    class="subtask-icon-check d-none select-icon"
-                  />
-                  <img
-                    id="close-subtask-icon"
-                    src="../images/close.svg"
-                    alt="Cancel"
-                    class="subtask-icon d-none select-icon"
-                  />
-                
-                </div>
+                      onclick="confirmSubtaskEntry()"
+                      id="check-subtask-icon"
+                      src="../images/checkDark.svg"
+                      alt="Confirm"
+                      class="subtask-icon-check d-none select-icon"
+                    />
+                    <img
+                      id="close-subtask-icon"
+                      src="../images/close.svg"
+                      alt="Cancel"
+                      class="subtask-icon d-none select-icon"
+                    />
+                  </div>
                   <div class="seperator d-none" id="seperator"></div>
 
                   <img
@@ -201,6 +199,7 @@
           </div>
         </div>
       </div>
+
     </main>
     <script src="../scripts/templates.js"></script>
     <script src="../scripts/firebase.js"></script>

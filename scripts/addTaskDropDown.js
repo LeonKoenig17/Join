@@ -102,7 +102,8 @@ async function loadAndRenderAssignedContacts() {
         assigned.push({
           id: cb.dataset.userId,
           name: cb.dataset.userName,
-          email: cb.dataset.userEmail
+          email: cb.dataset.userEmail,
+          color: cb.dataset.userColor,
         });
       }
     });

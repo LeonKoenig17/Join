@@ -1,4 +1,4 @@
-#mainContent {
+#main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +7,7 @@
   background-color: var(--background-color);
 }
 
-#mainContent > div {
+#main > div {
   max-width: 850px;
 }
 
@@ -33,7 +33,7 @@
   margin-top: 20px !important;
 }
 
-#mainContent span {
+#main span {
   color: #ff8190;
   padding-left: 2px;
 }
