@@ -294,11 +294,19 @@ function selectCategory(selected) {
 function selectPrio(id) {
     const prioBtns = document.querySelectorAll("#priorityBtns button");
     prioBtns.forEach(btn => {
+        btn.querySelector("i").style.filter = "none";
         btn.classList.remove("selectedPrio");
+        btn.style.backgroundColor = "white";
     })
-
     const selected = document.getElementById(id);
     selected.classList.add("selectedPrio");
+    switch (id) {
+        case "urgentBtn": selected.style.backgroundColor = "#FF3D00"; break;
+        case "mediumBtn": selected.style.backgroundColor = "#FFA800"; break;
+        case "lowBtn": selected.style.backgroundColor = "#7AE229"; break;
+        default: break;
+    }
+    selected.querySelector("i").style.filter = "brightness(0) invert()";
 }
 
 function clearSubtaskInput() {
@@ -423,3 +431,7 @@ function addSubtask() {
 // create taskOverlay
 
 // implement search function and addTask function on button
+
+// urgent #FF3D00
+// medium #FFA800
+// low #7AE229
