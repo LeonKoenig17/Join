@@ -36,7 +36,6 @@
 
 #overlayMain {
   display: flex;
-  /* justify-content: center; */
 }
 
 #left, #right {
@@ -160,11 +159,18 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 100px;
+  width: 90%;
+  padding: 50px 0;
+  position: absolute;
+  bottom: 0;
 }
 
 #overlayFooter > span {
   font-size: 16px;
+}
+
+#closeBtns {
+  display: flex;
 }
 
 .requiredMark {
@@ -180,6 +186,10 @@
   padding-left: 10px;
 }
 
+#urgentBtn:hover, #mediumBtn:hover, #lowBtn:hover {
+  cursor: pointer;
+}
+
 .urgentBtn {
   background-image: url(../images/urgent.svg);
 }
@@ -192,20 +202,7 @@
   background-image: url(../images/low.svg);
 }
 
-/* #urgentBtn {
-  background-color: #FF3D00;
-}
-
-#mediumBtn {
-  background-color: #FFA800;
-}
-
-#lowBtn {
-  background-color: #7AE229;
-} */
-
 .selectedPrio {
-  /* background-color: red !important; */
   color: white;
 }
 
@@ -221,6 +218,9 @@
 }
 
 .smallButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   border-radius: 100%;
@@ -235,9 +235,12 @@
 
 .smallButton:hover, .addedSub:hover {
   background-color: #EEEEEE;
+  cursor: pointer;
 }
 
 .btnInInput {
+  display: flex;
+
   position: absolute;
   right: 14px;
 }

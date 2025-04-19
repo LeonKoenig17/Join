@@ -56,7 +56,7 @@
     background: none;
 }
 
-#addTaskBtn {
+.darkblueButton {
     padding: 10px;
     background-color: #2A3647;
     border-radius: 10px;
@@ -68,17 +68,47 @@
     transition: 0.2s ease-in-out;
 }
 
-#addTaskBtn:hover {
+.darkblueButton:hover {
     background-color: #29ABE2;
+    cursor: pointer
 }
 
-#addTaskBtn span {
+.darkblueButton span {
     color: white;
     font-weight: bold;
 }
 
-#addTaskBtn img {
+.darkblueButton img {
     padding: 0 10px;
+}
+
+.whiteButton {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    height: 54px;
+    margin-left: 30px;
+    transition: 0.2s ease-in-out;
+}
+
+.whiteButton:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+    cursor: pointer;
+}
+
+.cross-bg-img {
+    background-image: url(../images/canceldarkblue.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding-left: 20px;
+    transition: 0.2s ease-in-out;
 }
 
 

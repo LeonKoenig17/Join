@@ -189,6 +189,14 @@ function openOverlay(index) {
     const addTaskOverlay = document.getElementById("addTaskOverlay");
     addTaskOverlay.style.display = "flex";
     targetIndex = index;
+    const cancelBtn = document.getElementById("cancel");
+    const cancelCross = cancelBtn.querySelector("i");
+    cancelBtn.addEventListener("mouseenter", () => {
+        cancelCross.style.backgroundImage = "url(../images/cancelblue.svg)";
+    })
+    cancelBtn.addEventListener("mouseleave", () => {
+        cancelCross.style.backgroundImage = "url(../images/canceldarkblue.svg)";
+    })
 }
 
 function clearInputFields() {

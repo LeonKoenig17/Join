@@ -59,7 +59,7 @@
                         <input type="text" placeholder="Find Task">
                         <button><img src="../images/search.svg" alt="search"></button>
                     </div>
-                    <button id="addTaskBtn">
+                    <button id="addTaskBtn" class="darkblueButton">
                         <span>Add Task</span>
                         <img src="../images/add.svg" alt="plus">
                     </button>
@@ -97,7 +97,7 @@
                 <div>
                     <div id="overlayHeader">
                         <h2>Add Task</h2>
-                        <button id="close" onclick="closeOverlay()">x</button>
+                        <button id="close"  class="smallButton" onclick="closeOverlay()"><img src="../images/canceldarkblue.svg" alt=""></button>
                     </div>
                     <div id="overlayMain">
                         <div id="left">
@@ -115,10 +115,8 @@
                         <div id="right">
                             <label for="priority">Priority</label>
                             <div id="priorityBtns">
-                                <button id="urgentBtn" onclick="selectPrio(this.id)">Urgent<i
-                                        class="urgentBtn"></i></button>
-                                <button id="mediumBtn" onclick="selectPrio(this.id)">Medium<i
-                                        class="mediumBtn"></i></button>
+                                <button id="urgentBtn" onclick="selectPrio(this.id)">Urgent<i class="urgentBtn"></i></button>
+                                <button id="mediumBtn" onclick="selectPrio(this.id)">Medium<i class="mediumBtn"></i></button>
                                 <button id="lowBtn" onclick="selectPrio(this.id)">Low<i class="lowBtn"></i></button>
                             </div>
                             <label for="assignedTo">Assigned To</label>
@@ -158,8 +156,8 @@
                     <div id="overlayFooter">
                         <span><span class="requiredMark">*</span>This field is required</span>
                         <div id="closeBtns">
-                            <button id="cancel" onclick="closeOverlay()">Cancel</button>
-                            <button id="addTaskOverlayBtn" onclick="addTask()">Add Task</button>
+                            <button id="cancel" class="whiteButton" onclick="closeOverlay()"><span>Cancel</span><i class="cross-bg-img"></i></button>
+                            <button id="addTaskOverlayBtn" class="darkblueButton" onclick="addTask()"><span>Add Task</span><img src="../images/check.svg" alt=""></button>
                         </div>
                     </div>
                 </div>
