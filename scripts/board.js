@@ -12,25 +12,16 @@ const noTaskHtml = `
 `;
 
 window.onload = async () => {
-  await fetchData();
+  await initBoard();
+  await renderLists();
+};
 
-  const containers = document.querySelectorAll("#boardContent > div");
-  containers.forEach((container) => {
-    container.addEventListener("dragover", (e) => e.preventDefault());
-    container.addEventListener("drop", async (e) => {
-      e.preventDefault();
-      const id = e.dataTransfer.getData("task");
-      const taskId = parseInt(id.replace("task", ""));
-      await updateStage(container, taskId);
-    });
-  });
+const inputField = document.querySelector("#subtasks input");
+const plus = document.getElementById("subtaskPlus");
+const cross = document.getElementById("subtaskCross");
+const check = document.getElementById("subtaskCheck");
 
-  const inputField = document.querySelector("#subtasks input");
-  const plus = document.getElementById("subtaskPlus");
-  const cross = document.getElementById("subtaskCross");
-  const check = document.getElementById("subtaskCheck");
-
- if (inputField) {
+if (inputField) {
   inputField.addEventListener("input", () => {
     if (inputField.value.trim() != "") {
       plus.style.display = "none";
@@ -113,169 +104,144 @@ async function fetchData() {
   }
 
   renderLists();
-  addDragFunction();
+}
+
+/**
+ * Initialisiert das Board
+ */
+async function initBoard() {
+    await fetchData();
+    setupEventListeners();
+}
+
+/**
+ * Setzt Event-Listener für das Board
+ */
+function setupEventListeners() {
+  const containers = document.querySelectorAll("#boardContent > div");
+  containers.forEach((container) => {
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+    });
+    
+    container.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("text/plain");
+      console.log("Dropped task:", id);
+      const taskId = parseInt(id.replace("task", ""));
+      await updateStage(container, taskId);
+    });
+  });
+
+  // Event-Listener für den "Add Task" Button
+  const addTaskBtn = document.getElementById('addTaskBtn');
+  if (addTaskBtn) {
+    addTaskBtn.addEventListener('click', () => createNewTask('todo'));
+  }
+}
+
+async function renderLists() {
+    const containers = document.querySelectorAll("#boardContent > div");
+    containers.forEach((container) => {
+        container.innerHTML = "";
+    });
+
+    for (let i = 0; i < arrays.length; i++) {
+        arrays[i].forEach((task) => {
+            const taskData = {
+                id: task.id,
+                taskIndex: task.taskIndex || Date.now(), // Stelle sicher, dass taskIndex existiert
+                category: task.category || 'User Story',
+                title: task.title || '',
+                description: task.description || '',
+                dueDate: task.dueDate || new Date().toISOString().split('T')[0],
+                priority: task.priority || 'Medium',
+                assignedTo: task.assignedTo || [],
+                subtasks: task.subtasks ? Object.values(task.subtasks).map((subtask, index) => ({
+                    id: 'subtask-' + index,
+                    text: subtask.name || subtask,
+                    completed: subtask === 'ticked'
+                })) : [],
+                status: getStatusFromColumnIndex(task.stage || 0)
+            };
+
+            containers[i].innerHTML += generateTaskCard(taskData);
+        });
+    }
+
+    containers.forEach((container) => {
+        if (container.innerHTML === "") {
+            container.innerHTML = `<div class="noTasks"><span>No tasks to do</span></div>`;
+        }
+    });
+
+    // Füge Drag & Drop Funktionalität hinzu
+    addDragFunction();
+    
+    // Wende die Benutzerfarben an
+    await applyUserColors();
+}
+
+async function applyUserColors() {
+    try {
+        const users = await loadUsers();
+        const userElements = document.querySelectorAll('.task-assignee');
+        
+        userElements.forEach(element => {
+            const userId = element.dataset.userId;
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                element.style.backgroundColor = user.color;
+            }
+        });
+    } catch (error) {
+        console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+    }
+}
+
+/**
+ * Erstellt einen neuen Task mit Standardwerten
+ * @param {string} status - Der Status des neuen Tasks
+ */
+function createNewTask(status) {
+  const taskData = {
+    id: Date.now().toString(),
+    category: 'User Story',
+    title: 'Neue Aufgabe',
+    description: '',
+    dueDate: new Date().toISOString().split('T')[0],
+    priority: 'Medium',
+    assignedTo: [],
+    subtasks: [],
+    status: status
+  };
+  showTaskOverlay(taskData);
+}
+
+/**
+ * Konvertiert den Spaltenindex in einen Status-String
+ * @param {number} columnIndex - Der Index der Spalte
+ * @returns {string} Der entsprechende Status
+ */
+function getStatusFromColumnIndex(columnIndex) {
+  const statusMap = {
+    0: 'todo',
+    1: 'inProgress',
+    2: 'awaitFeedback',
+    3: 'done'
+  };
+  return statusMap[columnIndex] || 'todo';
 }
 
 function addDragFunction() {
   const tasks = document.querySelectorAll(".task");
   tasks.forEach((task) => {
+    task.setAttribute('draggable', 'true');
     task.addEventListener("dragstart", (e) => {
       console.log("Drag started for task:", task.id);
-      e.dataTransfer.setData("task", task.id);
+      e.dataTransfer.setData("text/plain", task.id);
+      e.dataTransfer.effectAllowed = "move";
     });
   });
 }
-
-function renderLists() {
-  const containers = document.querySelectorAll("#boardContent > div");
-  containers.forEach((container) => {
-    container.innerHTML = "";
-  });
-
-  for (let i = 0; i < arrays.length; i++) {
-    arrays[i].forEach((task) => {
-
-      const subtasks = task.subtasks || {};
-      containers[i].innerHTML += `
-        <div id="task${task.taskIndex}" class="task" draggable="true" onclick="openOverlay(${task.taskIndex})">
-          <p>Category: ${task.category}</p>
-          <h3>${task.title}</h3>
-          <p>${task.description}</p>
-          <p>Due: ${task.dueDate}</p>
-          <p>Priority: ${task.priority}</p>
-          <p>Subtasks: ${Object.values(subtasks)
-            .map((subtask) => subtask.name || subtask)
-            .join(", ")}</p>
-          <p>Assigned to: ${(Array.isArray(task.assignedTo) ? task.assignedTo
-            .map((user) => user.name || user.email)
-            .join(", ") : "None")}</p>
-        </div>
-      `;
-    });
-  }
-
-  containers.forEach((container) => {
-    if (container.innerHTML === "") {
-      container.innerHTML = `<div class="noTasks"><span>No tasks to do</span></div>`;
-    }
-  });
-}
-
-
-let targetIndex = 0;
-
-/*function openOverlay(index) {
-  const addTaskOverlay = document.getElementById("addTaskOverlay");
-  addTaskOverlay.style.display = "flex";
-  targetIndex = index;
-}
-
-function clearInputFields() {
-  const allInputs = document.querySelectorAll(
-    "#addTaskOverlay input, #addTaskOverlay textarea"
-  );
-  allInputs.forEach((input) => (input.value = ""));
-}
-
-function closeOverlay() {
-  const addTaskOverlay = document.getElementById("addTaskOverlay");
-  addTaskOverlay.style.display = "none";
-  clearInputFields();
-}*/
-
-async function addTask() {
-  const addTaskOverlay = document.getElementById("addTaskOverlay");
-  const title = addTaskOverlay.querySelector("#title").value.trim();
-  const dueDate = addTaskOverlay.querySelector("#dueDate").value;
-  const category = addTaskOverlay.querySelector("#category .dropDown span");
-  let inputValid;
-
-  const description = addTaskOverlay.querySelector("#description").value;
-  let priority = addTaskOverlay.querySelector(".selectedPrio");
-  console.log(priority);
-  if (priority == null) {
-    priority = "";
-  }
-
-  if (
-    title != "" &&
-    dueDate != "" &&
-    category.textContent != "Select task category"
-  ) {
-    inputValid = true;
-  } else {
-    inputValid = false;
-  }
-
-  if (!inputValid) {
-    console.log("input invalid");
-    return;
-  } else {
-    const BASE_URL =
-      "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-    const tasks = await fetch(BASE_URL + "/tasks.json").then((res) =>
-      res.json()
-    );
-    let number = (await Object.entries(tasks).length) + 1;
-
-    console.log("input valid, data posted");
-    await postData("tasks", {
-      title: title,
-      description: description,
-      dueDate: dueDate,
-      priority: priority,
-      assignedTo: "",
-      category: category.textContent,
-      subtasks: { task1: "ticked", task2: "unticked" },
-      stage: targetIndex,
-      index: number,
-    });
-  }
-
-  clearInputFields();
-  closeOverlay();
-  fetchData();
-}
-
-async function postData(path, data) {
-  const BASE_URL =
-    "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-  await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-}
-
-function toggleDropMenu(id) {
-  const container = document.getElementById(id);
-  const selection = container.querySelector(".dropSelection");
-  selection.classList.toggle("toggleSelection");
-  const arrow = container.querySelector("i");
-  if (selection.classList.contains("toggleSelection")) {
-    arrow.style.backgroundImage = "url(../images/arrowUp.svg)";
-  } else {
-    arrow.style.backgroundImage = "url(../images/arrowDown.svg)";
-  }
-}
-
-function selectCategory(selected) {
-  const parent = selected.parentElement.parentElement;
-  const inputField = parent.querySelector(".dropDown span");
-  inputField.textContent = selected.textContent;
-  toggleDropMenu(parent.id);
-}
-
-function selectPrio(id) {
-  const prioBtns = document.querySelectorAll("#priorityBtns button");
-  prioBtns.forEach((btn) => {
-    btn.classList.remove("selectedPrio");
-  });
-
-  const selected = document.getElementById(id);
-  selected.classList.add("selectedPrio");
-}}
-
-

@@ -17,12 +17,11 @@
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 
-    <script src="../scripts/board.js"></script>
-
     <script src="../scripts/firebase.js"></script>
-    <script src="../scripts/addTaskDropDown.js"></script>
     <script src="../scripts/templates.js"></script>
     <script src="../scripts/taskOverlay.js"></script>
+    <script src="../scripts/addTaskDropDown.js"></script>
+    <script src="../scripts/board.js"></script>
   </head>
 
   <body>
@@ -76,19 +75,19 @@
         <div id="boardMain">
           <div id="toDoHeader">
             <span>To do</span>
-            <button id="toDoBtn" onclick="openOverlay(0)"></button>
+            <button id="toDoBtn" onclick="createNewTask('todo')"></button>
           </div>
           <div id="inProgressHeader">
             <span>In progress</span>
-            <button id="inProgressBtn" onclick="openOverlay(1)"></button>
+            <button id="inProgressBtn" onclick="createNewTask('inProgress')"></button>
           </div>
           <div id="feedbackHeader">
             <span>Await feedback</span>
-            <button id="feedbackBtn" onclick="openOverlay(2)"></button>
+            <button id="feedbackBtn" onclick="createNewTask('awaitFeedback')"></button>
           </div>
           <div id="doneHeader">
             <span>Done</span>
-            <button id="doneBtn" onclick="openOverlay(3)"></button>
+            <button id="doneBtn" onclick="createNewTask('done')"></button>
           </div>
         </div>
         <div id="boardContent">
@@ -101,7 +100,7 @@
         <div
           id="task-Overlay"
           class="d-none task-overlay"
-          onclick="openOverlay()"
+          onclick="handleOverlayClick(event)"
         ></div>
       </div>
     </main>

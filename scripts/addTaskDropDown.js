@@ -1,21 +1,39 @@
 async function initAssignedDropdown() {
-  const users = await loadFirebaseUsers();
+  try {
+    const opts = document.getElementById("assignedDropdownOptions");
+    if (!opts) return;
+
+    const users = await loadFirebaseUsers();
+    renderDropdownOptions(users);
+    applyUserColors();
+    setupDropdownEventListeners(users);
+  } catch (error) {
+    console.error("Fehler beim Initialisieren des Dropdowns:", error);
+  }
+}
+
+function renderDropdownOptions(users) {
   const opts = document.getElementById("assignedDropdownOptions");
+  if (!opts) return;
+  opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
+}
+
+function setupDropdownEventListeners(users) {
   const sel = document.getElementById("assignedDropdownSelected");
+  const opts = document.getElementById("assignedDropdownOptions");
   const dd = document.getElementById("assignedDropdown");
 
-  opts.innerHTML = "";
-  opts.innerHTML = users.map((u, i) => assignedUserTemplate(u, i)).join("");
+  if (!sel || !opts || !dd) return;
 
-  applyUserColors();
-
-  sel.onclick = (e) => {
+  sel.addEventListener("click", (e) => {
     e.stopPropagation();
     opts.classList.toggle("show");
-  };
+  });
 
   document.addEventListener("click", (e) => {
-    if (!dd.contains(e.target)) opts.classList.remove("show");
+    if (!dd.contains(e.target)) {
+      opts.classList.remove("show");
+    }
   });
 
   opts.addEventListener("change", () => updateAssignedChips(users));
@@ -28,12 +46,10 @@ async function loadFirebaseUsers() {
     const data = await res.json();
     if (!data) return [];
     
-    const users = Object.keys(data).map((id) => ({
+    return Object.keys(data).map((id) => ({
       id,
       ...data[id],
     }));
-
-    return users;
   } catch (e) {
     console.error("Fehler beim Laden der Benutzer aus Firebase:", e);
     return [];
@@ -52,62 +68,44 @@ function applyUserColors() {
 
 function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
+  if (!chipsContainer) return;
+  
   chipsContainer.innerHTML = "";
-
   document.querySelectorAll(".assign-checkbox").forEach((checkbox) => {
     if (checkbox.checked) {
       const userIndex = parseInt(checkbox.dataset.userIndex);
       const user = users[userIndex];
+      if (!user) return;
 
-      const chip = `
+      chipsContainer.innerHTML += `
         <div class="assigned-chip" style="background-color: ${user.color};">
           ${getInitials(user.name || user.email)}
         </div>
       `;
-      chipsContainer.innerHTML += chip;
     }
   });
 }
 
 function getInitials(str) {
+  if (!str) return '?';
+  if (typeof str !== 'string') {
+    if (str.name) return getInitials(str.name);
+    if (str.email) return getInitials(str.email);
+    return '?';
+  }
   return str.split(" ").map(s => s[0].toUpperCase()).join("");
 }
 
-async function loadAndRenderAssignedContacts() {
-  const users = await loadData("login");
-  const opts = document.getElementById("assignedDropdownOptions");
-
-  if (!opts) {
-    console.error("Element with id 'assignedDropdownOptions' not found!");
-    return;
-  }
-  opts.innerHTML = "";
-
-  if (users) {
-    const keys = Object.keys(users);
-    for (let i = 0; i < keys.length; i++) {
-      const id = keys[i];
-      const userData = users[id];
-      const user = { id, ...userData };
-      opts.innerHTML += assignedUserTemplate(user, i);
-    }
-  }
+function getAssignedContacts() {
+  const checkboxes = document.querySelectorAll(".assign-checkbox");
+  return Array.from(checkboxes)
+    .filter(cb => cb.checked)
+    .map(cb => ({
+      id: cb.dataset.userId,
+      name: cb.dataset.userName,
+      email: cb.dataset.userEmail,
+      color: cb.dataset.userColor,
+    }));
 }
-  
-  function getAssignedContacts() {
-    const checkboxes = document.querySelectorAll(".assign-checkbox");
-    const assigned = [];
-    checkboxes.forEach(cb => {
-      if (cb.checked) {
-        assigned.push({
-          id: cb.dataset.userId,
-          name: cb.dataset.userName,
-          email: cb.dataset.userEmail,
-          color: cb.dataset.userColor,
-        });
-      }
-    });
-    return assigned;
-  }
 
 document.addEventListener("DOMContentLoaded", initAssignedDropdown);

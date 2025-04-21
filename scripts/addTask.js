@@ -8,6 +8,8 @@ const priorityButtons = document.querySelectorAll(
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
 
+let activePriorityButton = null;
+
 /**
  * Initializes the task creation page by setting up various UI components and functionalities.
  * - Configures the date picker for task deadlines.
@@ -18,8 +20,6 @@ const categorySelect = document.getElementById("categorySelect");
  */
 function init() {
   setupDatePicker();
-  setupPriorityButtons();
-  loadAndRenderAssignedContacts();
   applyUserColors();
   setupFieldListeners();
   fillDescription();
@@ -41,25 +41,6 @@ function setupDatePicker() {
       dateInput.focus();
     }
   });
-}
-
-/**
- * Sets up event listeners for priority buttons to handle their active state.
- * When a button is clicked, it removes the "active-btn" class from all buttons
- * and adds it to the clicked button, ensuring only one button is active at a time.
- *
- * @function
- * @returns {void}
- */
-function setupPriorityButtons() {
-  for (let i = 0; i < priorityButtons.length; i++) {
-    priorityButtons[i].addEventListener("click", function () {
-      for (let j = 0; j < priorityButtons.length; j++) {
-        priorityButtons[j].classList.remove("active-btn");
-      }
-      this.classList.add("active-btn");
-    });
-  }
 }
 
 async function createTask() {
@@ -110,7 +91,10 @@ function getFormData() {
     priority,
     assignedTo: getAssignedContacts(),
     category: categorySelect.value,
-    subtasks,
+    subtasks: subtasks.map(subtask => ({
+      name: subtask.name,
+      completed: false
+    }))
   };
 }
 
@@ -217,9 +201,6 @@ function clearForm() {
   for (let i = 0; i < priorityButtons.length; i++) {
     priorityButtons[i].classList.remove("active-btn");
   }
-  if (priorityButtons[1]) {
-    priorityButtons[1].classList.add("active-btn");
-  }
 
   if (assignedToSelect) {
     assignedToSelect.selectedIndex = -1;
@@ -243,3 +224,19 @@ function clearFieldErrors() {
     field.classList.remove("fieldIsRequired");
   });
 }
+
+function setPriority(button) {
+  activePriorityButton = button;
+  priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
+  button.classList.add('active-btn');
+}
+
+// Füge einen Event-Listener für Klicks außerhalb der Buttons hinzu
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.priority-buttons')) {
+    if (activePriorityButton) {
+      priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
+      activePriorityButton.classList.add('active-btn');
+    }
+  }
+});

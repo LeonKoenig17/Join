@@ -85,18 +85,15 @@
             <div class="half-width addTask-right">
               <h3 class="h3-priority">Priority</h3>
               <div class="priority-buttons">
-                <button type="button" class="priority priority-urgent">
+                <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
                   Urgent
                   <img src="../images/urgent.svg" alt="Urgent" />
                 </button>
-                <button
-                  type="button"
-                  class="priority priority-medium active-btn"
-                >
+                <button type="button" class="priority priority-medium active-btn" onclick="setPriority(this)">
                   Medium
                   <img src="../images/medium.svg" alt="Medium" />
                 </button>
-                <button type="button" class="priority priority-low">
+                <button type="button" class="priority priority-low" onclick="setPriority(this)">
                   Low
                   <img src="../images/low.svg" alt="Low" />
                 </button>

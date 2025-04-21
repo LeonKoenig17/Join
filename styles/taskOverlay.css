@@ -31,6 +31,7 @@
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -239,21 +240,126 @@
   margin-right: 10px;
   transition: color 0.2s, fill 0.2s, filter 0.2s;
 }
+
 .task-overlay-edit:hover,
 .task-overlay-delete:hover {
   color: var(--hover-color);
 }
-
 .task-overlay-delete:hover img,
 .task-overlay-edit:hover img {
-  filter: brightness(0) saturate(100%) invert(48%) sepia(83%) saturate(748%)
-    hue-rotate(164deg) brightness(96%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(48%) sepia(83%) saturate(748%) hue-rotate(164deg) brightness(96%) contrast(101%);
 }
 
-.task-overlay-delete:hover + #seperator {
+.task-overlay-delete:hover+#seperator {
   display: flex;
 }
 
-.task-overlay-edit:hover ~ #seperator {
+.task-overlay-edit:hover~#seperator {
   display: flex;
+}
+
+/* Task Card Styles */
+.task {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: white;
+  border-radius: 30px;
+  padding: 18px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease-in-out;
+}
+
+.task:hover {
+  transform: scale(1.02);
+}
+
+.task-category {
+  display: inline-block;
+  padding: 4px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.task-description {
+  color: #A8A8A8;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+}
+
+.task-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task-subtasks {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+}
+
+.subtask-progress-container {
+  width: 100%;
+  height: 8px;
+  background: #F4F4F4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.subtask-progress-bar {
+  height: 100%;
+  background: #4589FF;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.subtask-count {
+  color: #A8A8A8;
+  font-size: 12px;
+}
+
+.task-bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.task-assignees {
+  display: flex;
+  gap: -8px;
+}
+
+.task-assignee {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #A8A8A8;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 2px solid white;
+  margin-left: -8px;
+}
+
+.task-assignee:first-child {
+  margin-left: 0;
+}
+
+.task-priority img {
+  width: 18px;
+  height: 18px;
 }

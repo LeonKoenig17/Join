@@ -120,30 +120,23 @@
   transition: all 0.2s ease-in-out;
 }
 
-.priority-urgent:focus {
+.priority-urgent.active-btn {
   background-color: var(--priority-color-urgent);
   color: white;
 }
 
-.priority-urgent:focus img,
-.priority-medium:focus img,
-.priority-low:focus img {
-  filter: brightness(0) invert(1);
-}
-
-.priority-medium:focus {
+.priority-medium.active-btn {
   background-color: var(--priority-color-medium);
   color: white;
 }
 
-.priority-low:focus {
+.priority-low.active-btn {
   background-color: var(--priority-color-low);
   color: white;
 }
 
-.priority-active {
-  border: 2px solid var(--primary-color);
-  color: white;
+.priority.active-btn img {
+  filter: brightness(0) invert(1);
 }
 
 .priority:hover {
