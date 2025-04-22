@@ -11,12 +11,11 @@ const categorySelect = document.getElementById("categorySelect");
 let activePriorityButton = null;
 
 /**
- * Initializes the task creation page by setting up various UI components and functionalities.
- * - Configures the date picker for task deadlines.
- * - Sets up priority buttons for task prioritization.
- * - Loads and renders the list of contacts to assign tasks.
- * - Configures the input for adding subtasks.
- * - Sets up the button to create a new task.
+ * Initialisiert die Anwendung, indem notwendige Komponenten und Event-Listener eingerichtet werden.
+ * - Konfiguriert den Date-Picker für die Aufgabenplanung.
+ * - Wendet benutzerspezifische Farbthemen an.
+ * - Richtet Event-Listener für Eingabefelder ein.
+ * - Füllt das Beschreibungsfeld mit Standard- oder vorab geladenem Inhalt.
  */
 function init() {
   setupDatePicker();
@@ -61,62 +60,169 @@ async function createTask() {
   }
 }
 
+/**
+ * Sammelt und validiert Formulardaten und erstellt ein Objekt mit den Aufgabendetails.
+ *
+ * @returns {Object|null} Ein Objekt mit den Aufgabendetails, wenn das Formular gültig ist, oder `null`, wenn die Validierung fehlschlägt.
+ * @property {string} title - Der Titel der Aufgabe.
+ * @property {string} description - Eine detaillierte Beschreibung der Aufgabe.
+ * @property {string} dueDate - Das Fälligkeitsdatum der Aufgabe im String-Format.
+ * @property {string} priority - Die Prioritätsstufe der Aufgabe (z. B. "Hoch", "Mittel", "Niedrig").
+ * @property {Array<string>} assignedTo - Ein Array von Kontakten, die der Aufgabe zugewiesen sind.
+ * @property {string} category - Die Kategorie der Aufgabe.
+ * @property {Array<Object>} subtasks - Ein Array von Unteraufgaben, die jeweils als Objekt dargestellt werden.
+ */
 function getFormData() {
-  const titleInput = document.getElementById("title");
-  const descriptionInput = document.getElementById("description");
-  const dateInput = document.getElementById("due-date");
-  const categorySelect = document.getElementById("categorySelect");
-  const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+  const formElements = getFormElements();
+  if (!validateFormElements(formElements)) return null;
 
-  if (!titleInput || !descriptionInput || !dateInput || !categorySelect || priorityButtons.length === 0) {
-    console.error("Ein oder mehrere Formularelemente fehlen.");
-    return null; // Oder du kannst eine Standardantwort zurückgeben
-  }
-
-  const title = titleInput.value.trim();
-  const description = descriptionInput.value.trim();
-  const dueDate = dateInput.value.trim();
-  let priority = "";
-
-  for (let i = 0; i < priorityButtons.length; i++) {
-    if (priorityButtons[i].classList.contains("active-btn")) {
-      priority = priorityButtons[i].textContent.trim();
-      break;
-    }
-  }
-
-  // Überprüfen, ob die Kategorie ausgewählt wurde
-  const category = categorySelect.value;
-  if (!category || category === "Select task category") {
-    console.error("Die Kategorie muss ausgewählt werden.");
-    return null;
-  }
+  const { title, description, dueDate, category } = getFormValues(formElements);
+  const priority = getActivePriority();
+  const assignedTo = getAssignedContacts();
+  const subtasksData = getSubtasksData();
 
   return {
     title,
     description,
     dueDate,
     priority,
-    assignedTo: getAssignedContacts(),
+    assignedTo,
     category,
-    subtasks: subtasks.map(subtask => ({
-      name: subtask.name,
-      completed: false
-    }))
+    subtasks: subtasksData,
   };
 }
 
+
+/**
+ * Extrahiert und validiert Formularwerte aus dem bereitgestellten Elemente-Objekt.
+ *
+ * @param {Object} elements - Ein Objekt, das die Formulareingabeelemente enthält.
+ * @param {HTMLInputElement} elements.titleInput - Das Eingabefeld für den Aufgabentitel.
+ * @param {HTMLInputElement} elements.descriptionInput - Das Eingabefeld für die Aufgabenbeschreibung.
+ * @param {HTMLInputElement} elements.dateInput - Das Eingabefeld für das Fälligkeitsdatum der Aufgabe.
+ * @param {HTMLSelectElement} elements.categorySelect - Das Auswahlfeld für die Aufgaben-Kategorie.
+ * @returns {Object|null} Ein Objekt mit den extrahierten Formularwerten 
+ *                        ({ title, description, dueDate, category }), falls gültig, 
+ *                        oder `null`, wenn die Kategorie ungültig ist.
+ */
+function getFormValues(elements) {
+  const { titleInput, descriptionInput, dateInput, categorySelect } = elements;
+
+  const title = titleInput.value.trim();
+  const description = descriptionInput.value.trim();
+  const dueDate = dateInput.value.trim();
+  const category = categorySelect.value;
+
+  if (!category || category === "Select task category") {
+    console.error("Die Kategorie muss ausgewählt werden.");
+    return null;
+  }
+
+  return { title, description, dueDate, category };
+}
+
+/**
+ * Ruft Formularelemente aus dem DOM für die Aufgabenerstellung ab.
+ * 
+ * @returns {Object} Ein Objekt, das Referenzen zu den folgenden Formularelementen enthält:
+ * - `titleInput` {HTMLInputElement}: Das Eingabefeld für den Aufgabentitel.
+ * - `descriptionInput` {HTMLInputElement}: Das Eingabefeld für die Aufgabenbeschreibung.
+ * - `dateInput` {HTMLInputElement}: Das Eingabefeld für das Fälligkeitsdatum der Aufgabe.
+ * - `categorySelect` {HTMLSelectElement}: Das Dropdown-Menü zur Auswahl einer Aufgaben-Kategorie.
+ * - `priorityButtons` {NodeListOf<Element>}: Eine Sammlung von Schaltflächen für die Priorität.
+ */
+function getFormElements() {
+  return {
+    titleInput: document.getElementById("title"),
+    descriptionInput: document.getElementById("description"),
+    dateInput: document.getElementById("due-date"),
+    categorySelect: document.getElementById("categorySelect"),
+    priorityButtons: document.querySelectorAll(".priority-buttons .priority"),
+  };
+}
+
+/**
+ * Überprüft die Anwesenheit der erforderlichen Formularelemente.
+ *
+ * @param {Object} elements - Ein Objekt, das die zu überprüfenden Formularelemente enthält.
+ * @param {HTMLInputElement} elements.titleInput - Das Eingabefeld für den Aufgabentitel.
+ * @param {HTMLInputElement} elements.descriptionInput - Das Eingabefeld für die Aufgabenbeschreibung.
+ * @param {HTMLInputElement} elements.dateInput - Das Eingabefeld für das Fälligkeitsdatum der Aufgabe.
+ * @param {HTMLSelectElement} elements.categorySelect - Das Auswahlfeld für die Aufgaben-Kategorie.
+ * @param {HTMLInputElement[]} elements.priorityButtons - Ein Array von Eingabeelementen, die die Prioritätsschaltflächen darstellen.
+ * @returns {boolean} Gibt `true` zurück, wenn alle erforderlichen Elemente vorhanden sind, andernfalls `false`.
+ */
+function validateFormElements(elements) {
+  const { titleInput, descriptionInput, dateInput, categorySelect, priorityButtons } = elements;
+
+  if (!titleInput || !descriptionInput || !dateInput || !categorySelect || priorityButtons.length === 0) {
+    console.error("Ein oder mehrere Formularelemente fehlen.");
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Ruft den Textinhalt der aktuell aktiven Prioritätsschaltfläche ab.
+ *
+ * Diese Funktion wählt alle Elemente mit der Klasse "priority" innerhalb des Containers 
+ * mit der Klasse "priority-buttons" aus. Sie überprüft jede Schaltfläche, ob sie die 
+ * Klasse "active-btn" besitzt, und gibt in diesem Fall ihren getrimmten Textinhalt zurück. 
+ * Wenn keine Schaltfläche aktiv ist, wird ein leerer String zurückgegeben.
+ *
+ * @returns {string} Der Textinhalt der aktiven Prioritätsschaltfläche oder ein leerer String, wenn keine aktiv ist.
+ */
+function getActivePriority() {
+  const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+  for (let i = 0; i < priorityButtons.length; i++) {
+    if (priorityButtons[i].classList.contains("active-btn")) {
+      return priorityButtons[i].textContent.trim();
+    }
+  }
+  return "";
+}
+
+/**
+ * Ruft ein Array von Unteraufgaben mit ihren Namen und einem standardmäßigen Abschlussstatus ab.
+ *
+ * @returns {Array<Object>} Ein Array von Objekten, die Unteraufgaben darstellen, 
+ * jeweils mit:
+ *   - `name` {string}: Der Name der Unteraufgabe.
+ *   - `completed` {boolean}: Der Abschlussstatus der Unteraufgabe, standardmäßig `false`.
+ */
+function getSubtasksData() {
+  return subtasks.map((subtask) => ({
+    name: subtask.name,
+    completed: false,
+  }));
+}
+
+/**
+ * Ruft ein Array von Unteraufgaben mit ihren Namen und einem standardmäßigen Abschlussstatus ab.
+ *
+ * @returns {Array<Object>} Ein Array von Objekten, die Unteraufgaben darstellen, 
+ * jeweils mit:
+ *   - `name` {string}: Der Name der Unteraufgabe.
+ *   - `completed` {boolean}: Der Abschlussstatus der Unteraufgabe, standardmäßig `false`.
+ */
+function getSubtasksData() {
+  return subtasks.map((subtask) => ({
+    name: subtask.name,
+    completed: false,
+  }));
+}
+
+/** validateFormData(data) Muss noch runtergebrochen werden */
+
+
 function validateFormData(data) {
-  // Abrufen der Formularelemente innerhalb der Funktion
   const titleInput = document.getElementById("title");
   const descriptionInput = document.getElementById("description");
   const dateInput = document.getElementById("due-date");
   const categorySelect = document.getElementById("categorySelect");
 
-  // Überprüfe, ob alle Elemente vorhanden sind
   if (!titleInput || !descriptionInput || !dateInput || !categorySelect) {
-    console.error("Ein oder mehrere Formularelemente fehlen.");
-    return false;  // Falls eines der Elemente fehlt, stoppen wir die Validierung
+    return false;
   }
 
   let isValid = true;
@@ -164,19 +270,6 @@ function validateFormData(data) {
   return isValid;
 }
 
-/**
- * Sets up event listeners for input fields to handle validation and styling.
- * 
- * This function adds `focus` and `blur` event listeners to a predefined set of fields.
- * - On `focus`, it tracks if the field has been interacted with and removes validation styling if applicable.
- * - On `blur`, it validates the field's value and applies or removes a "fieldIsRequired" class based on the input's validity.
- * 
- * Fields include:
- * - `titleInput`: The input field for the task title.
- * - `descriptionInput`: The input field for the task description.
- * - `dateInput`: The input field for the task date.
- * - `categorySelect`: The dropdown for selecting a task category.
- */
 function setupFieldListeners() {
   const fields = [titleInput, dateInput, categorySelect];
 
@@ -251,7 +344,6 @@ function setPriority(button) {
   button.classList.add('active-btn');
 }
 
-// Füge einen Event-Listener für Klicks außerhalb der Buttons hinzu
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.priority-buttons')) {
     if (activePriorityButton) {
