@@ -29,7 +29,7 @@ function showAddTaskOverlay() {
         initPriorityButtons();
         initAssignedDropdown();
         initSubtaskUI(); 
-        setupDatePicker();;
+        setupDatePicker();
         setupSubtaskListeners();
         
     }
