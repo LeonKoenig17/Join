@@ -206,13 +206,17 @@
   color: white;
 }
 
-#subtasks, #dueDateContainer {
+#subtasks {
   padding: 0;
   border: none;
   position: relative;
 }
 
-#subtasks input, #dueDateContainer input {
+#subtasks *:hover {
+  cursor: pointer;
+}
+
+#subtasks input {
   margin: 0;
   width: 100%;
 }
@@ -246,35 +250,5 @@
 }
 
 #subtaskCross, #subtaskCheck {
-  display: none;
-}
-
-.addedSub {
-  display: flex;
-  align-items: center;
-  position: relative;
-  border-radius: 10px;
-  margin-top: 5px;
-}
-
-.addedSub span {
-  width: 100%;
-  padding: 5px 14px;
-}
-
-.addedSub input {
-  display: none;
-  height: 0;
-  width: 100%;
-  background: none;
-  border: none !important;
-  margin: 0 !important;
-}
-
-#addedSubBtns {
-  visibility: hidden;
-}
-
-#addedSubConfirm {
   display: none;
 }

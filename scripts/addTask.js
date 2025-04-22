@@ -1,4 +1,3 @@
-// Alle globalen Variablen und DOM-Elemente
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const dateInput = document.getElementById("due-date");
@@ -8,6 +7,8 @@ const priorityButtons = document.querySelectorAll(
 );
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
+
+let activePriorityButton = null;
 
 /**
  * Initializes the task creation page by setting up various UI components and functionalities.
@@ -19,11 +20,9 @@ const categorySelect = document.getElementById("categorySelect");
  */
 function init() {
   setupDatePicker();
-  setupPriorityButtons();
-  loadAndRenderAssignedContacts();
   applyUserColors();
-  setupCreateTaskButton();
   setupFieldListeners();
+  fillDescription();
 }
 
 /**
@@ -44,34 +43,19 @@ function setupDatePicker() {
   });
 }
 
-/**
- * Sets up event listeners for priority buttons to handle their active state.
- * When a button is clicked, it removes the "active-btn" class from all buttons
- * and adds it to the clicked button, ensuring only one button is active at a time.
- *
- * @function
- * @returns {void}
- */
-function setupPriorityButtons() {
-  for (let i = 0; i < priorityButtons.length; i++) {
-    priorityButtons[i].addEventListener("click", function () {
-      for (let j = 0; j < priorityButtons.length; j++) {
-        priorityButtons[j].classList.remove("active-btn");
-      }
-      this.classList.add("active-btn");
-    });
-  }
-}
-
 async function createTask() {
   const data = getFormData();
   if (!validateFormData(data)) {
     return;
   }
+
+  data.taskIndex = Date.now();
+  data.stage = 0;
+
   try {
     await postData("tasks", data);
     clearForm();
-    window.location.href = "board.html"; // Weiterleitung zur board.html
+    window.location.href = "board.html";
   } catch (err) {
     console.error("Fehler:", err);
   }
@@ -107,7 +91,10 @@ function getFormData() {
     priority,
     assignedTo: getAssignedContacts(),
     category: categorySelect.value,
-    subtasks,
+    subtasks: subtasks.map(subtask => ({
+      name: subtask.name,
+      completed: false
+    }))
   };
 }
 
@@ -157,10 +144,29 @@ function validateFormData(data) {
   return isValid;
 }
 
+/**
+ * Sets up event listeners for input fields to handle validation and styling.
+ * 
+ * This function adds `focus` and `blur` event listeners to a predefined set of fields.
+ * - On `focus`, it tracks if the field has been interacted with and removes validation styling if applicable.
+ * - On `blur`, it validates the field's value and applies or removes a "fieldIsRequired" class based on the input's validity.
+ * 
+ * Fields include:
+ * - `titleInput`: The input field for the task title.
+ * - `descriptionInput`: The input field for the task description.
+ * - `dateInput`: The input field for the task date.
+ * - `categorySelect`: The dropdown for selecting a task category.
+ */
 function setupFieldListeners() {
-  const fields = [titleInput, descriptionInput, dateInput, categorySelect];
+  const fields = [titleInput, dateInput, categorySelect];
 
   fields.forEach((field) => {
+    let fieldClicked = false;
+
+    field.addEventListener("focus", () => {
+      fieldClicked = true;
+    });
+
     field.addEventListener("blur", () => {
       if (
         (field === categorySelect && field.value === "Select task category") ||
@@ -169,58 +175,68 @@ function setupFieldListeners() {
         field.classList.add("fieldIsRequired");
       } else {
         field.classList.remove("fieldIsRequired");
-        field.nextElementSibling.textContent = ""; // Clear error message
+        field.nextElementSibling.textContent = "";
+      }
+    });
+
+    field.addEventListener("focus", () => {
+      if (fieldClicked) {
+        field.classList.remove("fieldIsRequired");
       }
     });
   });
 }
 
-document.getElementById("description").addEventListener("click", function () {
-  document.getElementById("category-error").textContent = "";
-  this.textContent = "Create a contact form and imprint page.";
-});
+function fillDescription() {
+  descriptionInput.addEventListener("click", () => {
+    descriptionInput.value = "Create a contact form and imprint page.";
+  });
+}
 
-dateInput.addEventListener("change", function () {
-  if (dateInput.value) {
-    // Entferne die rote Border (über die CSS-Klasse)
-    dateInput.classList.remove("fieldIsRequired");
-
-    document.getElementById("due-date-error").textContent = "";
-
-    dateInput.style.borderColor = "var(--border-color)";
-  }
-});
-
-/**
- * Clears the task form by resetting all input fields, selections, and states.
- * - Resets the title and description input fields to empty strings.
- * - Clears the date input field.
- * - Removes the "active-btn" class from all priority buttons and sets the second button as active if it exists.
- * - Resets the "Assigned To" and "Category" dropdowns to their default selections if they exist.
- * - Empties the subtasks array and updates the subtask list display.
- */
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   dateInput.value = "";
+
   for (let i = 0; i < priorityButtons.length; i++) {
     priorityButtons[i].classList.remove("active-btn");
   }
-  if (priorityButtons[1]) {
-    priorityButtons[1].classList.add("active-btn");
-  }
+
   if (assignedToSelect) {
     assignedToSelect.selectedIndex = -1;
   }
   if (categorySelect) {
     categorySelect.selectedIndex = 0;
   }
+
+  clearFieldErrors();
   updateSubtaskList();
 }
 
-function setupCreateTaskButton() {
-  const createTaskBtn = document.querySelector(".create-button");
-  createTaskBtn.addEventListener("click", function (e) {
-    e.preventDefault();
+function clearFieldErrors() {
+  document.getElementById("title-error").textContent = "";
+  document.getElementById("description-error").textContent = "";
+  document.getElementById("due-date-error").textContent = "";
+  document.getElementById("category-error").textContent = "";
+
+  const inputFields = [titleInput, descriptionInput, dateInput, categorySelect];
+  inputFields.forEach((field) => {
+    field.classList.remove("fieldIsRequired");
   });
 }
+
+function setPriority(button) {
+  activePriorityButton = button;
+  priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
+  button.classList.add('active-btn');
+}
+
+// Füge einen Event-Listener für Klicks außerhalb der Buttons hinzu
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.priority-buttons')) {
+    if (activePriorityButton) {
+      priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
+      activePriorityButton.classList.add('active-btn');
+    }
+  }
+});

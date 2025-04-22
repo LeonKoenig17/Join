@@ -1,43 +1,48 @@
-#boardHeader {
+:root {
+    --column-width: 287px;
+  }
+  
+  /* Grundlayout */
+  #mainContent {
+    width: 1200px;
+    padding: 64px;
+  }
+  
+  #boardHeader {
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
-}
-
-#boardHeader h2 {
+  }
+  #boardHeader h2 {
     font-size: 60px;
-}
-
-#boardHeader > div {
+  }
+  #boardHeader > div {
     display: flex;
     align-items: center;
-}
-
-#boardHeader > div * {
+  }
+  #boardHeader > div * {
     font-size: 20px;
     cursor: pointer;
-}
-
-#searchInput {
+  }
+  
+  /* Suchfeld */
+  #searchInput {
     background-color: white;
     padding: 10px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     display: flex;
-}
-
-#searchInput * {
+  }
+  #searchInput * {
     border: none;
     background-color: white;
-}
-
-#searchInput input {
+  }
+  #searchInput input {
     border-right: 1px solid #D1D1D1;
     width: 250px;
     outline: none;
-}
-
-#searchInput button {
+  }
+  #searchInput button {
     border-radius: 100%;
     width: 32px;
     height: 32px;
@@ -45,13 +50,11 @@
     justify-content: center;
     align-items: center;
     margin-left: 10px;
-}
-
-#searchInput button:hover {
+  }
+  #searchInput button:hover {
     background-color: lightgrey;
-}
-
-#searchInput img {
+  }
+  #searchInput img {
     padding: 5px;
     background: none;
 }
@@ -112,75 +115,62 @@
 }
 
 
-
-
-
-
-#boardMain {
+  /* Spalten-Header */
+  #boardMain {
     display: flex;
     justify-content: space-between;
     gap: 24px;
-}
-
-#boardMain > div {
+  }
+  #boardMain > div {
+    flex: 0 0 var(--column-width);
+    width: var(--column-width);
+    position: relative;
     font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
     padding-bottom: 14px;
-}
-
-#boardMain > div span {
+  }
+  #boardMain > div span {
     color: #42526E;
     font-weight: bold;
-}
-
-#boardMain > div button {
-    background: none;
-    border: none;
-    background-image: url(../images/taskPlus.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-}
-
-#boardMain > div button:hover {
-    background-image: url(../images/taskPlusHover.svg);
-    cursor: pointer;
-}
-
-
-
-
-
-
-
-#boardContent {
+  }
+  
+  /* Spalten-Inhalt */
+  #boardContent {
     display: flex;
     justify-content: space-between;
     gap: 24px;
-}
-
-#boardContent > div {
-    width: 100%;
+  }
+  #boardContent > div {
+    flex: 0 0 var(--column-width);
+    width: var(--column-width);
     min-height: 500px;
-    background-color: white;
-}
-
-.noTasks {
+    position: relative;  /* für Content-Buttons */
+    padding-top: 40px;
+  }
+  
+  /* Kein-Task-Platzhalter */
+  .noTasks {
     text-align: center;
     background-color: #E7E7E7;
     color: #A8A8A8;
     padding: 14px 0;
     border-radius: 10px;
     border: 1px dashed #A8A8A8;
-}
-
-.task {
-    background-color: lightblue;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 230px;
-}
+  }
+  
+  /* Plus-Button (Add-Task) */
+  .add-task {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: url("../images/taskPlus.svg") no-repeat center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .add-task:hover {
+    background-image: url("../images/taskPlusHover.svg");
+  }
+  
