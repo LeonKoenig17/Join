@@ -267,7 +267,7 @@ function editOverlayTemplate(task) {
 function addTaskOverlayTemplate() {
   return `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
-      <div class="task-card">
+      <div class="add-task-card ">
         <div class="task-header">
           <div class="user-story-label task-category">Add Task</div>
           <button class="close-btn" onclick="closeOverlay()"><img src="../images/close.svg" alt="close"></button>

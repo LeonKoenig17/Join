@@ -11,6 +11,15 @@
   z-index: 100;
 }
 
+.add-task-card {
+  width: 850px !important;
+  background-color: #ffffff;
+  padding: 48px 40px;
+  border-radius: 30px;
+  animation: slideInFromRight 0.5s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .task-card {
   display: flex;
   flex-direction: column;
@@ -105,19 +114,6 @@
 .detail-value {
   color: #2A3647;
   font-size: 20px;
-}
-
-.priority-badge {
-  padding: 4px 16px;
-  border-radius: 8px;
-  background: #FFA800;
-  color: white;
-  text-transform: capitalize;
-  font-size: 20px;
-}
-
-.priority-badge.medium {
-  background: #FFA800;
 }
 
 .assigned-to {
