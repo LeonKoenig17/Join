@@ -1,19 +1,24 @@
+// board.js
+
 let toDoArray = [];
 let inProgressArray = [];
 let awaitFeedbackArray = [];
 let doneArray = [];
 
-const firebaseTasks = [];
 const arrays = [toDoArray, inProgressArray, awaitFeedbackArray, doneArray];
-const noTaskHtml = `
-    <div class="noTasks">
-        <span>No tasks To do</span>
-    </div>
-`;
+const noTaskHtml = '\
+    <div class="noTasks">\
+        <span>No tasks To do</span>\
+    </div>\
+';
 
-window.onload = async () => {
-  await initBoard();
-  await renderLists();
+/**
+ * Lädt und rendert das Board beim Seiten-Load.
+ */
+window.onload = function() {
+  initBoard().then(function() {
+    return renderLists();
+  });
 };
 
 const inputField = document.querySelector("#subtasks input");
@@ -22,8 +27,8 @@ const cross = document.getElementById("subtaskCross");
 const check = document.getElementById("subtaskCheck");
 
 if (inputField) {
-  inputField.addEventListener("input", () => {
-    if (inputField.value.trim() != "") {
+  inputField.addEventListener("input", function() {
+    if (inputField.value.trim() !== "") {
       plus.style.display = "none";
       cross.style.display = "unset";
       check.style.display = "unset";
@@ -35,39 +40,43 @@ if (inputField) {
   });
 }
 
+/**
+ * Aktualisiert die Stage eines Tasks in Firebase.
+ */
 async function updateStage(container, taskId) {
   const newStage = getStageFromContainer(container.id);
-
-  const BASE_URL =
-    "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-  const tasks = await fetch(BASE_URL + "/tasks.json").then((res) => res.json());
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+  const tasksResponse = await fetch(BASE_URL + "/tasks.json");
+  const tasks = await tasksResponse.json();
 
   let targetKey = null;
-
-  for (const [key, task] of Object.entries(tasks)) {
-    if (task.taskIndex === parseInt(taskId)) {
-      targetKey = key;
-      break;
+  for (const key in tasks) {
+    if (Object.prototype.hasOwnProperty.call(tasks, key)) {
+      if (tasks[key].taskIndex === parseInt(taskId, 10)) {
+        targetKey = key;
+        break;
+      }
     }
   }
 
   if (targetKey) {
-    const targetURL = `${BASE_URL}/tasks/${targetKey}.json`;
+    const targetURL = BASE_URL + "/tasks/" + targetKey + ".json";
     const task = tasks[targetKey];
     task.stage = newStage;
 
     await fetch(targetURL, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(task),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task)
     });
 
     await fetchData();
   }
 }
 
+/**
+ * Wandelt Container-ID in Stage-Index um.
+ */
 function getStageFromContainer(containerId) {
   switch (containerId) {
     case "toDo":
@@ -83,135 +92,156 @@ function getStageFromContainer(containerId) {
   }
 }
 
+/**
+ * Ruft alle Tasks aus Firebase ab und füllt die Arrays.
+ */
 async function fetchData() {
-  const BASE_URL =
-    "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-  const tasks = await fetch(BASE_URL + "/tasks.json").then((res) => res.json());
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+  const res = await fetch(BASE_URL + "/tasks.json");
+  const tasks = await res.json();
 
-  arrays.forEach((array) => (array.length = 0));
+  // Arrays leeren
+  for (let i = 0; i < arrays.length; i++) {
+    arrays[i].length = 0;
+  }
 
   if (tasks) {
-    Object.entries(tasks).forEach(([key, task]) => {
-      const taskData = {
-        id: key,
-        ...task,
-      };
-
-      if (task.stage != null) {
-        arrays[task.stage].push(taskData);
+    for (const key in tasks) {
+      if (Object.prototype.hasOwnProperty.call(tasks, key)) {
+        const task = tasks[key];
+        if (task.stage != null) {
+          const taskData = {
+            id: key,
+            taskIndex: task.taskIndex,
+            category: task.category,
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
+            assignedTo: task.assignedTo,
+            subtasks: task.subtasks,
+            stage: task.stage
+          };
+          arrays[task.stage].push(taskData);
+        }
       }
-    });
+    }
   }
 
   renderLists();
 }
 
 /**
- * Initialisiert das Board
+ * Initialisiert das Board.
  */
 async function initBoard() {
-    await fetchData();
-    setupEventListeners();
+  await fetchData();
+  setupEventListeners();
 }
 
 /**
- * Setzt Event-Listener für das Board
+ * Setzt Drag & Drop und Button-Listener.
  */
 function setupEventListeners() {
   const containers = document.querySelectorAll("#boardContent > div");
-  containers.forEach((container) => {
-    container.addEventListener("dragover", (e) => {
+  for (let i = 0; i < containers.length; i++) {
+    const container = containers[i];
+
+    container.addEventListener("dragover", function(e) {
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
     });
-    
-    container.addEventListener("drop", async (e) => {
-      e.preventDefault();
-      const id = e.dataTransfer.getData("text/plain");
-      console.log("Dropped task:", id);
-      const taskId = parseInt(id.replace("task", ""));
-      await updateStage(container, taskId);
-    });
-  });
 
-  // Event-Listener für den "Add Task" Button
-  const addTaskBtn = document.getElementById('addTaskBtn');
+    container.addEventListener("drop", function(e) {
+      e.preventDefault();
+      const rawId = e.dataTransfer.getData("text/plain");
+      const taskId = parseInt(rawId.replace("task", ""), 10);
+      updateStage(container, taskId);
+    });
+  }
+
+  const addTaskBtn = document.getElementById("addTaskBtn");
   if (addTaskBtn) {
-    addTaskBtn.addEventListener('click', () => createNewTask('todo'));
+    addTaskBtn.addEventListener("click", function() {
+      createNewTask("todo");
+    });
   }
 }
 
+/**
+ * Rendert alle vier Spalten des Boards.
+ */
 async function renderLists() {
-    const containers = document.querySelectorAll("#boardContent > div");
-    containers.forEach((container) => {
-        container.innerHTML = "";
-    });
+  const containers = document.querySelectorAll("#boardContent > div");
+  for (let i = 0; i < containers.length; i++) {
+    containers[i].innerHTML = "";
+  }
 
-    for (let i = 0; i < arrays.length; i++) {
-        arrays[i].forEach((task) => {
-            const taskData = {
-                id: task.id,
-                taskIndex: task.taskIndex || Date.now(), // Stelle sicher, dass taskIndex existiert
-                category: task.category || 'User Story',
-                title: task.title || '',
-                description: task.description || '',
-                dueDate: task.dueDate || new Date().toISOString().split('T')[0],
-                priority: task.priority || 'Medium',
-                assignedTo: task.assignedTo || [],
-                subtasks: task.subtasks ? Object.values(task.subtasks).map((subtask, index) => ({
-                    id: 'subtask-' + index,
-                    text: subtask.name || subtask,
-                    completed: subtask === 'ticked'
-                })) : [],
-                status: getStatusFromColumnIndex(task.stage || 0)
-            };
-
-            containers[i].innerHTML += generateTaskCard(taskData);
-        });
+  // Tasks in Spalten einfügen
+  for (let column = 0; column < arrays.length; column++) {
+    const list = arrays[column];
+    for (let j = 0; j < list.length; j++) {
+      const task = list[j];
+      const taskData = {
+        id: task.id,
+        taskIndex: task.taskIndex || Date.now(),
+        category: task.category || "User Story",
+        title: task.title || "",
+        description: task.description || "",
+        dueDate: task.dueDate || new Date().toISOString().split("T")[0],
+        priority: task.priority || "Medium",
+        assignedTo: task.assignedTo || [],
+        subtasks: task.subtasks || [],
+        status: getStatusFromColumnIndex(task.stage || 0)
+      };
+      containers[column].innerHTML += generateTaskCard(taskData);
     }
+  }
 
-    containers.forEach((container) => {
-        if (container.innerHTML === "") {
-            container.innerHTML = `<div class="noTasks"><span>No tasks to do</span></div>`;
-        }
-    });
-
-    // Füge Drag & Drop Funktionalität hinzu
-    addDragFunction();
-    
-    // Wende die Benutzerfarben an
-    await applyUserColors();
-}
-
-async function applyUserColors() {
-    try {
-        const users = await loadUsers();
-        const userElements = document.querySelectorAll('.task-assignee');
-        
-        userElements.forEach(element => {
-            const userId = element.dataset.userId;
-            const user = users.find(u => u.id === userId);
-            if (user) {
-                element.style.backgroundColor = user.color;
-            }
-        });
-    } catch (error) {
-        console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  for (let i = 0; i < containers.length; i++) {
+    if (containers[i].innerHTML === "") {
+      containers[i].innerHTML = '<div class="noTasks"><span>No tasks to do</span></div>';
     }
+  }
+
+  addDragFunction();
+  await applyUserColors();
 }
 
 /**
- * Erstellt einen neuen Task mit Standardwerten
- * @param {string} status - Der Status des neuen Tasks
+ * Wendet User-Farben auf Task-Avatare an.
+ */
+async function applyUserColors() {
+  try {
+    const users = await loadUsers();
+    const userEls = document.querySelectorAll(".task-assignee");
+
+    for (let i = 0; i < userEls.length; i++) {
+      const el = userEls[i];
+      const userId = el.getAttribute("data-user-id");
+      for (let j = 0; j < users.length; j++) {
+        if (users[j].id === userId) {
+          el.style.backgroundColor = users[j].color;
+          break;
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  }
+}
+
+/**
+ * Erstellt einen neuen Task und zeigt das Overlay.
  */
 function createNewTask(status) {
   const taskData = {
     id: Date.now().toString(),
-    category: 'User Story',
-    title: 'Neue Aufgabe',
-    description: '',
-    dueDate: new Date().toISOString().split('T')[0],
-    priority: 'Medium',
+    category: "User Story",
+    title: "Neue Aufgabe",
+    description: "",
+    dueDate: new Date().toISOString().split("T")[0],
+    priority: "Medium",
     assignedTo: [],
     subtasks: [],
     status: status
@@ -220,28 +250,30 @@ function createNewTask(status) {
 }
 
 /**
- * Konvertiert den Spaltenindex in einen Status-String
- * @param {number} columnIndex - Der Index der Spalte
- * @returns {string} Der entsprechende Status
+ * Wandelt Spaltenindex in Status-String um.
  */
 function getStatusFromColumnIndex(columnIndex) {
   const statusMap = {
-    0: 'todo',
-    1: 'inProgress',
-    2: 'awaitFeedback',
-    3: 'done'
+    0: "todo",
+    1: "inProgress",
+    2: "awaitFeedback",
+    3: "done"
   };
-  return statusMap[columnIndex] || 'todo';
+  return statusMap[columnIndex] || "todo";
 }
 
+/**
+ * Macht alle Task-Elemente draggable.
+ */
 function addDragFunction() {
   const tasks = document.querySelectorAll(".task");
-  tasks.forEach((task) => {
-    task.setAttribute('draggable', 'true');
-    task.addEventListener("dragstart", (e) => {
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    task.setAttribute("draggable", "true");
+    task.addEventListener("dragstart", function(e) {
       console.log("Drag started for task:", task.id);
       e.dataTransfer.setData("text/plain", task.id);
       e.dataTransfer.effectAllowed = "move";
     });
-  });
+  }
 }

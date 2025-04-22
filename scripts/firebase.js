@@ -67,34 +67,52 @@ async function deleteData(path = "") {
 
 async function loadUsers() {
     try {
-        const users = await loadData("login");
-        if (!users) return [];
-        
-        return Object.entries(users).map(([id, user]) => ({
-            id,
+      const usersObj = await loadData("login");
+      const result = [];
+  
+      if (!usersObj) {
+        return result;
+      }
+  
+      for (const id in usersObj) {
+        if (Object.prototype.hasOwnProperty.call(usersObj, id)) {
+          const user = usersObj[id];
+          const color = user.color || '#A8A8A8';
+  
+          result.push({
+            id: id,
             name: user.name || '',
             email: user.email || '',
-            color: user.color || '#A8A8A8'  // Verwende die gespeicherte Farbe oder Standard
-        }));
+            color: color
+          });
+        }
+      }
+  
+      return result;
     } catch (error) {
-        console.error("Fehler beim Laden der Benutzer:", error);
-        return [];
+      console.error("Fehler beim Laden der Benutzer:", error);
+      return [];
     }
-}
+  }
 
-async function applyUserColors() {
+  async function applyUserColors() {
     try {
-        const users = await loadUsers();
-        const userElements = document.querySelectorAll('.task-assignee');
-        
-        userElements.forEach(element => {
-            const userId = element.dataset.userId;
-            const user = users.find(u => u.id === userId);
-            if (user) {
-                element.style.backgroundColor = user.color;
-            }
-        });
+      const users = await loadUsers();
+      const userElements = document.querySelectorAll('.task-assignee');
+  
+      // NodeList direkt mit forEach und klassischer Funktion
+      userElements.forEach(function(el) {
+        const userId = el.getAttribute('data-user-id');
+  
+        // klassische for-of Schleife
+        for (const user of users) {
+          if (user.id === userId) {
+            el.style.backgroundColor = user.color;
+            break;
+          }
+        }
+      });
     } catch (error) {
-        console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+      console.error("Fehler beim Anwenden der Benutzerfarben:", error);
     }
-}
+  }
