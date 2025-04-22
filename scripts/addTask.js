@@ -25,15 +25,15 @@ function init() {
   fillDescription();
 }
 
-/**
- * Sets up a date picker functionality by adding an event listener to the picker icon.
- * When the picker icon is clicked, it either shows the date picker (if supported)
- * or focuses on the date input field as a fallback.
- *
- * @function
- * @throws {TypeError} If `pickerIcon` or `dateInput` is not defined.
- */
 function setupDatePicker() {
+  const dateInput = document.getElementById("due-date");
+  const pickerIcon = document.querySelector(".custom-date-input img");
+
+  if (!dateInput || !pickerIcon) {
+    console.error("Date input or picker icon not found");
+    return;
+  }
+
   pickerIcon.addEventListener("click", function () {
     if (dateInput.showPicker) {
       dateInput.showPicker();
@@ -61,36 +61,44 @@ async function createTask() {
   }
 }
 
-/**
- * Retrieves and organizes form data into an object.
- *
- * @returns {Object} An object containing the following properties:
- * - {string} title - The trimmed value of the title input field.
- * - {string} description - The trimmed value of the description input field.
- * - {string} dueDate - The selected due date from the date input field.
- * - {string} priority - The priority level determined by the active button.
- * - {Array} assignedTo - The list of assigned contacts retrieved from `getAssignedContacts()`.
- * - {string} category - The selected category from the category dropdown.
- * - {Array} subtasks - The list of subtasks.
- */
 function getFormData() {
-  const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim();
-  const dueDate = dateInput.value;
+  const titleInput = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  const dateInput = document.getElementById("due-date");
+  const categorySelect = document.getElementById("categorySelect");
+  const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+
+  if (!titleInput || !descriptionInput || !dateInput || !categorySelect || priorityButtons.length === 0) {
+    console.error("Ein oder mehrere Formularelemente fehlen.");
+    return null; // Oder du kannst eine Standardantwort zurückgeben
+  }
+
+  const title = titleInput.value.trim();
+  const description = descriptionInput.value.trim();
+  const dueDate = dateInput.value.trim();
   let priority = "";
+
   for (let i = 0; i < priorityButtons.length; i++) {
     if (priorityButtons[i].classList.contains("active-btn")) {
       priority = priorityButtons[i].textContent.trim();
       break;
     }
   }
+
+  // Überprüfen, ob die Kategorie ausgewählt wurde
+  const category = categorySelect.value;
+  if (!category || category === "Select task category") {
+    console.error("Die Kategorie muss ausgewählt werden.");
+    return null;
+  }
+
   return {
     title,
     description,
     dueDate,
     priority,
     assignedTo: getAssignedContacts(),
-    category: categorySelect.value,
+    category,
     subtasks: subtasks.map(subtask => ({
       name: subtask.name,
       completed: false
@@ -99,6 +107,18 @@ function getFormData() {
 }
 
 function validateFormData(data) {
+  // Abrufen der Formularelemente innerhalb der Funktion
+  const titleInput = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  const dateInput = document.getElementById("due-date");
+  const categorySelect = document.getElementById("categorySelect");
+
+  // Überprüfe, ob alle Elemente vorhanden sind
+  if (!titleInput || !descriptionInput || !dateInput || !categorySelect) {
+    console.error("Ein oder mehrere Formularelemente fehlen.");
+    return false;  // Falls eines der Elemente fehlt, stoppen wir die Validierung
+  }
+
   let isValid = true;
 
   if (!data.title) {

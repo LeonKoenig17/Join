@@ -9,6 +9,19 @@ function getInitials(str) {
   return str.split(' ').map(s => s[0].toUpperCase()).join('');
 }
 
+
+function generateAssigneeCircles(assignees) {
+  return assignees.map(person => {
+      if (!person) return '';
+      const initials = getInitials(person.name || person.email);
+      return /*html*/`
+          <div class="assignee-circle" style="background-color: ${person.color || getRandomColor()}">
+              ${initials}
+          </div>
+      `;
+  }).join('');
+}
+
 function getRandomColor() {
   const colors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8'];
   return colors[Math.floor(Math.random() * colors.length)];
@@ -251,14 +264,166 @@ function editOverlayTemplate(task) {
   `;
 }
 
-function generateAssigneeCircles(assignees) {
-    return assignees.map(person => {
-        if (!person) return '';
-        const initials = getInitials(person.name || person.email);
-        return /*html*/`
-            <div class="assignee-circle" style="background-color: ${person.color || getRandomColor()}">
-                ${initials}
+function addTaskOverlayTemplate() {
+  return `
+    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
+      <div class="task-card">
+        <div class="task-header">
+          <div class="user-story-label task-category">Add Task</div>
+          <button class="close-btn" onclick="closeOverlay()"><img src="../images/close.svg" alt="close"></button>
+        </div>
+        <div class="task-content">
+          <h1>Add Task</h1>
+          <section id="addTask">
+            <div class="half-width addTask-left">
+              <form class="forms" id="taskForm">
+                <label for="title">Title<span>*</span></label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Enter a title"
+                  required
+                />
+                <span class="error-message" id="title-error"></span>
+                <label for="description">Description</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Enter a Description"
+                  style="resize: none"
+                  spellcheck="false"
+                ></textarea>
+                <span class="error-message" id="description-error"></span>
+                <label for="due-date">Due date<span>*</span></label>
+                <div class="custom-date-input">
+                  <input type="date" id="due-date" name="due-date" required />
+                  <img src="../images/calendar.svg" alt="Calendar Icon" />
+                </div>
+                <span class="error-message" id="due-date-error"></span>
+              </form>
             </div>
-        `;
-    }).join('');
+            <div class="separator"></div>
+            <div class="half-width addTask-right">
+              <h3 class="h3-priority">Priority</h3>
+              <div class="priority-buttons">
+                <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
+                  Urgent
+                  <img src="../images/urgent.svg" alt="Urgent" />
+                </button>
+                <button type="button" class="priority priority-medium active-btn" onclick="setPriority(this)">
+                  Medium
+                  <img src="../images/medium.svg" alt="Medium" />
+                </button>
+                <button type="button" class="priority priority-low" onclick="setPriority(this)">
+                  Low
+                  <img src="../images/low.svg" alt="Low" />
+                </button>
+              </div>
+              <div>
+                <h3>Assigned to</h3>
+                <div class="custom-assigned-dropdown" id="assignedDropdown">
+                  <div class="dropdown-selected" id="assignedDropdownSelected">
+                    Select contacts to assign
+                    <img
+                      src="../images/arrow_drop_down.svg"
+                      alt="Dropdown Icon"
+                      class="select-icon"
+                    />
+                  </div>
+                  <span class="error-message" id="assigned-error"></span>
+
+                  <div
+                    class="dropdown-options"
+                    id="assignedDropdownOptions"
+                  ></div>
+                </div>
+              </div>
+              <div class="assigned-chips" id="assignedChips"></div>
+              <div>
+                <h3>Category<span>*</span></h3>
+                <div class="custom-select-container">
+                  <select id="categorySelect">
+                    <option disabled selected>Select a category</option>
+                    <option>Technical Task</option>
+                    <option>User Story</option>
+                  </select>
+                  <img
+                    src="../images/arrow_drop_down.svg"
+                    alt=""
+                    class="select-icon"
+                  />
+                </div>
+                <span class="error-message" id="category-error"></span>
+              </div>
+              <!-- Subtask Section -->
+              <div>
+                <h3>Subtasks</h3>
+                <div class="subtask-input">
+                  <input
+                    type="text"
+                    id="subtask-input"
+                    placeholder="Add new subtask"
+                    onclick="activateSubtaskInput()"
+                    autocomplete="off"
+                  />
+                  <div class="subTask-icons">
+                    <img
+                      onclick="confirmSubtaskEntry()"
+                      id="check-subtask-icon"
+                      src="../images/checkDark.svg"
+                      alt="Confirm"
+                      class="subtask-icon-check d-none select-icon"
+                    />
+                    <img
+                      id="close-subtask-icon"
+                      src="../images/close.svg"
+                      alt="Cancel"
+                      class="subtask-icon d-none select-icon"
+                    />
+                  </div>
+                  <div class="seperator d-none" id="seperator"></div>
+
+                  <img
+                    id="add-icon"
+                    src="../images/addDark.svg"
+                    alt="subtask-icon"
+                    class="select-icon"
+                  />
+                </div>
+                <div id="subtask-list"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="create-task-footer">
+          <p><span>*</span>This field is required</p>
+          <div class="form-actions">
+            <div class="clear-btn-container">
+              <button type="button" class="clear-button" onclick="clearForm()">
+                Clear
+                <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
+              </button>
+            </div>
+            <div class="create-btn-container">
+              <button
+                id="create-task-btn"
+                onclick="createTask()"
+                type="button"
+                class="create-button"
+              >
+                Create Task
+                <img src="../images/check.svg" alt="create icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 }
+
+
+
+

@@ -131,6 +131,7 @@ async function fetchData() {
   renderLists();
 }
 
+
 /**
  * Initialisiert das Board.
  */
@@ -163,7 +164,7 @@ function setupEventListeners() {
   const addTaskBtn = document.getElementById("addTaskBtn");
   if (addTaskBtn) {
     addTaskBtn.addEventListener("click", function() {
-      createNewTask("todo");
+      showAddTaskOverlay();
     });
   }
 }
@@ -246,7 +247,7 @@ function createNewTask(status) {
     subtasks: [],
     status: status
   };
-  showTaskOverlay(taskData);
+  showAddTaskOverlay();;
 }
 
 /**

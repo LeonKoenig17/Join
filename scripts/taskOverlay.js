@@ -18,8 +18,44 @@ function showTaskOverlay(taskData) {
   }, 0);
 }
 
+function showAddTaskOverlay() {
+    const overlayHTML = addTaskOverlayTemplate();
+    removeExistingOverlay();
+    document.body.insertAdjacentHTML("beforeend", overlayHTML);
+
+    const taskOverlay = document.getElementById("taskOverlay");
+    if (taskOverlay) {
+        taskOverlay.style.display = "flex";
+        initPriorityButtons();
+        initAssignedDropdown();
+        initSubtaskUI(); 
+        setupDatePicker();;
+        setupSubtaskListeners();
+        
+    }
+
+    const taskForm = document.getElementById("taskForm");
+    if (taskForm) {
+        taskForm.addEventListener("submit", createTask);
+    } else {
+        console.error("taskForm element not found");
+    }
+}
+  /**
+ * Initialisiert die Priority-Buttons und setzt Event-Listener.
+ */
+function initPriorityButtons() {
+    const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+  
+    priorityButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        setPriority(button);
+      });
+    });
+  }
+
 /**
- * Entfernt ein bestehendes Overlay falls vorhanden
+ * Entfernt ein bestehendes Overlay, falls vorhanden
  */
 function removeExistingOverlay() {
   const existingOverlay = document.getElementById("taskOverlay");
@@ -29,7 +65,7 @@ function removeExistingOverlay() {
 }
 
 /**
- * Schließt das Task-Overlay
+ * Schließt das Overlay
  */
 function closeOverlay() {
   const overlay = document.getElementById("taskOverlay");
@@ -177,76 +213,13 @@ async function saveTaskChanges(taskId) {
 function cancelEditing(taskId) {
   isEditing = false;
   showTaskOverlay(currentTask);
-
-  /**
-   * Löscht einen Task
-   * @param {string} taskId - Die ID des zu löschenden Tasks
-   */
-  async function deleteTask(taskId) {
-    if (!confirm("Möchten Sie diese Aufgabe wirklich löschen?")) return;
-
-    try {
-      closeOverlay();
-
-    } catch (error) {
-      console.error("Fehler beim Löschen:", error);
-      alert("Fehler beim Löschen der Aufgabe");
-    }
-  }
-
-  /**
-   * Aktualisiert den Status einer Subtask
-   * @param {string} subtaskId - Die ID der Subtask
-   * @param {boolean} completed - Der neue Status
-   */
-  async function updateSubtask(subtaskId, completed) {
-    if (!currentTask) return;
-
-    try {
-      const subtask = currentTask.subtasks.find((st) => st.id === subtaskId);
-      if (subtask) {
-        subtask.completed = completed;
-      }
-    } catch (error) {
-      console.error("Fehler beim Aktualisieren der Subtask:", error);
-      alert("Fehler beim Aktualisieren der Subtask");
-    }
-  }
-
-  /**
-   * Aktualisiert die Priorität eines Tasks
-   * @param {number} taskId - Die ID des Tasks
-   * @param {string} newPriority - Die neue Priorität
-   */
-  function updatePriority(taskId, newPriority) {
-    console.log("Ändere Priorität für Task:", taskId, "zu:", newPriority);
-    const priorityElement = document.querySelector(".priority-level");
-    if (priorityElement) {
-      priorityElement.textContent = newPriority;
-    }
-  }
-
-  /**
-   * Fügt eine neue Subtask hinzu
-   * @param {number} taskId - Die ID des Tasks
-   * @param {string} subtaskText - Der Text der neuen Subtask
-   */
-  function addSubtask(taskId, subtaskText) {
-    if (!subtaskText.trim()) return;
-
-    const newSubtask = {
-      id: Date.now(),
-      text: subtaskText,
-      completed: false,
-    };
-
-    if (currentTask) {
-      currentTask.subtasks.push(newSubtask);
-
-      const subtaskList = document.querySelector(".subtask-list");
-      if (subtaskList) {
-        subtaskList.innerHTML += generateSubtasksHTML([newSubtask]);
-      }
-    }
-  }
 }
+
+/**document.addEventListener("DOMContentLoaded", function() {
+    const taskForm = document.getElementById("taskForm");
+    if (taskForm) {
+      taskForm.addEventListener("submit", createTask);
+    } else {
+      console.error("taskForm element not found");
+    }
+  });*/

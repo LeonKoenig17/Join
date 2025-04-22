@@ -19,8 +19,11 @@
 
     <script src="../scripts/firebase.js"></script>
     <script src="../scripts/templates.js"></script>
-    <script src="../scripts/taskOverlay.js"></script>
+    <script src="../scripts/addTask.js"></script>
     <script src="../scripts/addTaskDropDown.js"></script>
+    <script src="../scripts/addSubtask.js"></script>
+    <script src="../scripts/taskOverlay.js"></script>
+   
     <script src="../scripts/board.js"></script>
   </head>
 
@@ -75,19 +78,35 @@
         <div id="boardMain">
           <div id="toDoHeader">
             <span>To do</span>
-            <button id="toDoBtn" class="add-task" onclick="createNewTask('todo')"></button>
+            <button
+              id="toDoBtn"
+              class="add-task"
+              onclick="createNewTask('todo')"
+            ></button>
           </div>
           <div id="inProgressHeader">
             <span>In progress</span>
-            <button id="inProgressBtn" class="add-task" onclick="createNewTask('inProgress')"></button>
+            <button
+              id="inProgressBtn"
+              class="add-task"
+              onclick="createNewTask('inProgress')"
+            ></button>
           </div>
           <div id="feedbackHeader">
             <span>Await feedback</span>
-            <button id="feedbackBtn" class="add-task" onclick="createNewTask('awaitFeedback')"></button>
+            <button
+              id="feedbackBtn"
+              class="add-task"
+              onclick="createNewTask('awaitFeedback')"
+            ></button>
           </div>
           <div id="doneHeader">
             <span>Done</span>
-            <button id="doneBtn" class="add-task" onclick="createNewTask('done')"></button>
+            <button
+              id="doneBtn"
+              class="add-task"
+              onclick="createNewTask('done')"
+            ></button>
           </div>
         </div>
         <div id="boardContent">
@@ -96,12 +115,12 @@
           <div id="awaitFeedback"></div>
           <div id="done"></div>
         </div>
-
         <div
           id="task-Overlay"
           class="d-none task-overlay"
           onclick="handleOverlayClick(event)"
         ></div>
+        
       </div>
     </main>
   </body>
