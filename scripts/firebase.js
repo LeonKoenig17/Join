@@ -100,11 +100,9 @@ async function loadUsers() {
       const users = await loadUsers();
       const userElements = document.querySelectorAll('.task-assignee');
   
-      // NodeList direkt mit forEach und klassischer Funktion
       userElements.forEach(function(el) {
         const userId = el.getAttribute('data-user-id');
   
-        // klassische for-of Schleife
         for (const user of users) {
           if (user.id === userId) {
             el.style.backgroundColor = user.color;

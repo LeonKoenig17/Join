@@ -7,9 +7,21 @@ let isEditing = false;
  */
 function showTaskOverlay(taskData) {
   currentTask = taskData;
-  const overlayHTML = generateTaskOverlay(taskData);
 
+  subtasks.length = 0;
+  if (Array.isArray(taskData.subtasks)) {
+    taskData.subtasks.forEach(s => {
+      subtasks.push({
+        name: s.name,
+        completed: s.completed
+      });
+    });
+  }
+
+  const overlayHTML = generateTaskOverlay(taskData);
   document.body.insertAdjacentHTML("beforeend", overlayHTML);
+
+  updateSubtaskList();
 
   setTimeout(() => {
     document.getElementById("taskOverlay").style.display = "flex";
