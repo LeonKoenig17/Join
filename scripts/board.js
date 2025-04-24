@@ -12,6 +12,9 @@ const noTaskHtml = `
 `;
 
 window.onload = async () => {
+    // const addTaskOverlay = document.getElementById("addTaskOverlay");
+    // addTaskOverlay.innerHTML = addTaskOverlayTemplate();
+
     await fetchData();
 
     const containers = document.querySelectorAll("#boardContent > div");
@@ -20,28 +23,21 @@ window.onload = async () => {
         container.addEventListener("drop", async(e) => {
             e.preventDefault();
             const id = e.dataTransfer.getData("task");
-            const taskId = parseInt(id.replace("task", ""));
-            await updateStage(container, taskId);
+            await updateStage(container, id);
             await fetchData();
         })
     })
 
     const inputField = document.querySelector("#subtasks input");
-    const plus = document.getElementById("subtaskPlus");
-    const cross = document.getElementById("subtaskCross");
-    const check = document.getElementById("subtaskCheck");
-
     inputField.addEventListener("input", () => {
         if (inputField.value.trim() != "") {
-            plus.style.display = "none";
-            cross.style.display = "unset";
-            check.style.display = "unset";
+            showSubtaskBtns();
         } else {
-            plus.style.display = "unset";
-            cross.style.display = "none";
-            check.style.display = "none";
+            hideSubtaskBtns();
         }
     })
+
+    subtaskHover();
 }
 
 async function updateStage(container, taskId) {
@@ -59,7 +55,7 @@ async function updateStage(container, taskId) {
 
     let targetKey = null;
     for (let key in data) {
-        if (data[key].index === taskId) {
+        if (data[key].taskIndex == taskId) {
             targetKey = key;
             break;
         }
@@ -99,9 +95,9 @@ async function fetchData() {
                 category: task.category,
                 subtasks: task.subtasks,
                 stage: task.stage,
-                index: task.index,
+                index: task.taskIndex,
             }
-            if (task.stage != null) {
+            if (task.stage != null && task.taskIndex != null) {
                 arrays[task.stage].push(taskData);
             }
         })
@@ -125,10 +121,19 @@ function renderLists() {
     containers.forEach(e => {
         e.innerHTML = "";
     });
+
     for (let i = 0; i < arrays.length; i++) {
         arrays[i].forEach(task => {
+            let subtasks = "";
+            if (task.subtasks) {
+                task.subtasks.forEach(subtask => {
+                    subtasks += `
+                        <i>${subtask.title}: </i><i>${subtask.status}</i>
+                    `;
+                })
+            }
             containers[i].innerHTML += `
-                <div id="task${task.index}" class="task" draggable="true">
+                <div id="${task.index}" class="task" draggable="true">
                     <table>
                         <tr>
                             <td>Title</td>
@@ -152,7 +157,7 @@ function renderLists() {
                         </tr>
                         <tr>
                             <td>Subtasks</td>
-                            <td>${task.subtasks}</td>
+                            <td>${subtasks}</td>
                         </tr>
                         <tr>
                             <td>Category</td>
@@ -206,8 +211,11 @@ async function addTask() {
     
     const description = addTaskOverlay.querySelector("#description").value;
     let priority = addTaskOverlay.querySelector(".selectedPrio");
-    console.log(priority);
-    if (priority == null) { priority = "" }
+    if (priority != null) {
+        priority = priority.textContent;
+    } else {
+        priority = "Medium";
+    }
     
     if (title != "" && dueDate != "" && category.textContent != "Select task category") {
         inputValid = true;
@@ -218,11 +226,7 @@ async function addTask() {
     if (!inputValid) {
         console.log("input invalid")
         return;
-    } else {
-        const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-        const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
-        let number = await Object.entries(tasks).length + 1;
-        
+    } else {     
         console.log("input valid, data posted");
         await postData("tasks", {
             title: title, 
@@ -231,15 +235,30 @@ async function addTask() {
             priority: priority,
             assignedTo: "",
             category: category.textContent,
-            subtasks: {"task1": "ticked", "task2": "unticked"},
+            subtasks: getSubtasks(),
             stage: targetIndex,
-            index: number
+            taskIndex: new Date().toLocaleTimeString()
         })
     }
     
     clearInputFields();
     closeOverlay();
     fetchData();
+}
+
+function getSubtasks() {
+    const subConts = document.querySelectorAll("#addedSubContainer .addedSub");
+    if (subConts.length == 0) return;
+
+    let subtaskArray = [];
+    subConts.forEach(cont => {
+        const subtask = cont.querySelector("span").textContent.replace("\u2022 ", "");
+        subtaskArray.push({
+            title: subtask,
+            status: 0
+        })
+    })
+    return subtaskArray;
 }
 
 async function postData(path, data) {
@@ -281,3 +300,126 @@ function selectPrio(id) {
     const selected = document.getElementById(id);
     selected.classList.add("selectedPrio");
 }
+
+function clearSubtaskInput() {
+    const inputField = document.querySelector("#subtasks input");
+    inputField.value = "";
+    hideSubtaskBtns();
+}
+
+function showSubtaskBtns() {
+    const plus = document.getElementById("subtaskPlus");
+    const cross = document.getElementById("subtaskCross");
+    const check = document.getElementById("subtaskCheck");
+    
+    plus.style.display = "none";
+    cross.style.display = "unset";
+    check.style.display = "unset";
+}
+
+function hideSubtaskBtns() {
+    const plus = document.getElementById("subtaskPlus");
+    const cross = document.getElementById("subtaskCross");
+    const check = document.getElementById("subtaskCheck");
+    
+    plus.style.display = "unset";
+    cross.style.display = "none";
+    check.style.display = "none";
+}
+
+function focusInputField() {
+    const inputField = document.querySelector("#subtasks input");
+    inputField.focus();
+}
+
+function subtaskHover(){
+    const subtasks = document.querySelectorAll("#addedSubContainer .addedSub");
+    subtasks.forEach(task => {
+        task.removeEventListener("mouseenter", onMouseEnter);
+        task.removeEventListener("mouseleave", onMouseLeave);
+        task.addEventListener("mouseenter", onMouseEnter);
+        task.addEventListener("mouseleave", onMouseLeave);
+    });
+}
+
+function onMouseEnter(e) {
+    const buttons = e.currentTarget.querySelectorAll("#addedSubBtns button");
+    buttons.forEach(btn => {
+        btn.style.visibility = "visible";
+    });
+}
+
+function onMouseLeave(e) {
+    const buttons = e.currentTarget.querySelectorAll("#addedSubBtns button");
+    buttons.forEach(btn => {
+        btn.style.visibility = "hidden";
+    })
+}
+
+function enableEditMode(parent) {
+    const inputField = parent.querySelector("input");
+    inputField.style.display = "block";
+    inputField.focus();
+    const span = parent.querySelector("span");
+    inputField.value = span.textContent.replace("\u2022 ", "");
+    span.style.display = "none";
+    const editBtn = parent.querySelector("#addedSubEdit");
+    editBtn.style.display = "none";
+    const confirmBtn = parent.querySelector("#addedSubConfirm")
+    confirmBtn.style.display = "unset";
+    parent.removeEventListener("mouseenter", onMouseEnter);
+    parent.removeEventListener("mouseleave", onMouseLeave);
+    parent.style.borderBottom = "1px solid #29ABE2";
+    parent.style.borderRadius = "0";
+    parent.style.backgroundColor = "unset";
+}
+
+function disableEditMode(parent) {
+    const span = parent.querySelector("span");
+    const inputField = parent.querySelector("input");
+    if (inputField.value.trim() == "") {
+        parent.remove();
+        return;
+    }
+    span.style.display = "block";
+    span.textContent = "\u2022 " + inputField.value;
+    inputField.value = "";
+    inputField.style.display = "none";
+    const editBtn = parent.querySelector("#addedSubEdit");
+    editBtn.style.display = "unset";
+    const confirmBtn = parent.querySelector("#addedSubConfirm")
+    confirmBtn.style.display = "none";
+    parent.addEventListener("mouseenter", onMouseEnter);
+    parent.addEventListener("mouseleave", onMouseLeave);
+    parent.style.borderBottom = "none";
+    parent.style.borderRadius = "10px";
+    parent.style.backgroundColor = "";
+}
+
+function deleteElement(element) {
+    element.remove();
+}
+
+function addSubtask() {
+    const inputField = document.querySelector("#subtasks input");
+    const subtaskContainer = document.getElementById("addedSubContainer");
+    subtaskContainer.innerHTML += addedSubContainerTemplate(inputField.value);
+    clearSubtaskInput();
+}
+
+// due Date:
+    // add calender button
+    // restrict inputField.value to date format
+// finish priority button style
+// fetch users to display in assignedTo dropdown menu
+// when editing subtask, if inputField is empty delete subtask
+// close button style
+// cancel and addtask button style
+// finish layout when opening dropdown menu
+// warning when required fields are not filled
+
+// create taskCard in board
+
+// create taskOverlay
+
+// implement search function and addTask function on button
