@@ -97,7 +97,7 @@ function closeOverlay() {
     overlay.style.display = "none";
     setTimeout(() => {
       overlay.remove();
-    }, 200); // Warte auf Animation
+    }, 200);
   }
   currentTask = null;
   isEditing = false;
@@ -135,8 +135,6 @@ function createPrioritySelect(currentPriority) {
   return select;
 }
 
-// ganz oben in taskOverlay.js einfügen (oder am Ende)
-// Stellt sicher, dass BASE_URL bereits global definiert ist.
 
 /**
  * Patch-Helper: Aktualisiert beliebige Felder in Firebase.
@@ -163,6 +161,7 @@ function updateSubtaskList() {
     .join('');
 }
 
+
 /**
  * Rechnet neue Fortschritt-% aus und updatet
  * die Progressbar & den Zähler im Task-Card.
@@ -182,17 +181,33 @@ function updateProgressBar() {
  * Umschalten, UI updaten und in Firebase patchen.
  */
 async function toggleSubtaskCompletion(index) {
-  // 1) Status umschalten
   subtasks[index].completed = !subtasks[index].completed;
 
-  // 2) UI neu rendern
   updateSubtaskList();
   updateProgressBar();
 
-  // 3) Änderungen in Firebase speichern
   const updatedSubtasks = subtasks.map(s => ({
     name: s.name,
     completed: s.completed
   }));
   await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+}
+
+/**
+ * Löscht einen Task aus Firebase und lädt das Board neu.
+ */
+async function deleteTask(taskId) {
+  const url = BASE_URL + `tasks/${taskId}.json`;
+  await fetch(url, { method: 'DELETE' });
+  closeOverlay();
+  window.location.reload();
+}
+
+/**
+ * Fragt per Popup, ob der Task wirklich gelöscht werden soll.
+ */
+function confirmDeleteTask(event, taskId) {
+  event.stopPropagation();
+  if (!window.confirm('Delete permanently?')) return;
+  deleteTask(taskId);
 }

@@ -11,27 +11,6 @@ function getInitials(str) {
     .join("");
 }
 
-function generateAssigneeCircles(assignees) {
-  return assignees
-    .map((person) => {
-      if (!person) return "";
-      const initials = getInitials(person.name || person.email);
-      return /*html*/ `
-          <div class="assignee-circle" style="background-color: ${
-            person.color || getRandomColor()
-          }">
-              ${initials}
-          </div>
-      `;
-    })
-    .join("");
-}
-
-function getRandomColor() {
-  const colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-
 /**
  * Normalisiert task.subtasks und berechnet Count + Progress.
  * @param {Object} task
@@ -116,7 +95,7 @@ function generateCardAssigneeHTML(assignees) {
 }
 
 function subtasksTemplate(subtask, index) {
-  return /*html*/ `
+  return `
         <div class="subtask-item" data-subtask-index="${index}">
             <p class="subtask-text">• ${subtask.name}</p>
             <div class="subtask-icons">
@@ -133,7 +112,6 @@ function generateTaskOverlay(task) {
     .map((subtask, idx) => taskOverlaySubtaskTemplate(subtask, idx))
     .join("");
 
-  // Use extracted function for overlay-specific assignees
   const assigneesHTML = taskOverlayAssignee(task.assignedTo || []);
 
   return /*html*/ `
@@ -183,9 +161,7 @@ function generateTaskOverlay(task) {
           </div>
         </div>
         <div class="task-actions">
-          <button class="action-btn delete-btn" onclick="deleteTask(${
-            task.id
-          })">
+          <button class="action-btn delete-btn" onclick="confirmDeleteTask(event, '${task.id}')">
             <img src="../images/subtaskBin.svg" alt="Delete">
             <span>Delete</span>
           </button>
@@ -221,19 +197,25 @@ function taskOverlayAssignee(assignees) {
     .join("");
 }
 
+/**
+ * Renders subtasks in the overlay with custom checkbox icons
+ */
 function taskOverlaySubtaskTemplate(subtask, index) {
-  // warum wird taskOverlaySubtaskTemplate nicht in generateTaskOverlay
-  return `
-  <div class="subtask-checkbox-container">
-    <input 
-      type="checkbox" 
-      id="subtask-${index}" 
-      class="subtask-checkbox" 
-      ${subtask.completed ? "checked" : ""} 
-      onclick="toggleSubtaskCompletion(${index})"
-    />
-    <label for="subtask-${index}" class="subtask-label">${subtask.name}</label>
-  </div>
+  const iconSrc = subtask.completed
+    ? '../images/checkboxtrueblack.svg'
+    : '../images/checkboxfalseblack.svg';
+  const altText = subtask.completed ? 'Completed' : 'Incomplete';
+
+  return /*html*/`
+    <div class="subtask-checkbox-container">
+      <img
+        src="${iconSrc}"
+        alt="${altText}"
+        class="subtask-checkbox-icon"
+        onclick="toggleSubtaskCompletion(${index})"
+      />
+      <label for="subtask-${index}" class="subtask-label">${subtask.name}</label>
+    </div>
   `;
 }
 
