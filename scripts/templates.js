@@ -32,117 +32,70 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function generateTaskCard(task) {
-  const completedSubtasks = task.subtasks
-    ? Object.values(task.subtasks).filter((s) => s === "ticked").length
-    : 0;
-  const totalSubtasks = task.subtasks ? Object.values(task.subtasks).length : 0;
+/**
+ * Normalisiert task.subtasks und berechnet Count + Progress.
+ * @param {Object} task
+ * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}}
+ */
+function checkSubtask(task) {
+  const subs = Array.isArray(task.subtasks)
+    ? task.subtasks
+    : task.subtasks && typeof task.subtasks === "object"
+    ? Object.values(task.subtasks)
+    : [];
+
+  const totalSubtasks = subs.length;
+  const completedSubtasks = subs.filter((s) => s.completed === true).length;
   const progressPercentage =
     totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
-  return `
-        <div id="task${
-          task.taskIndex
-        }" class="task" draggable="true" onclick="showTaskOverlay(${JSON.stringify(
-    task
-  ).replace(/"/g, "&quot;")})">
-            <div class="task-category ${
-              task.category ? task.category.toLowerCase().replace(" ", "-") : ""
-            }">${task.category || ""}</div>
-            <h3 class="task-title">${task.title || ""}</h3>
-            <p class="task-description">${task.description || ""}</p>
-            
-            <div class="task-footer">
-                <div class="task-subtasks">
-                    <div class="subtask-progress-container">
-                        <div class="subtask-progress-bar" style="width: ${progressPercentage}%"></div>
-                    </div>
-                    <span class="subtask-count">${completedSubtasks}/${totalSubtasks} Subtasks</span>
-                </div>
-                <div class="task-bottom-info">
-                    <div class="task-assignees">
-                        ${generateAssigneeHTML(task.assignedTo)}
-                    </div>
-                    <div class="task-priority ${
-                      task.priority ? task.priority.toLowerCase() : ""
-                    }">
-                        <img src="../images/${
-                          task.priority ? task.priority.toLowerCase() : "low"
-                        }.svg" alt="${task.priority || "Low priority"}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+  return { completedSubtasks, totalSubtasks, progressPercentage };
 }
 
-function generateTaskOverlay(task) {
-  // Erstelle das HTML für alle Subtasks mit deiner subtasksTemplate-Funktion
-  const subtasksHTML = (task.subtasks || [])
-    .map((subtask, idx) => subtasksTemplate(subtask, idx))
-    .join("");
+function generateTaskCard(task) {
+  const { completedSubtasks, totalSubtasks, progressPercentage } =
+    checkSubtask(task);
 
-  return /*html*/ `
-    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
-      <div class="task-card">
-        <div class="task-header">
-          <div class="user-story-label task-category">
-            ${task.category || "User Story"}
+  return `
+    <div id="task${task.taskIndex}" class="task" draggable="true"
+         onclick="showTaskOverlay(${JSON.stringify(task).replace(
+           /"/g,
+           "&quot;"
+         )})">
+      <div class="task-category ${
+        task.category ? task.category.toLowerCase().replace(" ", "-") : ""
+      }">
+        ${task.category || ""}
+      </div>
+      <h3 class="task-title">${task.title || ""}</h3>
+      <p class="task-description">${task.description || ""}</p>
+      
+      <div class="task-footer">
+        <div class="task-subtasks">
+          <div class="subtask-progress-container">
+            <div class="subtask-progress-bar" style="width: ${progressPercentage}%"></div>
           </div>
-          <button class="close-btn" onclick="closeOverlay()">
-            <img src="../images/close.svg" alt="Close">
-          </button>
+          <span class="subtask-count">${completedSubtasks}/${totalSubtasks} Subtasks</span>
         </div>
-        <div class="task-content">
-          <h2 class="task-title">${task.title || ""}</h2>
-          <p class="task-description">${task.description || ""}</p>
-          <div class="task-details">
-            <div class="detail-row">
-              <span class="detail-label">Due date:</span>
-              <span class="detail-value">${task.dueDate || ""}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Priority:</span>
-              <span class="priority-badge ${
-                task.priority ? task.priority.toLowerCase() : ""
-              }">
-                ${task.priority || "Medium"}
-              </span>
-            </div>
-            <div class="detail-row assigned-to">
-              <span class="detail-label">Assigned To:</span>
-              <div class="assignee-list">
-                ${generateAssigneeCircles(task.assignedTo || [])}
-              </div>
-            </div>
+        <div class="task-bottom-info">
+          <div class="task-assignees">
+            ${generateCardAssigneeHTML(task.assignedTo)}
           </div>
-          <div class="subtasks-section">
-            <span class="detail-label">Subtasks</span>
-            <div class="subtask-list">
-            <div id="subtask-list" class="subtask-list">
-              ${subtasksHTML}
-            </div>
+          <div class="task-priority ${
+            task.priority ? task.priority.toLowerCase() : ""
+          }">
+            <img src="../images/${
+              task.priority ? task.priority.toLowerCase() : "low"
+            }.svg"
+                 alt="${task.priority || "Low priority"}">
           </div>
-        </div>
-        <div class="task-actions">
-          <button class="action-btn delete-btn" onclick="deleteTask(${
-            task.id
-          })">
-            <img src="../images/subtaskBin.svg" alt="Delete">
-            <span>Delete</span>
-          </button>
-          <div class="action-separator"></div>
-          <button class="action-btn edit-btn" onclick="editTask(${task.id})">
-            <img src="../images/edit-2.svg" alt="Edit">
-            <span>Edit</span>
-          </button>
         </div>
       </div>
     </div>
   `;
 }
 
-function generateAssigneeHTML(assignees) {
+function generateCardAssigneeHTML(assignees) {
   if (!Array.isArray(assignees)) return "";
   return assignees
     .map((person) => {
@@ -173,6 +126,115 @@ function subtasksTemplate(subtask, index) {
             </div>
         </div>
     `;
+}
+
+function generateTaskOverlay(task) {
+  const subtasksOverlayHTML = (task.subtasks || [])
+    .map((subtask, idx) => taskOverlaySubtaskTemplate(subtask, idx))
+    .join("");
+
+  // Use extracted function for overlay-specific assignees
+  const assigneesHTML = taskOverlayAssignee(task.assignedTo || []);
+
+  return /*html*/ `
+    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
+      <div class="task-card">
+        <div class="task-header">
+         <div class="task-category ${
+        task.category ? task.category.toLowerCase().replace(" ", "-") : ""
+      }">
+        ${task.category || ""}
+      </div>
+          <button class="close-btn" onclick="closeOverlay()">
+            <img src="../images/close.svg" alt="Close">
+          </button>
+        </div>
+        <div class="task-content">
+          <h2 class="task-title">${task.title || ""}</h2>
+          <p class="task-description">${task.description || ""}</p>
+          <div class="task-details">
+            <div class="detail-row">
+              <span class="detail-label">Due date:</span>
+              <span class="detail-value">${task.dueDate ? task.dueDate.replace(/-/g, '/') : ''}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Priority:</span>
+              <div class="task-priority ${
+                task.priority ? task.priority.toLowerCase() : ""
+              }"> ${task.priority} &nbsp;
+            <img src="../images/${
+              task.priority ? task.priority.toLowerCase() : "low"
+            }.svg"
+                 alt="${task.priority || "Low priority"}">
+          </div>
+            </div>
+            <div class="detail-row assigned-to">
+              <span class="detail-label">Assigned To:</span>
+              <div class="assignee-list">
+                ${assigneesHTML}
+              </div>
+            </div>
+          </div>
+          <div class="subtasks-section">
+            <span class="detail-label">Subtasks</span>
+            <div id="subtask-list" class="subtask-list">
+              ${subtasksOverlayHTML}
+            </div>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="action-btn delete-btn" onclick="deleteTask(${
+            task.id
+          })">
+            <img src="../images/subtaskBin.svg" alt="Delete">
+            <span>Delete</span>
+          </button>
+          <div class="action-separator"></div>
+          <button class="action-btn edit-btn" onclick="editTask(${task.id})">
+            <img src="../images/edit-2.svg" alt="Edit">
+            <span>Edit</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function taskOverlayAssignee(assignees) {
+  if (!Array.isArray(assignees)) return "";
+  return assignees
+    .map((user) => {
+      if (!user) return "";
+      const initials = getInitials(user.name || user.email);
+      const displayName = user.name || user.email;
+      const color = user.color || "#A8A8A8";
+
+      return /*html*/ `
+      <div class="assignee-item">
+        <div class="assignee-circle" style="background-color: ${color};">
+          ${initials}
+        </div>
+        <span class="assigned-user-name">${displayName}</span>
+      </div>
+    `;
+    })
+    .join("");
+}
+
+function taskOverlaySubtaskTemplate(subtask, index) {
+  // warum wird taskOverlaySubtaskTemplate nicht in generateTaskOverlay
+  return `
+  <div class="subtask-checkbox-container">
+    <input 
+      type="checkbox" 
+      id="subtask-${index}" 
+      class="subtask-checkbox" 
+      ${subtask.completed ? "checked" : ""} 
+      onclick="toggleSubtaskCompletion(${index})"
+    />
+    <label for="subtask-${index}" class="subtask-label">${subtask.name}</label>
+  </div>
+  `;
 }
 
 function assignedUserTemplate(user, index) {

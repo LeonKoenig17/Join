@@ -2,30 +2,44 @@ let currentTask = null;
 let isEditing = false;
 
 /**
- * Zeigt das Task-Overlay an
- * @param {Object} taskData - Die Daten des Tasks
+ * Prüft für jeden Assignee in taskData.assignedTo, 
+ * ob's einen User mit passender ID gibt, und setzt die Farbe.
  */
-function showTaskOverlay(taskData) {
-  currentTask = taskData;
-
-  subtasks.length = 0;
-  if (Array.isArray(taskData.subtasks)) {
-    taskData.subtasks.forEach(s => {
-      subtasks.push({
-        name: s.name,
-        completed: s.completed
-      });
-    });
+function checkUserColor(taskData, users) {
+  if (!Array.isArray(taskData.assignedTo)) return;
+  for (let i = 0; i < taskData.assignedTo.length; i++) {
+    const ass = taskData.assignedTo[i];
+    for (let j = 0; j < users.length; j++) {
+      if (users[j].id === ass.id) {
+        ass.color = users[j].color;
+        break;
+      }
+    }
   }
+}
 
+/**
+ * Füllt das globale subtasks-Array anhand von taskData.subtasks.
+ */
+function initSubtasksArray(taskData) {
+  subtasks.length = 0;
+  if (!Array.isArray(taskData.subtasks)) return;
+  for (let i = 0; i < taskData.subtasks.length; i++) {
+    const s = taskData.subtasks[i];
+    subtasks.push({ name: s.name, completed: s.completed });
+  }
+}
+
+async function showTaskOverlay(taskData) {
+  const users = await loadFirebaseUsers();
+  checkUserColor(taskData, users);
+  initSubtasksArray(taskData);
+
+  currentTask = taskData;
   const overlayHTML = generateTaskOverlay(taskData);
   document.body.insertAdjacentHTML("beforeend", overlayHTML);
-
   updateSubtaskList();
-
-  setTimeout(() => {
-    document.getElementById("taskOverlay").style.display = "flex";
-  }, 0);
+  setTimeout(() => document.getElementById("taskOverlay").style.display = "flex", 0);
 }
 
 function showAddTaskOverlay() {
@@ -121,12 +135,64 @@ function createPrioritySelect(currentPriority) {
   return select;
 }
 
+// ganz oben in taskOverlay.js einfügen (oder am Ende)
+// Stellt sicher, dass BASE_URL bereits global definiert ist.
 
-/**document.addEventListener("DOMContentLoaded", function() {
-    const taskForm = document.getElementById("taskForm");
-    if (taskForm) {
-      taskForm.addEventListener("submit", createTask);
-    } else {
-      console.error("taskForm element not found");
-    }
-  });*/
+/**
+ * Patch-Helper: Aktualisiert beliebige Felder in Firebase.
+ * @param {string|number} taskId – Firebase-ID des Tasks
+ * @param {Object} updateObj – Objekt mit den zu ändernden Feldern
+ */
+async function patchTask(taskId, updateObj) {
+  const url = BASE_URL + `tasks/${taskId}.json`;
+  await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updateObj)
+  });
+}
+
+/**
+ * Rendert die Subtasks im Overlay neu.
+ */
+function updateSubtaskList() {
+  const list = document.getElementById('subtask-list');
+  if (!list) return;
+  list.innerHTML = subtasks
+    .map((s, i) => taskOverlaySubtaskTemplate(s, i))
+    .join('');
+}
+
+/**
+ * Rechnet neue Fortschritt-% aus und updatet
+ * die Progressbar & den Zähler im Task-Card.
+ */
+function updateProgressBar() {
+  const done  = subtasks.filter(s => s.completed).length;
+  const total = subtasks.length;
+  const pct   = total > 0 ? (done / total) * 100 : 0;
+  const bar   = document.querySelector(`#task${currentTask.taskIndex} .subtask-progress-bar`);
+  const label = document.querySelector(`#task${currentTask.taskIndex} .subtask-count`);
+  if (bar)   bar.style.width   = `${pct}%`;
+  if (label) label.textContent = `${done}/${total} Subtasks`;
+}
+
+/**
+ * Wird vom onclick der Checkbox aufgerufen.
+ * Umschalten, UI updaten und in Firebase patchen.
+ */
+async function toggleSubtaskCompletion(index) {
+  // 1) Status umschalten
+  subtasks[index].completed = !subtasks[index].completed;
+
+  // 2) UI neu rendern
+  updateSubtaskList();
+  updateProgressBar();
+
+  // 3) Änderungen in Firebase speichern
+  const updatedSubtasks = subtasks.map(s => ({
+    name: s.name,
+    completed: s.completed
+  }));
+  await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+}

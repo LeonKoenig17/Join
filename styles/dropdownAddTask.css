@@ -131,6 +131,24 @@
   margin-left: auto;
 }
 
+#categorySelect {
+  transition: all 0.2s ease-in-out;
+}
+
+#categorySelect:hover {
+  box-shadow: var(--shadow-color) 1px 1px 1px;
+}
+
+.category-icon:hover {
+  background-color: var(--border-color);
+  border-radius: 50%;
+}
+
+option.option:checked {
+  background-color: var(--border-color, #e0e0e0) !important;
+  color: var(--text-color, #000) !important;
+}
+
 .subTask-icons {
     display: flex;
     flex-direction: row

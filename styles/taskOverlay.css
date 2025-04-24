@@ -143,6 +143,15 @@
   border: 2px solid white;
 }
 
+.assignee-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
 .subtasks-section {
   margin-top: 16px;
 }
