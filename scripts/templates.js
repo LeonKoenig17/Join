@@ -185,7 +185,7 @@ function taskOverlayAssignee(assignees) {
       const displayName = user.name || user.email;
       const color = user.color || "#A8A8A8";
 
-      return /*html*/ `
+      return `
       <div class="assignee-item">
         <div class="assignee-circle" style="background-color: ${color};">
           ${initials}
@@ -206,7 +206,7 @@ function taskOverlaySubtaskTemplate(subtask, index) {
     : '../images/checkboxfalseblack.svg';
   const altText = subtask.completed ? 'Completed' : 'Incomplete';
 
-  return /*html*/`
+  return `
     <div class="subtask-checkbox-container">
       <img
         src="${iconSrc}"
@@ -272,7 +272,7 @@ function addTaskOverlayTemplate() {
           <section id="addTask">
             <div class="half-width addTask-left">
               <form class="forms" id="taskForm">
-                <label for="title">Title<span>*</span></label>
+                <label for="title">Title<span> *</span></label>
                 <input
                   type="text"
                   id="title"
@@ -290,7 +290,7 @@ function addTaskOverlayTemplate() {
                   spellcheck="false"
                 ></textarea>
                 <span class="error-message" id="description-error"></span>
-                <label for="due-date">Due date<span>*</span></label>
+                <label for="due-date">Due date<span> *</span></label>
                 <div class="custom-date-input">
                   <input type="date" id="due-date" name="due-date" required />
                   <img src="../images/calendar.svg" alt="Calendar Icon" />
@@ -336,7 +336,7 @@ function addTaskOverlayTemplate() {
               </div>
               <div class="assigned-chips" id="assignedChips"></div>
               <div>
-                <h3>Category<span>*</span></h3>
+                <h3>Category<span> *</span></h3>
                 <div class="custom-select-container">
                   <select id="categorySelect">
                     <option disabled selected>Select a category</option>

@@ -33,6 +33,10 @@
   animation: slideInFromRight 0.5s ease-out;
 }
 
+.add-task-card h3 span, label span {
+  color: red!important;
+}
+
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
@@ -184,8 +188,8 @@
   background-color: var(--border-color);
 }
 .subtask-checkbox-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .subtask-checkbox-container:hover .subtask-checkbox-icon {
