@@ -36,7 +36,7 @@ function generateTaskCard(task) {
     checkSubtask(task);
 
   return `
-    <div id="task${task.taskIndex}" class="task" draggable="true"
+    <div id="task${task.taskIndex}" tabindex="0" class="task" draggable="true"
          onclick="showTaskOverlay(${JSON.stringify(task).replace(
            /"/g,
            "&quot;"

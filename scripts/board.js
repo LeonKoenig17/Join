@@ -12,32 +12,37 @@ const noTaskHtml = '\
     </div>\
 ';
 
+
 /**
  * Lädt und rendert das Board beim Seiten-Load.
  */
-window.onload = function() {
-  initBoard().then(function() {
-    return renderLists();
-  });
-};
+async function init() {
+  await fetchData();
+  await renderLists();
+  setupEventListeners();
+  setupSubtaskInputListeners();
+}
 
-const inputField = document.querySelector("#subtasks input");
-const plus = document.getElementById("subtaskPlus");
-const cross = document.getElementById("subtaskCross");
-const check = document.getElementById("subtaskCheck");
 
-if (inputField) {
-  inputField.addEventListener("input", function() {
-    if (inputField.value.trim() !== "") {
-      plus.style.display = "none";
-      cross.style.display = "unset";
-      check.style.display = "unset";
-    } else {
-      plus.style.display = "unset";
-      cross.style.display = "none";
-      check.style.display = "none";
-    }
-  });
+function setupSubtaskInputListeners() {
+  const inputField = document.querySelector("#subtasks input");
+  const plus = document.getElementById("subtaskPlus");
+  const cross = document.getElementById("subtaskCross");
+  const check = document.getElementById("subtaskCheck");
+
+  if (inputField) {
+    inputField.addEventListener("input", function() {
+      if (inputField.value.trim() !== "") {
+        plus.style.display = "none";
+        cross.style.display = "unset";
+        check.style.display = "unset";
+      } else {
+        plus.style.display = "unset";
+        cross.style.display = "none";
+        check.style.display = "none";
+      }
+    });
+  }
 }
 
 /**
@@ -51,11 +56,9 @@ async function updateStage(container, taskId) {
 
   let targetKey = null;
   for (const key in tasks) {
-    if (Object.prototype.hasOwnProperty.call(tasks, key)) {
-      if (tasks[key].taskIndex === parseInt(taskId, 10)) {
-        targetKey = key;
-        break;
-      }
+    if (tasks[key] && tasks[key].taskIndex === parseInt(taskId, 10)) {
+      targetKey = key;
+      break;
     }
   }
 
@@ -132,13 +135,7 @@ async function fetchData() {
 }
 
 
-/**
- * Initialisiert das Board.
- */
-async function initBoard() {
-  await fetchData();
-  setupEventListeners();
-}
+
 
 /**
  * Setzt Drag & Drop und Button-Listener.
@@ -178,7 +175,6 @@ async function renderLists() {
     containers[i].innerHTML = "";
   }
 
-  // Tasks in Spalten einfügen
   for (let column = 0; column < arrays.length; column++) {
     const list = arrays[column];
     for (let j = 0; j < list.length; j++) {
