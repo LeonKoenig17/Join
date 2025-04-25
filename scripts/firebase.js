@@ -64,36 +64,32 @@ async function deleteData(path = "") {
         method: "DELETE"
     });
 }
-
 async function loadUsers() {
-    try {
-      const usersObj = await loadData("login");
-      const result = [];
-  
-      if (!usersObj) {
-        return result;
-      }
-  
-      for (const id in usersObj) {
-        if (Object.prototype.hasOwnProperty.call(usersObj, id)) {
-          const user = usersObj[id];
-          const color = user.color || '#A8A8A8';
-  
-          result.push({
-            id: id,
-            name: user.name || '',
-            email: user.email || '',
-            color: color
-          });
-        }
-      }
-  
+  try {
+    const usersObj = await loadData("login");
+    const result = [];
+
+    if (!usersObj) {
       return result;
-    } catch (error) {
-      console.error("Fehler beim Laden der Benutzer:", error);
-      return [];
     }
+
+    for (const [id, user] of Object.entries(usersObj)) {
+      const color = user.color || '#A8A8A8';
+
+      result.push({
+        id: id,
+        name: user.name || '',
+        email: user.email || '',
+        color: color
+      });
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Fehler beim Laden der Benutzer:", error);
+    return [];
   }
+}
 
   async function applyUserColors() {
     try {
