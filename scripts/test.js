@@ -29,7 +29,7 @@ async function onload() {
 
     // HTML für das "allContacts" nav erstellen
     const allContactsNav = document.getElementById("allContacts");
-    allContactsNav.innerHTML = '';  // Clear current content
+    // allContactsNav.innerHTML = '';
 
     // Iteriere über die gruppierten Benutzer
     Object.keys(groupedUsers).forEach(letter => {
@@ -40,6 +40,7 @@ async function onload() {
 
         // Füge den Buchstaben hinzu
         const spanLetter = document.createElement("span");
+        spanLetter.classList.add("spanLetter")
         spanLetter.textContent = letter;
         capitalDiv.appendChild(spanLetter);
 
@@ -56,7 +57,8 @@ async function onload() {
             // Initialen erstellen
             const initials = document.createElement("span");
             initials.classList.add("userInitials");
-            initials.textContent = user.name.split(" ").map(name => name[0]).join(""); // Erste Buchstaben des Vornamens und Nachnamens
+            initials.classList.add(`userColor-${user.color.replace('#', '')}`);
+            initials.textContent = user.name.split(" ").map(name => name[0]).join("");
             userNav.appendChild(initials);
 
             // Benutzerdetails erstellen

@@ -31,7 +31,7 @@ body * {
     --priority-color-low: #7AE229;
     --priority-color-medium: #FFA800;
     --priority-color-urgent: #FF3D00;
-    
+    --link-color: #007CEE;
   /*  --shadow-color: #004d40;*/
    /* --highlight-color: #b2ebf2;*/
 }

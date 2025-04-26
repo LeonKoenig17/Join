@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="../styles/contacts.css" />
   <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
 
-  <script src="../scripts/db.js"></script>
+  <!-- <script src="../scripts/db.js"></script> -->
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 <!-- <body onload="init()"> -->
 
-<body>
+  <body onload="onload()">
   <aside>
     <div id="logo">
       <img src="../images/joinlogowhite.svg" alt="" />
@@ -62,6 +62,9 @@
             <img src="../images/person_add.svg" alt="">
           </div>
 
+          <nav id="allContacts" style="overflow: auto;height: calc(100vh - 180px);">
+
+          </nav>
           <!-- <div style="background-color: black; width: 200px;height: 2px;"></div> -->
 
         </div>
@@ -71,10 +74,10 @@
       <div id="contentRight" style="background-color: yellow;width: 100px;height: calc(100vh - 90px);"></div>
     </div>
   </main>
-  <!-- <script src="../scripts/templates.js"></script> -->
-  <!-- <script src="../scripts/firebase.js"></script> -->
-  <!-- <script src="../scripts/contacts.js"></script> -->
-  <!-- <script src="../scripts/addTaskDropDown.js"></script> -->
+
+  <script src="../scripts/firebase.js"></script>
+  <script src="../scripts/contacts.js"></script>
+
 </body>
 
 </html>
