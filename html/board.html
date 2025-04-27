@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="../styles/addTaskOverlay.css">
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
-     <script src="../scripts/board.js"></script>
-     <script src="../scripts/templates.js"></script>
+    <script src="../scripts/board.js"></script>
+    <script src="../scripts/templates.js"></script>
 </head>
 
 <body>
@@ -47,7 +47,7 @@
         <header>
             <span>Kanban Project Management Tool</span>
             <div>
-                <a href=""><img src="../images/help20x20.svg" alt="help"></a>
+                <a href="./help.html"><img src="../images/help20x20.svg" alt="help"></a>
                 <a href="" id="userLink">LK</a>
             </div>
         </header>
@@ -108,7 +108,8 @@
                             <label for="dueDate">Due date<span class="requiredMark">*</span></label>
                             <div id="dueDateContainer" class="dropDown inputHover">
                                 <input type="text" id="dueDate" placeholder="dd/mm/yyyy">
-                                <button id="calenderBtn" class="smallButton btnInInput"><img src="../images/calendar.svg" alt=""></button>
+                                <button id="calenderBtn" class="smallButton btnInInput"><img
+                                        src="../images/calendar.svg" alt=""></button>
                             </div>
                         </div>
                         <div class="line"></div>
@@ -147,9 +148,13 @@
                             <div id="subtasks" class="dropDown inputHover">
                                 <input type="text" placeholder="Add new subtask">
                                 <div class="btnInInput">
-                                    <button id="subtaskPlus" class="smallButton" onclick="focusInputField()"><img src="../images/subtaskPlus.svg" alt=""></button>
-                                    <button id="subtaskCross" class="smallButton" onclick="clearSubtaskInput()"><img src="../images/subtaskX.svg" alt=""></button>
-                                    <button id="subtaskCheck" class="smallButton" onclick="addSubtask(); subtaskHover()"><img src="../images/subtaskCheck.svg" alt=""></button>
+                                    <button id="subtaskPlus" class="smallButton" onclick="focusInputField()"><img
+                                            src="../images/subtaskPlus.svg" alt=""></button>
+                                    <button id="subtaskCross" class="smallButton" onclick="clearSubtaskInput()"><img
+                                            src="../images/subtaskX.svg" alt=""></button>
+                                    <button id="subtaskCheck" class="smallButton"
+                                        onclick="addSubtask(); subtaskHover()"><img src="../images/subtaskCheck.svg"
+                                            alt=""></button>
                                 </div>
                             </div>
                             <div id="addedSubContainer"></div>
