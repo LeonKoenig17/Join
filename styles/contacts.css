@@ -393,6 +393,7 @@ select:focus {
   align-items: center;
   font-size: 36px;
   padding: 0;
+  margin-right: 30px;
 }
 
 .singleUser {
@@ -435,52 +436,7 @@ select:focus {
   margin: 20px 0px;
 }
 
-.userColor-FF7A00{
-  background-color: #FF7A00;
-}
 
-.userColor-FF5EB3{
-  background-color: #FF5EB3;
-}
-.userColor-6E52FF{
-  background-color: #6E52FF;
-}
-.userColor-9327FF{
-  background-color: #9327FF;
-}
-.userColor-00BEE8{
-  background-color: #00BEE8;
-}
-.userColor-1FD7C1{
-  background-color: #1FD7C1;
-}
-.userColor-FF745E{
-  background-color: #FF745E;
-}
-.userColor-FFA35E{
-  background-color: #FFA35E;
-}
-.userColor-FC71FF{
-  background-color: #FC71FF;
-}
-.userColor-FFC701{
-  background-color: #FFC701;
-}
-.userColor-0038FF{
-  background-color: #0038FF;
-}
-.userColor-C3FF2B{
-  background-color: #C3FF2B;
-}
-.userColor-FFE62B{
-  background-color: #FFE62B;
-}
-.userColor-FF4646{
-  background-color: #FF4646;
-}
-.userColor-FFBB2B{
-  background-color: #FFBB2B;
-}
 
 .personAddBtn {
   display: flex;
@@ -540,4 +496,15 @@ select:focus {
   font-size: 27px;
   color: #2A3647;
   cursor: context-menu;
+}
+
+.contactInformations{
+  display: flex;flex-direction: column;
+}
+
+.contactInformations p{
+  margin: 20px 0;
+}
+.contactInformations span,a,strong {
+  margin: 10px 0;
 }
