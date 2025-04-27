@@ -60,7 +60,7 @@ function updateSubtaskList() {
     const listContainer = document.getElementById("subtask-list");
     if (!listContainer) return;
 
-    listContainer.innerHTML = subtasks.map((subtask, i) => subtasksTemplate(subtask, i)).join("");
+    listContainer.innerHTML = subtasks.map((subtask, i) => taskOverlaySubtaskTemplate(subtask, i)).join("");
 }
 
 function editSubtask(index) {

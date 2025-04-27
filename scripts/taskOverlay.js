@@ -2,34 +2,94 @@ let currentTask = null;
 let isEditing = false;
 
 /**
- * Zeigt das Task-Overlay an
- * @param {Object} taskData - Die Daten des Tasks
+ * Prüft für jeden Assignee in taskData.assignedTo, 
+ * ob's einen User mit passender ID gibt, und setzt die Farbe.
  */
-function showTaskOverlay(taskData) {
-  currentTask = taskData;
-  const overlayHTML = generateTaskOverlay(taskData);
-
-  removeExistingOverlay();
-
-  document.body.insertAdjacentHTML("beforeend", overlayHTML);
-
-  setTimeout(() => {
-    document.getElementById("taskOverlay").style.display = "flex";
-  }, 0);
-}
-
-/**
- * Entfernt ein bestehendes Overlay falls vorhanden
- */
-function removeExistingOverlay() {
-  const existingOverlay = document.getElementById("taskOverlay");
-  if (existingOverlay) {
-    existingOverlay.remove();
+function checkUserColor(taskData, users) {
+  if (!Array.isArray(taskData.assignedTo)) return;
+  for (let i = 0; i < taskData.assignedTo.length; i++) {
+    const ass = taskData.assignedTo[i];
+    for (let j = 0; j < users.length; j++) {
+      if (users[j].id === ass.id) {
+        ass.color = users[j].color;
+        break;
+      }
+    }
   }
 }
 
 /**
- * Schließt das Task-Overlay
+ * Füllt das globale subtasks-Array anhand von taskData.subtasks.
+ */
+function initSubtasksArray(taskData) {
+  subtasks.length = 0;
+  if (!Array.isArray(taskData.subtasks)) return;
+  for (let i = 0; i < taskData.subtasks.length; i++) {
+    const s = taskData.subtasks[i];
+    subtasks.push({ name: s.name, completed: s.completed });
+  }
+}
+
+async function showTaskOverlay(taskData) {
+  const users = await loadFirebaseUsers();
+  checkUserColor(taskData, users);
+  initSubtasksArray(taskData);
+
+  currentTask = taskData;
+  const overlayHTML = generateTaskOverlay(taskData);
+  document.body.insertAdjacentHTML("beforeend", overlayHTML);
+  updateSubtaskList();
+  setTimeout(() => document.getElementById("taskOverlay").style.display = "flex", 0);
+}
+
+function showAddTaskOverlay() {
+    renderAddTaskOverlay();
+    initializeOverlayFeatures();
+    setupTaskForm();
+}
+
+function renderAddTaskOverlay() {
+    const overlayHTML = addTaskOverlayTemplate();
+    document.body.insertAdjacentHTML("beforeend", overlayHTML);
+}
+
+function initializeOverlayFeatures() {
+    const taskOverlay = document.getElementById("taskOverlay");
+    if (taskOverlay) {
+        taskOverlay.style.display = "flex";
+        initPriorityButtons();
+        initAssignedDropdown();
+        initSubtaskUI();
+        setupDatePicker();
+        setupSubtaskListeners();
+    }
+}
+
+function setupTaskForm() {
+    const taskForm = document.getElementById("taskForm");
+    if (taskForm) {
+        taskForm.addEventListener("submit", createTask);
+    } else {
+        console.error("taskForm element not found");
+    }
+}
+
+  /**
+ * Initialisiert die Priority-Buttons und setzt Event-Listener.
+ */
+function initPriorityButtons() {
+    const priorityButtons = document.querySelectorAll(".priority-buttons .priority");
+  
+    priorityButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        setPriority(button);
+      });
+    });
+  }
+
+
+/**
+ * Schließt das Overlay
  */
 function closeOverlay() {
   const overlay = document.getElementById("taskOverlay");
@@ -37,7 +97,7 @@ function closeOverlay() {
     overlay.style.display = "none";
     setTimeout(() => {
       overlay.remove();
-    }, 200); // Warte auf Animation
+    }, 200);
   }
   currentTask = null;
   isEditing = false;
@@ -53,47 +113,6 @@ function handleOverlayClick(event) {
   }
 }
 
-/**
- * Aktiviert den Bearbeitungsmodus für einen Task
- * @param {string} taskId - Die ID des zu bearbeitenden Tasks
- */
-function editTask(taskId) {
-  if (isEditing) return;
-  isEditing = true;
-
-  const taskCard = document.querySelector(".task-card");
-  if (!taskCard) return;
-
-  makeFieldsEditable(taskCard);
-
-  updateActionButtons(taskCard, taskId);
-}
-
-/**
- * Macht die Felder eines Tasks editierbar
- * @param {HTMLElement} taskCard - Die Task-Karte
- */
-function makeFieldsEditable(taskCard) {
-  const editableElements = {
-    ".task-title": "text",
-    ".date": "date",
-    ".priority-level": "select",
-  };
-
-  for (const [selector, type] of Object.entries(editableElements)) {
-    const element = taskCard.querySelector(selector);
-    if (!element) continue;
-
-    if (type === "select") {
-      const currentPriority = element.textContent;
-      const select = createPrioritySelect(currentPriority);
-      element.parentNode.replaceChild(select, element);
-    } else {
-      element.contentEditable = true;
-      element.classList.add("editable");
-    }
-  }
-}
 
 /**
  * Erstellt ein Select-Element für die Priorität
@@ -116,137 +135,79 @@ function createPrioritySelect(currentPriority) {
   return select;
 }
 
+
 /**
- * Aktualisiert die Aktions-Buttons
- * @param {HTMLElement} taskCard - Die Task-Karte
- * @param {string} taskId - Die Task-ID
+ * Patch-Helper: Aktualisiert beliebige Felder in Firebase.
+ * @param {string|number} taskId – Firebase-ID des Tasks
+ * @param {Object} updateObj – Objekt mit den zu ändernden Feldern
  */
-function updateActionButtons(taskCard, taskId) {
-  const actionButtons = taskCard.querySelector(".task-actions");
-  if (!actionButtons) return;
-
-  actionButtons
-    .querySelectorAll("button")
-    .forEach((btn) => (btn.style.display = "none"));
-
-  const saveButton = document.createElement("button");
-  saveButton.className = "save-btn";
-  saveButton.textContent = "Speichern";
-  saveButton.onclick = () => saveTaskChanges(taskId);
-
-  const cancelButton = document.createElement("button");
-  cancelButton.className = "cancel-btn";
-  cancelButton.textContent = "Abbrechen";
-  cancelButton.onclick = () => cancelEditing(taskId);
-
-  actionButtons.appendChild(saveButton);
-  actionButtons.appendChild(cancelButton);
+async function patchTask(taskId, updateObj) {
+  const url = BASE_URL + `tasks/${taskId}.json`;
+  await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updateObj)
+  });
 }
 
 /**
- * Speichert die Änderungen eines Tasks
- * @param {string} taskId - Die ID des zu speichernden Tasks
+ * Rendert die Subtasks im Overlay neu.
  */
-async function saveTaskChanges(taskId) {
-  const taskCard = document.querySelector(".task-card");
-  if (!taskCard) return;
+function updateSubtaskList() {
+  const list = document.getElementById('subtask-list');
+  if (!list) return;
+  list.innerHTML = subtasks
+    .map((s, i) => taskOverlaySubtaskTemplate(s, i))
+    .join('');
+}
 
-  const updatedTask = {
-    ...currentTask,
-    title: taskCard.querySelector(".task-title").textContent,
-    dueDate: taskCard.querySelector(".date").textContent,
-    priority:
-      taskCard.querySelector(".priority-select")?.value ||
-      taskCard.querySelector(".priority-level").textContent,
-  };
 
-  try {
-    currentTask = updatedTask;
-    isEditing = false;
-    showTaskOverlay(updatedTask);
-  } catch (error) {
-    console.error("Fehler beim Speichern:", error);
-    alert("Fehler beim Speichern der Änderungen");
-  }
+/**
+ * Rechnet neue Fortschritt-% aus und updatet
+ * die Progressbar & den Zähler im Task-Card.
+ */
+function updateProgressBar() {
+  const done  = subtasks.filter(s => s.completed).length;
+  const total = subtasks.length;
+  const pct   = total > 0 ? (done / total) * 100 : 0;
+  const bar   = document.querySelector(`#task${currentTask.taskIndex} .subtask-progress-bar`);
+  const label = document.querySelector(`#task${currentTask.taskIndex} .subtask-count`);
+  if (bar)   bar.style.width   = `${pct}%`;
+  if (label) label.textContent = `${done}/${total} Subtasks`;
 }
 
 /**
- * Bricht die Bearbeitung ab
- * @param {string} taskId - Die ID des Tasks
+ * Wird vom onclick der Checkbox aufgerufen.
+ * Umschalten, UI updaten und in Firebase patchen.
  */
-function cancelEditing(taskId) {
-  isEditing = false;
-  showTaskOverlay(currentTask);
+async function toggleSubtaskCompletion(index) {
+  subtasks[index].completed = !subtasks[index].completed;
 
-  /**
-   * Löscht einen Task
-   * @param {string} taskId - Die ID des zu löschenden Tasks
-   */
-  async function deleteTask(taskId) {
-    if (!confirm("Möchten Sie diese Aufgabe wirklich löschen?")) return;
+  updateSubtaskList();
+  updateProgressBar();
 
-    try {
-      closeOverlay();
+  const updatedSubtasks = subtasks.map(s => ({
+    name: s.name,
+    completed: s.completed
+  }));
+  await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+}
 
-    } catch (error) {
-      console.error("Fehler beim Löschen:", error);
-      alert("Fehler beim Löschen der Aufgabe");
-    }
-  }
+/**
+ * Löscht einen Task aus Firebase und lädt das Board neu.
+ */
+async function deleteTask(taskId) {
+  const url = BASE_URL + `tasks/${taskId}.json`;
+  await fetch(url, { method: 'DELETE' });
+  closeOverlay();
+  window.location.reload();
+}
 
-  /**
-   * Aktualisiert den Status einer Subtask
-   * @param {string} subtaskId - Die ID der Subtask
-   * @param {boolean} completed - Der neue Status
-   */
-  async function updateSubtask(subtaskId, completed) {
-    if (!currentTask) return;
-
-    try {
-      const subtask = currentTask.subtasks.find((st) => st.id === subtaskId);
-      if (subtask) {
-        subtask.completed = completed;
-      }
-    } catch (error) {
-      console.error("Fehler beim Aktualisieren der Subtask:", error);
-      alert("Fehler beim Aktualisieren der Subtask");
-    }
-  }
-
-  /**
-   * Aktualisiert die Priorität eines Tasks
-   * @param {number} taskId - Die ID des Tasks
-   * @param {string} newPriority - Die neue Priorität
-   */
-  function updatePriority(taskId, newPriority) {
-    console.log("Ändere Priorität für Task:", taskId, "zu:", newPriority);
-    const priorityElement = document.querySelector(".priority-level");
-    if (priorityElement) {
-      priorityElement.textContent = newPriority;
-    }
-  }
-
-  /**
-   * Fügt eine neue Subtask hinzu
-   * @param {number} taskId - Die ID des Tasks
-   * @param {string} subtaskText - Der Text der neuen Subtask
-   */
-  function addSubtask(taskId, subtaskText) {
-    if (!subtaskText.trim()) return;
-
-    const newSubtask = {
-      id: Date.now(),
-      text: subtaskText,
-      completed: false,
-    };
-
-    if (currentTask) {
-      currentTask.subtasks.push(newSubtask);
-
-      const subtaskList = document.querySelector(".subtask-list");
-      if (subtaskList) {
-        subtaskList.innerHTML += generateSubtasksHTML([newSubtask]);
-      }
-    }
-  }
+/**
+ * Fragt per Popup, ob der Task wirklich gelöscht werden soll.
+ */
+function confirmDeleteTask(event, taskId) {
+  event.stopPropagation();
+  if (!window.confirm('Delete permanently?')) return;
+  deleteTask(taskId);
 }

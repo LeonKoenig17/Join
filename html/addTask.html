@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
 
-   <link rel="stylesheet" href="../styles/addTask.css" />
-    <link rel="stylesheet" href="../styles/addSubtask.css" />
-    <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
+   <link rel="stylesheet" href="../styles/addTask/addTask.css" />
+    <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
+    <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
   </head>
   <body onload="init()">
@@ -122,14 +123,14 @@
                 <h3>Category<span>*</span></h3>
                 <div class="custom-select-container">
                   <select id="categorySelect">
-                    <option disabled selected>Select a category</option>
-                    <option>Technical Task</option>
-                    <option>User Story</option>
+                    <option disabled selected >Select a category</option>
+                    <option class="option">Technical Task</option>
+                    <option class="option">User Story</option>
                   </select>
                   <img
                     src="../images/arrow_drop_down.svg"
                     alt=""
-                    class="select-icon"
+                    class="select-icon category-icon"
                   />
                 </div>
                 <span class="error-message" id="category-error"></span>
@@ -200,8 +201,8 @@
     </main>
     <script src="../scripts/templates.js"></script>
     <script src="../scripts/firebase.js"></script>
-    <script src="../scripts/addTask.js"></script>
-    <script src="../scripts/addSubtask.js"></script>
-    <script src="../scripts/addTaskDropDown.js"></script>
+    <script src="../scripts/addTask/addTask.js"></script>
+    <script src="../scripts/addTask/addSubtask.js"></script>
+    <script src="../scripts/addTask/addTaskDropDown.js"></script>
   </body>
 </html>
