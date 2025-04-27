@@ -76,7 +76,7 @@ async function login() {
         return
     }
     if (password == myPassword) {
-        localStorage.setItem("test")
+        localStorage.setItem("user","tm@wema.de")
         showSuccess('loginSuccess');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
