@@ -1,283 +1,276 @@
+// board.js
+
 let toDoArray = [];
 let inProgressArray = [];
 let awaitFeedbackArray = [];
 let doneArray = [];
 
-const firebaseTasks = [];
 const arrays = [toDoArray, inProgressArray, awaitFeedbackArray, doneArray];
-const noTaskHtml = `
-    <div class="noTasks">
-        <span>No tasks To do</span>
-    </div>
-`;
+const noTaskHtml = '\
+    <div class="noTasks">\
+        <span>No tasks To do</span>\
+    </div>\
+';
 
-window.onload = async () => {
-    await fetchData();
 
-    const containers = document.querySelectorAll("#boardContent > div");
-    containers.forEach(container => {
-        container.addEventListener("dragover", (e) => e.preventDefault());
-        container.addEventListener("drop", async(e) => {
-            e.preventDefault();
-            const id = e.dataTransfer.getData("task");
-            const taskId = parseInt(id.replace("task", ""));
-            await updateStage(container, taskId);
-            await fetchData();
-        })
-    })
-
-    const inputField = document.querySelector("#subtasks input");
-    const plus = document.getElementById("subtaskPlus");
-    const cross = document.getElementById("subtaskCross");
-    const check = document.getElementById("subtaskCheck");
-
-    inputField.addEventListener("input", () => {
-        if (inputField.value.trim() != "") {
-            plus.style.display = "none";
-            cross.style.display = "unset";
-            check.style.display = "unset";
-        } else {
-            plus.style.display = "unset";
-            cross.style.display = "none";
-            check.style.display = "none";
-        }
-    })
+/**
+ * Lädt und rendert das Board beim Seiten-Load.
+ */
+async function init() {
+  await fetchData();
+  await renderLists();
+  setupEventListeners();
+  setupSubtaskInputListeners();
 }
 
+
+function setupSubtaskInputListeners() {
+  const inputField = document.querySelector("#subtasks input");
+  const plus = document.getElementById("subtaskPlus");
+  const cross = document.getElementById("subtaskCross");
+  const check = document.getElementById("subtaskCheck");
+
+  if (inputField) {
+    inputField.addEventListener("input", function() {
+      if (inputField.value.trim() !== "") {
+        plus.style.display = "none";
+        cross.style.display = "unset";
+        check.style.display = "unset";
+      } else {
+        plus.style.display = "unset";
+        cross.style.display = "none";
+        check.style.display = "none";
+      }
+    });
+  }
+}
+
+/**
+ * Aktualisiert die Stage eines Tasks in Firebase.
+ */
 async function updateStage(container, taskId) {
-    let newStage = null;
+  const newStage = getStageFromContainer(container.id);
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+  const tasksResponse = await fetch(BASE_URL + "/tasks.json");
+  const tasks = await tasksResponse.json();
 
-    switch (container.id) {
-        case "toDo": newStage = 0; break;
-        case "inProgress": newStage = 1; break;
-        case "awaitFeedback": newStage = 2; break;
-        case "done": newStage = 3; break;
-        default: break;0
+  let targetKey = null;
+  for (const key in tasks) {
+    if (tasks[key] && tasks[key].taskIndex === parseInt(taskId, 10)) {
+      targetKey = key;
+      break;
     }
+  }
 
-    const data = await fetch("https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks.json").then(res => res.json());
+  if (targetKey) {
+    const targetURL = BASE_URL + "/tasks/" + targetKey + ".json";
+    const task = tasks[targetKey];
+    task.stage = newStage;
 
-    let targetKey = null;
-    for (let key in data) {
-        if (data[key].index === taskId) {
-            targetKey = key;
-            break;
-        }
-    }
+    await fetch(targetURL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task)
+    });
 
-    if (targetKey) {
-        const targetURL = `https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks/${targetKey}.json`;
-        const task = await fetch(targetURL).then(res => res.json());
-        task.stage = newStage;
-
-        const updateRes = await fetch(targetURL, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(task)
-        });
-        const updated = await updateRes.json();
-        console.log(updated);
-    }
+    await fetchData();
+  }
 }
 
+/**
+ * Wandelt Container-ID in Stage-Index um.
+ */
+function getStageFromContainer(containerId) {
+  switch (containerId) {
+    case "toDo":
+      return 0;
+    case "inProgress":
+      return 1;
+    case "awaitFeedback":
+      return 2;
+    case "done":
+      return 3;
+    default:
+      return 0;
+  }
+}
+
+/**
+ * Ruft alle Tasks aus Firebase ab und füllt die Arrays.
+ */
 async function fetchData() {
-    const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-    const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
-    arrays.forEach(array => array.length = 0);
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
+  const res = await fetch(BASE_URL + "/tasks.json");
+  const tasks = await res.json();
 
-    if (tasks) {
-        Object.entries(tasks).forEach(entry => {
-            let task = entry[1];
-            let taskData = {
-                title: task.title,
-                description: task.description,
-                dueDate: task.dueDate,
-                priority: task.priority,
-                assignedTo: task.assignedTo,
-                category: task.category,
-                subtasks: task.subtasks,
-                stage: task.stage,
-                index: task.index,
-            }
-            if (task.stage != null) {
-                arrays[task.stage].push(taskData);
-            }
-        })
+  // Arrays leeren
+  for (let i = 0; i < arrays.length; i++) {
+    arrays[i].length = 0;
+  }
 
-    }
-    renderLists();
-    addDragFunction();
-}
-
-function addDragFunction() {
-    const tasks  = document.querySelectorAll(".task");
-    tasks.forEach(task => {
-        task.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("task", task.id);
-        })
-    });
-}
-
-function renderLists() {
-    const containers = document.querySelectorAll("#boardContent > div");
-    containers.forEach(e => {
-        e.innerHTML = "";
-    });
-    for (let i = 0; i < arrays.length; i++) {
-        arrays[i].forEach(task => {
-            containers[i].innerHTML += `
-                <div id="task${task.index}" class="task" draggable="true">
-                    <table>
-                        <tr>
-                            <td>Title</td>
-                            <td>${task.title}</td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>${task.description}</td>
-                        </tr>
-                        <tr>
-                            <td>DueDate</td>
-                            <td>${task.dueDate}</td>
-                        </tr>
-                        <tr>
-                            <td>Priority</td>
-                            <td>${task.priority}</td>
-                        </tr>
-                        <tr>
-                            <td>AssignedTo</td>
-                            <td>${task.assignedTo}</td>
-                        </tr>
-                        <tr>
-                            <td>Subtasks</td>
-                            <td>${task.subtasks}</td>
-                        </tr>
-                        <tr>
-                            <td>Category</td>
-                            <td>${task.category}</td>
-                        </tr>
-                        <tr>
-                            <td>Stage</td>
-                            <td>${task.stage}</td>
-                        </tr>
-                        <tr>
-                            <td>Index</td>
-                            <td>${task.index}</td>
-                        </tr>
-                    </table>
-                </div>
-            `;
-        })
-    }
-    containers.forEach(e => {
-        if (e.innerHTML == "") {
-            e.innerHTML = noTaskHtml;
+  if (tasks) {
+    for (const key in tasks) {
+      if (Object.prototype.hasOwnProperty.call(tasks, key)) {
+        const task = tasks[key];
+        if (task.stage != null) {
+          const taskData = {
+            id: key,
+            taskIndex: task.taskIndex,
+            category: task.category,
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
+            assignedTo: task.assignedTo,
+            subtasks: task.subtasks,
+            stage: task.stage
+          };
+          arrays[task.stage].push(taskData);
         }
-    })
-}
-
-let targetIndex = 0;
-
-function openOverlay(index) {
-    const addTaskOverlay = document.getElementById("addTaskOverlay");
-    addTaskOverlay.style.display = "flex";
-    targetIndex = index;
-}
-
-function clearInputFields() {
-    const allInputs = document.querySelectorAll("#addTaskOverlay input, #addTaskOverlay textarea");
-    allInputs.forEach(input => input.value = "");
-}
-
-function closeOverlay() {
-    const addTaskOverlay = document.getElementById("addTaskOverlay");
-    addTaskOverlay.style.display = "none";
-    clearInputFields();
-}
-
-async function addTask() {
-    const addTaskOverlay = document.getElementById("addTaskOverlay");
-    const title = addTaskOverlay.querySelector("#title").value.trim();
-    const dueDate = addTaskOverlay.querySelector("#dueDate").value;
-    const category = addTaskOverlay.querySelector("#category .dropDown span");
-    let inputValid;
-    
-    const description = addTaskOverlay.querySelector("#description").value;
-    let priority = addTaskOverlay.querySelector(".selectedPrio");
-    console.log(priority);
-    if (priority == null) { priority = "" }
-    
-    if (title != "" && dueDate != "" && category.textContent != "Select task category") {
-        inputValid = true;
-    } else {
-        inputValid = false;
+      }
     }
-    
-    if (!inputValid) {
-        console.log("input invalid")
-        return;
-    } else {
-        const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-        const tasks = await fetch(BASE_URL + "/tasks.json").then(res => res.json());
-        let number = await Object.entries(tasks).length + 1;
-        
-        console.log("input valid, data posted");
-        await postData("tasks", {
-            title: title, 
-            description: description,
-            dueDate: dueDate,
-            priority: priority,
-            assignedTo: "",
-            category: category.textContent,
-            subtasks: {"task1": "ticked", "task2": "unticked"},
-            stage: targetIndex,
-            index: number
-        })
-    }
-    
-    clearInputFields();
-    closeOverlay();
-    fetchData();
+  }
+
+  renderLists();
 }
 
-async function postData(path, data) {
-    const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/";
-    await fetch(BASE_URL + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
+
+
+
+/**
+ * Setzt Drag & Drop und Button-Listener.
+ */
+function setupEventListeners() {
+  const containers = document.querySelectorAll("#boardContent > div");
+  for (let i = 0; i < containers.length; i++) {
+    const container = containers[i];
+
+    container.addEventListener("dragover", function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
     });
+
+    container.addEventListener("drop", function(e) {
+      e.preventDefault();
+      const rawId = e.dataTransfer.getData("text/plain");
+      const taskId = parseInt(rawId.replace("task", ""), 10);
+      updateStage(container, taskId);
+    });
+  }
+
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  if (addTaskBtn) {
+    addTaskBtn.addEventListener("click", function() {
+      showAddTaskOverlay();
+    });
+  }
 }
 
-function toggleDropMenu(id) {
-    const container = document.getElementById(id);
-    const selection = container.querySelector(".dropSelection");
-    selection.classList.toggle("toggleSelection");
-    const arrow = container.querySelector("i");
-    if (selection.classList.contains("toggleSelection")) {
-        arrow.style.backgroundImage = "url(../images/arrowUp.svg)";
-    } else {
-        arrow.style.backgroundImage = "url(../images/arrowDown.svg)";
+/**
+ * Rendert alle vier Spalten des Boards.
+ */
+async function renderLists() {
+  const containers = document.querySelectorAll("#boardContent > div");
+  for (let i = 0; i < containers.length; i++) {
+    containers[i].innerHTML = "";
+  }
+
+  for (let column = 0; column < arrays.length; column++) {
+    const list = arrays[column];
+    for (let j = 0; j < list.length; j++) {
+      const task = list[j];
+      const taskData = {
+        id: task.id,
+        taskIndex: task.taskIndex || Date.now(),
+        category: task.category || "User Story",
+        title: task.title || "",
+        description: task.description || "",
+        dueDate: task.dueDate || new Date().toISOString().split("T")[0],
+        priority: task.priority || "Medium",
+        assignedTo: task.assignedTo || [],
+        subtasks: task.subtasks || [],
+        status: getStatusFromColumnIndex(task.stage || 0)
+      };
+      containers[column].innerHTML += generateTaskCard(taskData);
     }
+  }
+
+  for (let i = 0; i < containers.length; i++) {
+    if (containers[i].innerHTML === "") {
+      containers[i].innerHTML = '<div class="noTasks"><span>No tasks to do</span></div>';
+    }
+  }
+
+  addDragFunction();
+  await applyUserColors();
 }
 
-function selectCategory(selected) {
-    const parent = selected.parentElement.parentElement;
-    const inputField = parent.querySelector(".dropDown span");
-    inputField.textContent = selected.textContent;
-    toggleDropMenu(parent.id);
+/**
+ * Wendet User-Farben auf Task-Avatare an.
+ */
+async function applyUserColors() {
+  try {
+    const users = await loadUsers();
+    const userEls = document.querySelectorAll(".task-assignee");
+
+    for (let i = 0; i < userEls.length; i++) {
+      const el = userEls[i];
+      const userId = el.getAttribute("data-user-id");
+      for (let j = 0; j < users.length; j++) {
+        if (users[j].id === userId) {
+          el.style.backgroundColor = users[j].color;
+          break;
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  }
 }
 
-function selectPrio(id) {
-    const prioBtns = document.querySelectorAll("#priorityBtns button");
-    prioBtns.forEach(btn => {
-        btn.classList.remove("selectedPrio");
-    })
+/**
+ * Erstellt einen neuen Task und zeigt das Overlay.
+ */
+function createNewTask(status) {
+  const taskData = {
+    id: Date.now().toString(),
+    category: "User Story",
+    title: "Neue Aufgabe",
+    description: "",
+    dueDate: new Date().toISOString().split("T")[0],
+    priority: "Medium",
+    assignedTo: [],
+    subtasks: [],
+    status: status
+  };
+  showAddTaskOverlay();;
+}
 
-    const selected = document.getElementById(id);
-    selected.classList.add("selectedPrio");
+/**
+ * Wandelt Spaltenindex in Status-String um.
+ */
+function getStatusFromColumnIndex(columnIndex) {
+  const statusMap = {
+    0: "todo",
+    1: "inProgress",
+    2: "awaitFeedback",
+    3: "done"
+  };
+  return statusMap[columnIndex] || "todo";
+}
+
+/**
+ * Macht alle Task-Elemente draggable.
+ */
+function addDragFunction() {
+  const tasks = document.querySelectorAll(".task");
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    task.setAttribute("draggable", "true");
+    task.addEventListener("dragstart", function(e) {
+      console.log("Drag started for task:", task.id);
+      e.dataTransfer.setData("text/plain", task.id);
+      e.dataTransfer.effectAllowed = "move";
+    });
+  }
 }

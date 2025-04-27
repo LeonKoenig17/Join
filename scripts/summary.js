@@ -1,0 +1,83 @@
+function init() {
+  loadAndDisplayTaskCounts(); // Tasks laden und anzeigen
+}
+
+/**
+ * Mappt die `stage`-Nummern auf die entsprechenden Kategorien.
+ * @param {number} stage - Die Stage-Nummer des Tasks.
+ * @returns {string} - Die Beschreibung der Stage.
+ */
+function getStageDescription(stage) {
+  switch (stage) {
+    case 0:
+      return "To Do";
+    case 1:
+      return "In Progress";
+    case 2:
+      return "Awaiting Feedback";
+    case 3:
+      return "Done";
+    default:
+      return "Unknown";
+  }
+}
+
+/**
+ * Zählt Tasks pro Stage.
+ * @param {Object} tasksObj – das zurückgegebene Objekt von loadData('tasks')
+ * @returns {{all: number, toDo: number, inProgress: number, awaitFeedback: number, done: number, urgent: number}}
+ */
+function countTasks(tasksObj) {
+  const counts = {
+    all: 0,
+    toDo: 0,
+    inProgress: 0,
+    awaitFeedback: 0,
+    done: 0,
+    urgent: 0,
+  };
+
+  if (!tasksObj) return counts;
+  Object.values(tasksObj).forEach((task) => {
+    counts.all++;
+    switch (task.stage) {
+      case 0:
+        counts.toDo++;
+        break;
+      case 1:
+        counts.inProgress++;
+        break;
+      case 2:
+        counts.awaitFeedback++;
+        break;
+      case 3:
+        counts.done++;
+        break;
+    }
+    if (task.priority && task.priority.toLowerCase() === "urgent") {
+      counts.urgent++;
+    }
+  });
+
+  return counts;
+}
+
+/**
+ * Lädt die Tasks aus Firebase, zählt sie und aktualisiert die Summary.
+ */
+async function loadAndDisplayTaskCounts() {
+  try {
+    const tasks = await loadData("tasks");
+    const counts = countTasks(tasks);
+
+    document.getElementById("allTasks").textContent = counts.all;
+    document.getElementById("toDoTasks").textContent = counts.toDo;
+    document.getElementById("inProgressTasks").textContent = counts.inProgress;
+    document.getElementById("awaitingFeedbackTasks").textContent =
+      counts.awaitFeedback;
+    document.getElementById("doneTasks").textContent = counts.done;
+    document.getElementById("urgentTasks").textContent = counts.urgent;
+  } catch (error) {
+    console.error("Fehler beim Laden der Tasks:", error);
+  }
+}

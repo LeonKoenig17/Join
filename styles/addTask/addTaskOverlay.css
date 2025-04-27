@@ -36,7 +36,6 @@
 
 #overlayMain {
   display: flex;
-  /* justify-content: center; */
 }
 
 #left, #right {
@@ -160,12 +159,18 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 100px;
-  /* top: 100%; */
+  width: 90%;
+  padding: 50px 0;
+  position: absolute;
+  bottom: 0;
 }
 
 #overlayFooter > span {
   font-size: 16px;
+}
+
+#closeBtns {
+  display: flex;
 }
 
 .requiredMark {
@@ -181,6 +186,10 @@
   padding-left: 10px;
 }
 
+#urgentBtn:hover, #mediumBtn:hover, #lowBtn:hover {
+  cursor: pointer;
+}
+
 .urgentBtn {
   background-image: url(../images/urgent.svg);
 }
@@ -194,7 +203,6 @@
 }
 
 .selectedPrio {
-  background-color: red !important;
   color: white;
 }
 
@@ -213,7 +221,10 @@
   width: 100%;
 }
 
-.subtaskBtn {
+.smallButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   border-radius: 100%;
@@ -222,11 +233,18 @@
   padding: 0;
 }
 
-.subtaskBtn:hover {
-  background-color: #EEEEEE;
+.inputHover *:hover, .addedSub *:hover {
+  cursor: pointer;
 }
 
-#subtaskBtns {
+.smallButton:hover, .addedSub:hover {
+  background-color: #EEEEEE;
+  cursor: pointer;
+}
+
+.btnInInput {
+  display: flex;
+
   position: absolute;
   right: 14px;
 }
