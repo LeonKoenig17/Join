@@ -33,8 +33,53 @@ body * {
     --priority-color-low: #7AE229;
     --priority-color-medium: #FFA800;
     --priority-color-urgent: #FF3D00;
-   
-
+    --link-color: #007CEE;
   /*  --shadow-color: #004d40;*/
    /* --highlight-color: #b2ebf2;*/
 }
+
+.userColor-FF7A00{
+    background-color: #FF7A00;
+  }
+  .userColor-FF5EB3{
+    background-color: #FF5EB3;
+  }
+  .userColor-6E52FF{
+    background-color: #6E52FF;
+  }
+  .userColor-9327FF{
+    background-color: #9327FF;
+  }
+  .userColor-00BEE8{
+    background-color: #00BEE8;
+  }
+  .userColor-1FD7C1{
+    background-color: #1FD7C1;
+  }
+  .userColor-FF745E{
+    background-color: #FF745E;
+  }
+  .userColor-FFA35E{
+    background-color: #FFA35E;
+  }
+  .userColor-FC71FF{
+    background-color: #FC71FF;
+  }
+  .userColor-FFC701{
+    background-color: #FFC701;
+  }
+  .userColor-0038FF{
+    background-color: #0038FF;
+  }
+  .userColor-C3FF2B{
+    background-color: #C3FF2B;
+  }
+  .userColor-FFE62B{
+    background-color: #FFE62B;
+  }
+  .userColor-FF4646{
+    background-color: #FF4646;
+  }
+  .userColor-FFBB2B{
+    background-color: #FFBB2B;
+  }
