@@ -186,7 +186,9 @@
 .square-button-v1-left-196:hover,
 .square-button-v1-left-196:hover p,
 .square-button-v1:hover p,
-.pr-button-v1:hover {
+.cr-button-v1:hover,
+.pr-button-v1:hover,
+.cr-frame-59:hover {
   color: white;
   transition: 0.2s ease-in-out;
 }
@@ -340,7 +342,6 @@
 }
 
 .cr-button-v1-hidden {
-  z-index: 10;
   opacity: 0;
   width: 264px;
   height: 168px;
@@ -358,21 +359,10 @@
 }
 
 .cr-button-v1:hover,
-.cr-button-v1-hidden:hover,
-.pr-button-v1:hover,
-.pr-button-v1-hidden:hover {
+.cr-button-v1-hidden:hover {
   opacity: 1;
   transform: scale(1.07);
   transform-origin: right center;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
-  background-color: #2A3647;
-}
-
-.pr-button-v1:hover,
-.pr-button-v1-hidden:hover {
-  opacity: 1;
-  transform: scale(1.07);
-  transform-origin: left center;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
   background-color: #2A3647;
 }
@@ -400,23 +390,6 @@
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.pr-button-v1-hidden {
-  opacity: 0;
-  z-index: 10;
-  width: 264px;
-  height: 168px;
-  border-radius: 30px;
-  gap: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  background-color: #2A3647;
-  box-shadow: 0px 0px 4px 0px #0000001A;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
 .pr-button-v1:hover {
   transform: scale(1.07);
   transform-origin: left center;
@@ -436,16 +409,6 @@
 
 .frame-65 p {
   color: #2A3647;
-  margin: 0;
-  height: 24px;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 120%;
-  text-align: center;
-}
-
-.p-hidden {
-  color: white !important;
   margin: 0;
   height: 24px;
   font-weight: 400;
@@ -492,7 +455,6 @@
 }
 
 .cr-frame-59 {
-  z-index: 1;
   display: flex;
   justify-content: center;
   width: 69px;

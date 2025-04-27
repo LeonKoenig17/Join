@@ -8,6 +8,19 @@ const priorityButtons = document.querySelectorAll(
 );
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
+const subtaskInput = document.getElementById("subtaskInput");
+const addSubtaskBtn = document.querySelector(".add-subtask");
+const createTaskBtn = document.querySelector(".create-button");
+
+const userColors = ['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FF4646']
+
+let subtasks = [];
+let subtaskList = document.getElementById("subtask-list");
+if (!subtaskList) {
+  document.querySelector(".subtask-input").innerHTML +=
+    "<div id='subtask-list'></div>";
+  subtaskList = document.getElementById("subtask-list");
+}
 
 /**
  * Initializes the task creation page by setting up various UI components and functionalities.
@@ -21,7 +34,7 @@ function init() {
   setupDatePicker();
   setupPriorityButtons();
   loadAndRenderAssignedContacts();
-  applyUserColors();
+  setupSubtaskInput();
   setupCreateTaskButton();
   setupFieldListeners();
 }
@@ -74,6 +87,68 @@ async function createTask() {
     window.location.href = "board.html"; // Weiterleitung zur board.html
   } catch (err) {
     console.error("Fehler:", err);
+  }
+}
+
+/**
+ * Initializes the subtask input functionality by setting up event listeners
+ * for the subtask input field and the add subtask button. This function:
+ * - Enables or disables the add subtask button based on the input field's value.
+ * - Adds a new subtask to the list when the add button is clicked, updates the
+ *   subtask list, clears the input field, and disables the button.
+ *
+ * @function setupSubtaskInput
+ * @listens input#subtaskInput - Monitors changes in the subtask input field.
+ * @listens click#addSubtaskBtn - Handles adding a new subtask when the button is clicked.
+ */
+function setupSubtaskInput() {
+  subtaskInput.addEventListener("input", function () {
+    addSubtaskBtn.disabled = subtaskInput.value.trim() === "";
+  });
+  addSubtaskBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const text = subtaskInput.value.trim();
+    if (text !== "") {
+      subtasks.push(text);
+      updateSubtaskList();
+      subtaskInput.value = "";
+      addSubtaskBtn.disabled = true;
+    }
+  });
+}
+
+/**
+ * Updates the subtask list in the DOM by generating HTML for each subtask
+ * and attaching event listeners to delete buttons for removing subtasks.
+ *
+ * The function iterates over the `subtasks` array to create the HTML structure
+ * for the subtask list using the `subtaskTemplate` function. It then assigns
+ * the generated HTML to the `subtaskList` element. Additionally, it adds
+ * click event listeners to the delete buttons, allowing users to remove
+ * subtasks from the list and updates the DOM accordingly.
+ *
+ * @global {Array} subtasks - The array containing all subtasks.
+ * @global {HTMLElement} subtaskList - The DOM element where the subtasks are rendered.
+ */
+function updateSubtaskList() {
+  let html = "";
+  for (let i = 0; i < subtasks.length; i++) {
+    html += subtaskTemplate(subtasks[i], i);
+  }
+  subtaskList.innerHTML = html;
+  const btns = subtaskList.getElementsByClassName("delete-subtask");
+  for (let j = 0; j < btns.length; j++) {
+    btns[j].addEventListener("click", function () {
+      const index = parseInt(this.getAttribute("data-index"), 10);
+      let newSubs = [];
+      for (let k = 0; k < subtasks.length; k++) {
+        if (k !== index) {
+          newSubs.push(subtasks[k]);
+        }
+      }
+      subtasks = newSubs;
+      updateSubtaskList();
+    });
   }
 }
 
@@ -185,8 +260,10 @@ dateInput.addEventListener("change", function () {
     // Entferne die rote Border (über die CSS-Klasse)
     dateInput.classList.remove("fieldIsRequired");
 
+    // Entferne die Fehlermeldung
     document.getElementById("due-date-error").textContent = "";
 
+    // Setze den Border direkt auf blau zurück (falls du es direkt überschreiben möchtest)
     dateInput.style.borderColor = "var(--border-color)";
   }
 });
@@ -215,12 +292,123 @@ function clearForm() {
   if (categorySelect) {
     categorySelect.selectedIndex = 0;
   }
+  subtasks = [];
   updateSubtaskList();
 }
 
+
+/**
+ * Sets up the event listener for the "Create Task" button.
+ * When the button is clicked, it prevents the default form submission
+ * behavior and triggers the `createTask` function.
+ */
 function setupCreateTaskButton() {
-  const createTaskBtn = document.querySelector(".create-button");
   createTaskBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    createTask();
   });
+}
+
+/**
+ * Updates an existing task with new data.
+ *
+ * @async
+ * @function
+ * @param {string} taskId - The unique identifier of the task to be updated.
+ * @param {Object} updatedTask - An object containing the updated task data.
+ * @returns {Promise<void>} Resolves when the task is successfully updated.
+ * @throws {Error} If an error occurs during the update process.
+ */
+async function updateTask(taskId, updatedTask) {
+  try {
+    await updateData("tasks/" + taskId, updatedTask);
+    console.log("Task updated");
+  } catch (err) {
+    console.error("Error updating task:", err);
+  }
+}
+
+/**
+ * Asynchronously removes a task by its ID.
+ *
+ * This function deletes a task from the data source using the provided task ID.
+ * If the deletion is successful, a confirmation message is logged to the console.
+ * If an error occurs during the deletion process, it is caught and logged as an error.
+ *
+ * @async
+ * @function
+ * @param {string} taskId - The unique identifier of the task to be removed.
+ * @returns {Promise<void>} A promise that resolves when the task is successfully deleted.
+ * @throws {Error} Logs an error message if the task deletion fails.
+ */
+async function removeTask(taskId) {
+  try {
+    await deleteData("tasks/" + taskId);
+    console.log("Task deleted");
+  } catch (err) {
+    console.error("Error deleting task:", err);
+  }
+}
+
+/**
+ * A reference to the HTML input element for selecting a due date.
+ * This element is expected to have the ID 'due-date'.
+ *
+ * @type {HTMLInputElement | null}
+ */
+document
+  .querySelector(".custom-date-input img")
+  .addEventListener("click", () => {
+    dateInput.showPicker ? dateInput.showPicker() : dateInput.focus();
+  });
+
+/**
+ * Generates the initials from a given name.
+ *
+ * @param {string} name - The full name from which to extract initials.
+ *                        If the name is empty or undefined, "NN" (No Name) is returned.
+ * @returns {string} The initials derived from the name. If the name contains only one word,
+ *                   the first letter of that word is returned in uppercase.
+ *                   If the name contains multiple words, the first letter of the first
+ *                   and last words are returned in uppercase.
+ */
+function getInitials(name) {
+  if (!name) return "NN"; // "No Name"
+  const parts = name.trim().split(" ");
+  if (parts.length === 1) {
+    return parts[0].charAt(0).toUpperCase();
+  } else {
+    const first = parts[0].charAt(0).toUpperCase();
+    const last = parts[parts.length - 1].charAt(0).toUpperCase();
+    return first + last;
+  }
+}
+
+/**
+ * Asynchronously loads user data and renders assigned contacts into a dropdown element.
+ *
+ * This function retrieves user data from storage using the key "login", then dynamically
+ * populates the HTML element with the ID "assignedDropdownSelected" with user information.
+ * If the target element is not found, an error is logged to the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} Resolves when the user data is loaded and rendered.
+ * @throws {Error} Logs an error if the target element is not found.
+ */
+async function loadAndRenderAssignedContacts() {
+  const users = await loadData("login");
+  const assignedEl = document.getElementById("assignedDropdownSelected");
+  if (!assignedEl) {
+    console.error("Element with id 'assignedDropdownSelected' not found!");
+    return;
+  }
+  if (users) {
+    const keys = Object.keys(users);
+    for (let i = 0; i < keys.length; i++) {
+      const id = keys[i],
+        user = users[id];
+      assignedEl.innerHTML += assignedUserTemplate(user, i);
+    }
+  }
 }

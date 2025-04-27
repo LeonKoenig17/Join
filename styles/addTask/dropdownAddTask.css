@@ -8,8 +8,13 @@
   cursor: pointer;
   padding: 8px 10px;
   margin-bottom: 10px;
+  transition: all 0.2s ease-in-out;
+  color: var(--text-color);
 }
 
+.custom-assigned-dropdown:hover {
+  box-shadow: var(--shadow-color) 1px 1px 1px;
+}
 .dropdown-selected {
   display: flex;
   align-items: center;
@@ -18,7 +23,6 @@
 }
 
 .select-icon {
-  margin-left: 8px;
   padding: 5px;
   border-radius: 50%;
   transition: background-color 0.2s ease-in-out;
@@ -49,7 +53,7 @@
 }
 
 .dropdown-options {
-  display: none;
+  visibility: hidden;
   position: absolute;
   top: calc(100% + 2px);
   left: 0;
@@ -58,13 +62,18 @@
   border: 1px solid var(--border-color);
   border-radius: 10px;
   z-index: 10;
-  max-height: 200px;
+  max-height: 0;
   overflow-y: auto;
-  padding: 10px 0;
+  padding: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 .dropdown-options.show {
-  display: block;
+  visibility: visible;
+  max-height: 200px;
+  padding: 10px 0;
+  opacity: 1;
 }
 
 .assigned-user-item {
@@ -120,6 +129,24 @@
 
 .assign-checkbox {
   margin-left: auto;
+}
+
+#categorySelect {
+  transition: all 0.2s ease-in-out;
+}
+
+#categorySelect:hover {
+  box-shadow: var(--shadow-color) 1px 1px 1px;
+}
+
+.category-icon:hover {
+  background-color: var(--border-color);
+  border-radius: 50%;
+}
+
+option.option:checked {
+  background-color: var(--border-color, #e0e0e0) !important;
+  color: var(--text-color, #000) !important;
 }
 
 .subTask-icons {

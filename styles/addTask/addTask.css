@@ -1,0 +1,325 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 90px);
+  background-color: var(--background-color);
+}
+
+#main > div {
+  max-width: 850px;
+}
+
+#addTask {
+  display: flex;
+  gap: 20px;
+}
+
+.half-width {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.addTask-left {
+  margin-right: 20px;
+}
+
+.forms label {
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text-color);
+  margin-top: 20px !important;
+}
+
+#main span {
+  color: #ff8190;
+  padding-left: 2px;
+}
+
+.forms input,
+.forms textarea {
+  width: 100%;
+  padding: 12px 21px;
+  margin-top: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.forms input:focus,
+.forms textarea:focus {
+  outline: 1px solid var(--accent-color);
+}
+
+.custom-date-input {
+  position: relative;
+}
+
+.custom-date-input input[type="date"] {
+  padding-right: 20px;
+}
+
+.custom-date-input img {
+  position: absolute;
+  top: 64%;
+  left: 100%;
+  transform: translateY(-50%);
+}
+
+.custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+.custom-date-input:hover {
+  cursor: pointer;
+}
+
+.addTask-right {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.h3-priority {
+  margin-top: 0 !important;
+}
+
+.priority-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.priority {
+  width: 136px;
+  padding: 16px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.priority img {
+  padding-left: 8px;
+}
+
+.priority-urgent,
+.priority-medium,
+.priority-low {
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.priority-urgent.active-btn {
+  background-color: var(--priority-color-urgent);
+  color: white;
+}
+
+.priority-medium.active-btn {
+  background-color: var(--priority-color-medium);
+  color: white;
+}
+
+.priority-low.active-btn {
+  background-color: var(--priority-color-low);
+  color: white;
+}
+
+.priority.active-btn img {
+  filter: brightness(0) invert(1);
+}
+
+.priority:hover {
+  box-shadow: var(--shadow-color) 0px 5px 10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: white;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.custom-select-container, .subtask-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+.custom-select-container select, .subtask-input input {
+  appearance: none;
+}
+
+.custom-select-container .select-icon {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+
+.subtask-input input {
+    padding-right: 40px;
+}
+
+.subtask-input img {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+select:focus {
+  outline: 1px solid var(--accent-color);
+}
+
+.assigned-contacts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.assigned-contacts .contact-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--highlight-color);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.subtask-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--border-color);
+}
+
+.subtask-input input:focus {
+  border: 1px solid var(--accent-color);
+  outline: none;
+}
+
+.subtask-input button {
+  padding: 10px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.subtask-input button:hover {
+  background-color: var(--primary-color);
+}
+
+.create-task-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 160px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.create-task-footer img {
+  padding-left: 10px;
+}
+.create-task-footer p {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.clear-button {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color);
+  border: 1px solid var(--primary-color);
+  padding: 10px 19px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, content 0.2s ease-in-out;
+}
+
+.clear-button:hover {
+  border-color: var(--hover-color);
+  color: var(--hover-color);
+}
+
+.clear-button:hover img {
+  display: none;
+}
+
+.clear-button:hover::after {
+  content: url("../images/cancelblue.svg");
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.create-button:hover {
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+}
+
+.separator {
+  width: 1px;
+  background-color: var(--border-color);
+  margin: 0 20px;
+}
+
+.fieldIsRequired {
+  border-color: var(--border-color-required) !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.d-none {
+  display: none;
+}
+
+.input-base-icon-active {
+   opacity: 1; 
+  transition: opacity 0.2s ease-in-out;
+}
