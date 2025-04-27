@@ -4,23 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joinj/summary</title>
+  <title>summary</title>
 
   <link rel="stylesheet" href="../styles/standard.css">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../styles/summary.css">
 
-  <!-- font -->
+  <!-- summary font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
 
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/summary.js"></script>
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
-<body>
+<body onload="init()">
   <aside>
     <div id="logo"><img src="../images/joinlogowhite.svg" alt=""></div>
     <nav>
@@ -42,8 +44,8 @@
       </a>
     </nav>
     <div id="legal">
-      <a href="./privacy-policy.html">Privacy Policy</a>
-      <a href="./legal-notice.html">Legal Notice</a>
+      <a href="">Privacy Policy</a>
+      <a href="">Legal Notice</a>
     </div>
   </aside>
   <main>
@@ -69,19 +71,19 @@
         <div class="frame-64">
           <div class="square-button-v1">
             <div class="frame-61">
-              <h3>3</h3>
-              <p>Tast In Board</p>
+              <h3 id="allTasks">0</h3>
+              <p>Tasks In Board</p>
             </div>
           </div>
           <div class="square-button-v1-left-196">
             <div class="frame-61">
-              <h3>2</h3>
+              <h3 id="inProgressTasks">0</h3>
               <p>Tasks In Progress</p>
             </div>
           </div>
           <div class="square-button-v1-left-392">
             <div class="frame-61">
-              <h3>1</h3>
+              <h3 id="awaitingFeedbackTasks">1</h3>
               <p>Awaiting Feedback </p>
             </div>
           </div>
@@ -95,7 +97,7 @@
               </div>
             </div>
             <div class="frame-63">
-              <h3>1</h3>
+              <h3 id="urgentTasks">0</h3>
               <p>Urgent</p>
             </div>
           </div>
@@ -113,19 +115,19 @@
               </div>
             </div>
             <div class="group-6">
-              <h4>1</h4>
+              <h4 id="doneTasks">0</h4>
               <p>Done</p>
             </div>
           </div>
           <div class="cr-button-v1-hidden">
-            <div class="cr-frame-59-hidden">
+            <div class="cr-frame-59">
               <div class="frame-59-group-7">
                 <img src="../images/check-2.svg">
               </div>
             </div>
             <div class="group-6-hidden">
               <h4>1</h4>
-              <p class="p-hidden">Done</p>
+              <p>Done</p>
             </div>
           </div>
           <div class="pr-button-v1">
@@ -135,25 +137,15 @@
               </div>
             </div>
             <div class="group-6">
-              <h4>1</h4>
+              <h4 id="toDoTasks">0</h4>
               <p>To-Do</p>
-            </div>
-          </div>
-          <div class="pr-button-v1-hidden">
-            <div class="cr-frame-59-hidden">
-              <div class="frame-59-group-7-edit">
-                <img src="../images/edit-2.svg">
-              </div>
-            </div>
-            <div class="group-6-hidden">
-              <h4>1</h4>
-              <p class="p-hidden">To-Do</p>
             </div>
           </div>
         </div>
       </div>
     </summary>
   </main>
+
 </body>
 
 </html>
