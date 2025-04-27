@@ -76,6 +76,7 @@ async function login() {
         return
     }
     if (password == myPassword) {
+        localStorage.setItem("test")
         showSuccess('loginSuccess');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")

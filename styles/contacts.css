@@ -1,3 +1,11 @@
+main {
+  /* display: flex; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+  width: calc(100% - 200px);
+  background-color: var(--background-color);
+}
+
 #mainContent {
   display: flex;
   flex-direction: row;
