@@ -19,6 +19,7 @@
 
     <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/summary.js"></script>
+    <script src="../scripts/script.js"></script>
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
@@ -50,10 +51,15 @@
   </aside>
   <main>
     <header>
-      <span>Kanban Project Management Tool</span>
-      <div>
+      <span style="position:absolute;left:130px">Kanban Project Management Tool</span>
+      <div style="position: absolute;right: 0px">
         <a href="./help.html"><img src="../images/help20x20.svg" alt="help"></a>
-        <a href="" id="userLink">LK</a>
+        <span id="userLink" onclick="showUserLinksOptions()">LK</span>
+      </div>
+      <div id="userLinkOptions" class="userLinkOptions hide">
+        <a href="../html/legal-notice.html">Legal Notice</a>
+        <a href="../html/privacy-policy.html">Privacy Policy</a>
+        <a onclick="logout()">Log out</a>
       </div>
     </header>
     <!-- <div id="mainContent">mainContent</div> -->

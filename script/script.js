@@ -66,6 +66,7 @@ async function createAccount() {
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
     let myEmail = await findUser(document.getElementById("emailInput").value);
+    let email = document.getElementById("emailInput").value;
     let password = document.getElementById("passwordInput").value;
 
     if (myEmail == null) {
@@ -76,6 +77,8 @@ async function login() {
         return
     }
     if (password == myPassword) {
+        localStorage.setItem("user",email)
+        localStorage.setItem("token",myEmail)
         showSuccess('loginSuccess');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")

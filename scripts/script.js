@@ -81,3 +81,13 @@ async function findUser(email) {
     }
     return null;
 }
+
+function showUserLinksOptions(){
+    document.getElementById("userLinkOptions").classList.toggle("hide")
+}
+
+function logout(){
+    localStorage.setItem("user","")
+    localStorage.setItem("token","")
+    window.location = '../index.html';
+}
