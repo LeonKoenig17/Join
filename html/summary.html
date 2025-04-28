@@ -17,9 +17,9 @@
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
 
-    <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/summary.js"></script>
-    <script src="../scripts/script.js"></script>
+  <script src="../scripts/firebase.js" defer></script>
+  <script src="../scripts/summary.js"></script>
+  <script src="../scripts/script.js"></script>
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
@@ -50,18 +50,28 @@
     </div>
   </aside>
   <main>
-    <header>
+    <!-- <header>
       <span style="position:absolute;left:130px">Kanban Project Management Tool</span>
       <div style="position: absolute;right: 0px">
         <a href="./help.html"><img src="../images/help20x20.svg" alt="help"></a>
         <span id="userLink" onclick="showUserLinksOptions()">LK</span>
       </div>
-      <div id="userLinkOptions" class="userLinkOptions hide">
-        <a href="../html/legal-notice.html">Legal Notice</a>
-        <a href="../html/privacy-policy.html">Privacy Policy</a>
-        <a onclick="logout()">Log out</a>
+    </header> -->
+
+    <header>
+      <span>Kanban Project Management Tool</span>
+      <div>
+        <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
+        <a onclick="showUserLinksOptions()" id="userLink">LK</a>
       </div>
     </header>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+      <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+      <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+      <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+    </div>
+
+
     <!-- <div id="mainContent">mainContent</div> -->
     <summary id="summaryContent">
       <div class="frame-40">

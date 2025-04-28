@@ -12,7 +12,10 @@
   <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
   <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
   <link rel="stylesheet" href="../styles/fonts.css" />
+
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
+  <script src="../scripts/script.js"></script>
+
 </head>
 
 <body onload="init()">
@@ -44,13 +47,28 @@
     </div>
   </aside>
   <main>
-    <header>
+    <!-- <header>
       <span>Kanban Project Management Tool</span>
       <div>
         <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
         <a href="" id="userLink">LK</a>
       </div>
+    </header> -->
+
+    <header>
+      <span>Kanban Project Management Tool</span>
+      <div>
+        <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
+        <a onclick="showUserLinksOptions()" id="userLink">LK</a>
+      </div>
     </header>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+      <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+      <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+      <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+    </div>
+
+
     <div id="main">
       <div>
         <div id="message"></div>
@@ -160,6 +178,7 @@
   <script src="../scripts/addTask/addTask.js"></script>
   <script src="../scripts/addTask/addSubtask.js"></script>
   <script src="../scripts/addTask/addTaskDropDown.js"></script>
+  
 </body>
 
 </html>
