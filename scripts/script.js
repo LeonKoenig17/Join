@@ -1,5 +1,4 @@
-// const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/'
-
+let usercolors =['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B']
 
 function onloadFunc() {
     console.log("test")
@@ -30,28 +29,6 @@ async function deleteData(path = "") {
     });
 }
 
-
-
-
-// async function createAccount() {
-//     let userName = document.getElementById("nameInput").value;
-//     let email = document.getElementById("emailInput").value;
-//     let password = document.getElementById("passwordInput").value;
-//     let confirmPassword = document.getElementById("confirmPasswordInput").value;
-
-//     let myValue = await findUser(email);
-//     if (myValue == null) {
-//         window.alert("Account already exists")
-//     } else {
-//         if (password == confirmPassword && password != "") {
-//             postData("login", { "name": userName, "email": email, "password": password })
-//             window.alert("Account created - have fun")
-//         }else{
-//             window.alert("Passwords do not match")
-//         }
-//     }
-// }
-
 async function createAccount() {
     let chkboxPrivacy = document.getElementById("acceptPrivacyPolicy");
     let privacyBoolean = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
@@ -72,7 +49,8 @@ async function createAccount() {
         window.alert("Account already exists")
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
-            await postData("login", { "name": userName, "email": email, "password": password })
+            let nextcolor = await lastColor();
+            await postData("login", { "name": userName, "email": email, "password": password,"color":nextcolor })
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -80,18 +58,6 @@ async function createAccount() {
         }
     }
 }
-
-// async function login(){
-//     let myValue = await checkPassword(document.getElementById("emailInput").value);
-//     let password = document.getElementById("passwordInput").value;
-
-//     if(password == myValue){
-//         window.alert("Login successfull")
-//     }else{
-//         window.alert("Wrong Password")
-//     }
-
-// }
 
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
@@ -107,8 +73,6 @@ async function login() {
         return
     }
     if (password == myPassword) {
-        // localStorage.setItem("user",email)
-        // localStorage.setItem("token",myEmail)
         await writeLocalStorage();
         showSuccess('loginSuccess');
     } else {
@@ -129,16 +93,6 @@ async function writeLocalStorage() {
     localStorage.setItem("token", myEmail)
 }
 
-// async function checkPassword(email) {
-//     let ergebnisse = await loadData("login")
-//     for (let userId in ergebnisse) {
-//         if (ergebnisse[userId].email === email) {
-//             return ergebnisse[userId].password;
-//         }
-//     }
-//     return null;
-// }
-
 function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
     document.getElementById("passwordInput").value = '123456789'
@@ -158,16 +112,6 @@ async function checkPassword(email) {
     }
     return null;
 }
-
-// async function findUser(email) {
-//     let ergebnisse = await loadData("login")
-//     for (let userId in ergebnisse) {
-//         if (ergebnisse[userId].email === email) {
-//             return userId;
-//         }
-//     }
-//     return null;
-// }
 
 async function findUser(email) {
     let ergebnisse = await loadData("login")
@@ -292,15 +236,15 @@ function showLockIconLogin(element) {
     if (myContent.value.length == 0) {
         myInputContent.src = "../images/lock.svg"
     }
+}
 
-    // let password = document.getElementById("passwordInput").value;
-    // let confirmPassword = document.getElementById("confirmPasswordInput").value;
+async function lastColor(){
+    let ergebnisse = await loadData("login")
+    let result = Object.entries(ergebnisse);
+    let myLastColor = result.pop()[1].color;
+    let found = usercolors.indexOf(myLastColor);
 
-    // if (password != confirmPassword && element == "confirmPasswordInput") {
-    //     document.getElementById("confirmPasswordInput").classList.add("redBorder")
-    //     document.getElementById("errorSpan").classList.remove("displayNone")
-    // } else {
-    //     document.getElementById("confirmPasswordInput").classList.remove("redBorder")
-    //     document.getElementById("errorSpan").classList.add("displayNone")
-    // }
+    if(found == (usercolors.length-1)){found = 0}else{found = found+1}
+    return usercolors[found];
+    
 }
