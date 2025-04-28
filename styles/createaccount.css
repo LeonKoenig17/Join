@@ -228,6 +228,7 @@ header img:hover {
     cursor: pointer;
 }
 
+
 input[type=text]:focus {
     border-color: var(--text-underline-color);
 }
