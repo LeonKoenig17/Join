@@ -1,4 +1,5 @@
 function init() {
+  fillUserLinks();
   loadAndDisplayTaskCounts(); // Tasks laden und anzeigen
 }
 

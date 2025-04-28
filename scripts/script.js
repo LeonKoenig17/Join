@@ -113,6 +113,16 @@ async function checkPassword(email) {
     return null;
 }
 
+async function findName(name){
+    let ergebnisse = await loadData("login")
+    for (let userId in ergebnisse) {
+        if (ergebnisse[userId].name === name) {
+            return userId;
+        }
+    }
+    return null;
+}
+
 async function findUser(email) {
     let ergebnisse = await loadData("login")
     for (let userId in ergebnisse) {
@@ -248,3 +258,18 @@ async function lastColor(){
     return usercolors[found];
     
 }
+
+async function fillUserLinks(){
+    let myToken = localStorage.getItem('token')
+    let myValue = await loadData('login')
+    let myName = myValue[myToken].name;
+    const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+  
+    document.getElementById("userLink").innerHTML = initials;
+    try {
+        document.getElementById("userName").innerHTML = myName;    
+    } catch (error) {
+        return null;
+    }
+    
+  }
