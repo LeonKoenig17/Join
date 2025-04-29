@@ -252,3 +252,17 @@
 #subtaskCross, #subtaskCheck {
   display: none;
 }
+
+#addTask.vertical-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#addTask.vertical-layout .half-width {
+  width: 100%;
+}
+
+#addTask.vertical-layout .separator {
+  display: none;
+}
