@@ -266,13 +266,13 @@ function addTaskOverlayTemplate() {
     .map((subtask, index) => subtasksTemplate(subtask, index))
     .join("");
   return `
-    <div class="task-overlay add-task-page" id="taskOverlay" onclick="handleOverlayClick(event)">
+    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
         <div class="task-header">
           <div class="user-story-label task-category">Add Task</div>
           <button class="close-btn" onclick="closeOverlay()"><img src="../images/close.svg" alt="close"></button>
         </div>
-        <div class="task-content">
+        <div class="task-content add-task-page">
           <h1>Add Task</h1>
           <section id="addTask">
             <div class="half-width addTask-left">
@@ -391,7 +391,7 @@ function addTaskOverlayTemplate() {
                     class="select-icon"
                   />
                 </div>
-                <div id="subtask-list" class="subtask-list">
+                <div id="subtask-list">
                 ${subtasksHTML}
                 </div>
               </div>

@@ -1,3 +1,5 @@
+const subtasks = []; // Array für Subtasks
+
 function initSubtaskUI() {
     const subInput = document.getElementById("subtask-input");
     const addIcon = document.getElementById("add-icon");
@@ -69,7 +71,7 @@ function getTaskById(taskId) {
     // Subtasks rendern
     list.innerHTML = subtasksToRender
         .map((s, i) => {
-            return isAddMode
+            return addMode
                 ? subtasksTemplate(s, i) // Für Add-Task-Seite
                 : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
         })
