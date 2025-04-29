@@ -59,17 +59,17 @@
       <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
     </div>
 
-    <div
+    <!-- <div
       style="background-color: rgba(100, 100, 100, 0.5);height: 100vh;width: 100%;position: absolute; top: 0px;left: 0px;display: flex;justify-content: center;align-items: center;z-index:1;display:none;">
       <nav id="addNewContactNav"
-        style="position: absolute; width: 500px;height: 200px;display: flex;flex-direction: row;">
+        style="position: absolute;height: 400px;display: flex;flex-direction: row;">
         <aside
-          style="background-color: yellow; display: flex;flex-direction: column; width: calc(500px / 3 * 1); height:100%">
+          style="background-color: yellow; display: flex;flex-direction: column; width: 320px; height:100%">
           <span>Add Contact</span>
           <span>Tasks are better with a team!</span>
         </aside>
-        <div style="background-color: red; display: flex;width: calc(500px / 3 * 2); height:100%">
-          <div style="display: flex;flex-direction: column;">
+        <div style="background-color: red; display: flex;width: 520px; height:100%;align-items: center;">
+          <div style="display: flex;flex-direction: column;width: 100%;height: 300px;align-items: center;justify-content: center;">
 
             <div class="inputDiv">
               <input type="text" id="nameInput" placeholder="Name" class="loginInput">
@@ -86,16 +86,17 @@
               <img src="../images/call.svg" alt="" class="inputImg">
             </div>
 
-            <div class="loginButtonDiv">
+            <div class="loginButtonDiv" style="background-color: green;">
               <button onclick="login()" class="whiteBtn" style="display: flex; justify-content: center;align-items: center;">Cancel<img style="margin: 0;padding-left: 10px" src="../images/canceldarkblue.svg" alt=""></button>
-              <button onclick="guestLogin()" class="blueBtn" style="display: flex; justify-content: center;align-items: center;">Create Account<img style="margin: 0;padding-left: 10px" src="../images/check.svg" alt=""></button>
+              <button onclick="guestLogin()" style="display:flex; background-color: var(--primary-color);color: white;font-size: 21px;font-weight: bold;border: none;border-radius: 10px;height: 48px;width: fit-content;padding: 0px 15px;cursor: pointer;align-items: center;">Create contact<img style="margin: 0;padding-left: 10px" src="../images/check.svg" alt=""></button>
             </div>
 
           </div>
         </div>
       </nav>
-    </div>
+    </div> -->
 
+    <iframe src="../html/addContact.html" frameborder="0" style="position:absolute;left: 0;top: 0;height: 100vh;width:100%;z-index: 1;"></iframe>
     <div id="mainContent">
       <div id="contentLeft">
 

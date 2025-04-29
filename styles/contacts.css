@@ -35,11 +35,6 @@ main {
   margin-top: 20px !important;
 }
 
-#mainContent span {
-  /* color: #ff8190; */
-  /* padding-left: 2px; */
-}
-
 #contentLeft {
   background-color: white;
   width: 400px;
@@ -558,7 +553,6 @@ select:focus {
   width: fit-content;
   padding: 0px 20px;
   cursor: pointer;
-
 }
 
 .blueBtn:hover {
@@ -590,5 +584,5 @@ select:focus {
 .loginButtonDiv {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
 }
