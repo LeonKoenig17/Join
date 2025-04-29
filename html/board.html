@@ -43,8 +43,8 @@
             </a>
         </nav>
         <div id="legal">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal Notice</a>
+            <a href="./privacy-policy.html">Privacy Policy</a>
+            <a href="./legal-notice.html">Legal Notice</a>
         </div>
     </aside>
     <main>
@@ -52,9 +52,14 @@
             <span>Kanban Project Management Tool</span>
             <div>
                 <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
-                <a href="" id="userLink">LK</a>
+                <a onclick="showUserLinksOptions()" id="userLink"></a>
             </div>
         </header>
+        <div id="userLinkOptions" class="userLinkOptions hide">
+            <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+            <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+            <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+        </div>
         <div id="mainContent">
             <div id="boardHeader">
                 <h2>Board</h2>

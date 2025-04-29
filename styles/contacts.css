@@ -1,3 +1,11 @@
+main {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  width: calc(100% - 200px);
+  background-color: var(--background-color);
+}
+
 #mainContent {
   display: flex;
   flex-direction: row;
@@ -507,4 +515,80 @@ select:focus {
 }
 .contactInformations span,a,strong {
   margin: 10px 0;
+}
+
+.inputDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding-left: 25px;
+}
+
+.inputImg {
+  position: relative;
+  right: 45px;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.loginInput {
+  border: solid 1px #D1D1D1;
+  border-radius: 10px;
+  height: 46px;
+  border-width: 1px;
+  width: 375px;
+  font-size: 20px;
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  padding: 0px 20px;
+  margin: 10px 0px;
+  outline: none;
+}
+
+.blueBtn {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 21px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: fit-content;
+  padding: 0px 20px;
+  cursor: pointer;
+
+}
+
+.blueBtn:hover {
+  background-color: var(--text-underline-color);
+  box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-in-out;
+}
+
+.whiteBtn {
+  background-color: white;
+  color: black;
+  font-size: 21px;
+  font-weight: bold;
+  border: solid 1px var(--primary-color);
+  border-radius: 10px;
+  height: 48px;
+  width: fit-content;
+  text-wrap: nowrap;
+  padding: 0px 20px;
+}
+
+.whiteBtn:hover {
+  box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+  border-color: var(--text-underline-color);
+  color: var(--text-underline-color);
+  transition: all 0.1s ease-in-out;
+}
+
+.loginButtonDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }

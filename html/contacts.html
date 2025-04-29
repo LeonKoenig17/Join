@@ -8,9 +8,11 @@
   <link rel="stylesheet" href="../styles/standard.css" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../styles/contacts.css" />
-  <link rel="stylesheet" href="../styles/dropdownAddTask.css" />
+  <!-- <link rel="stylesheet" href="../styles/dropdownAddTask.css" /> -->
 
-  <!-- <script src="../scripts/db.js"></script> -->
+  <script src="../scripts/script.js"></script>
+
+  <!-- <script src="../scripts/db.js">  </script> -->
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 <!-- <body onload="init()"> -->
@@ -39,8 +41,8 @@
       </a>
     </nav>
     <div id="legal">
-      <a href="">Privacy Policy</a>
-      <a href="">Legal Notice</a>
+      <a href="./privacy-policy.html">Privacy Policy</a>
+      <a href="./legal-notice.html">Legal Notice</a>
     </div>
   </aside>
   <main>
@@ -48,9 +50,52 @@
       <span>Kanban Project Management Tool</span>
       <div>
         <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
-        <a href="" id="userLink">LK</a>
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
       </div>
     </header>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+      <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+      <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+      <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+    </div>
+
+    <div
+      style="background-color: rgba(100, 100, 100, 0.5);height: 100vh;width: 100%;position: absolute; top: 0px;left: 0px;display: flex;justify-content: center;align-items: center;z-index:1;display:none;">
+      <nav id="addNewContactNav"
+        style="position: absolute; width: 500px;height: 200px;display: flex;flex-direction: row;">
+        <aside
+          style="background-color: yellow; display: flex;flex-direction: column; width: calc(500px / 3 * 1); height:100%">
+          <span>Add Contact</span>
+          <span>Tasks are better with a team!</span>
+        </aside>
+        <div style="background-color: red; display: flex;width: calc(500px / 3 * 2); height:100%">
+          <div style="display: flex;flex-direction: column;">
+
+            <div class="inputDiv">
+              <input type="text" id="nameInput" placeholder="Name" class="loginInput">
+              <img src="../images/person.svg" alt="" class="inputImg">
+            </div>
+
+            <div class="inputDiv">
+              <input type="text" id="emailInput" placeholder="Email" class="loginInput">
+              <img src="../images/mail.svg" alt="" class="inputImg">
+            </div>
+
+            <div class="inputDiv">
+              <input type="text" id="phoneInput" placeholder="Phone" class="loginInput">
+              <img src="../images/call.svg" alt="" class="inputImg">
+            </div>
+
+            <div class="loginButtonDiv">
+              <button onclick="login()" class="whiteBtn" style="display: flex; justify-content: center;align-items: center;">Cancel<img style="margin: 0;padding-left: 10px" src="../images/canceldarkblue.svg" alt=""></button>
+              <button onclick="guestLogin()" class="blueBtn" style="display: flex; justify-content: center;align-items: center;">Create Account<img style="margin: 0;padding-left: 10px" src="../images/check.svg" alt=""></button>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+    </div>
+
     <div id="mainContent">
       <div id="contentLeft">
 
@@ -82,8 +127,7 @@
             <div style="display: flex;flex-direction: row; margin-bottom: 50px;">
 
               <span class="userInitialsBig userColor-FF745E">AS</span>
-              <div
-                style="display: flex;flex-direction: column; align-items: start; justify-content: space-around;">
+              <div style="display: flex;flex-direction: column; align-items: start; justify-content: space-around;">
                 <p>Anja Schulz</p>
                 <div style="display: flex;align-items: center;width: 100%; justify-content: start;">
                   <nav style="cursor: pointer; display: flex;flex-direction: row;justify-content: start;">

@@ -1,4 +1,6 @@
+
 async function onload() {
+    fillUserLinks();
   const data = await loadData("login");
 
   const users = Object.values(data).map(user => ({
