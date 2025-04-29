@@ -18,15 +18,7 @@
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 
-    <script src="../scripts/firebase.js"></script>
-    <script src="../scripts/templates.js"></script>
-    <script src="../scripts/addTask/addTask.js"></script>
-    <script src="../scripts/addTask/addTaskDropDown.js"></script>
-    <script src="../scripts/addTask/addSubtask.js"></script>
-    <script src="../scripts/taskOverlay.js"></script>
-    <script src="../scripts/script.js"></script>
-
-    <script src="../scripts/board.js"></script>
+   
 </head>
 
 <body onload="init()">
@@ -51,8 +43,8 @@
             </a>
         </nav>
         <div id="legal">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal Notice</a>
+            <a href="./privacy-policy.html">Privacy Policy</a>
+            <a href="./legal-notice.html">Legal Notice</a>
         </div>
     </aside>
     <main>
@@ -106,10 +98,19 @@
                 <div id="awaitFeedback"></div>
                 <div id="done"></div>
             </div>
-            <div id="task-Overlay" class="d-none task-overlay" onclick="handleOverlayClick(event)"></div>
+            <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)"></div>
 
         </div>
     </main>
+
+    <script src="../scripts/firebase.js"></script>
+    <script src="../scripts/templates.js"></script>
+    <script src="../scripts/addTask/addTask.js"></script>
+    <script src="../scripts/addTask/addTaskDropDown.js"></script>
+    <script src="../scripts/addTask/addSubtask.js"></script>
+    <script src="../scripts/boardOverlays/taskOverlay.js"></script>
+
+    <script src="../scripts/board.js"></script>
 </body>
 
 </html>
