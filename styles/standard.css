@@ -34,6 +34,7 @@ body * {
     --priority-color-medium: #FFA800;
     --priority-color-urgent: #FF3D00;
     --link-color: #007CEE;
+    --font-color:#cdcdcd;
   /*  --shadow-color: #004d40;*/
    /* --highlight-color: #b2ebf2;*/
 }
@@ -82,4 +83,8 @@ body * {
   }
   .userColor-FFBB2B{
     background-color: #FFBB2B;
+  }
+
+  .hide {
+    display: none;
   }

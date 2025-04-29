@@ -39,9 +39,11 @@
   position: absolute;
   top: 547.5px;
   left: 968px;
-  width: 385px;
+  width: fit-content;
   height: 136px;
   gap: 3px;
+  display: flex;
+  flex-direction: column;
 }
 
 .frame-69 h2 {
@@ -57,13 +59,14 @@
 
 .frame-69 h3 {
   margin: 0;
-  width: 385px;
+  /* width: fit-content; */
   height: 77px;
   font-weight: 700;
   font-size: 64px;
   line-height: 120%;
   color: #29ABE2;
   cursor: context-menu;
+  flex-wrap: nowrap;
 }
 
 .frame-71 {
@@ -479,6 +482,10 @@
   width: 36px;
   height: 36px;
   position: absolute;
+}
+
+.hide {
+  display: none;
 }
 
 .d-none {

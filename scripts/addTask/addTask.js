@@ -18,6 +18,7 @@ let activePriorityButton = null;
  * - Füllt das Beschreibungsfeld mit Standard- oder vorab geladenem Inhalt.
  */
 function init() {
+  fillUserLinks();
   setupDatePicker();
   applyUserColors();
   setupFieldListeners();
