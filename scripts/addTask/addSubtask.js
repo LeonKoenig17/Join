@@ -1,5 +1,3 @@
-const subtasks = [];
-
 function initSubtaskUI() {
     const subInput = document.getElementById("subtask-input");
     const addIcon = document.getElementById("add-icon");
@@ -41,26 +39,41 @@ function cancelSubtaskEntry() {
     initSubtaskUI();
 }
 
+function isAddMode() {
+    // Prüfen, ob wir uns auf der Add-Task-Seite befinden
+    return document.body.classList.contains('add-task-page') || window.location.pathname.includes('addTask.html');
+}
+
 function confirmSubtaskEntry() {
     const subInput = document.getElementById("subtask-input");
     if (!subInput) return;
 
     const val = subInput.value.trim();
     if (val) {
-        subtasks.push({ 
-            name: val,
-            completed: false
-        });
-        updateSubtaskList();
+        subtasks.push({ name: val, completed: false }); // Subtask hinzufügen
+        updateSubtaskList(subtasks); // Subtask-Liste aktualisieren
     }
-    initSubtaskUI();
+    initSubtaskUI(); // UI zurücksetzen
 }
 
-function updateSubtaskList() {
-    const listContainer = document.getElementById("subtask-list");
-    if (!listContainer) return;
+function getTaskById(taskId) {
+    return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
+  }
 
-    listContainer.innerHTML = subtasks.map((subtask, i) => taskOverlaySubtaskTemplate(subtask, i)).join("");
+  function updateSubtaskList(subtasksToRender = subtasks) {
+    const list = document.getElementById('subtask-list');
+    if (!list) return;
+
+    const addMode = isAddMode();
+
+    // Subtasks rendern
+    list.innerHTML = subtasksToRender
+        .map((s, i) => {
+            return isAddMode
+                ? subtasksTemplate(s, i) // Für Add-Task-Seite
+                : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
+        })
+        .join('');
 }
 
 function editSubtask(index) {
@@ -103,14 +116,19 @@ function deleteSubtask(index) {
 }
 
 function setupSubtaskListeners() {
-    const addIcon = document.getElementById("add-icon");
+    const addIcon   = document.getElementById("add-icon");
     const closeIcon = document.getElementById("close-subtask-icon");
     const checkIcon = document.getElementById("check-subtask-icon");
-    const subInput = document.getElementById("subtask-input");
-
+    const subInput  = document.getElementById("subtask-input");
     if (!addIcon || !closeIcon || !checkIcon || !subInput) return;
 
-    addIcon.addEventListener("click", activateSubtaskInput);
+    addIcon.addEventListener("click", () => {
+        if (subInput.value.trim() !== "") {
+            confirmSubtaskEntry();
+        } else {
+            activateSubtaskInput();
+        }
+    });
     closeIcon.addEventListener("click", cancelSubtaskEntry);
     checkIcon.addEventListener("click", confirmSubtaskEntry);
     subInput.addEventListener("keypress", (e) => {
@@ -119,7 +137,6 @@ function setupSubtaskListeners() {
         }
     });
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     initSubtaskUI();
     setupSubtaskListeners();
