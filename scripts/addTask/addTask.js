@@ -7,7 +7,7 @@ const priorityButtons = document.querySelectorAll(
 );
 const assignedToSelect = document.getElementById("assignedDropdownSelected");
 const categorySelect = document.getElementById("categorySelect");
-
+subtasks = [];
 let activePriorityButton = null;
 
 /**

@@ -81,7 +81,6 @@
   flex-direction: column;
 }
 
-
 .h3-priority {
   margin-top: 0 !important;
 }
@@ -148,13 +147,15 @@ select {
   cursor: pointer;
 }
 
-.custom-select-container, .subtask-input {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
+.custom-select-container,
+.subtask-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-.custom-select-container select, .subtask-input input {
+.custom-select-container select,
+.subtask-input input {
   appearance: none;
 }
 
@@ -165,14 +166,14 @@ select {
 }
 
 .subtask-input input {
-    padding-right: 40px;
+  padding-right: 40px;
 }
 
 .subtask-input img {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 select:focus {
@@ -239,8 +240,7 @@ select:focus {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 32px;
 }
 
 .create-task-footer img {
@@ -252,34 +252,39 @@ select:focus {
   font-size: 16px;
 }
 
-.clear-button {
+.close-btn-footer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 126px;
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);
+  color: var(--text-color);
   padding: 10px 19px;
   border-radius: 10px;
+  font-weight: 400;
+  font-size: 20px;
   cursor: pointer;
-  color: var(--text-color);
-  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, content 0.2s ease-in-out;
+  background-image: url(/images/close.svg);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: auto;
+  transition: color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              background-image 0.2s ease-in-out;
 }
 
-.clear-button:hover {
-  border-color: var(--hover-color);
+.close-btn-footer:hover {
+  background-image: url(/images/cancelblue.svg);
+  padding: 10px 19px;
+  border-color: var(--accent-color);
   color: var(--hover-color);
 }
 
-.clear-button:hover img {
-  display: none;
-}
 
-.clear-button:hover::after {
-  content: url("../images/cancelblue.svg");
-  padding-left: 10px;
-  display: inline-block;
-}
 
-.create-button {
+
+.create-task-btn {
   display: flex;
   align-items: center;
   background-color: var(--primary-color);
@@ -288,11 +293,12 @@ select:focus {
   border-radius: 10px;
   cursor: pointer;
   color: white;
+  font-size: 21px;
   font-weight: bold;
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
-.create-button:hover {
+.create-task-btn:hover {
   background-color: var(--hover-color);
   border-color: var(--hover-color);
 }
@@ -320,6 +326,6 @@ select:focus {
 }
 
 .input-base-icon-active {
-   opacity: 1; 
+  opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }

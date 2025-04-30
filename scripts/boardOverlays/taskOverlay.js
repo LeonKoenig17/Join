@@ -150,14 +150,28 @@ async function patchTask(taskId, updateObj) {
   });
 }
 
+
+function isAddMode() {
+  // Prüfen, ob wir uns auf der Add-Task-Seite befinden
+  return document.body.classList.contains('add-task-page');
+}
 /**
  * Rendert die Subtasks im Overlay neu.
  */
 function updateSubtaskList() {
   const list = document.getElementById('subtask-list');
   if (!list) return;
+
+  // Modus erkennen
+  const addMode = isAddMode();
+
+  // Subtasks rendern
   list.innerHTML = subtasks
-    .map((s, i) => taskOverlaySubtaskTemplate(s, i))
+    .map((s, i) => {
+      return addMode
+        ? subtasksTemplate(s, i) // Für Add-Task-Seite
+        : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
+    })
     .join('');
 }
 
@@ -210,4 +224,46 @@ function confirmDeleteTask(event, taskId) {
   event.stopPropagation();
   if (!window.confirm('Delete permanently?')) return;
   deleteTask(taskId);
+}
+
+
+
+
+
+async function showEditTaskOverlay(taskId) {
+  // 1) Daten holen
+  let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
+  if (!taskData) {
+    const all = await loadData('tasks');
+    const raw = all[taskId];
+    taskData = { id: taskId, ...raw };
+  }
+
+  const users = await loadFirebaseUsers();
+
+  // 2) Overlay rendern & Grund-Features initialisieren
+  const overlayHTML = editTaskOverlayTemplate(taskData, users);
+  document.body.insertAdjacentHTML('beforeend', overlayHTML);
+  initializeOverlayFeatures();
+
+  // ───────────────────────────────────────
+  // 3) Subtask-Modul initialisieren:
+  //    hier bindest du +, Enter, Prefill & Rendern
+  initSubtaskUI();               // leert das Input-Feld
+  setupSubtaskListeners();       // bindet das „+“-Icon & Enter
+  initSubtasksArray(taskData);   // füllt global subtasks[] aus taskData
+  updateSubtaskList();           // rendert sie sofort ins DOM
+  // ───────────────────────────────────────
+
+  // 4) Listener für Save-Button
+  document.getElementById('save-task-btn').addEventListener('click', async () => {
+    const data = getFormData();
+    if (!validateFormData(data)) return;
+    await patchTask(taskData.id, {
+      ...data,
+      subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed }))
+    });
+    closeOverlay();
+    window.location.reload();
+  });
 }

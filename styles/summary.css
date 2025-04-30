@@ -97,7 +97,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out'
+              background-color 0.3s ease-in-out;
 }
 
 .square-button-v1:hover {
@@ -120,7 +122,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .square-button-v1-left-392:hover {
@@ -144,7 +148,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .square-button-v1-left-196:hover {
@@ -209,7 +215,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .urgency-summary-v1:hover {
@@ -337,7 +345,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .cr-button-v1-hidden {
@@ -354,7 +364,9 @@
   background-color: #2A3647;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .cr-button-v1:hover,
@@ -377,7 +389,9 @@
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              background-color 0.3s ease-in-out;
 }
 
 .pr-button-v1:hover {

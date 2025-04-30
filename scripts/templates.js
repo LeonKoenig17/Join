@@ -11,6 +11,32 @@ function getInitials(str) {
     .join("");
 }
 
+
+function assignedUserTemplate(user, index) {
+  return `
+        <div class="assigned-user-item">
+            <div class="assigned-user-avatar-container" style="background-color: ${
+              user.color
+            };">
+                <p class="assigned-user-avatar">${getInitials(
+                  user.name || user.email
+                )}</p>
+            </div>
+            <div class="assigned-user-details">
+                <p class="assigned-user-name">${user.name || user.email}</p>
+                <input
+                    type="checkbox"
+                    class="assign-checkbox"
+                    data-user-id="${user.id}"
+                    data-user-name="${user.name}"
+                    data-user-email="${user.email}"
+                    data-user-index="${index}"
+                />
+            </div>
+        </div>
+    `;
+}
+
 /**
  * Normalisiert task.subtasks und berechnet Count + Progress.
  * @param {Object} task
@@ -166,7 +192,7 @@ function generateTaskOverlay(task) {
             <span>Delete</span>
           </button>
           <div class="action-separator"></div>
-          <button class="action-btn edit-btn" onclick="editTask(${task.id})">
+          <button class="action-btn edit-btn" onclick="showEditTaskOverlay('${task.id}')">
             <img src="../images/edit-2.svg" alt="Edit">
             <span>Edit</span>
           </button>
@@ -219,30 +245,6 @@ function taskOverlaySubtaskTemplate(subtask, index) {
   `;
 }
 
-function assignedUserTemplate(user, index) {
-  return `
-        <div class="assigned-user-item">
-            <div class="assigned-user-avatar-container" style="background-color: ${
-              user.color
-            };">
-                <p class="assigned-user-avatar">${getInitials(
-                  user.name || user.email
-                )}</p>
-            </div>
-            <div class="assigned-user-details">
-                <p class="assigned-user-name">${user.name || user.email}</p>
-                <input
-                    type="checkbox"
-                    class="assign-checkbox"
-                    data-user-id="${user.id}"
-                    data-user-name="${user.name}"
-                    data-user-email="${user.email}"
-                    data-user-index="${index}"
-                />
-            </div>
-        </div>
-    `;
-}
 
 /**
  * Generates an HTML option element as a string for a given user.
@@ -260,8 +262,11 @@ function userOptionTemplate(user, id) {
 }
 
 function addTaskOverlayTemplate() {
+  const subtasksHTML = subtasks
+    .map((subtask, index) => subtasksTemplate(subtask, index))
+    .join("");
   return `
-    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
+    <div class="task-overlay add-task-page" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
         <div class="task-header">
           <div class="user-story-label task-category">Add Task</div>
@@ -386,7 +391,9 @@ function addTaskOverlayTemplate() {
                     class="select-icon"
                   />
                 </div>
-                <div id="subtask-list"></div>
+                <div id="subtask-list" class="subtask-list">
+                ${subtasksHTML}
+                </div>
               </div>
             </div>
           </section>
@@ -395,18 +402,17 @@ function addTaskOverlayTemplate() {
         <div class="create-task-footer">
           <p><span>*</span>This field is required</p>
           <div class="form-actions">
-            <div class="clear-btn-container">
-              <button type="button" class="clear-button" onclick="clearForm()">
-                Clear
-                <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
-              </button>
+            <div class="close-btn-container">
+              
+                  <button class="close-btn-footer" onclick="closeOverlay()"><span>Cancel<span></button>
+             
             </div>
             <div class="create-btn-container">
               <button
                 id="create-task-btn"
                 onclick="createTask()"
                 type="button"
-                class="create-button"
+                class="create-task-btn"
               >
                 Create Task
                 <img src="../images/check.svg" alt="create icon" />
@@ -417,4 +423,121 @@ function addTaskOverlayTemplate() {
       </div>
     </div>
   `;
+}
+
+/**
+ * Neues Overlay-Template für den Edit-Modus
+ * @param {Object} task - Task-Daten aus Firebase
+ * @param {Array} users - Liste aller User für Dropdown/Chips
+ */
+function editTaskOverlayTemplate(task, users) {
+  // Subtasks als Listeneinträge
+  const subsHTML = (Array.isArray(task.subtasks) ? task.subtasks : Object.values(task.subtasks) || [])
+    .map((s, i) => subtasksTemplate(s, i))
+    .join("\n");
+
+  // Priority-Buttons aktiv setzen
+  const p = (level) => task.priority.toLowerCase() === level.toLowerCase() ? 'active-btn' : '';
+
+  // Assignee-Chips
+  const chipsHTML = (task.assignedTo || []).map(u =>
+    `<div class="assigned-chip" style="background:${u.color};">${getInitials(u.name)}</div>`
+  ).join("\n");
+
+  return `
+<div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
+  <div class="add-task-card edit-mode">
+    <div class="task-header">
+      <div class="user-story-label task-category">Edit Task</div>
+      <button class="close-btn" onclick="closeOverlay()">
+        <img src="../images/close.svg" alt="close">
+      </button>
+    </div>
+    <div class="task-content">
+      <h1>Edit Task</h1>
+      <section id="addTask" class="vertical-layout">
+        <div class="half-width addTask-left">
+          <form class="forms" id="taskForm">
+            <label for="title">Title<span>*</span></label>
+            <input type="text" id="title" name="title" required value="${task.title}" />
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" spellcheck="false">${task.description}</textarea>
+
+            <label for="due-date">Due date<span>*</span></label>
+            <div class="custom-date-input">
+              <input type="date" id="due-date" name="due-date" required value="${task.dueDate}" />
+              <img src="../images/calendar.svg" alt="Calendar Icon" />
+            </div>
+          </form>
+        </div>
+        <div class="separator"></div>
+        <div class="half-width addTask-right">
+          <h3>Priority</h3>
+          <div class="priority-buttons">
+            <button type="button" class="priority priority-urgent ${p('Urgent')}" onclick="setPriority(this)">Urgent <img src="../images/urgent.svg" /></button>
+            <button type="button" class="priority priority-medium ${p('Medium')}" onclick="setPriority(this)">Medium <img src="../images/medium.svg" /></button>
+            <button type="button" class="priority priority-low ${p('Low')}" onclick="setPriority(this)">Low <img src="../images/low.svg" /></button>
+          </div>
+
+          <h3>Assigned to</h3>
+          <div class="custom-assigned-dropdown" id="assignedDropdown">
+            <div class="dropdown-selected" id="assignedDropdownSelected">
+              Select contacts to assign
+              <img src="../images/arrow_drop_down.svg" alt="Dropdown Icon" class="select-icon" />
+            </div>
+            <div class="dropdown-options" id="assignedDropdownOptions">
+              ${users
+                .map(
+                  (user) => `
+                    <div class="dropdown-option">
+                      <input
+                        type="checkbox"
+                        class="assign-checkbox"
+                        data-user-id="${user.id}"
+                        data-user-name="${user.name}"
+                        data-user-email="${user.email}"
+                        ${task.assignedTo && task.assignedTo.some((assigned) => assigned.id === user.id) ? 'checked' : ''}
+                      />
+                      <span>${user.name || user.email}</span>
+                    </div>
+                  `
+                )
+                .join('')}
+            </div>
+          </div>
+          <div class="assigned-chips" id="assignedChips">
+            ${chipsHTML}
+          </div>
+
+          <h3>Category<span>*</span></h3>
+          <div class="custom-select-container">
+            <select id="categorySelect">
+              <option disabled>Select a category</option>
+              <option ${task.category === 'User Story' ? 'selected' : ''}>User Story</option>
+              <option ${task.category === 'Technical Task' ? 'selected' : ''}>Technical Task</option>
+            </select>
+            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon" />
+          </div>
+
+          <h3>Subtasks</h3>
+          <div class="subtask-input">
+            <input type="text" id="subtask-input" placeholder="Add new subtask" />
+            <img id="add-icon" src="../images/addDark.svg" alt="add" onclick="confirmSubtaskEntry()" />
+          </div>
+          <div id="subtask-list" class="subtask-list">
+            ${subsHTML}
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="create-task-footer">
+      <div class="form-actions">
+        <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
+        <button id="save-task-btn" type="button" class="create-task-btn">Ok <img src="../images/check.svg" /></button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
 }
