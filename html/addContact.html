@@ -5,23 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <link rel="stylesheet" href="../styles/addcontact.css">
 
 
 </head>
 
-<script src="../scripts/addcontact.js"></script>
 
 <body>
-    <div style="display: flex;border-radius: 50px; background-color: whitesmoke;">
+    <div style="display: flex;border-radius: 50px; background-color: whitesmoke;width: fit-content;">
 
         <div
-            style="background-color: #2A3647;width: fit-content;display: flex;flex-direction: column;height: 500px;align-items: start; justify-content: center;border-radius: 50px 0px 0px 50px;">
-            <img src="../images/joinlogowhite.svg" alt="" style="height: 75px;margin: 0px 20px;">
-            <h1 style="margin: 20px 20px;font-size:48px;">Add contact</h1>
-            <h4 style="margin: 0px 20px;font-weight: normal;">Tasks are better with a team!</h4>
-            <div style="background-color: #29ABE2;height: 2px;width: 100px;margin: 20px 20px;"></div>
+            style="background-color: #2A3647;width: 400px;display: flex;flex-direction: column;height: 500px;align-items: start; justify-content: center;border-radius: 50px 0px 0px 50px;">
+            <div style="margin-left: 30px;margin-bottom: 40px;">
+                <img src="../images/joinlogowhite.svg" alt="" style="height: 75px;margin: 0;">
+                <h1 style="margin: 20px 0px;font-size:48px;">Add contact</h1>
+                <h4 style="margin: 0;font-weight: normal;">Tasks are better with a team!</h4>
+                <div style="background-color: #29ABE2;height: 2px;width: 100px;margin: 20px 0px;border-radius: 1rem;"></div>
+            </div>
         </div>
 
         <nav style="height: 500px; width: 800px;">
@@ -49,8 +50,11 @@
 
                     </div>
                     <div style="display: flex;margin-top:10px;">
-                        <button onmouseover="changeImage('blue')" onmouseleave="changeImage('darkblue')" id="cancelBtn" class="whiteBtn">Cancel<img id="cancelImg" src="../images/canceldarkblue.svg" alt=""  style="margin-left:10px"></button>
-                        <button onclick="log(this.id)" id="createContantBtn" class="blueBtn">Create contact<img src="../images/check.svg" alt="" style="margin-left:10px"></button>
+                        <button onmouseover="changeImage('blue')" onmouseleave="changeImage('darkblue')" onclick="hideAddContact()" id="cancelBtn"
+                            class="whiteBtn">Cancel<img id="cancelImg" src="../images/canceldarkblue.svg" alt=""
+                                style="margin-left:10px"></button>
+                        <button onclick="hideAddContact()" id="createContantBtn" class="blueBtn">Create contact<img
+                                src="../images/check.svg" alt="" style="margin-left:10px"></button>
                     </div>
                 </div>
             </nav>
@@ -60,5 +64,8 @@
 
     </div>
 </body>
+
+<script src="../scripts/script.js"></script>
+<script src="../scripts/addcontact.js"></script>
 
 </html>

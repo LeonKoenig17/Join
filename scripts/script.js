@@ -1,4 +1,4 @@
-let usercolors =['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B']
+let usercolors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B']
 
 function onloadFunc() {
     console.log("test")
@@ -50,7 +50,7 @@ async function createAccount() {
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password,"color":nextcolor })
+            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor })
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -113,7 +113,7 @@ async function checkPassword(email) {
     return null;
 }
 
-async function findName(name){
+async function findName(name) {
     let ergebnisse = await loadData("login")
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].name === name) {
@@ -248,28 +248,62 @@ function showLockIconLogin(element) {
     }
 }
 
-async function lastColor(){
+async function lastColor() {
     let ergebnisse = await loadData("login")
     let result = Object.entries(ergebnisse);
     let myLastColor = result.pop()[1].color;
     let found = usercolors.indexOf(myLastColor);
 
-    if(found == (usercolors.length-1)){found = 0}else{found = found+1}
+    if (found == (usercolors.length - 1)) { found = 0 } else { found = found + 1 }
     return usercolors[found];
-    
+
 }
 
-async function fillUserLinks(){
+async function fillUserLinks() {
     let myToken = localStorage.getItem('token')
     let myValue = await loadData('login')
     let myName = myValue[myToken].name;
     const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
-  
+
     document.getElementById("userLink").innerHTML = initials;
     try {
-        document.getElementById("userName").innerHTML = myName;    
+        document.getElementById("userName").innerHTML = myName;
     } catch (error) {
         return null;
     }
+
+}
+
+function showAddContact() {
+    let addContact = document.getElementById('addContact');
+    let addContactDiv = document.getElementById("addContactDiv")
     
-  }
+    addContact.classList.remove("hide")
+    addContactDiv.classList.remove("hide")
+
+    setTimeout(() => {
+        addContact.style.left = '100%';
+        addContact.style.top = '50%';
+        addContact.style.transform = 'translate(0%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        addContact.style.left = '50%';
+        addContact.style.top = '50%';
+        addContact.style.transform = 'translate(-50%, -50%)';
+    }, 250);
+}
+
+function hideAddContact() {
+    const parentWindow = window.parent;
+    const addContact = parentWindow.document.getElementById('addContact');
+    const addContactDiv = parentWindow.document.getElementById('addContactDiv');
+
+    addContact.classList.add("hide")    
+    addContact.style.left = '100%';
+    addContact.style.top = '50%';
+    addContact.style.transform = 'translate(0%, -50%)';
+
+    addContactDiv.classList.add("hide")
+
+}

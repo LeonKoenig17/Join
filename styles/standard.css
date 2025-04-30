@@ -88,3 +88,9 @@ body * {
   .hide {
     display: none;
   }
+
+  .animation {
+    transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+    z-index: 2;
+    position: absolute;
+}
