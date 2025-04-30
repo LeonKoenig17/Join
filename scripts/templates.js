@@ -462,7 +462,7 @@ function editTaskOverlayTemplate(task, users) {
             <input type="text" id="title" name="title" required value="${task.title}" />
 
             <label for="description">Description</label>
-            <textarea id="description" name="description" spellcheck="false">${task.description}</textarea>
+            <textarea id="description" name="description" style="max-width: 100%; max-height: 150px;" spellcheck="false">${task.description} </textarea>
 
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">

@@ -150,32 +150,6 @@ async function patchTask(taskId, updateObj) {
   });
 }
 
-
-function isAddMode() {
-  // Prüfen, ob wir uns auf der Add-Task-Seite befinden
-  return document.body.classList.contains('add-task-page');
-}
-/**
- * Rendert die Subtasks im Overlay neu.
- */
-function updateSubtaskList() {
-  const list = document.getElementById('subtask-list');
-  if (!list) return;
-
-  // Modus erkennen
-  const addMode = isAddMode();
-
-  // Subtasks rendern
-  list.innerHTML = subtasks
-    .map((s, i) => {
-      return addMode
-        ? subtasksTemplate(s, i) // Für Add-Task-Seite
-        : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
-    })
-    .join('');
-}
-
-
 /**
  * Rechnet neue Fortschritt-% aus und updatet
  * die Progressbar & den Zähler im Task-Card.

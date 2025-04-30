@@ -20,6 +20,12 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.edit-mode {
+  width: 500px !important;
+  height: 720px !important;
+  overflow: auto;
+}
+
 .task-card {
   display: flex;
   flex-direction: column;

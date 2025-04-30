@@ -241,6 +241,7 @@ select:focus {
   justify-content: flex-end;
   align-items: center;
   gap: 32px;
+  width: 100%;
 }
 
 .create-task-footer img {
@@ -263,7 +264,7 @@ select:focus {
   padding: 10px 19px;
   border-radius: 10px;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 21px;
   cursor: pointer;
   background-image: url(/images/close.svg);
   background-repeat: no-repeat;
@@ -281,15 +282,12 @@ select:focus {
   color: var(--hover-color);
 }
 
-
-
-
 .create-task-btn {
   display: flex;
   align-items: center;
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  padding: 10px 16px;
+  padding: 10px 19px;
   border-radius: 10px;
   cursor: pointer;
   color: white;

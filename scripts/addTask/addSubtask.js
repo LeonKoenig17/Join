@@ -60,21 +60,30 @@ function getTaskById(taskId) {
     return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
   }
 
-  function updateSubtaskList(subtasksToRender = subtasks) {
+  function isAddMode() {
+    const overlay = document.getElementById('taskOverlay');
+    if (overlay && overlay.classList.contains('add-task-page')) {
+      return true; // Add-Task-Seite
+    }
+    return document.body.classList.contains('add-task-page') || window.location.pathname.includes('addTask.html');
+  }
+
+  function updateSubtaskList() {
     const list = document.getElementById('subtask-list');
     if (!list) return;
-
+  
+    // Modus erkennen
     const addMode = isAddMode();
-
+  
     // Subtasks rendern
-    list.innerHTML = subtasksToRender
-        .map((s, i) => {
-            return isAddMode
-                ? subtasksTemplate(s, i) // Für Add-Task-Seite
-                : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
-        })
-        .join('');
-}
+    list.innerHTML = subtasks
+      .map((s, i) => {
+        return addMode
+          ? subtasksTemplate(s, i) // Für Add-Task-Seite
+          : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
+      })
+      .join('');
+  }
 
 function editSubtask(index) {
     const subtaskItems = document.querySelectorAll(".subtask-item");
