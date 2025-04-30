@@ -60,6 +60,7 @@
             <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
             <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         </div>
+        
         <div id="mainContent">
             <div id="boardHeader">
                 <h2>Board</h2>
@@ -74,11 +75,16 @@
                     </button>
                 </div>
             </div>
+            <div class="toggleTasks">
+             <button id="toggleBoardView">Alle Tasks anzeigen</button>
+            </div>
             <div id="boardMain">
+                
                 <div id="toDoHeader">
                     <span>To do</span>
                     <button id="toDoBtn" class="add-task" onclick="createNewTask('todo')"></button>
                 </div>
+                
                 <div id="inProgressHeader">
                     <span>In progress</span>
                     <button id="inProgressBtn" class="add-task" onclick="createNewTask('inProgress')"></button>
@@ -98,6 +104,7 @@
                 <div id="awaitFeedback"></div>
                 <div id="done"></div>
             </div>
+           
             <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)"></div>
 
         </div>
