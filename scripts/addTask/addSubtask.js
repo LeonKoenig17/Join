@@ -39,11 +39,6 @@ function cancelSubtaskEntry() {
     initSubtaskUI();
 }
 
-function isAddMode() {
-    // Prüfen, ob wir uns auf der Add-Task-Seite befinden
-    return document.body.classList.contains('add-task-page') || window.location.pathname.includes('addTask.html');
-}
-
 function confirmSubtaskEntry() {
     const subInput = document.getElementById("subtask-input");
     if (!subInput) return;
@@ -53,7 +48,7 @@ function confirmSubtaskEntry() {
         subtasks.push({ name: val, completed: false }); // Subtask hinzufügen
         updateSubtaskList(subtasks); // Subtask-Liste aktualisieren
     }
-    initSubtaskUI(); // UI zurücksetzen
+    initSubtaskUI(); 
 }
 
 function getTaskById(taskId) {
@@ -79,8 +74,8 @@ function getTaskById(taskId) {
     list.innerHTML = subtasks
       .map((s, i) => {
         return addMode
-          ? subtasksTemplate(s, i) // Für Add-Task-Seite
-          : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
+          ? subtasksTemplate(s, i)
+          : taskOverlaySubtaskTemplate(s, i);
       })
       .join('');
   }
@@ -102,20 +97,35 @@ function editSubtask(index) {
     subtaskText.querySelector(".edit-input").focus();
 }
 
+function handleEditKeyPress(event, index) {
+
+    if (event.key === "Enter") {
+        saveSubtask(index);
+    }
+}
+
 function saveSubtask(index) {
+    console.log("Saving subtask at index:", index);
+    console.log("Current subtasks:", subtasks);
+
     const input = document.querySelector(".edit-input");
     if (!input) return;
 
     const newValue = input.value.trim();
     if (newValue) {
+        if (!subtasks[index]) {
+            console.error("Subtask not found at index:", index);
+            return;
+        }
         subtasks[index].name = newValue;
-        updateSubtaskList();
-    }
-}
+        console.log("Updated subtask:", subtasks[index]);
 
-function handleEditKeyPress(event, index) {
-    if (event.key === "Enter") {
-        saveSubtask(index);
+        const subtaskItems = document.querySelectorAll(".subtask-item");
+        if (subtaskItems[index]) {
+            subtaskItems[index].classList.remove("editing");
+        }
+
+        updateSubtaskList();
     }
 }
 

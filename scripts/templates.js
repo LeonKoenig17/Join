@@ -534,7 +534,7 @@ function editTaskOverlayTemplate(task, users) {
     <div class="create-task-footer">
       <div class="form-actions">
         <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
-        <button id="save-task-btn" type="button" class="create-task-btn">Ok <img src="../images/check.svg" /></button>
+        <button id="save-task-btn" type="button" class="create-task-btn" onclick="saveTask('${task.id}')">Ok <img src="../images/check.svg" /></button>
       </div>
     </div>
   </div>

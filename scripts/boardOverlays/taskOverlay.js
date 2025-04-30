@@ -18,17 +18,6 @@ function checkUserColor(taskData, users) {
   }
 }
 
-/**
- * Füllt das globale subtasks-Array anhand von taskData.subtasks.
- */
-function initSubtasksArray(taskData) {
-  subtasks.length = 0;
-  if (!Array.isArray(taskData.subtasks)) return;
-  for (let i = 0; i < taskData.subtasks.length; i++) {
-    const s = taskData.subtasks[i];
-    subtasks.push({ name: s.name, completed: s.completed });
-  }
-}
 
 async function showTaskOverlay(taskData) {
   const users = await loadFirebaseUsers();
@@ -201,43 +190,116 @@ function confirmDeleteTask(event, taskId) {
 }
 
 
+function initializeSubtaskModule(taskData) {
+  initSubtasksArray(taskData);
+  initSubtaskUI();
+  setupSubtaskListeners();
+  updateSubtaskList();
+}
 
+function initSubtasksArray(taskData) {
+    subtasks.length = 0;
+    if (!Array.isArray(taskData.subtasks)) return;
+    for (let i = 0; i < taskData.subtasks.length; i++) {
+        const s = taskData.subtasks[i];
+        subtasks.push({ name: s.name, completed: s.completed });
+    }
+}
 
 
 async function showEditTaskOverlay(taskId) {
-  // 1) Daten holen
-  let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
-  if (!taskData) {
-    const all = await loadData('tasks');
-    const raw = all[taskId];
-    taskData = { id: taskId, ...raw };
+  try {
+      let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
+      if (!taskData) {
+          const all = await loadData('tasks');
+          const raw = all[taskId];
+          if (!raw) throw new Error('Task not found');
+          taskData = { id: taskId, ...raw };
+      }
+
+      const users = await loadFirebaseUsers();
+
+      const overlayHTML = editTaskOverlayTemplate(taskData, users);
+      document.body.insertAdjacentHTML('beforeend', overlayHTML);
+      initializeOverlayFeatures();
+
+      initializeSubtaskModule(taskData);
+
+      document.getElementById('save-task-btn').addEventListener('click', async () => {
+          const data = getFormData();
+          if (!validateFormData(data)) {
+              alert('Please fill out all required fields.');
+              return;
+          }
+
+          try {
+              await patchTask(taskData.id, {
+                  ...data,
+                  subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed }))
+              });
+              closeOverlay();
+              window.location.reload();
+          } catch (error) {
+              console.error('Error saving task:', error);
+              alert('An error occurred while saving the task. Please try again.');
+          }
+      });
+  } catch (error) {
+      console.error('Error loading edit task overlay:', error);
   }
+}
 
-  const users = await loadFirebaseUsers();
+async function saveTask(taskId) {
+  try {
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const dueDate = document.getElementById("due-date").value;
+      const priority = document.querySelector(".priority.active-btn").textContent.trim();
+      const category = document.getElementById("categorySelect").value;
+      const assignedTo = Array.from(document.querySelectorAll(".assign-checkbox:checked")).map((checkbox) => ({
+          id: checkbox.dataset.userId,
+          name: checkbox.dataset.userName,
+          email: checkbox.dataset.userEmail,
+      }));
 
-  // 2) Overlay rendern & Grund-Features initialisieren
-  const overlayHTML = editTaskOverlayTemplate(taskData, users);
-  document.body.insertAdjacentHTML('beforeend', overlayHTML);
-  initializeOverlayFeatures();
+      const updatedSubtasks = subtasks.map((subtask) => ({
+          name: subtask.name,
+          completed: subtask.completed,
+      }));
 
-  // ───────────────────────────────────────
-  // 3) Subtask-Modul initialisieren:
-  //    hier bindest du +, Enter, Prefill & Rendern
-  initSubtaskUI();               // leert das Input-Feld
-  setupSubtaskListeners();       // bindet das „+“-Icon & Enter
-  initSubtasksArray(taskData);   // füllt global subtasks[] aus taskData
-  updateSubtaskList();           // rendert sie sofort ins DOM
-  // ───────────────────────────────────────
+      // 3. Aktualisierte Daten in Firebase speichern
+      const updatedTask = {
+          title,
+          description,
+          dueDate,
+          priority,
+          category,
+          assignedTo,
+          subtasks: updatedSubtasks,
+      };
 
-  // 4) Listener für Save-Button
-  document.getElementById('save-task-btn').addEventListener('click', async () => {
-    const data = getFormData();
-    if (!validateFormData(data)) return;
-    await patchTask(taskData.id, {
-      ...data,
-      subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed }))
-    });
-    closeOverlay();
-    window.location.reload();
-  });
+      console.log("Saving task to Firebase:", updatedTask);
+
+      await updateTaskInFirebase(taskId, updatedTask);
+
+      closeOverlay();
+      await reloadBoard();
+  } catch (error) {
+      console.error("Error saving task:", error);
+      alert("An error occurred while saving the task. Please try again.");
+  }
+}
+
+async function updateTaskInFirebase(taskId, updatedTask) {
+
+  const db = firebase.firestore();
+  await db.collection("tasks").doc(taskId).update(updatedTask);
+  console.log(`Task ${taskId} updated successfully in Firebase.`);
+}
+
+async function reloadBoard() {
+  const tasks = await loadTasksFromFirebase();
+
+  const boardContainer = document.getElementById("board-container");
+  boardContainer.innerHTML = tasks.map((task) => generateTaskCard(task)).join("");
 }
