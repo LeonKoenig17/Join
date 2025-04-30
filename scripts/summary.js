@@ -82,3 +82,41 @@ async function loadAndDisplayTaskCounts() {
     console.error("Fehler beim Laden der Tasks:", error);
   }
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  setCurrentDate();
+  setGreeting();
+});
+
+
+/** Zeigt das aktuelle Datum an. */
+function setCurrentDate() {
+  const currentDate = new Date();
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('de-DE', options);
+
+  const dateElement = document.getElementById("current-date");
+  if (dateElement) {
+    dateElement.innerText = formattedDate;
+  }
+}
+
+
+/** Tageszeit-Begrüßung */
+function setGreeting() {
+  const currentHour = new Date().getHours();
+  let greeting = "Good morning,";
+
+  if (currentHour >= 12 && currentHour < 18) {
+    greeting = "Good afternoon,";
+  } else if (currentHour >= 18 || currentHour < 5) {
+    greeting = "Good evening,";
+  }
+
+  const greetingElement = document.getElementById("greeting");
+  if (greetingElement) {
+    greetingElement.innerText = greeting;
+  }
+}
+
