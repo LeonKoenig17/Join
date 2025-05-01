@@ -280,7 +280,7 @@
 .task {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 252px;
   background: white;
   border-radius: 24px;

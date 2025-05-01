@@ -5,10 +5,11 @@
   /* Grundlayout */
   #mainContent {
     width: 1200px;
-    padding: 40px;
-    max-height: calc(100vh - 192px); /* nicht höher als Viewport abzüglich Header und Padding */
+    padding: 0 40px;
+    max-height: calc(100vh - 90px); /* nicht höher als Viewport abzüglich Header und Padding */
     overflow: hidden;        /* alles darüber ausblenden */
     transition: max-height 0.3s ease;
+ 
   }
 
   #mainContent.expanded {

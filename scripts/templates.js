@@ -125,9 +125,9 @@ function subtasksTemplate(subtask, index) {
         <div class="subtask-item" data-subtask-index="${index}">
             <p class="subtask-text">• ${subtask.name}</p>
             <div class="subtask-icons">
-                <img src="../images/edit-2.svg" alt="Edit" class="subtask-icon edit-icon" onclick="editSubtask(${index})">
+                <img src="../images/edit-2.svg" alt="Edit" class="subtask-icon edit-subtask" data-index="${index}">
                 <div class="vertical-line-subtask-dark"></div>
-                <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
+                <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-subtask" data-index="${index}">
             </div>
         </div>
     `;
@@ -522,8 +522,8 @@ function editTaskOverlayTemplate(task, users) {
 
           <h3>Subtasks</h3>
           <div class="subtask-input">
-            <input type="text" id="subtask-input" placeholder="Add new subtask" />
-            <img id="add-icon" src="../images/addDark.svg" alt="add" onclick="confirmSubtaskEntry()" />
+           <input type="text" id="subtask-input" placeholder="Add new subtask" />
+            <img id="add-icon" src="../images/addDark.svg" alt="add" />
           </div>
           <div id="subtask-list" class="subtask-list">
             ${subsHTML}

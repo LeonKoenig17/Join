@@ -327,6 +327,7 @@ function clearForm() {
   updateSubtaskList();
 }
 
+
 function clearFieldErrors() {
   document.getElementById("title-error").textContent = "";
   document.getElementById("description-error").textContent = "";
@@ -339,18 +340,4 @@ function clearFieldErrors() {
   });
 }
 
-function setPriority(button) {
-  activePriorityButton = button;
-  priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
-  button.classList.add('active-btn');
-}
-
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.priority-buttons')) {
-    if (activePriorityButton) {
-      priorityButtons.forEach(btn => btn.classList.remove('active-btn'));
-      activePriorityButton.classList.add('active-btn');
-    }
-  }
-});
 
