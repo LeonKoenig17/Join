@@ -5,13 +5,22 @@
   /* Grundlayout */
   #mainContent {
     width: 1200px;
-    padding: 64px;
+    padding: 0 40px;
+    max-height: calc(100vh - 90px); /* nicht höher als Viewport abzüglich Header und Padding */
+    overflow: hidden;        /* alles darüber ausblenden */
+    transition: max-height 0.3s ease;
+ 
+  }
+
+  #mainContent.expanded {
+    max-height: none;        /* unbegrenzte Höhe */
+    overflow-y: auto;        /* vertikale Scrollbar einblenden */
   }
   
   #boardHeader {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 40px;
+    align-items: center;
   }
   #boardHeader h2 {
     font-size: 60px;
@@ -172,5 +181,12 @@
   }
   .add-task:hover {
     background-image: url("../images/taskPlusHover.svg");
+  }
+
+  .toggleTasks {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
   }
   

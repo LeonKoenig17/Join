@@ -409,7 +409,7 @@ select:focus {
   margin: 5px 0;
 }
 
-.singleUser:hover{
+.singleUser:hover {
   background-color: var(--primary-color);
   border-radius: 1rem;
   color: white;
@@ -426,7 +426,7 @@ select:focus {
   /* background-color: blueviolet; */
 }
 
-.emailText{
+.emailText {
   /* text-align: left; */
   padding: 0;
   color: var(--link-color);
@@ -459,7 +459,7 @@ select:focus {
 
 
 
-.spanLetter{
+.spanLetter {
   text-align: left;
   margin-left: 22px;
 }
@@ -501,14 +501,18 @@ select:focus {
   cursor: context-menu;
 }
 
-.contactInformations{
-  display: flex;flex-direction: column;
+.contactInformations {
+  display: flex;
+  flex-direction: column;
 }
 
-.contactInformations p{
+.contactInformations p {
   margin: 20px 0;
 }
-.contactInformations span,a,strong {
+
+.contactInformations span,
+a,
+strong {
   margin: 10px 0;
 }
 
@@ -585,4 +589,21 @@ select:focus {
   width: 100%;
   display: flex;
   justify-content: start;
+}
+
+.addContactDiv {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hide{
+  display: none;
 }

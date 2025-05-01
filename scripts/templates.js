@@ -125,9 +125,9 @@ function subtasksTemplate(subtask, index) {
         <div class="subtask-item" data-subtask-index="${index}">
             <p class="subtask-text">• ${subtask.name}</p>
             <div class="subtask-icons">
-                <img src="../images/edit-2.svg" alt="Edit" class="subtask-icon edit-icon" onclick="editSubtask(${index})">
+                <img src="../images/edit-2.svg" alt="Edit" class="subtask-icon edit-subtask" data-index="${index}">
                 <div class="vertical-line-subtask-dark"></div>
-                <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
+                <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-subtask" data-index="${index}">
             </div>
         </div>
     `;
@@ -462,7 +462,7 @@ function editTaskOverlayTemplate(task, users) {
             <input type="text" id="title" name="title" required value="${task.title}" />
 
             <label for="description">Description</label>
-            <textarea id="description" name="description" spellcheck="false">${task.description}</textarea>
+            <textarea id="description" name="description" style="max-width: 100%; max-height: 150px;" spellcheck="false">${task.description} </textarea>
 
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
@@ -522,8 +522,8 @@ function editTaskOverlayTemplate(task, users) {
 
           <h3>Subtasks</h3>
           <div class="subtask-input">
-            <input type="text" id="subtask-input" placeholder="Add new subtask" />
-            <img id="add-icon" src="../images/addDark.svg" alt="add" onclick="confirmSubtaskEntry()" />
+           <input type="text" id="subtask-input" placeholder="Add new subtask" />
+            <img id="add-icon" src="../images/addDark.svg" alt="add" />
           </div>
           <div id="subtask-list" class="subtask-list">
             ${subsHTML}
@@ -534,7 +534,7 @@ function editTaskOverlayTemplate(task, users) {
     <div class="create-task-footer">
       <div class="form-actions">
         <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
-        <button id="save-task-btn" type="button" class="create-task-btn">Ok <img src="../images/check.svg" /></button>
+        <button id="save-task-btn" type="button" class="create-task-btn" onclick="saveTask('${task.id}')">Ok <img src="../images/check.svg" /></button>
       </div>
     </div>
   </div>

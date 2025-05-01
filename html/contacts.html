@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="../styles/contacts.css" />
   <!-- <link rel="stylesheet" href="../styles/dropdownAddTask.css" /> -->
 
-  <script src="../scripts/script.js"></script>
 
   <!-- <script src="../scripts/db.js">  </script> -->
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
@@ -98,14 +97,18 @@
       </nav>
     </div> -->
 
-    <iframe src="../html/addContact.html" frameborder="0"
-      style="position:absolute;left: 0;top: 0;height: 100vh;width:100%;z-index: 1;"></iframe>
+    <div id="addContactDiv" class="addContactDiv hide">
+
+    </div>
+    <iframe id="addContact" src="../html/addContact.html" frameborder="0" class="animation hide"
+      style="position: absolute; height: 500px;width: calc(400px + 800px);z-index:1;"></iframe>
+
     <div id="mainContent">
       <div id="contentLeft">
 
         <div style="display: flex;align-items: center;flex-direction: column;">
 
-          <div
+          <div onclick="showAddContact()"
             style="display: flex;align-items: center;background-color: var(--primary-color);height: fit-content;color: white; font-size: 16px;font-weight: bold; margin:20px;width: 300px; justify-content: center;border-radius: 10px;">
             <p style="margin:15px 10px">Add new contant</p>
             <img src="../images/person_add.svg" alt="">
@@ -160,6 +163,7 @@
     </div>
   </main>
 
+  <script src="../scripts/script.js"></script>
   <script src="../scripts/firebase.js"></script>
   <script src="../scripts/contacts.js"></script>
 
