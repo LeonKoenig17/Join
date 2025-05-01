@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join/Board</title>
 
+    <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/board.css" />
@@ -18,7 +19,7 @@
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 
-   
+
 </head>
 
 <body onload="init()">
@@ -98,7 +99,8 @@
                 <div id="awaitFeedback"></div>
                 <div id="done"></div>
             </div>
-            <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)"></div>
+            <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}"
+                onclick="handleOverlayClick(event)"></div>
 
         </div>
     </main>
