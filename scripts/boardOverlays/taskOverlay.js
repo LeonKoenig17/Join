@@ -80,13 +80,10 @@ function initPriorityButtons() {
 /**
  * Schließt das Overlay
  */
-function closeOverlay() {
+function closeOverlay(force = false) {
   const overlay = document.getElementById("taskOverlay");
   if (overlay) {
-    overlay.style.display = "none";
-    setTimeout(() => {
-      overlay.remove();
-    }, 200);
+    overlay.remove(); // sofort – KEIN timeout
   }
   currentTask = null;
   isEditing = false;
@@ -209,45 +206,51 @@ function initSubtasksArray(taskData) {
 
 async function showEditTaskOverlay(taskId) {
   try {
-      let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
-      if (!taskData) {
-          const all = await loadData('tasks');
-          const raw = all[taskId];
-          if (!raw) throw new Error('Task not found');
-          taskData = { id: taskId, ...raw };
+    if (document.getElementById('taskOverlay')) {
+      closeOverlay(true);
+    }
+
+    let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
+    if (!taskData) {
+      const all = await loadData('tasks');
+      const raw = all[taskId];
+      if (!raw) throw new Error('Task not found');
+      taskData = { id: taskId, ...raw };
+    }
+
+    const users = await loadFirebaseUsers();
+
+    const overlayHTML = editTaskOverlayTemplate(taskData, users);
+    document.body.insertAdjacentHTML('beforeend', overlayHTML);
+
+    initializeOverlayFeatures();
+    initializeSubtaskModule(taskData);
+  
+    document.getElementById('save-task-btn').addEventListener('click', async () => {
+      const data = getFormData();
+      if (!validateFormData(data)) {
+        alert('Please fill out all required fields.');
+        return;
       }
 
-      const users = await loadFirebaseUsers();
-
-      const overlayHTML = editTaskOverlayTemplate(taskData, users);
-      document.body.insertAdjacentHTML('beforeend', overlayHTML);
-      initializeOverlayFeatures();
-
-      initializeSubtaskModule(taskData);
-
-      document.getElementById('save-task-btn').addEventListener('click', async () => {
-          const data = getFormData();
-          if (!validateFormData(data)) {
-              alert('Please fill out all required fields.');
-              return;
-          }
-
-          try {
-              await patchTask(taskData.id, {
-                  ...data,
-                  subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed }))
-              });
-              closeOverlay();
-              window.location.reload();
-          } catch (error) {
-              console.error('Error saving task:', error);
-              alert('An error occurred while saving the task. Please try again.');
-          }
-      });
+      try {
+        await patchTask(taskData.id, {
+          ...data,
+          subtasks: subtasks.map((s) => ({ name: s.name, completed: s.completed })),
+        });
+        closeOverlay();
+        window.location.reload();
+      } catch (error) {
+        console.error('Error saving task:', error);
+        alert('An error occurred while saving the task. Please try again.');
+      }
+    });
   } catch (error) {
-      console.error('Error loading edit task overlay:', error);
+    console.error('Error loading edit task overlay:', error);
   }
 }
+
+
 
 async function saveTask(taskId) {
   try {

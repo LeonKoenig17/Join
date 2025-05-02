@@ -55,6 +55,12 @@ function getTaskById(taskId) {
     return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
   }
 
+  
+  function isEditMode() {
+    const overlay = document.getElementById('taskOverlay');
+    return overlay?.querySelector('.add-task-card')?.classList.contains('edit-mode');
+  }
+
   function isAddMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.classList.contains('add-task-page') || 
@@ -62,19 +68,17 @@ function getTaskById(taskId) {
            window.location.pathname.includes('addTask.html');
   }
 
-  
+
   function updateSubtaskList() {
     const list = document.getElementById('subtask-list');
     if (!list) return;
-
+    
+    const editMode = isEditMode();
     const addMode = isAddMode();
-
+    
+  
     list.innerHTML = subtasks
-      .map((s, i) => {
-        return addMode
-          ? subtasksTemplate(s, i)
-          : taskOverlaySubtaskTemplate(s, i);
-      })
+      .map((s, i) => (addMode || editMode ? subtasksTemplate(s, i) : taskOverlaySubtaskTemplate(s, i)))
       .join('');
   }
 

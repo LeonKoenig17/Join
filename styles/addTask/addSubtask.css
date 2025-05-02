@@ -55,8 +55,6 @@
   transition: transform 0.3s ease-in-out;
 }
 
-
-
 .subtask-list {
   height: 20px !important;
   transition: all 0.3s ease-in-out;

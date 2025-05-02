@@ -192,7 +192,7 @@ function generateTaskOverlay(task) {
             <span>Delete</span>
           </button>
           <div class="action-separator"></div>
-          <button class="action-btn edit-btn" onclick="showEditTaskOverlay('${task.id}')">
+          <button class="edit-btn" onclick="closeOverlay(); setTimeout(() => showEditTaskOverlay('${task.id}'), 150)">
             <img src="../images/edit-2.svg" alt="Edit">
             <span>Edit</span>
           </button>
