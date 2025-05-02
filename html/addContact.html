@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Join/Add Contact</title>
 
+    <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/addcontact.css">
 
 
@@ -21,7 +22,8 @@
                 <img src="../images/joinlogowhite.svg" alt="" style="height: 75px;margin: 0;">
                 <h1 style="margin: 20px 0px;font-size:48px;">Add contact</h1>
                 <h4 style="margin: 0;font-weight: normal;">Tasks are better with a team!</h4>
-                <div style="background-color: #29ABE2;height: 2px;width: 100px;margin: 20px 0px;border-radius: 1rem;"></div>
+                <div style="background-color: #29ABE2;height: 2px;width: 100px;margin: 20px 0px;border-radius: 1rem;">
+                </div>
             </div>
         </div>
 
@@ -50,9 +52,9 @@
 
                     </div>
                     <div style="display: flex;margin-top:10px;">
-                        <button onmouseover="changeImage('blue')" onmouseleave="changeImage('darkblue')" onclick="hideAddContact()" id="cancelBtn"
-                            class="whiteBtn">Cancel<img id="cancelImg" src="../images/canceldarkblue.svg" alt=""
-                                style="margin-left:10px"></button>
+                        <button onmouseover="changeImage('blue')" onmouseleave="changeImage('darkblue')"
+                            onclick="hideAddContact()" id="cancelBtn" class="whiteBtn">Cancel<img id="cancelImg"
+                                src="../images/canceldarkblue.svg" alt="" style="margin-left:10px"></button>
                         <button onclick="hideAddContact()" id="createContantBtn" class="blueBtn">Create contact<img
                                 src="../images/check.svg" alt="" style="margin-left:10px"></button>
                     </div>

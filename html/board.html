@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join/Board</title>
 
+    <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/board.css" />
@@ -18,7 +19,7 @@
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 
-   
+
 </head>
 
 <body onload="init()">
@@ -60,7 +61,7 @@
             <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
             <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         </div>
-        
+
         <div id="mainContent">
             <div id="boardHeader">
                 <h2>Board</h2>
@@ -76,15 +77,15 @@
                 </div>
             </div>
             <div class="toggleTasks">
-             <button id="toggleBoardView">Alle Tasks anzeigen</button>
+                <button id="toggleBoardView">Alle Tasks anzeigen</button>
             </div>
             <div id="boardMain">
-                
+
                 <div id="toDoHeader">
                     <span>To do</span>
                     <button id="toDoBtn" class="add-task" onclick="createNewTask('todo')"></button>
                 </div>
-                
+
                 <div id="inProgressHeader">
                     <span>In progress</span>
                     <button id="inProgressBtn" class="add-task" onclick="createNewTask('inProgress')"></button>
@@ -104,8 +105,9 @@
                 <div id="awaitFeedback"></div>
                 <div id="done"></div>
             </div>
-           
-            <div id="taskOverlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)"></div>
+
+            <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}"
+                onclick="handleOverlayClick(event)"></div>
 
         </div>
     </main>
