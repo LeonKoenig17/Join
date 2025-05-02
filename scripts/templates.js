@@ -12,29 +12,27 @@ function getInitials(str) {
 }
 
 
-function assignedUserTemplate(user, index) {
+function assignedUserTemplate(user, index, isChecked = false) {
   return `
-        <div class="assigned-user-item">
-            <div class="assigned-user-avatar-container" style="background-color: ${
-              user.color
-            };">
-                <p class="assigned-user-avatar">${getInitials(
-                  user.name || user.email
-                )}</p>
-            </div>
-            <div class="assigned-user-details">
-                <p class="assigned-user-name">${user.name || user.email}</p>
-                <input
-                    type="checkbox"
-                    class="assign-checkbox"
-                    data-user-id="${user.id}"
-                    data-user-name="${user.name}"
-                    data-user-email="${user.email}"
-                    data-user-index="${index}"
-                />
-            </div>
+    <div class="assigned-user-item">
+        <div class="assigned-user-avatar-container" style="background-color: ${user.color};">
+            <p class="assigned-user-avatar">${getInitials(user.name || user.email)}</p>
         </div>
-    `;
+        <div class="assigned-user-details">
+            <p class="assigned-user-name">${user.name || user.email}</p>
+            <input
+                type="checkbox"
+                class="assign-checkbox"
+                data-user-id="${user.id}"
+                data-user-name="${user.name}"
+                data-user-email="${user.email}"
+                data-user-color="${user.color}"
+                data-user-index="${index}"
+                ${isChecked ? "checked" : ""}
+            />
+        </div>
+    </div>
+  `;
 }
 
 /**
@@ -460,14 +458,15 @@ function editTaskOverlayTemplate(task, users) {
           <form class="forms" id="taskForm">
             <label for="title">Title<span>*</span></label>
             <input type="text" id="title" name="title" required value="${task.title}" />
-
+              <span id="title-error" class="error-msg"></span>
             <label for="description">Description</label>
             <textarea id="description" name="description" style="max-width: 100%; max-height: 150px;" spellcheck="false">${task.description} </textarea>
-
+             <span id="description-error" class="error-msg"></span>
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
               <input type="date" id="due-date" name="due-date" required value="${task.dueDate}" />
               <img src="../images/calendar.svg" alt="Calendar Icon" />
+              <span id="due-date-error" class="error-msg"></span>
             </div>
           </form>
         </div>
@@ -517,7 +516,8 @@ function editTaskOverlayTemplate(task, users) {
               <option ${task.category === 'User Story' ? 'selected' : ''}>User Story</option>
               <option ${task.category === 'Technical Task' ? 'selected' : ''}>Technical Task</option>
             </select>
-            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon" />
+            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon"/>
+            <span id="category-error" class="error-msg"></span>
           </div>
 
           <h3>Subtasks</h3>
