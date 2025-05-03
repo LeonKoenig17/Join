@@ -190,7 +190,7 @@ function generateTaskOverlay(task) {
             <span>Delete</span>
           </button>
           <div class="action-separator"></div>
-          <button class="edit-btn" onclick="closeOverlay(); setTimeout(() => showEditTaskOverlay('${task.id}'), 150)">
+          <button class="action-btn edit-btn" onclick="closeOverlay(); setTimeout(() => showEditTaskOverlay('${task.id}'), 150)">
             <img src="../images/edit-2.svg" alt="Edit">
             <span>Edit</span>
           </button>
@@ -471,7 +471,7 @@ function editTaskOverlayTemplate(task, users) {
           </form>
         </div>
         <div class="separator"></div>
-        <div class="half-width addTask-right">
+        <div class="half-width addTask-right-edit">
           <h3>Priority</h3>
           <div class="priority-buttons">
             <button type="button" class="priority priority-urgent ${p('Urgent')}" onclick="setPriority(this)">Urgent <img src="../images/urgent.svg" /></button>
@@ -532,7 +532,7 @@ function editTaskOverlayTemplate(task, users) {
       </section>
     </div>
     <div class="create-task-footer">
-      <div class="form-actions">
+      <div class="form-actions-edit">
         <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
         <button id="save-task-btn" type="button" class="create-task-btn" onclick="saveTask('${task.id}')">Ok <img src="../images/check.svg" /></button>
       </div>

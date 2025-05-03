@@ -2,19 +2,25 @@
     --column-width: 287px;
   }
   
-  /* Grundlayout */
   #mainContent {
     width: 1200px;
     padding: 0 40px;
-    max-height: calc(100vh - 90px); /* nicht höher als Viewport abzüglich Header und Padding */
-    overflow: hidden;        /* alles darüber ausblenden */
+    max-height: calc(100vh - 90px);
+    overflow: hidden;
     transition: max-height 0.3s ease;
  
   }
 
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+  }
+
   #mainContent.expanded {
-    max-height: none;        /* unbegrenzte Höhe */
-    overflow-y: auto;        /* vertikale Scrollbar einblenden */
+    max-height: none;
+    overflow-y: auto;
   }
   
   #boardHeader {

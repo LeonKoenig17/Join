@@ -1,5 +1,5 @@
 function setupFieldListeners() {
-    const fields = [titleInput, dateInput, categorySelect];
+    const fields = [titleInput, descriptionInput, dateInput, categorySelect ];
     fields.forEach((field) => {
       let clicked = false;
       field.addEventListener("focus", () => (clicked = true));
@@ -13,11 +13,6 @@ function setupFieldListeners() {
     });
   }
   
-  function fillDescription() {
-    descriptionInput.addEventListener("click", () => {
-      descriptionInput.value = "Create a contact form and imprint page.";
-    });
-  }
   
  function clearForm() {
   document.getElementById("title").value = "";

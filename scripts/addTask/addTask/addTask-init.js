@@ -3,7 +3,7 @@ function init() {
     setupDatePicker();
     applyUserColors();
     setupFieldListeners();
-    fillDescription();
+    initAssignedDropdown();
   }
   
   function setupDatePicker() {
