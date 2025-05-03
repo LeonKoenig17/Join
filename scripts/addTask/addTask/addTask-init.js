@@ -15,5 +15,8 @@ function init() {
       if (dateInput.showPicker) dateInput.showPicker();
       else dateInput.focus();
     });
+
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
   }
   

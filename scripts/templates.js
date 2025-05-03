@@ -267,11 +267,10 @@ function addTaskOverlayTemplate() {
     <div class="task-overlay add-task-page" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
         <div class="task-header">
-          <div class="user-story-label task-category">Add Task</div>
+          <h1>Add Task</h1>
           <button class="close-btn" onclick="closeOverlay()"><img src="../images/close.svg" alt="close"></button>
         </div>
         <div class="task-content">
-          <h1>Add Task</h1>
           <section id="addTask">
             <div class="half-width addTask-left">
               <form class="forms" id="taskForm">
@@ -303,7 +302,7 @@ function addTaskOverlayTemplate() {
             </div>
             <div class="separator"></div>
             <div class="half-width addTask-right">
-              <h3 class="h3-priority">Priority</h3>
+              <label class="right-label">Priority</label>
               <div class="priority-buttons">
                 <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
                   Urgent
@@ -319,7 +318,7 @@ function addTaskOverlayTemplate() {
                 </button>
               </div>
               <div>
-                <h3>Assigned to</h3>
+                <label class="right-label">Assigned to</label>
                 <div class="custom-assigned-dropdown" id="assignedDropdown">
                   <div class="dropdown-selected" id="assignedDropdownSelected">
                     Select contacts to assign
@@ -339,7 +338,7 @@ function addTaskOverlayTemplate() {
               </div>
               <div class="assigned-chips" id="assignedChips"></div>
               <div>
-                <h3>Category<span> *</span></h3>
+                <label class="right-label">Category<span> *</span></label>
                 <div class="custom-select-container">
                   <select id="categorySelect">
                     <option disabled selected>Select a category</option>
@@ -356,7 +355,7 @@ function addTaskOverlayTemplate() {
               </div>
               <!-- Subtask Section -->
               <div>
-                <h3>Subtasks</h3>
+                <label class="right-label">Subtasks</label>
                 <div class="subtask-input">
                   <input
                     type="text"
