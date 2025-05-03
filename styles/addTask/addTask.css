@@ -328,6 +328,10 @@ select:focus {
   border-color: var(--border-color-required)!important;
 }
 
+select.fieldIsRequired {
+  border: 1px solid var(--border-color-required)!important;
+}
+
 .error-message {
   color: red;
   font-size: 12px;

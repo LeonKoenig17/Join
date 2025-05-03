@@ -38,31 +38,41 @@ function showAddTaskOverlay() {
 }
 
 function renderAddTaskOverlay() {
-    const overlayHTML = addTaskOverlayTemplate();
-    document.body.insertAdjacentHTML("beforeend", overlayHTML);
-}
+     const existing = document.getElementById("taskOverlay");
+
+      if (existing) existing.remove();
+      const overlayHTML = addTaskOverlayTemplate();
+     document.body.insertAdjacentHTML("beforeend", overlayHTML); //ermöglicht es dir, einen HTML-String direkt in den DOM einzufügen
+   }
 
 function initializeOverlayFeatures() {
-    const taskOverlay = document.getElementById("taskOverlay");
-    if (taskOverlay) {
-        taskOverlay.style.display = "flex";
-        initPriorityButtons();
-        initAssignedDropdown();
-        initSubtaskUI();
-        setupDatePicker();
-        setupSubtaskListeners();
-    }
+  const taskOverlay = document.getElementById("taskOverlay");
+  if (taskOverlay) {
+      taskOverlay.style.display = "flex";
+      initPriorityButtons();
+      initAssignedDropdown();
+      initSubtaskUI();
+      setupDatePicker();
+      setupSubtaskListeners();
+      applyUserColors();
+      setupFieldListeners();
+  }
 }
 
 function setupTaskForm() {
-    const taskForm = document.getElementById("taskForm");
-    if (taskForm) {
-        taskForm.addEventListener("submit", createTask);
-    } else {
-        console.error("taskForm element not found");
-    }
+  const taskForm = document.getElementById("taskForm");
+  if (taskForm) {
+    taskForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = getFormData();
+      if (!data) return;
+      if (!validateFormData(data)) return;
+      createTask();
+    });
+  } else {
+    console.error("taskForm element not found");
+  }
 }
-
   /**
  * Initialisiert die Priority-Buttons und setzt Event-Listener.
  */
