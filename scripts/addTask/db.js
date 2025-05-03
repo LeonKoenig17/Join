@@ -1,4 +1,3 @@
-
 const titleInput        = document.getElementById("title");
 const descriptionInput  = document.getElementById("description");
 const dateInput         = document.getElementById("due-date");
@@ -10,4 +9,3 @@ const categorySelect    = document.getElementById("categorySelect");
 // Globale Zustände
 let subtasks = [];
 let activePriorityButton = null;
-// console.log(getAllUsers('login'))
