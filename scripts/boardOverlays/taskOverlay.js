@@ -123,20 +123,6 @@ function createPrioritySelect(currentPriority) {
 
 
 /**
- * Patch-Helper: Aktualisiert beliebige Felder in Firebase.
- * @param {string|number} taskId – Firebase-ID des Tasks
- * @param {Object} updateObj – Objekt mit den zu ändernden Feldern
- */
-async function patchTask(taskId, updateObj) {
-  const url = BASE_URL + `tasks/${taskId}.json`;
-  await fetch(url, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updateObj)
-  });
-}
-
-/**
  * Rechnet neue Fortschritt-% aus und updatet
  * die Progressbar & den Zähler im Task-Card.
  */
@@ -223,8 +209,14 @@ async function showEditTaskOverlay(taskId) {
     const overlayHTML = editTaskOverlayTemplate(taskData, users);
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
 
+    setTimeout(() => {
+      renderDropdownOptions(users, taskData.assignedTo || []);
+      updateAssignedChips(users);
+    }, 50);
+    
     initializeOverlayFeatures();
     initializeSubtaskModule(taskData);
+    
   
     document.getElementById('save-task-btn').addEventListener('click', async () => {
       const data = getFormData();
@@ -253,43 +245,31 @@ async function showEditTaskOverlay(taskId) {
 
 
 async function saveTask(taskId) {
+  const data = getFormData();
+  if (!validateFormData(data)) return;
+
+  const updatedTask = {
+    title: data.title,
+    description: data.description,
+    dueDate: data.dueDate,
+    priority: data.priority,
+    category: data.category,
+    assignedTo: data.assignedTo,
+    subtasks: getSanitizedSubtasks(),
+    stage: currentTask.stage,
+    taskIndex: currentTask.taskIndex
+  };
+
   try {
-      const title = document.getElementById("title").value.trim();
-      const description = document.getElementById("description").value.trim();
-      const dueDate = document.getElementById("due-date").value;
-      const priority = document.querySelector(".priority.active-btn").textContent.trim();
-      const category = document.getElementById("categorySelect").value;
-      const assignedTo = Array.from(document.querySelectorAll(".assign-checkbox:checked")).map((checkbox) => ({
-          id: checkbox.dataset.userId,
-          name: checkbox.dataset.userName,
-          email: checkbox.dataset.userEmail,
-      }));
-
-      const updatedSubtasks = subtasks.map((subtask) => ({
-          name: subtask.name,
-          completed: subtask.completed,
-      }));
-
-      // 3. Aktualisierte Daten in Firebase speichern
-      const updatedTask = {
-          title,
-          description,
-          dueDate,
-          priority,
-          category,
-          assignedTo,
-          subtasks: updatedSubtasks,
-      };
-
-      console.log("Saving task to Firebase:", updatedTask);
-
-      await updateTaskInFirebase(taskId, updatedTask);
-
-      closeOverlay();
-      await reloadBoard();
+    await patchTask(taskId, updatedTask);
+    closeOverlay();
+    await fetchData();
+    await renderLists();
+    highlightTask(updatedTask.taskIndex);
+    showToast("Task gespeichert");
   } catch (error) {
-      console.error("Error saving task:", error);
-      alert("An error occurred while saving the task. Please try again.");
+    console.error("Fehler beim Speichern:", error);
+    showToast("Fehler beim Speichern");
   }
 }
 

@@ -3,12 +3,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 90px);
+  height: 100vh;
+  padding: 20px;
   background-color: var(--background-color);
 }
 
 #main > div {
   max-width: 850px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #addTask {
@@ -83,6 +90,12 @@
 .addTask-right {
   display: flex;
   flex-direction: column;
+}
+
+.addTask-right-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100%!important;
 }
 
 .right-label {
@@ -244,10 +257,14 @@ select:focus {
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
   gap: 32px;
-  width: 100%;
+}
+
+.form-actions-edit {
+    display: flex;
+    justify-content: flex-end;
+    gap: 32px;
+    width: 100%;
 }
 
 .create-task-footer img {
@@ -314,7 +331,7 @@ select:focus {
 }
 
 .fieldIsRequired {
-  border-color: var(--border-color-required) !important;
+  border-color: var(--border-color-required)!important;
 }
 
 .error-message {
