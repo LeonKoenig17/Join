@@ -1,198 +1,200 @@
 :root {
-    --column-width: 287px;
-  }
-  
-  #mainContent {
-    width: 1200px;
-    padding: 0 40px;
-    max-height: calc(100vh - 90px);
-    overflow: hidden;
-    transition: max-height 0.3s ease;
- 
-  }
+  --column-width: 287px;
+}
 
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 10px;
-  }
+#mainContent {
+  width: 1200px;
+  padding: 0 40px;
+  max-height: calc(100vh - 20px);
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
 
-  #mainContent.expanded {
-    max-height: none;
-    overflow-y: auto;
-  }
-  
-  #boardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  #boardHeader h2 {
-    font-size: 60px;
-  }
-  #boardHeader > div {
-    display: flex;
-    align-items: center;
-  }
-  #boardHeader > div * {
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  /* Suchfeld */
-  #searchInput {
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    display: flex;
-  }
-  #searchInput * {
-    border: none;
-    background-color: white;
-  }
-  #searchInput input {
-    border-right: 1px solid #D1D1D1;
-    width: 250px;
-    outline: none;
-  }
-  #searchInput button {
-    border-radius: 100%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-  }
-  #searchInput button:hover {
-    background-color: lightgrey;
-  }
-  #searchInput img {
-    padding: 5px;
-    background: none;
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+}
+
+#mainContent.expanded {
+  max-height: none;
+  overflow-y: auto;
+}
+
+#boardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#boardHeader h2 {
+  font-size: 60px;
+}
+
+#boardHeader > div {
+  display: flex;
+  align-items: center;
+}
+
+#boardHeader > div * {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#searchInput {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  display: flex;
+}
+
+#searchInput * {
+  border: none;
+  background-color: white;
+}
+
+#searchInput input {
+  border-right: 1px solid #d1d1d1;
+  width: 250px;
+  outline: none;
+}
+
+#searchInput button {
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+#searchInput button:hover {
+  background-color: lightgrey;
+}
+
+#searchInput img {
+  padding: 5px;
+  background: none;
 }
 
 .darkblueButton {
-    padding: 10px;
-    background-color: #2A3647;
-    border-radius: 10px;
-    border: none;
-    display: flex;
-    align-items: center;
-    height: 54px;
-    margin-left: 30px;
-    transition: 0.2s ease-in-out;
+  padding: 10px;
+  background-color: #2a3647;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  margin-left: 30px;
+  transition: 0.2s ease-in-out;
 }
 
 .darkblueButton:hover {
-    background-color: #29ABE2;
-    cursor: pointer
+  background-color: #29abe2;
+  cursor: pointer;
 }
 
 .darkblueButton span {
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
 .darkblueButton img {
-    padding: 0 10px;
+  padding: 0 10px;
 }
 
 .whiteButton {
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    height: 54px;
-    margin-left: 30px;
-    transition: 0.2s ease-in-out;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  margin-left: 30px;
+  transition: 0.2s ease-in-out;
 }
 
 .whiteButton:hover {
-    border: 1px solid #29ABE2;
-    color: #29ABE2;
-    cursor: pointer;
+  border: 1px solid #29abe2;
+  color: #29abe2;
+  cursor: pointer;
 }
 
 .cross-bg-img {
-    background-image: url(../images/canceldarkblue.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    width: 20px;
-    height: 20px;
-    padding-left: 20px;
-    transition: 0.2s ease-in-out;
+  background-image: url(../images/canceldarkblue.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding-left: 20px;
+  transition: 0.2s ease-in-out;
 }
 
+#boardMain {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
 
-  /* Spalten-Header */
-  #boardMain {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  #boardMain > div {
-    flex: 0 0 var(--column-width);
-    width: var(--column-width);
-    position: relative;
-    font-size: 20px;
-    padding-bottom: 14px;
-  }
-  #boardMain > div span {
-    color: #42526E;
-    font-weight: bold;
-  }
-  
-  /* Spalten-Inhalt */
-  #boardContent {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  #boardContent > div {
-    flex: 0 0 var(--column-width);
-    width: var(--column-width);
-    min-height: 500px;
-    position: relative;
-    padding-top: 40px;
-  }
-  
-  /* Kein-Task-Platzhalter */
-  .noTasks {
-    text-align: center;
-    background-color: #E7E7E7;
-    color: #A8A8A8;
-    padding: 14px 0;
-    border-radius: 10px;
-    border: 1px dashed #A8A8A8;
-  }
-  
-  /* Plus-Button (Add-Task) */
-  .add-task {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 24px;
-    height: 24px;
-    background: url("../images/taskPlus.svg") no-repeat center;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-    z-index: 2;
-  }
-  .add-task:hover {
-    background-image: url("../images/taskPlusHover.svg");
-  }
+#boardMain > div {
+  flex: 0 0 var(--column-width);
+  width: var(--column-width);
+  position: relative;
+  font-size: 20px;
+  padding-bottom: 14px;
+}
+#boardMain > div span {
+  color: #42526e;
+  font-weight: bold;
+}
 
-  .toggleTasks {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 24px;
-  }
-  
+#boardContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+#boardContent > div {
+  flex: 0 0 var(--column-width);
+  width: var(--column-width);
+  min-height: 500px;
+  position: relative;
+  padding-top: 40px;
+}
+
+.noTasks {
+  text-align: center;
+  background-color: #e7e7e7;
+  color: #a8a8a8;
+  padding: 14px 0;
+  border-radius: 10px;
+  border: 1px dashed #a8a8a8;
+}
+
+.add-task {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background: url("../images/taskPlus.svg") no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+.add-task:hover {
+  background-image: url("../images/taskPlusHover.svg");
+}
+
+.toggleTasks {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 24px;
+}

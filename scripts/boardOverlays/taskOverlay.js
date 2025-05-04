@@ -18,7 +18,6 @@ function checkUserColor(taskData, users) {
   }
 }
 
-
 async function showTaskOverlay(taskData) {
   const users = await loadFirebaseUsers();
   checkUserColor(taskData, users);
@@ -86,7 +85,6 @@ function initPriorityButtons() {
     });
   }
 
-
 /**
  * Schließt das Overlay
  */
@@ -109,7 +107,6 @@ function handleOverlayClick(event) {
   }
 }
 
-
 /**
  * Erstellt ein Select-Element für die Priorität
  * @param {string} currentPriority - Die aktuelle Priorität
@@ -130,7 +127,6 @@ function createPrioritySelect(currentPriority) {
 
   return select;
 }
-
 
 /**
  * Rechnet neue Fortschritt-% aus und updatet
@@ -168,7 +164,9 @@ async function toggleSubtaskCompletion(index) {
  */
 async function deleteTask(taskId) {
   const url = BASE_URL + `tasks/${taskId}.json`;
-  await fetch(url, { method: 'DELETE' });
+  await fetch(url, {
+     method: 'DELETE' }
+    );
   closeOverlay();
   window.location.reload();
 }
@@ -181,7 +179,6 @@ function confirmDeleteTask(event, taskId) {
   if (!window.confirm('Delete permanently?')) return;
   deleteTask(taskId);
 }
-
 
 function initializeSubtaskModule(taskData) {
   initSubtasksArray(taskData);
@@ -198,7 +195,6 @@ function initSubtasksArray(taskData) {
         subtasks.push({ name: s.name, completed: s.completed });
     }
 }
-
 
 async function showEditTaskOverlay(taskId) {
   try {
@@ -251,8 +247,6 @@ async function showEditTaskOverlay(taskId) {
     console.error('Error loading edit task overlay:', error);
   }
 }
-
-
 
 async function saveTask(taskId) {
   const data = getFormData();

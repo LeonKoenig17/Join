@@ -67,7 +67,7 @@
                 <h2>Board</h2>
                 <div>
                     <div id="searchInput">
-                        <input type="text" placeholder="Find Task" />
+                        <input id="taskSearch" type="text" placeholder="Find Task" />
                         <button><img src="../images/search.svg" alt="search" /></button>
                     </div>
                     <button id="addTaskBtn" class="darkblueButton">
@@ -76,9 +76,7 @@
                     </button>
                 </div>
             </div>
-            <div class="toggleTasks">
-                <button id="toggleBoardView">Alle Tasks anzeigen</button>
-            </div>
+           
             <div id="boardMain">
 
                 <div id="toDoHeader">
@@ -111,6 +109,9 @@
 
         </div>
     </main>
+    <div class="toggleTasks">
+        <button id="toggleBoardView">Alle Tasks anzeigen</button>
+    </div>
 
     <script src="../scripts/firebase.js"></script>
     <script src="../scripts/templates.js"></script>
@@ -128,6 +129,7 @@
 
     <script src="../scripts/addTask/addTaskDropDown.js"></script>
     <script src="../scripts/board.js"></script>
+    <script src="../scripts/searchTask.js"></script>
     </body>
 
 </html>

@@ -29,7 +29,6 @@ function activateSubtaskInput() {
     const subInput = document.getElementById("subtask-input");
     if (!subInput) return;
 
-    subInput.value = "Contact Form";
     subInput.style.color = "#000000";
     toggleIcons(true);
     subInput.focus();
