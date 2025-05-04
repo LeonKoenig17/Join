@@ -82,21 +82,23 @@ async function renderFilteredTasks(searchTerm) {
  * @returns {boolean} - Gibt `true` zurück, wenn die Aufgabe mit dem Suchbegriff übereinstimmt, andernfalls `false`.
  */
 function taskMatchesSearch(task, term) {
-  const title = task.title?.toLowerCase() || "";
-  const description = task.description?.toLowerCase() || "";
-  const dueDate = task.dueDate?.toLowerCase() || "";
-  const category = task.category?.toLowerCase() || "";
-  const assigned = Array.isArray(task.assignedTo)
-    ? task.assignedTo.some((user) => user.name?.toLowerCase().includes(term))
-    : false;
+    const title = task.title?.toLowerCase() || "";
+    const description = task.description?.toLowerCase() || "";
+    const dueDate = task.dueDate?.toLowerCase() || "";
+    const category = task.category?.toLowerCase() || "";
+    const priority = task.priority?.toLowerCase() || "";
+    const assigned = Array.isArray(task.assignedTo)
+        ? task.assignedTo.some((user) => user.name?.toLowerCase().includes(term))
+        : false;
 
-  return (
-    title.includes(term) ||
-    description.includes(term) ||
-    dueDate.includes(term) ||
-    category.includes(term) ||
-    assigned
-  );
+    return (
+        title.includes(term) ||
+        description.includes(term) ||
+        dueDate.includes(term) ||
+        category.includes(term) ||
+        priority.includes(term) ||
+        assigned
+    );
 }
 
 /**
