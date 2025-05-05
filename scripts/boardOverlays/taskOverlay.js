@@ -15,6 +15,7 @@ function showTaskOverlay(taskData) {
 
 function showAddTaskOverlay() {
   renderAddTaskOverlay();
+  initOverlayPriority();
   initializeOverlayFeatures();
   setupTaskForm();
 }

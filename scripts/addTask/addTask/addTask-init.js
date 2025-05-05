@@ -4,6 +4,7 @@ function init() {
     applyUserColors();
     setupFieldListeners();
     initAssignedDropdown();
+    initOverlayPriority();
   }
   
   function setupDatePicker() {

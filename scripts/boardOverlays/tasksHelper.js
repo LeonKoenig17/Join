@@ -10,19 +10,3 @@ function checkUserColor(taskData, users) {
       }
     }
   }
-  
-  function createPrioritySelect(currentPriority) {
-    const select = document.createElement("select");
-    select.className = "priority-select";
-  
-    const priorities = ["Low", "Medium", "High", "Urgent"];
-    priorities.forEach((priority) => {
-      const option = document.createElement("option");
-      option.value = priority;
-      option.text = priority;
-      option.selected = priority === currentPriority;
-      select.appendChild(option);
-    });
-  
-    return select;
-  }

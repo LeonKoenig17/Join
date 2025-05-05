@@ -1,3 +1,6 @@
+let priorityButtons = [];
+let activePriorityButton = null;
+
 function setupFieldListeners() {
   const titleInput       = document.getElementById("title");
   const descriptionInput = document.getElementById("description");
@@ -52,6 +55,16 @@ function clearFieldErrors() {
     inputFields.forEach((field) => {
       field.classList.remove("fieldIsRequired");
     });
+  }
+
+  function initOverlayPriority() {
+    const root = document.getElementById('taskOverlay') || document;
+    priorityButtons = root.querySelectorAll('.priority-buttons .priority');
+    activePriorityButton = root.querySelector('.priority.active-btn');
+
+    priorityButtons.forEach(btn =>
+      btn.addEventListener('click', () => setPriority(btn))
+    );
   }
 
   function setPriority(button) {
