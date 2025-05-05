@@ -8,4 +8,5 @@ const categorySelect    = document.getElementById("categorySelect");
 
 // Globale Zustände
 let subtasks = [];
+let priorityButtons = [];
 let activePriorityButton = null;
