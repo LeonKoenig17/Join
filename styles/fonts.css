@@ -1,5 +1,15 @@
 h1 {
-    font-size: 51px;
+    font-size: 48px;
+    margin: 0;
+    cursor: context-menu;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    cursor: context-menu;
+    color: var(--text-color);
 }
 
 h3 {

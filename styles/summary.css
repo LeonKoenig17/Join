@@ -13,12 +13,6 @@ summary {
   gap: 20px;
 }
 
-.frame-40 h1 {
-  font-size: 48px;
-  margin: 0;
-  cursor: context-menu;
-}
-
 .frame-40-vektor {
   border: 2px solid #29ABE2;
   height: 48px;
@@ -203,7 +197,7 @@ summary {
 .frame-67 {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
 }
 
 .frame-59 {
@@ -285,7 +279,7 @@ summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 20px;
   border-radius: 30px;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;
@@ -294,25 +288,6 @@ summary {
     box-shadow 0.2s ease-in-out,
     background-color 0.3s ease-in-out;
 }
-
-/* .cr-button-v1-hidden {
-  opacity: 0;
-  width: 264px;
-  height: 168px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  position: absolute;
-  left: 296px;
-  border-radius: 30px;
-  background-color: #2A3647;
-  box-shadow: 0px 0px 4px 0px #0000001A;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out,
-    background-color 0.3s ease-in-out;
-} */
 
 .cr-button-v1:hover,
 .cr-button-v1-hidden:hover {
@@ -329,7 +304,7 @@ summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 20px;
   border-radius: 30px;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #0000001A;

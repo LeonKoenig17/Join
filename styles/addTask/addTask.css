@@ -1,25 +1,21 @@
 #main {
+  position: absolute;
+  width: 720px;
+  height: 520px;
+  top: 140px;
+  left: 268px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 20px;
-  background-color: var(--background-color);
+  justify-content: space-between;
 }
 
-#main > div {
+.main-container {
   max-width: 850px;
-}
-
-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #addTask {
   display: flex;
+  height: 300px;
   gap: 20px;
 }
 
@@ -29,30 +25,65 @@ button {
   flex-direction: column;
 }
 
-.addTask-left {
-  margin-right: 20px;
+.star {
+  font-size: 19px;
+  color: var(--priority-color-medium);
+}
+
+#description {
+  flex: 1;
+}
+
+.flex {
+  flex: 1;
+}
+
+.forms {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .forms label {
-  font-size: 20px;
-  font-weight: 400;
+  display: flex;
+  margin-bottom: 4px;
   color: var(--text-color);
-  margin-top: 20px !important;
 }
 
 #main span {
+  height: 16px;
   color: #ff8190;
   padding-left: 2px;
+  font-size: 14px;
+}
+
+.description {
+  resize: none;
+  padding-top: 16px;
 }
 
 .forms input,
 .forms textarea {
   width: 100%;
-  padding: 12px;
-  margin-top: 8px;
+  height: 32px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 14px;
+  padding-left: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.addTask input::placeholder {
+  opacity: 0.5;
+}
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .forms input:focus,
@@ -68,14 +99,10 @@ button {
   position: relative;
 }
 
-.custom-date-input input[type="date"] {
-  padding-right: 20px;
-}
-
 .custom-date-input img {
   position: absolute;
-  top: calc(50% + 4px);
-  left: 100%;
+  top: 50%;
+  left: 90%;
   transform: translateY(-50%);
 }
 
@@ -96,7 +123,7 @@ button {
 .addTask-right-edit {
   display: flex;
   flex-direction: column;
-  width: 100%!important;
+  width: 100% !important;
 }
 
 .right-label {
@@ -108,11 +135,31 @@ button {
 .priority-buttons {
   display: flex;
   gap: 10px;
+  margin-bottom: 17px;
+}
+
+.assigned-container {
+  margin-bottom: 17px;
+}
+
+.priority-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.priority-icon {
+  height: 14px;
+  width: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .priority {
-  width: 136px;
-  padding: 16px 10px;
+  flex: 1;
+  padding: 10px 0;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   text-align: center;
@@ -123,7 +170,8 @@ button {
 }
 
 .priority img {
-  padding-left: 8px;
+  height: 12px;
+  width: 14px;
 }
 
 .priority-urgent,
@@ -228,6 +276,7 @@ select:focus {
   font-weight: 400;
   line-height: 120%;
   color: var(--border-color);
+  cursor: pointer;
 }
 
 .subtask-input input:focus {
@@ -253,7 +302,6 @@ select:focus {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-top: 160px;
 }
 
 .form-actions {
@@ -262,15 +310,16 @@ select:focus {
 }
 
 .form-actions-edit {
-    display: flex;
-    justify-content: flex-end;
-    gap: 32px;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 32px;
+  width: 100%;
 }
 
 .create-task-footer img {
   padding-left: 10px;
 }
+
 .create-task-footer p {
   color: var(--text-color);
   font-weight: 400;
@@ -295,8 +344,8 @@ select:focus {
   background-position: right 10px center;
   background-size: auto;
   transition: color 0.2s ease-in-out,
-              border-color 0.2s ease-in-out,
-              background-image 0.2s ease-in-out;
+    border-color 0.2s ease-in-out,
+    background-image 0.2s ease-in-out;
 }
 
 .close-btn-footer:hover {
@@ -325,25 +374,37 @@ select:focus {
   border-color: var(--hover-color);
 }
 
+.create-task-footer-text {
+  width: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.create-task-footer-text p {
+  margin: 0;
+  font-size: 12px;
+}
+
 .separator {
   width: 1px;
   background-color: var(--border-color);
-  margin: 0 20px;
 }
 
 .fieldIsRequired {
-  border-color: var(--border-color-required)!important;
+  border-color: var(--border-color-required) !important;
 }
 
 select.fieldIsRequired {
-  border: 1px solid var(--border-color-required)!important;
+  border: 1px solid var(--border-color-required) !important;
 }
 
 .error-message {
   color: red;
   font-size: 12px;
   margin-top: 4px;
-  margin-bottom: 16px;
   display: block;
 }
 
