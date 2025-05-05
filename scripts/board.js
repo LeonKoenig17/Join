@@ -280,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof init === 'function') init();
 
 
+
+
   const btn = document.getElementById('toggleBoardView');
   const board = document.getElementById('mainContent');
   if (btn && board) {
@@ -288,6 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = expanded
         ? 'Tasks ausblenden'
         : 'Alle Tasks anzeigen';
+        btn.style.display = 'none';
     });
   }
+  
 });
