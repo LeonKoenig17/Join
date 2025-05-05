@@ -119,6 +119,14 @@
   display: flex;
   flex-direction: column;
   width: 100% !important;
+  gap: 16px
+}
+
+.addTask-left-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  gap: 16px
 }
 
 .right-label {

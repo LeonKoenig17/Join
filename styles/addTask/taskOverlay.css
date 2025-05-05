@@ -11,6 +11,12 @@
   z-index: 100;
 }
 
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .add-task-card {
   width: 850px !important;
   height: 600px !important;
@@ -32,12 +38,6 @@
   overflow: auto;
 }
 
-.edit-task input[type="text"],
-.edit-task input[type="date"],
-.edit-task textarea {
-  width: 200% !important;   /*wegen half-width Klasse*/
-}
-
 .task-card-overlay {
   display: flex;
   flex-direction: column;
@@ -51,7 +51,9 @@
   animation: slideInFromRight 0.5s ease-out;
 }
 
-.add-task-card h3 span, label span, p span {
+.add-task-card h3 span,
+label span,
+p span {
   color: var(--priority-color-urgent);
 }
 
@@ -71,8 +73,6 @@
   align-items: flex-start;
   text-align: center;
   justify-content: space-between;
-  margin-bottom: 30px;
-  /* padding: 10px 0; */
 }
 
 .task-header h1 {
@@ -81,7 +81,7 @@
 }
 
 .user-story-label {
-  background: #0038FF;
+  background: #0038ff;
   color: white;
   padding: 4px 16px;
   border-radius: 8px;
@@ -93,7 +93,7 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #2A3647;
+  color: #2a3647;
   width: 32px;
   height: 32px;
   display: flex;
@@ -104,19 +104,19 @@
 }
 
 .close-btn:hover {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
 .task-title {
   font-size: 54px;
   font-weight: 700;
-  color: #2A3647;
+  color: #2a3647;
   margin: 0 0 16px 0;
 }
 
 .task-description {
   font-size: 20px;
-  color: #2A3647;
+  color: #2a3647;
   margin: 0 0 24px 0;
 }
 
@@ -133,14 +133,14 @@
 }
 
 .detail-label {
-  color: #2A3647;
+  color: #2a3647;
   font-weight: 400;
   font-size: 20px;
   min-width: 100px;
 }
 
 .detail-value {
-  color: #2A3647;
+  color: #2a3647;
   font-size: 20px;
 }
 
@@ -220,7 +220,6 @@
   transform: scale(1.1);
 }
 
-
 .subtask-list {
   margin-top: 8px;
 }
@@ -236,19 +235,19 @@
 }
 
 .subtask-item:hover {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
 .subtask-item input[type="checkbox"] {
   width: 24px;
   height: 24px;
-  border: 2px solid #2A3647;
+  border: 2px solid #2a3647;
   border-radius: 3px;
   cursor: pointer;
 }
 
 .subtask-item label {
-  color: #2A3647;
+  color: #2a3647;
   font-size: 16px;
   cursor: pointer;
 }
@@ -269,14 +268,14 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: #2A3647;
+  color: #2a3647;
   font-size: 16px;
   border-radius: 4px;
   transition: all 0.2s;
 }
 
 .action-btn:hover {
-  color: #29ABE2;
+  color: #29abe2;
 }
 
 .action-btn img {
@@ -286,11 +285,12 @@
 }
 
 .action-btn:hover img {
-  filter: brightness(0) saturate(100%) invert(48%) sepia(83%) saturate(748%) hue-rotate(164deg) brightness(96%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(48%) sepia(83%) saturate(748%)
+    hue-rotate(164deg) brightness(96%) contrast(101%);
 }
 
 .action-separator {
   width: 1px;
   height: 24px;
-  background: #D1D1D1;
+  background: #d1d1d1;
 }
