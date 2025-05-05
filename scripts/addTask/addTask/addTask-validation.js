@@ -42,7 +42,7 @@ function validateFormElements(elements) {
       document.getElementById("due-date-error").textContent = "";
     }
   
-    if (!data.category || data.category === "Select task category") {
+    if (!data.category || data.category === "Select a category") {
       categorySelect.classList.add("fieldIsRequired");
       document.getElementById("category-error").textContent = "This field is required";
       isValid = false;
@@ -53,4 +53,3 @@ function validateFormElements(elements) {
   
     return isValid;
   }
-  

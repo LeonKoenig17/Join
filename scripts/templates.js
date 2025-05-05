@@ -140,7 +140,7 @@ function generateTaskOverlay(task) {
 
   return /*html*/ `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
-      <div class="task-card">
+      <div class="task-card-overlay">
         <div class="task-header">
          <div class="task-category ${
         task.category ? task.category.toLowerCase().replace(" ", "-") : ""
@@ -452,14 +452,14 @@ function editTaskOverlayTemplate(task, users) {
     </div>
     <div class="task-content">
       <h1>Edit Task</h1>
-      <section id="addTask" class="vertical-layout">
+      <section class="edit-task" class="vertical-layout">
         <div class="half-width addTask-left">
           <form class="forms" id="taskForm">
             <label for="title">Title<span>*</span></label>
             <input type="text" id="title" name="title" required value="${task.title}" />
               <span id="title-error" class="error-msg"></span>
             <label for="description">Description</label>
-            <textarea id="description" name="description" style="max-width: 100%; max-height: 150px;" spellcheck="false">${task.description} </textarea>
+            <textarea id="description" name="description" max-height: 150px;" spellcheck="false">${task.description} </textarea>
              <span id="description-error" class="error-msg"></span>
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
