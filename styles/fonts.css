@@ -13,7 +13,8 @@ h2 {
 }
 
 h3 {
-    font-size: 16px;
-    font-weight: 500;
-    color: #2A3647;
+    font-size: 16px!important;
+    font-weight: 500!important;
+    color: #2A3647!important;
+    margin: 10px 0!important;
 }

@@ -130,7 +130,7 @@
               </button>
             </div>
             <div class="assigned-container">
-              <h2>Assigned to</h2>
+              <h3>Assigned to</h3>
               <div class="custom-assigned-dropdown" id="assignedDropdown">
                 <div class="dropdown-selected" id="assignedDropdownSelected">
                   Select contacts to assign
@@ -141,38 +141,6 @@
                 <div class="dropdown-options" id="assignedDropdownOptions"></div>
               </div>
             </div>
-            <div class="assigned-chips" id="assignedChips"></div>
-            <div>
-              <h2>Category<span class="star">*</span></h2>
-              <div class="custom-select-container">
-                <select id="categorySelect">
-  <!-- vorher: <option disabled selected>Select a category</option> -->
-  <option value="" disabled selected>Select a category</option>
-  <option value="Technical Task">Technical Task</option>
-  <option value="User Story">User Story</option>
-</select>
-                <img src="../images/arrow_drop_down.svg" alt="" class="select-icon category-icon" />
-              </div>
-              <span class="error-message" id="category-error"></span>
-            </div>
-            <div>
-              <h2>Subtasks</h2>
-              <div class="subtask-input">
-                <input type="text" id="subtask-input" placeholder="Add new subtask" onclick="activateSubtaskInput()"
-                  autocomplete="off" />
-                <div class="subTask-icons">
-                  <img onclick="confirmSubtaskEntry()" id="check-subtask-icon" src="../images/checkDark.svg"
-                    alt="Confirm" class="subtask-icon-check d-none select-icon" />
-                  <img id="close-subtask-icon" src="../images/close.svg" alt="Cancel"
-                    class="subtask-icon d-none select-icon" />
-                </div>
-                <div class="seperator d-none" id="seperator"></div>
-                  <div
-                    class="dropdown-options"
-                    id="assignedDropdownOptions"
-                  ></div>
-                </div>
-              </div>
               <div class="assigned-chips" id="assignedChips"></div>
               <div>
                 <h3>Category<span>*</span></h3>
