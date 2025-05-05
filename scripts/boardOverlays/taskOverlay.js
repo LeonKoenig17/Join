@@ -35,7 +35,8 @@ async function showEditTaskOverlay(taskId) {
     const users = await loadFirebaseUsers();
     const overlayHTML = editTaskOverlayTemplate(taskData, users);
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
-
+    initOverlayPriority();
+    
     setTimeout(() => {
       renderDropdownOptions(users, taskData.assignedTo || []);
       updateAssignedChips(users);
