@@ -67,18 +67,16 @@
                 <h2>Board</h2>
                 <div>
                     <div id="searchInput">
-                        <input type="text" placeholder="Find Task" />
+                        <input id="taskSearch" type="text" placeholder="Find Task" />
                         <button><img src="../images/search.svg" alt="search" /></button>
                     </div>
-                    <button id="addTaskBtn">
+                    <button id="addTaskBtn" class="darkblueButton">
                         <span>Add Task</span>
                         <img src="../images/add.svg" alt="plus" />
                     </button>
                 </div>
             </div>
-            <div class="toggleTasks">
-                <button id="toggleBoardView">Alle Tasks anzeigen</button>
-            </div>
+           
             <div id="boardMain">
 
                 <div id="toDoHeader">
@@ -111,23 +109,33 @@
 
         </div>
     </main>
+    <div class="toggleTasks">
+        <button id="toggleBoardView">Alle Tasks anzeigen</button>
+    </div>
 
     <script src="../scripts/firebase.js"></script>
     <script src="../scripts/templates.js"></script>
-    <script src="../scripts/addTask/db.js"></script>
 
+    <script src="../scripts/addTask/db.js"></script>
     <script src="../scripts/addTask/addTask/addTask-init.js"></script>
     <script src="../scripts/addTask/addTask/addTask-uiHelpers.js"></script>
     <script src="../scripts/addTask/addTask/addTask-validation.js"></script>
     <script src="../scripts/addTask/addTask/addTask-formData.js"></script>
     <script src="../scripts/addTask/addTask/addTask-create.js"></script>
-
-    <script src="../scripts/addTask/addTaskDropDown.js"></script>
-    <script src="../scripts/boardOverlays/taskOverlay.js"></script>
     <script src="../scripts/addTask/addSubtasks/addSubtask.js"></script>
+    <script src="../scripts/addTask/addTaskDropDown.js"></script>
 
+    <script src="../scripts/boardOverlays/tasksHelper.js"></script>
+    <script src="../scripts/boardOverlays/taskOverlay.js"></script>
+    <script src="../scripts/boardOverlays/taskRender.js"></script>
+    <script src="../scripts/boardOverlays/taskEvents.js"></script>
+    <script src="../scripts/boardOverlays/taskSubtasks.js"></script>
+    <script src="../scripts/boardOverlays/taskStorage.js"></script>
+    <script src="../scripts/boardOverlays/taskBoard.js"></script>
 
+   
     <script src="../scripts/board.js"></script>
-</body>
+    <script src="../scripts/searchTask.js"></script>
+    </body>
 
 </html>

@@ -11,13 +11,6 @@
 
 .main-container {
   max-width: 850px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-#main h2 {
-  margin-bottom: 4px;
 }
 
 #addTask {
@@ -95,7 +88,11 @@
 
 .forms input:focus,
 .forms textarea:focus {
-  outline: 1px solid var(--accent-color);
+  outline: 1px solid var(--border-color-focus-filled);
+}
+
+.forms textarea {
+  height: 200px;
 }
 
 .custom-date-input {
@@ -123,8 +120,16 @@
   justify-content: space-between;
 }
 
-.h3-priority {
-  margin-top: 0 !important;
+.addTask-right-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+}
+
+.right-label {
+  font-size: 20px;
+  color: var(--text-color);
+  margin-bottom: 8px;
 }
 
 .priority-buttons {
@@ -301,8 +306,12 @@ select:focus {
 
 .form-actions {
   display: flex;
+  gap: 32px;
+}
+
+.form-actions-edit {
+  display: flex;
   justify-content: flex-end;
-  align-items: center;
   gap: 32px;
   width: 100%;
 }
@@ -386,6 +395,10 @@ select:focus {
 
 .fieldIsRequired {
   border-color: var(--border-color-required) !important;
+}
+
+select.fieldIsRequired {
+  border: 1px solid var(--border-color-required) !important;
 }
 
 .error-message {

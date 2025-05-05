@@ -1,22 +1,17 @@
 function getFormData() {
-    const formElements = getFormElements();
-    if (!validateFormElements(formElements)) return null;
-  
-    const { title, description, dueDate, category } = getFormValues(formElements);
-    const priority = getActivePriority();
-    const assignedTo = getAssignedContacts();
-    const subtasksData = getSubtasksData();
-  
-    return {
-      title,
-      description,
-      dueDate,
-      priority,
-      assignedTo,
-      category,
-      subtasks: subtasksData,
-    };
-  }
+  const elements = getFormElements();
+  if (!validateFormElements(elements)) return null;
+  const { title, description, dueDate, category } = getFormValues(elements);
+  return {
+    title,
+    description,
+    dueDate,
+    priority:   getActivePriority(),
+    assignedTo: getAssignedContacts(),
+    category,
+    subtasks:   getSubtasksData()
+  };
+}
   
   function getFormElements() {
     return {
@@ -28,20 +23,15 @@ function getFormData() {
     };
   }
   
-  function getFormValues(elements) {
-    const { titleInput, descriptionInput, dateInput, categorySelect } = elements;
-    const title = titleInput.value.trim();
-    const description = descriptionInput.value.trim();
-    const dueDate = dateInput.value.trim();
-    const category = categorySelect.value;
-  
-    if (!category || category === "Select task category") {
-      console.error("Die Kategorie muss ausgewählt werden.");
-      return null;
-    }
-  
-    return { title, description, dueDate, category };
-  }
+ function getFormValues(elements) {
+  const { titleInput, descriptionInput, dateInput, categorySelect } = elements;
+  return {
+    title:       titleInput.value.trim(),
+    description: descriptionInput.value.trim(),
+    dueDate:     dateInput.value.trim(),
+    category:    categorySelect.value
+  };
+}
   
   function getActivePriority() {
     const priorityButtons = document.querySelectorAll(".priority-buttons .priority");

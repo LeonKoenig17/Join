@@ -6,15 +6,12 @@
 async function initAssignedDropdown() {
   try {
     const opts = document.getElementById("assignedDropdownOptions");
-    if (!opts) {
-      return;
-    }
+    if (!opts) return;
 
     const users = await loadFirebaseUsers();
-    renderDropdownOptions(users);
+    renderDropdownOptions(users); // default ohne assignedTo
     applyUserColors();
     setupDropdownEventListeners(users);
-
   } catch (error) {
     console.error("Fehler beim Initialisieren des Dropdowns:", error);
   }
@@ -23,16 +20,27 @@ async function initAssignedDropdown() {
 /**
  * Rendert die Optionen im Dropdown.
  */
-function renderDropdownOptions(users) {
+function renderDropdownOptions(users, assignedTo = []) {
   const opts = document.getElementById("assignedDropdownOptions");
-  if (!opts) {
-    return;
-  }
+  if (!opts) return;
+
   let html = "";
   for (let i = 0; i < users.length; i++) {
-    html += assignedUserTemplate(users[i], i);
+    const user = users[i];
+    const isChecked = assignedTo.some((a) => String(a.id) === String(user.id));
+
+    html += assignedUserTemplate(user, i, isChecked);
   }
+
   opts.innerHTML = html;
+
+  const checkboxes = opts.querySelectorAll(".assign-checkbox");
+
+  checkboxes.forEach((cb) => {
+    const id = cb.dataset.userId;
+    const isChecked = assignedTo.some(a => String(a.id) === String(id));
+    cb.checked = isChecked;
+  });
 }
 
 /**
@@ -47,18 +55,18 @@ function setupDropdownEventListeners(users) {
     return;
   }
 
-  sel.addEventListener("click", function(e) {
+  sel.addEventListener("click", function (e) {
     e.stopPropagation();
     opts.classList.toggle("show");
   });
 
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     if (!dd.contains(e.target)) {
       opts.classList.remove("show");
     }
   });
 
-  opts.addEventListener("change", function() {
+  opts.addEventListener("change", function () {
     updateAssignedChips(users);
   });
 }
@@ -73,21 +81,10 @@ async function loadFirebaseUsers() {
     const data = await res.json();
     const users = [];
 
-    if (!data) {
-      return users;
-    }
+    if (!data) return users;
 
-    for (const id in data) {
-      if (Object.prototype.hasOwnProperty.call(data, id)) {
-        const entry = data[id];
-        const userObj = { id: id };
-        for (const key in entry) {
-          if (Object.prototype.hasOwnProperty.call(entry, key)) {
-            userObj[key] = entry[key];
-          }
-        }
-        users.push(userObj);
-      }
+    for (const [id, entry] of Object.entries(data)) {
+      users.push({ id, ...entry });
     }
 
     return users;
@@ -120,27 +117,25 @@ function applyUserColors() {
  */
 function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
-  if (!chipsContainer) {
-    return;
-  }
-  chipsContainer.innerHTML = "";
+  if (!chipsContainer) return;
 
   const checkboxes = document.querySelectorAll(".assign-checkbox");
+  const chips = [];
+
   for (let i = 0; i < checkboxes.length; i++) {
     const cb = checkboxes[i];
     if (cb.checked) {
       const userIndex = parseInt(cb.dataset.userIndex, 10);
       const user = users[userIndex];
-      if (!user) {
-        continue;
-      }
-      const chip = document.createElement("div");
-      chip.className = "assigned-chip";
-      chip.style.backgroundColor = user.color;
-      chip.appendChild(document.createTextNode(getInitials(user.name || user.email)));
-      chipsContainer.appendChild(chip);
+      if (!user) continue;
+
+      const initials = getInitials(user.name || user.email);
+      const chipHTML = `<div class="assigned-chip" style="background-color: ${user.color};">${initials}</div>`;
+      chips.push(chipHTML);
     }
   }
+
+  chipsContainer.innerHTML = chips.join("");
 }
 
 /**
@@ -148,16 +143,16 @@ function updateAssignedChips(users) {
  */
 function getInitials(str) {
   if (!str) {
-    return '?';
+    return "?";
   }
-  if (typeof str !== 'string') {
+  if (typeof str !== "string") {
     if (str.name) {
       return getInitials(str.name);
     }
     if (str.email) {
       return getInitials(str.email);
     }
-    return '?';
+    return "?";
   }
   const parts = str.split(" ");
   let initials = "";
@@ -182,11 +177,11 @@ function getAssignedContacts() {
         id: cb.dataset.userId,
         name: cb.dataset.userName,
         email: cb.dataset.userEmail,
-        color: cb.dataset.userColor
+        color: cb.dataset.userColor,
       });
     }
   }
   return contacts;
 }
 
-document.addEventListener("DOMContentLoaded", initAssignedDropdown);
+

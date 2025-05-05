@@ -30,7 +30,7 @@ function validateFormElements(elements) {
       isValid = false;
     } else {
       descriptionInput.classList.remove("fieldIsRequired");
-      document.getElementById("description-error").textContent = "";
+      document.getElementById("description-error").textContent = "This field is required";
     }
   
     if (!data.dueDate) {

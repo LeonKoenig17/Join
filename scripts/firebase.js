@@ -40,13 +40,14 @@ async function postData(path = "", data = {}) {
  * @param {Object} [data={}] - The data to be sent in the request body.
  * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
  */
-async function updateData(path = "", data = {}) {
-    const response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    });
-    return await response.json();
+async function patchTask(taskId, data) {
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+  const response = await fetch(`${BASE_URL}/${taskId}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  return await response.json();
 }
 
 /**

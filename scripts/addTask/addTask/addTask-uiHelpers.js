@@ -1,23 +1,26 @@
 function setupFieldListeners() {
-    const fields = [titleInput, dateInput, categorySelect];
-    fields.forEach((field) => {
-      let clicked = false;
-      field.addEventListener("focus", () => (clicked = true));
-      field.addEventListener("blur", () => {
-        if (!field.value.trim()) field.classList.add("fieldIsRequired");
-        else field.classList.remove("fieldIsRequired");
-      });
-      field.addEventListener("focus", () => {
-        if (clicked) field.classList.remove("fieldIsRequired");
-      });
+  const titleInput       = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  const dateInput        = document.getElementById("due-date");
+  const categorySelect   = document.getElementById("categorySelect");
+
+  const fields = [titleInput, descriptionInput, dateInput, categorySelect].filter(Boolean);
+
+  fields.forEach(field => {
+    field.addEventListener("focus", () => {
+      field.classList.remove("fieldIsRequired");
     });
-  }
+    field.addEventListener("blur", () => {
+      if (!field.value.trim()) {
+        field.classList.add("fieldIsRequired");
+      } else {
+        field.classList.remove("fieldIsRequired");
+      }
+    });
+  });
+}
+
   
-  function fillDescription() {
-    descriptionInput.addEventListener("click", () => {
-      descriptionInput.value = "Create a contact form and imprint page.";
-    });
-  }
   
  function clearForm() {
   document.getElementById("title").value = "";
