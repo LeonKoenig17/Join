@@ -453,7 +453,7 @@ function editTaskOverlayTemplate(task, users) {
     <div class="task-content">
       <h1>Edit Task</h1>
       <section class="edit-task" class="vertical-layout">
-        <div class="half-width addTask-left">
+        <div class="half-width addTask-left-edit">
           <form class="forms" id="taskForm">
             <label for="title">Title<span>*</span></label>
             <input type="text" id="title" name="title" required value="${task.title}" />
