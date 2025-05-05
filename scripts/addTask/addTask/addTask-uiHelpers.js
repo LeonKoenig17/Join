@@ -1,3 +1,6 @@
+let priorityButtons = [];
+let activePriorityButton = null;
+
 function setupFieldListeners() {
   const titleInput       = document.getElementById("title");
   const descriptionInput = document.getElementById("description");
