@@ -1,10 +1,14 @@
 :root {
-  --column-width: 287px;
+  --column-width: calc((100% - 72px) / 4);
 }
 
 #mainContent {
-  width: 1200px;
-  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: fixed;
+  top: 10%;
+  left: 25%;
   max-height: calc(100vh - 20px);
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -18,7 +22,7 @@ button {
 }
 
 #mainContent.expanded {
-  max-height: none;
+  
   overflow-y: auto;
 }
 
@@ -26,10 +30,6 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-#boardHeader h2 {
-  font-size: 60px;
 }
 
 #boardHeader > div {
@@ -135,20 +135,21 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-#boardMain {
+#board-btn-section {
   display: flex;
   justify-content: space-between;
-  gap: 24px;
+  gap: 24px;;
+  padding-top: 24px;
 }
 
-#boardMain > div {
+#board-btn-section > div {
   flex: 0 0 var(--column-width);
-  width: var(--column-width);
   position: relative;
   font-size: 20px;
   padding-bottom: 14px;
 }
-#boardMain > div span {
+
+#board-btn-section > div span {
   color: #42526e;
   font-weight: bold;
 }
@@ -157,14 +158,6 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-}
-
-#boardContent > div {
-  flex: 0 0 var(--column-width);
-  width: var(--column-width);
-  min-height: 500px;
-  position: relative;
-  padding-top: 40px;
 }
 
 .noTasks {
@@ -193,6 +186,11 @@ button {
 }
 
 .toggleTasks {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 3%;
+  
   width: 100%;
   display: flex;
   justify-content: center;
