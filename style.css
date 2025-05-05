@@ -1,7 +1,7 @@
 body {
     display: flex;
     width: calc(100vw - var(--scrollbar-width));
-    background: #F6F7F8;
+    background-color: var(--background-color);
 }
 
 aside {

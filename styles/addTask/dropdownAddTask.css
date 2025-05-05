@@ -7,7 +7,6 @@
   background-color: #fff;
   cursor: pointer;
   padding: 8px 10px;
-  margin-bottom: 10px;
   transition: all 0.2s ease-in-out;
   color: var(--text-color);
 }
@@ -15,6 +14,7 @@
 .custom-assigned-dropdown:hover {
   box-shadow: var(--shadow-color) 1px 1px 1px;
 }
+
 .dropdown-selected {
   display: flex;
   align-items: center;
@@ -150,6 +150,6 @@ option.option:checked {
 }
 
 .subTask-icons {
-    display: flex;
-    flex-direction: row
+  display: flex;
+  flex-direction: row
 }
