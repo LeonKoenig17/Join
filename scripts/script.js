@@ -23,6 +23,18 @@ async function postData(path = "", data = {}) {
     let resonseToJson = await response.json();
 }
 
+async function putData(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    let resonseToJson = await response.json();
+}
+
+
 async function deleteData(path = "") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "DELETE"
@@ -294,7 +306,8 @@ function showAddContact() {
     }, 250);
 }
 
-function hideAddContact() {
+async function hideAddContact() {
+    await addContactTask();
     const parentWindow = window.parent;
     const addContact = parentWindow.document.getElementById('addContact');
     const addContactDiv = parentWindow.document.getElementById('addContactDiv');
@@ -306,4 +319,12 @@ function hideAddContact() {
 
     addContactDiv.classList.add("hide")
 
+}
+
+async function addContactTask(){
+    let thisName = document.getElementById("nameInput").value;
+    let thisEmail = document.getElementById("emailInput").value;
+    let thisPhone = document.getElementById("phoneInput").value;
+
+    await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone })
 }
