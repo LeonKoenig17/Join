@@ -81,8 +81,8 @@ button {
 }
 
 .darkblueButton {
-  padding: 10px;
-  background-color: #2a3647;
+  padding: 16px;
+  background-color: var(--primary-color);
   border-radius: 10px;
   border: none;
   display: flex;
@@ -103,7 +103,7 @@ button {
 }
 
 .darkblueButton img {
-  padding: 0 10px;
+  padding: 0 16px;
 }
 
 .whiteButton {
@@ -167,6 +167,7 @@ button {
   padding: 14px 0;
   border-radius: 10px;
   border: 1px dashed #a8a8a8;
+  width: 288px;
 }
 
 .add-task {
@@ -196,3 +197,4 @@ button {
   justify-content: center;
   padding-bottom: 24px;
 }
+

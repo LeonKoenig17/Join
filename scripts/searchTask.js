@@ -1,6 +1,6 @@
 let allTasksSearch = {};
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function initializeTaskSearch() {
   /**
    * Eine Referenz auf das Eingabefeld, das für die Suche nach Aufgaben verwendet wird.
    * Dieses Element wird im DOM durch die ID "taskSearch" identifiziert.
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderFilteredTasks("");
     });
   }
-});
+}
 
 /**
  * Rendert Aufgaben, die nach einem Suchbegriff gefiltert wurden, auf das Board.
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
  * @returns {Promise<void>} Löst sich auf, wenn die Aufgaben gerendert und benutzerspezifische Farben angewendet wurden.
  */
 async function renderFilteredTasks(searchTerm) {
-  const boardMain = document.getElementById("boardMain");
+  const boardMain = document.getElementById("mainContent");
   const boardContent = document.getElementById("boardContent");
   if (!boardMain || !boardContent) return;
 
@@ -54,7 +54,6 @@ async function renderFilteredTasks(searchTerm) {
   const awaitFeedback = document.getElementById("awaitFeedback");
   const done = document.getElementById("done");
 
-  // leeren
   toDo.innerHTML = "";
   inProgress.innerHTML = "";
   awaitFeedback.innerHTML = "";
