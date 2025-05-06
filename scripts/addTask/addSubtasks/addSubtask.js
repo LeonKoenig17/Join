@@ -174,6 +174,9 @@ function checkSubtaskClass() {
         const index = +e.target.dataset.index;
         saveSubtask(index);
       }
+      if (e.target.id === "close-subtask-icon") {
+        toggleIcons();
+      }
     });
   }
 
