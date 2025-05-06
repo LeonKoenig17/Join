@@ -1,3 +1,5 @@
+const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
+
 function onloadFunc() {
     console.log("test")
     // loadData("login") // holt datensatz
@@ -60,7 +62,7 @@ async function createAccount() {
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor })
+            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone" : '' })
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -264,10 +266,10 @@ async function lastColor() {
     let ergebnisse = await loadData("login")
     let result = Object.entries(ergebnisse);
     let myLastColor = result.pop()[1].color;
-    let found = usercolors.indexOf(myLastColor);
+    let found = iconColors.indexOf(myLastColor);
 
-    if (found == (usercolors.length - 1)) { found = 0 } else { found = found + 1 }
-    return usercolors[found];
+    if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
+    return iconColors[found];
 
 }
 
@@ -283,7 +285,6 @@ async function fillUserLinks() {
         document.getElementById("userLink").innerHTML = "G";
     }
 
-
     try {
         document.getElementById("userName").innerHTML = myName;
     } catch (error) {
@@ -291,6 +292,7 @@ async function fillUserLinks() {
     }
 
 }
+
 
 function showAddContact() {
     let addContact = document.getElementById('addContact');
@@ -313,10 +315,11 @@ function showAddContact() {
 }
 
 async function hideAddContact() {
-    await addContactTask();
     const parentWindow = window.parent;
     const addContact = parentWindow.document.getElementById('addContact');
     const addContactDiv = parentWindow.document.getElementById('addContactDiv');
+    const allContactsDiv = parentWindow.document.getElementById('allContacts');
+
 
     addContact.classList.add("hide")
     addContact.style.left = '100%';
@@ -325,6 +328,8 @@ async function hideAddContact() {
 
     addContactDiv.classList.add("hide")
 
+    await addContactTask();
+    window.parent.location.reload();
 }
 
 async function addContactTask() {
@@ -332,5 +337,41 @@ async function addContactTask() {
     let thisEmail = document.getElementById("emailInput").value;
     let thisPhone = document.getElementById("phoneInput").value;
 
-    await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone })
+    let nextcolor = await lastColor();
+    await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone, "color": nextcolor })
+
+}
+
+async function contactDetails(element) {
+    let thenum = element.match(/\d+/)[0];
+    let thisemail = document.getElementById(`singleUserMail${thenum}`).innerHTML
+    let thiscontactDetail = await getContactDetails(thisemail)
+    const thisInitials = thiscontactDetail.name.split(" ").map(w => w[0].toUpperCase()).join("");
+
+    let thisColor = thiscontactDetail.color.replace("#","");
+
+    document.getElementById("contentRight").classList.remove("hide")
+    document.getElementById("contactDetailsInitials").removeAttribute("class");
+    document.getElementById("contactDetailsInitials").classList.add(`userInitialsBig`);
+    document.getElementById("contactDetailsInitials").classList.add(`userColor-${thisColor}`);
+    document.getElementById("contactDetailsInitials").innerHTML = thisInitials;
+    document.getElementById("contactDetailsName").innerHTML = thiscontactDetail.name;
+    document.getElementById("contactDetailsMail").innerHTML = thiscontactDetail.email;
+    document.getElementById("contactDetailsPhone").innerHTML = thiscontactDetail.phone;
+}
+
+async function getContactDetails(emailToFind) {
+    const dataLogin = await loadData("login");
+    const dataContacts = await loadData("contacts");
+    const data = { ...dataContacts, ...dataLogin };
+    let contactDetail = {};
+
+    for (const [key, value] of Object.entries(data)) {
+        if (value.email === emailToFind) {
+            contactDetail = { "name": value.name, "email": value.email, "color": value.color, "phone":value.phone }
+            console.log(contactDetail);
+            return contactDetail;
+        }
+    }
+    return null;
 }

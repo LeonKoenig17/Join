@@ -18,7 +18,7 @@
 </head>
 <!-- <body onload="init()"> -->
 
-<body onload="onload()">
+<body onload="onloadContacts()" style="overflow: hidden;">
   <aside>
     <div id="logo">
       <img src="../images/joinlogowhite.svg" alt="" />
@@ -47,11 +47,22 @@
     </div>
   </aside>
   <main>
-    <header>
+    <!-- <header>
       <span>Kanban Project Management Tool</span>
       <div>
         <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
         <a onclick="showUserLinksOptions()" id="userLink"></a>
+      </div>
+    </header> -->
+    <header>
+      <div class="header-container">
+        <div>
+          <span>Kanban Project Management Tool</span>
+        </div>
+        <div>
+          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+          <a onclick="showUserLinksOptions()" id="userLink"></a>
+        </div>
       </div>
     </header>
     <div id="userLinkOptions" class="userLinkOptions hide">
@@ -109,12 +120,15 @@
         <div style="display: flex;align-items: center;flex-direction: column;">
 
           <div onclick="showAddContact()"
-            style="display: flex;align-items: center;background-color: var(--primary-color);height: fit-content;color: white; font-size: 16px;font-weight: bold; margin:20px;width: 300px; justify-content: center;border-radius: 10px;">
-            <p style="margin:15px 10px">Add new contant</p>
+            style="display: flex;align-items: center;background-color: var(--primary-color);height: fit-content;color: white; font-size: 16px;font-weight: bold; margin:20px;width: 300px; justify-content: center;border-radius: 10px;cursor: pointer;">
+            <p style="margin:15px 10px;">Add new contant</p>
             <img src="../images/person_add.svg" alt="">
           </div>
 
-          <nav id="allContacts" style="overflow: auto;height: calc(100vh - 180px);">
+          <!-- <nav id="allContactsOld">
+
+          </nav> -->
+          <nav id="allContacts" style="position: absolute;top: 100px; padding: 0;height: calc(100vh - 168px);overflow: auto;">
 
           </nav>
           <!-- <div style="background-color: black; width: 200px;height: 2px;"></div> -->
@@ -123,7 +137,7 @@
 
 
       </div>
-      <div id="contentRight" style="width: 100%;height: calc(100vh - 90px);">
+      <div id="contentRight" class="hide" style="width: 100%;height: calc(100vh - 90px);">
         <div class="frame-40">
           <h1>Contacts</h1>
           <div class="frame-40-vektor"></div>
@@ -133,15 +147,15 @@
 
             <div style="display: flex;flex-direction: row; margin-bottom: 50px;">
 
-              <span class="userInitialsBig userColor-FF745E">AS</span>
+              <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
               <div style="display: flex;flex-direction: column; align-items: start; justify-content: space-around;">
-                <p>Anja Schulz</p>
+                <p id="contactDetailsName">Anja Schulz</p>
                 <div style="display: flex;align-items: center;width: 100%; justify-content: start;">
-                  <nav style="cursor: pointer; display: flex;flex-direction: row;justify-content: start;">
+                  <nav style="cursor: pointer; display: flex;flex-direction: row;justify-content: start; padding:0">
                     <img src="../images/edit-2.svg" alt="" style="height:24px">
                     <span style="margin-right: 20px;">Edit</span>
                   </nav>
-                  <nav style="cursor: pointer; display: flex;flex-direction: row;justify-content: start;">
+                  <nav style="cursor: pointer; display: flex;flex-direction: row;justify-content: start;padding: 0">
                     <img src="../images/delete.svg" alt="" style="height:24px">
                     <span style="margin-right: 20px;">Delete</span>
                   </nav>
@@ -151,9 +165,9 @@
             <div class="contactInformations">
               <p style="font-weight: bold">Contact Information</p>
               <strong>Email</strong>
-              <a href="mailto:schulz@hotmail.com">schulz@hotmail.com</a>
+              <a id="contactDetailsMail" href="mailto:schulz@hotmail.com">schulz@hotmail.com</a>
               <strong>Phone</strong>
-              <span>+49 1111 111 11 1</span>
+              <span id="contactDetailsPhone">+49 1111 111 11 1</span>
             </div>
           </div>
         </div>
@@ -161,6 +175,10 @@
 
       </div>
     </div>
+
+    <nav id="allContacts" style="background-color: rosybrown; position: absolute; left: 1000px;top: 200px; padding: 0;height: 500px;overflow: auto;">
+
+    </nav>
   </main>
 
   <script src="../scripts/script.js"></script>

@@ -1,90 +1,112 @@
 
-async function onload() {
-    fillUserLinks();
-  const data = await loadData("login");
+async function onloadContacts() {
+    fillUserLinks()
+    getContactsfromFirebase();
+}
 
-  const users = Object.values(data).map(user => ({
-      name: user.name,
-      email: user.email,
-      color: user.color
-  }));
+async function getContactsfromFirebase(){
+    const dataLogin = await loadData("login");
+    const dataContacts = await loadData("contacts");
+    const data = { ...dataContacts, ...dataLogin }
 
-  // Alphabetisch nach Vornamen sortieren
-  users.sort((a, b) => {
-      const firstNameA = a.name.split(" ")[0].toLowerCase();
-      const firstNameB = b.name.split(" ")[0].toLowerCase();
-      return firstNameA.localeCompare(firstNameB);
-  });
+    const users = Object.values(data).map(user => ({
+        name: user.name,
+        email: user.email,
+        color: user.color,
+        phone: user.phone
+    }));
 
-  // Gruppieren nach Anfangsbuchstabe des Vornamens
-  const groupedUsers = {};
+    console.log(users)
+    // Alphabetisch nach Vornamen sortieren
+    users.sort((a, b) => {
+        const firstNameA = a.name.split(" ")[0].toLowerCase();
+        const firstNameB = b.name.split(" ")[0].toLowerCase();
+        return firstNameA.localeCompare(firstNameB);
+    });
 
-  users.forEach(user => {
-      const firstLetter = user.name[0].toUpperCase();
+    console.log(typeof (users))
 
-      if (!groupedUsers[firstLetter]) {
-          groupedUsers[firstLetter] = [];
-      }
+    // Gruppieren nach Anfangsbuchstabe des Vornamens
+    const groupedUsers = {};
 
-      groupedUsers[firstLetter].push(user);
-  });
+    users.forEach(user => {
+        const firstLetter = user.name[0].toUpperCase();
 
-  // HTML für das "allContacts" nav erstellen
-  const allContactsNav = document.getElementById("allContacts");
-  // allContactsNav.innerHTML = '';
+        if (!groupedUsers[firstLetter]) {
+            groupedUsers[firstLetter] = [];
+        }
 
-  // Iteriere über die gruppierten Benutzer
-  Object.keys(groupedUsers).forEach(letter => {
-      // Erstelle das div für die Gruppe (A, B, C, ...)
-      const capitalDiv = document.createElement("div");
-      capitalDiv.id = `capital${letter}`;
-      capitalDiv.classList.add("capital");
+        groupedUsers[firstLetter].push(user);
+    });
 
-      // Füge den Buchstaben hinzu
-      const spanLetter = document.createElement("span");
-      spanLetter.textContent = letter;
-      spanLetter.classList.add("spanLetter")
-      capitalDiv.appendChild(spanLetter);
+    // HTML für das "allContacts" nav erstellen
+    const allContactsNav = document.getElementById("allContacts");
+    // allContactsNav.innerHTML = '';
 
-      // Füge die Trennlinie hinzu
-      const separator = document.createElement("div");
-      separator.classList.add("separator");
-      capitalDiv.appendChild(separator);
+    let userNumber = 0;
+    // Iteriere über die gruppierten Benutzer
+    Object.keys(groupedUsers).forEach(letter => {
+        // Erstelle das div für die Gruppe (A, B, C, ...)
+        const capitalDiv = document.createElement("div");
+        capitalDiv.id = `capital${letter}`;
+        capitalDiv.classList.add("capital");
 
-      // Iteriere über die Benutzer in der Gruppe
-      groupedUsers[letter].forEach(user => {
-          const userNav = document.createElement("nav");
-          userNav.classList.add("singleUser");
+        // Füge den Buchstaben hinzu
+        const spanLetter = document.createElement("span");
+        spanLetter.textContent = letter;
+        spanLetter.classList.add("spanLetter")
+        capitalDiv.appendChild(spanLetter);
 
-          // Initialen erstellen
-          const initials = document.createElement("span");
-          initials.classList.add("userInitials");
-          initials.classList.add(`userColor-${user.color.replace('#', '')}`);
-          initials.textContent = user.name.split(" ").map(name => name[0]).join("");
-          userNav.appendChild(initials);
+        // Füge die Trennlinie hinzu
+        const separator = document.createElement("div");
+        separator.classList.add("separator");
+        capitalDiv.appendChild(separator);
 
-          // Benutzerdetails erstellen
-          const userDetails = document.createElement("div");
-          userDetails.classList.add("userDetails");
+        // Iteriere über die Benutzer in der Gruppe
+        groupedUsers[letter].forEach(user => {
+            userNumber = userNumber + 1;
+            
+            const userNav = document.createElement("nav");
+            userNav.id = `singleUser${userNumber}`;
+            userNav.classList.add(`singleUser`);
+            
+            // Initialen erstellen
+            const initials = document.createElement("span");
+            initials.classList.add("userInitials");
+            initials.classList.add(`userColor-${user.color.replace('#', '')}`);
+            initials.textContent = user.name.split(" ").map(name => name[0]).join("");
+            userNav.appendChild(initials);
+        
+            // Benutzerdetails erstellen
+            const userDetails = document.createElement("div");
+            userDetails.classList.add("userDetails");
+        
+            const userName = document.createElement("span");
+            userName.classList.add("userName");
+            userName.textContent = user.name;
+        
+            const userEmail = document.createElement("a");
+            userEmail.id = `singleUserMail${userNumber}`;
+            userEmail.href = `mailto:${user.email}`;
+            userEmail.classList.add("emailText");
+            userEmail.textContent = user.email;
+        
+            userDetails.appendChild(userName);
+            userDetails.appendChild(userEmail);
+            userNav.appendChild(userDetails);
+        
+            // Füge die Klick-Funktion hinzu, die die contactDetails-Funktion aufruft
+            userNav.addEventListener('click', () => {
+                contactDetails(userNav.id); // Die Funktion contactDetails mit dem userNav-Element aufrufen
+            });
+        
+            // Füge das Benutzer-Navi zu der Gruppe hinzu
+            capitalDiv.appendChild(userNav);
+        });
+        
+        
 
-          const userName = document.createElement("span");
-          userName.classList.add("userName");
-          userName.textContent = user.name;
-
-          const userEmail = document.createElement("a");
-          userEmail.href = `mailto:${user.email}`;
-          userEmail.classList.add("emailText");
-          userEmail.textContent = user.email;
-
-          userDetails.appendChild(userName);
-          userDetails.appendChild(userEmail);
-          userNav.appendChild(userDetails);
-
-          // Füge das Benutzer-Navi zu der Gruppe hinzu
-          capitalDiv.appendChild(userNav);
-      });
-
-      // Füge die Gruppe zum allContacts div hinzu
-      allContactsNav.appendChild(capitalDiv);
-  });
+        // Füge die Gruppe zum allContacts div hinzu
+        allContactsNav.appendChild(capitalDiv);
+    });
 }

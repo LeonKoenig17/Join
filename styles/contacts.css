@@ -11,6 +11,10 @@ main {
   flex-direction: row;
   background-color: var(--background-color);
   margin: 0;
+  position: absolute;
+  left: 200px;
+  top: 68px;
+  width: 50%;
 }
 
 #addTask {
@@ -28,6 +32,12 @@ main {
   margin-right: 20px;
 }
 
+#allContacts {
+  overflow-y: visible;
+  height: calc(100vh - 180px);
+  padding: 0;
+}
+
 .forms label {
   font-size: 20px;
   font-weight: 400;
@@ -38,7 +48,7 @@ main {
 #contentLeft {
   background-color: white;
   width: 400px;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 68px);
   display: flex;
   justify-content: start;
   flex-direction: column;
@@ -467,7 +477,7 @@ select:focus {
 .frame-40 {
   display: flex;
   align-items: center;
-  width: 625px;
+  width: 600px;
   height: 73px;
   gap: 30px;
   position: relative;
@@ -604,6 +614,6 @@ strong {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.hide{
+.hide {
   display: none;
 }
