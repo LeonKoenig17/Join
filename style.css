@@ -76,6 +76,12 @@ header span {
     text-decoration: none;
     color: #29ABE2;
     font-weight: bold;
+    height: 16px;
+    width: 16px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #userLink:hover {

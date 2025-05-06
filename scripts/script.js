@@ -103,9 +103,11 @@ async function writeLocalStorage() {
     localStorage.setItem("token", myEmail)
 }
 
-function guestLogin() {
+async function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
     document.getElementById("passwordInput").value = '123456789'
+
+    await writeLocalStorage();
 
     setTimeout(() => {
         window.location = '../html/summary.html'
@@ -273,9 +275,15 @@ async function fillUserLinks() {
     let myToken = localStorage.getItem('token')
     let myValue = await loadData('login')
     let myName = myValue[myToken].name;
-    const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
 
-    document.getElementById("userLink").innerHTML = initials;
+    try {
+        const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+        document.getElementById("userLink").innerHTML = initials;
+    } catch (error) {
+        document.getElementById("userLink").innerHTML = "G";
+    }
+
+
     try {
         document.getElementById("userName").innerHTML = myName;
     } catch (error) {
@@ -287,7 +295,7 @@ async function fillUserLinks() {
 function showAddContact() {
     let addContact = document.getElementById('addContact');
     let addContactDiv = document.getElementById("addContactDiv")
-    
+
     addContact.classList.remove("hide")
     addContactDiv.classList.remove("hide")
 
@@ -310,7 +318,7 @@ async function hideAddContact() {
     const addContact = parentWindow.document.getElementById('addContact');
     const addContactDiv = parentWindow.document.getElementById('addContactDiv');
 
-    addContact.classList.add("hide")    
+    addContact.classList.add("hide")
     addContact.style.left = '100%';
     addContact.style.top = '50%';
     addContact.style.transform = 'translate(0%, -50%)';
@@ -319,7 +327,7 @@ async function hideAddContact() {
 
 }
 
-async function addContactTask(){
+async function addContactTask() {
     let thisName = document.getElementById("nameInput").value;
     let thisEmail = document.getElementById("emailInput").value;
     let thisPhone = document.getElementById("phoneInput").value;
