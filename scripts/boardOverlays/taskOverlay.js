@@ -32,6 +32,10 @@ async function showEditTaskOverlay(taskId) {
       taskData = { id: taskId, ...raw };
     }
 
+    if (!taskData.subtasks) {
+      taskData.subtasks = [];
+    }
+
     const users = await loadFirebaseUsers();
     const overlayHTML = editTaskOverlayTemplate(taskData, users);
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
