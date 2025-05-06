@@ -10,7 +10,6 @@ function initSubtasksArray(taskData) {
   function initializeSubtaskModule(taskData) {
     initSubtasksArray(taskData);
     initSubtaskUI();
-    setupSubtaskListeners();
     updateSubtaskList();
   }
   

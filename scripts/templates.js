@@ -521,9 +521,37 @@ function editTaskOverlayTemplate(task, users) {
 
           <h3>Subtasks</h3>
           <div class="subtask-input">
-           <input type="text" id="subtask-input" placeholder="Add new subtask" />
-            <img id="add-icon" src="../images/addDark.svg" alt="add" />
-          </div>
+                  <input
+                    type="text"
+                    id="subtask-input"
+                    placeholder="Add new subtask"
+                    onclick="activateSubtaskInput()"
+                    autocomplete="off"
+                  />
+                  <div class="subTask-icons">
+                    <img
+                      onclick="confirmSubtaskEntry()"
+                      id="check-subtask-icon"
+                      src="../images/checkDark.svg"
+                      alt="Confirm"
+                      class="subtask-icon-check d-none select-icon"
+                    />
+                    <img
+                      id="close-subtask-icon"
+                      src="../images/close.svg"
+                      alt="Cancel"
+                      class="subtask-icon d-none select-icon"
+                    />
+                  </div>
+                  <div class="seperator d-none" id="seperator"></div>
+
+                  <img
+                    id="add-icon"
+                    src="../images/addDark.svg"
+                    alt="subtask-icon"
+                    class="select-icon"
+                  />
+                </div>
           <div id="subtask-list" class="subtask-list">
             ${subsHTML}
           </div>

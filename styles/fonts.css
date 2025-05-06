@@ -12,15 +12,13 @@ h2 {
     color: var(--text-color);
 }
 
-h3 {
-    font-size: 16px!important;
-    font-weight: 500!important;
-    color: #2A3647!important;
-    margin: 10px 0!important;
-}
+
 
 
 #boardHeader h2 {
     font-size: 60px!important;
     font-weight: 700!important;
   }
+
+
+  
