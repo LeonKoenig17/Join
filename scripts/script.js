@@ -62,7 +62,7 @@ async function createAccount() {
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '' })
+            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -138,7 +138,10 @@ async function findName(name) {
 }
 
 async function findUser(email) {
-    let ergebnisse = await loadData("login")
+    let ergebnisseLogin = await loadData("login")
+    let ergebnisseContacts = await loadData("contacts")
+    let ergebnisse = { ...ergebnisseLogin, ...ergebnisseContacts }
+
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].email === email) {
             return userId;
@@ -293,7 +296,7 @@ async function fillUserLinks() {
 
 }
 
-function showContactForm(type) {
+function showContactFormOld(type) {
     let contact = document.getElementById(`${type}Contact`);
     let contactDiv = document.getElementById(`${type}ContactDiv`);
 
@@ -312,6 +315,61 @@ function showContactForm(type) {
         contact.style.transform = 'translate(-50%, -50%)';
     }, 250);
 }
+
+function showContactForm(type) {
+    let contact = document.getElementById(`${type}Contact`);
+    let contactDiv = document.getElementById(`${type}ContactDiv`);
+
+    contact.classList.remove("hide");
+    document.getElementById("addContactDiv").classList.remove("hide");
+
+    setTimeout(() => {
+        contact.style.left = '100%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(0%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        contact.style.left = '50%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(-50%, -50%)';
+    }, 250);
+
+    // === Werte an editContact übergeben ===
+    if (type === 'edit') {
+        const name = document.getElementById('contactDetailsName')?.innerText || '';
+        const email = document.getElementById('contactDetailsMail')?.innerText || '';
+        const phone = document.getElementById('contactDetailsPhone')?.innerText || '';
+
+        // Direkt auf contentWindow zugreifen, wenn iframe schon geladen ist
+        const iframe = document.getElementById('editContact');
+
+        // Wenn das iframe noch lädt, warte darauf
+        iframe.onload = () => {
+            try {
+                const doc = iframe.contentWindow.document;
+                doc.getElementById('nameInput').value = name;
+                doc.getElementById('emailInput').value = email;
+                doc.getElementById('phoneInput').value = phone;
+            } catch (e) {
+                console.error("Fehler beim Zugriff auf editContact iframe:", e);
+            }
+        };
+
+        // Falls iframe schon geladen ist (onload wird dann nicht mehr aufgerufen)
+        if (iframe.contentWindow.document.readyState === 'complete') {
+            try {
+                const doc = iframe.contentWindow.document;
+                doc.getElementById('nameInput').value = name;
+                doc.getElementById('emailInput').value = email;
+                doc.getElementById('phoneInput').value = phone;
+            } catch (e) {
+                console.error("Fehler beim direkten Zugriff auf editContact iframe:", e);
+            }
+        }
+    }
+}
+
 
 function hideContactForm(type) {
     let contact = document.getElementById(`${type}Contact`);
@@ -355,12 +413,12 @@ function hideContactForm(type) {
 
 
 
-async function hideAddContact(create = false) {
+async function contactForm(task, type) {
     const parentWindow = window.parent;
-    const addContact = parentWindow.document.getElementById('addContact');
+    const addContact = parentWindow.document.getElementById(`${type}Contact`);
     const addContactDiv = parentWindow.document.getElementById('addContactDiv');
     const allContactsDiv = parentWindow.document.getElementById('allContacts');
-
+    let thisEmail = '';
 
     addContact.classList.add("hide")
     addContact.style.left = '100%';
@@ -368,9 +426,30 @@ async function hideAddContact(create = false) {
     addContact.style.transform = 'translate(0%, -50%)';
     addContactDiv.classList.add("hide")
 
-    if (create) {
+    if (task == 'add') {
         await addContactTask();
         window.parent.location.reload();
+    }
+
+    if (task == 'delete') {
+        try {
+            thisEmail = document.getElementById("emailInput").value;
+        } catch (error) {
+            thisEmail = document.getElementById("contactDetailsMail").innerHTML;
+        }
+
+        let thisToken = await findUser(thisEmail);
+        await deleteData(`contacts/${thisToken}`)
+        window.parent.location.reload();
+        // let thiscontactDetail = await getContactDetails(thisemail)
+    }
+
+    if (task == 'save') {
+        let thisEmail = document.getElementById("emailInput").value;
+        let thisToken = await findUser(thisEmail);
+        await deleteData(`contacts/${thisToken}`)
+        window.parent.location.reload();
+        // let thiscontactDetail = await getContactDetails(thisemail)
     }
 }
 
@@ -383,7 +462,7 @@ async function addContactTask() {
     if (thisName == "" && thisEmail == "" && thisPhone == "") {
         return null;
     } else {
-        await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone, "color": nextcolor })
+        await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone, "color": nextcolor, "type": "contact" })
     }
 
 }
@@ -420,4 +499,8 @@ async function getContactDetails(emailToFind) {
         }
     }
     return null;
+}
+
+function consolelog() {
+    console.log('test')
 }

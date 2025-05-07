@@ -47,7 +47,7 @@ main {
 
 #contentLeft {
   background-color: white;
-  width: 400px;
+  width: 340px;
   height: calc(100vh - 68px);
   display: flex;
   justify-content: start;
@@ -523,7 +523,7 @@ select:focus {
 .contactInformations span,
 a,
 strong {
-  margin: 10px 0;
+  margin: 00px 0;
 }
 
 .inputDiv {
@@ -605,7 +605,7 @@ strong {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: 1;
+  z-index: 9;
   display: flex;
   justify-content: start;
   align-items: center;
