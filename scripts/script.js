@@ -1,4 +1,4 @@
-let usercolors =['#FF7A00','#FF5EB3','#6E52FF','#9327FF','#00BEE8','#1FD7C1','#FF745E','#FFA35E','#FC71FF','#FFC701','#0038FF','#C3FF2B','#FFE62B','#FF4646','#FFBB2B']
+const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
 
 function onloadFunc() {
     console.log("test")
@@ -22,6 +22,18 @@ async function postData(path = "", data = {}) {
     });
     let resonseToJson = await response.json();
 }
+
+async function putData(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    let resonseToJson = await response.json();
+}
+
 
 async function deleteData(path = "") {
     let response = await fetch(BASE_URL + path + ".json", {
@@ -50,7 +62,7 @@ async function createAccount() {
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password,"color":nextcolor })
+            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -93,9 +105,11 @@ async function writeLocalStorage() {
     localStorage.setItem("token", myEmail)
 }
 
-function guestLogin() {
+async function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
     document.getElementById("passwordInput").value = '123456789'
+
+    await writeLocalStorage();
 
     setTimeout(() => {
         window.location = '../html/summary.html'
@@ -113,7 +127,7 @@ async function checkPassword(email) {
     return null;
 }
 
-async function findName(name){
+async function findName(name) {
     let ergebnisse = await loadData("login")
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].name === name) {
@@ -124,7 +138,10 @@ async function findName(name){
 }
 
 async function findUser(email) {
-    let ergebnisse = await loadData("login")
+    let ergebnisseLogin = await loadData("login")
+    let ergebnisseContacts = await loadData("contacts")
+    let ergebnisse = { ...ergebnisseLogin, ...ergebnisseContacts }
+
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].email === email) {
             return userId;
@@ -248,28 +265,242 @@ function showLockIconLogin(element) {
     }
 }
 
-async function lastColor(){
+async function lastColor() {
     let ergebnisse = await loadData("login")
     let result = Object.entries(ergebnisse);
     let myLastColor = result.pop()[1].color;
-    let found = usercolors.indexOf(myLastColor);
+    let found = iconColors.indexOf(myLastColor);
 
-    if(found == (usercolors.length-1)){found = 0}else{found = found+1}
-    return usercolors[found];
-    
+    if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
+    return iconColors[found];
+
 }
 
-async function fillUserLinks(){
+async function fillUserLinks() {
     let myToken = localStorage.getItem('token')
     let myValue = await loadData('login')
     let myName = myValue[myToken].name;
-    const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
-  
-    document.getElementById("userLink").innerHTML = initials;
+
     try {
-        document.getElementById("userName").innerHTML = myName;    
+        const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+        document.getElementById("userLink").innerHTML = initials;
+    } catch (error) {
+        document.getElementById("userLink").innerHTML = "G";
+    }
+
+    try {
+        document.getElementById("userName").innerHTML = myName;
     } catch (error) {
         return null;
     }
-    
-  }
+
+}
+
+function showContactFormOld(type) {
+    let contact = document.getElementById(`${type}Contact`);
+    let contactDiv = document.getElementById(`${type}ContactDiv`);
+
+    contact.classList.remove("hide");
+    document.getElementById("addContactDiv").classList.remove("hide");
+
+    setTimeout(() => {
+        contact.style.left = '100%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(0%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        contact.style.left = '50%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(-50%, -50%)';
+    }, 250);
+}
+
+function showContactForm(type) {
+    let contact = document.getElementById(`${type}Contact`);
+    let contactDiv = document.getElementById(`${type}ContactDiv`);
+
+    contact.classList.remove("hide");
+    document.getElementById("addContactDiv").classList.remove("hide");
+
+    setTimeout(() => {
+        contact.style.left = '100%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(0%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        contact.style.left = '50%';
+        contact.style.top = '50%';
+        contact.style.transform = 'translate(-50%, -50%)';
+    }, 250);
+
+    // === Werte an editContact übergeben ===
+    if (type === 'edit') {
+        const name = document.getElementById('contactDetailsName')?.innerText || '';
+        const email = document.getElementById('contactDetailsMail')?.innerText || '';
+        const phone = document.getElementById('contactDetailsPhone')?.innerText || '';
+
+        // Direkt auf contentWindow zugreifen, wenn iframe schon geladen ist
+        const iframe = document.getElementById('editContact');
+
+        // Wenn das iframe noch lädt, warte darauf
+        iframe.onload = () => {
+            try {
+                const doc = iframe.contentWindow.document;
+                doc.getElementById('nameInput').value = name;
+                doc.getElementById('emailInput').value = email;
+                doc.getElementById('phoneInput').value = phone;
+            } catch (e) {
+                console.error("Fehler beim Zugriff auf editContact iframe:", e);
+            }
+        };
+
+        // Falls iframe schon geladen ist (onload wird dann nicht mehr aufgerufen)
+        if (iframe.contentWindow.document.readyState === 'complete') {
+            try {
+                const doc = iframe.contentWindow.document;
+                doc.getElementById('nameInput').value = name;
+                doc.getElementById('emailInput').value = email;
+                doc.getElementById('phoneInput').value = phone;
+            } catch (e) {
+                console.error("Fehler beim direkten Zugriff auf editContact iframe:", e);
+            }
+        }
+    }
+}
+
+
+function hideContactForm(type) {
+    let contact = document.getElementById(`${type}Contact`);
+    let contactDiv = document.getElementById(`${type}ContactDiv`);
+
+    contact.classList.add("hide");
+    document.getElementById("addContactDiv").classList.add("hide");
+
+    // setTimeout(() => {
+    //     contact.style.left = '100%';
+    //     contact.style.top = '50%';
+    //     contact.style.transform = 'translate(0%, -50%)';
+    // }, 0);
+
+    // setTimeout(() => {
+    //     contact.style.left = '50%';
+    //     contact.style.top = '50%';
+    //     contact.style.transform = 'translate(-50%, -50%)';
+    // }, 250);
+}
+
+// function showAddContact() {
+//     let addContact = document.getElementById('addContact');
+//     let addContactDiv = document.getElementById("addContactDiv")
+
+//     addContact.classList.remove("hide")
+//     addContactDiv.classList.remove("hide")
+
+//     setTimeout(() => {
+//         addContact.style.left = '100%';
+//         addContact.style.top = '50%';
+//         addContact.style.transform = 'translate(0%, -50%)';
+//     }, 0);
+
+//     setTimeout(() => {
+//         addContact.style.left = '50%';
+//         addContact.style.top = '50%';
+//         addContact.style.transform = 'translate(-50%, -50%)';
+//     }, 250);
+// }
+
+
+
+async function contactForm(task, type) {
+    const parentWindow = window.parent;
+    const addContact = parentWindow.document.getElementById(`${type}Contact`);
+    const addContactDiv = parentWindow.document.getElementById('addContactDiv');
+    const allContactsDiv = parentWindow.document.getElementById('allContacts');
+    let thisEmail = '';
+
+    addContact.classList.add("hide")
+    addContact.style.left = '100%';
+    addContact.style.top = '50%';
+    addContact.style.transform = 'translate(0%, -50%)';
+    addContactDiv.classList.add("hide")
+
+    if (task == 'add') {
+        await addContactTask();
+        window.parent.location.reload();
+    }
+
+    if (task == 'delete') {
+        try {
+            thisEmail = document.getElementById("emailInput").value;
+        } catch (error) {
+            thisEmail = document.getElementById("contactDetailsMail").innerHTML;
+        }
+
+        let thisToken = await findUser(thisEmail);
+        await deleteData(`contacts/${thisToken}`)
+        window.parent.location.reload();
+        // let thiscontactDetail = await getContactDetails(thisemail)
+    }
+
+    if (task == 'save') {
+        let thisEmail = document.getElementById("emailInput").value;
+        let thisToken = await findUser(thisEmail);
+        await deleteData(`contacts/${thisToken}`)
+        window.parent.location.reload();
+        // let thiscontactDetail = await getContactDetails(thisemail)
+    }
+}
+
+async function addContactTask() {
+    let thisName = document.getElementById("nameInput").value;
+    let thisEmail = document.getElementById("emailInput").value;
+    let thisPhone = document.getElementById("phoneInput").value;
+
+    let nextcolor = await lastColor();
+    if (thisName == "" && thisEmail == "" && thisPhone == "") {
+        return null;
+    } else {
+        await postData(`contacts`, { "name": thisName, "email": thisEmail, "phone": thisPhone, "color": nextcolor, "type": "contact" })
+    }
+
+}
+
+async function contactDetails(element) {
+    let thenum = element.match(/\d+/)[0];
+    let thisemail = document.getElementById(`singleUserMail${thenum}`).innerHTML
+    let thiscontactDetail = await getContactDetails(thisemail)
+    const thisInitials = thiscontactDetail.name.split(" ").map(w => w[0].toUpperCase()).join("");
+
+    let thisColor = thiscontactDetail.color.replace("#", "");
+
+    document.getElementById("contentRight").classList.remove("hide")
+    document.getElementById("contactDetailsInitials").removeAttribute("class");
+    document.getElementById("contactDetailsInitials").classList.add(`userInitialsBig`);
+    document.getElementById("contactDetailsInitials").classList.add(`userColor-${thisColor}`);
+    document.getElementById("contactDetailsInitials").innerHTML = thisInitials;
+    document.getElementById("contactDetailsName").innerHTML = thiscontactDetail.name;
+    document.getElementById("contactDetailsMail").innerHTML = thiscontactDetail.email;
+    document.getElementById("contactDetailsPhone").innerHTML = thiscontactDetail.phone;
+}
+
+async function getContactDetails(emailToFind) {
+    const dataLogin = await loadData("login");
+    const dataContacts = await loadData("contacts");
+    const data = { ...dataContacts, ...dataLogin };
+    let contactDetail = {};
+
+    for (const [key, value] of Object.entries(data)) {
+        if (value.email === emailToFind) {
+            contactDetail = { "name": value.name, "email": value.email, "color": value.color, "phone": value.phone }
+            console.log(contactDetail);
+            return contactDetail;
+        }
+    }
+    return null;
+}
+
+function consolelog() {
+    console.log('test')
+}

@@ -31,7 +31,6 @@ function activateSubtaskInput() {
     const subInput = document.getElementById("subtask-input");
     if (!subInput) return;
 
-    subInput.value = "Contact Form";
     subInput.style.color = "#000000";
     toggleIcons(true);
     subInput.focus();
@@ -41,76 +40,98 @@ function cancelSubtaskEntry() {
     initSubtaskUI();
 }
 
-function isAddMode() {
-    // Prüfen, ob wir uns auf der Add-Task-Seite befinden
-    return document.body.classList.contains('add-task-page') || window.location.pathname.includes('addTask.html');
-}
-
 function confirmSubtaskEntry() {
     const subInput = document.getElementById("subtask-input");
     if (!subInput) return;
 
     const val = subInput.value.trim();
     if (val) {
-        subtasks.push({ name: val, completed: false }); // Subtask hinzufügen
-        updateSubtaskList(subtasks); // Subtask-Liste aktualisieren
+        subtasks.push({ name: val, completed: false });
+        updateSubtaskList(subtasks);
     }
-    initSubtaskUI(); // UI zurücksetzen
+    initSubtaskUI(); 
 }
 
 function getTaskById(taskId) {
     return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
   }
 
-  function updateSubtaskList(subtasksToRender = subtasks) {
+  
+  function isEditMode() {
+    const overlay = document.getElementById('taskOverlay');
+    return overlay?.querySelector('.add-task-card')?.classList.contains('edit-mode');
+  }
+
+  function isAddMode() {
+    const overlay = document.getElementById('taskOverlay');
+    return overlay?.classList.contains('add-task-page') || 
+           document.body.classList.contains('add-task-page') || 
+           window.location.pathname.includes('addTask.html');
+  }
+
+
+  function updateSubtaskList() {
     const list = document.getElementById('subtask-list');
     if (!list) return;
-
+    
+    const editMode = isEditMode();
     const addMode = isAddMode();
+    
+  
+    list.innerHTML = subtasks
+      .map((s, i) => (addMode || editMode ? subtasksTemplate(s, i) : taskOverlaySubtaskTemplate(s, i)))
+      .join('');
+  }
 
-    // Subtasks rendern
-    list.innerHTML = subtasksToRender
-        .map((s, i) => {
-            return addMode
-                ? subtasksTemplate(s, i) // Für Add-Task-Seite
-                : taskOverlaySubtaskTemplate(s, i); // Für Edit-Task-Overlay
-        })
-        .join('');
-}
-
-function editSubtask(index) {
+  function editSubtask(index) {
     const subtaskItems = document.querySelectorAll(".subtask-item");
-    if (!subtaskItems[index]) return;
-
     const subtaskItem = subtaskItems[index];
+    if (!subtaskItem) return;
+  
     const subtaskText = subtaskItem.querySelector(".subtask-text");
     const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
-
+  
     subtaskItem.classList.add("editing");
-    subtaskText.innerHTML = `<input type="text" class="edit-input" value="${subtasks[index].name}" onkeypress="handleEditKeyPress(event, ${index})">`;
-    subtaskIcons.innerHTML = `
-        <img src="../images/subtaskBin.svg" alt="Delete" class="subtask-icon delete-icon" onclick="deleteSubtask(${index})">
-        <img src="../images/checkDark.svg" alt="Save" class="subtask-icon save-icon" onclick="saveSubtask(${index})">
+  
+    subtaskText.innerHTML = `
+      <input type="text" class="edit-input" maxlength="40" value="${subtasks[index].name}" 
+         data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})">
     `;
+  
+    subtaskIcons.innerHTML = `
+      <img src="../images/subtaskBin.svg" alt="Delete" 
+           class="subtask-icon delete-subtask" data-index="${index}">
+      <img src="../images/checkDark.svg" alt="Save" 
+           class="subtask-icon confirm-subtask" data-index="${index}">
+    `;
+  
     subtaskText.querySelector(".edit-input").focus();
-}
-
-function saveSubtask(index) {
-    const input = document.querySelector(".edit-input");
-    if (!input) return;
-
-    const newValue = input.value.trim();
-    if (newValue) {
-        subtasks[index].name = newValue;
-        updateSubtaskList();
-    }
-}
+  }
+  
 
 function handleEditKeyPress(event, index) {
+
     if (event.key === "Enter") {
         saveSubtask(index);
     }
 }
+
+function saveSubtask(index) {
+  const subtaskItem = document.querySelector(`.subtask-item[data-subtask-index="${index}"]`);
+  if (!subtaskItem) return;
+
+  const input = subtaskItem.querySelector(".edit-input");
+  if (!input) return;
+
+  const newValue = input.value.trim();
+  if (!newValue || !subtasks[index]) return;
+
+  subtasks[index].name = newValue;
+  subtaskItem.classList.remove("editing");
+
+  updateSubtaskList(); // neu rendern
+}
+
 
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
@@ -122,24 +143,48 @@ function setupSubtaskListeners() {
     const closeIcon = document.getElementById("close-subtask-icon");
     const checkIcon = document.getElementById("check-subtask-icon");
     const subInput  = document.getElementById("subtask-input");
-    if (!addIcon || !closeIcon || !checkIcon || !subInput) return;
-
+    if (!addIcon || !subInput) return;
+  
     addIcon.addEventListener("click", () => {
-        if (subInput.value.trim() !== "") {
-            confirmSubtaskEntry();
-        } else {
-            activateSubtaskInput();
-        }
+      if (subInput.value.trim() !== "") {
+        confirmSubtaskEntry();
+      } else {
+        activateSubtaskInput();
+      }
     });
-    closeIcon.addEventListener("click", cancelSubtaskEntry);
-    checkIcon.addEventListener("click", confirmSubtaskEntry);
+  
     subInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            confirmSubtaskEntry();
-        }
+      if (e.key === "Enter") {
+        confirmSubtaskEntry();
+      }
     });
-}
-document.addEventListener("DOMContentLoaded", () => {
+  }
+
+function checkSubtaskClass() {
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("edit-subtask")) {
+        const index = +e.target.dataset.index;
+        editSubtask(index);
+      }
+  
+      if (e.target.classList.contains("delete-subtask")) {
+        const index = +e.target.dataset.index;
+        deleteSubtask(index);
+      }
+  
+      if (e.target.classList.contains("confirm-subtask")) {
+        const index = +e.target.dataset.index;
+        saveSubtask(index);
+      }
+      if (e.target.id === "close-subtask-icon") {
+        toggleIcons();
+      }
+    });
+  }
+
+
+  document.addEventListener("DOMContentLoaded", () => {
     initSubtaskUI();
     setupSubtaskListeners();
-});
+    checkSubtaskClass(); // data delegation für delete und edit
+  });

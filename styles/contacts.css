@@ -11,6 +11,10 @@ main {
   flex-direction: row;
   background-color: var(--background-color);
   margin: 0;
+  position: absolute;
+  left: 200px;
+  top: 68px;
+  width: 50%;
 }
 
 #addTask {
@@ -28,6 +32,12 @@ main {
   margin-right: 20px;
 }
 
+#allContacts {
+  overflow-y: visible;
+  height: calc(100vh - 180px);
+  padding: 0;
+}
+
 .forms label {
   font-size: 20px;
   font-weight: 400;
@@ -35,15 +45,10 @@ main {
   margin-top: 20px !important;
 }
 
-#mainContent span {
-  /* color: #ff8190; */
-  /* padding-left: 2px; */
-}
-
 #contentLeft {
   background-color: white;
-  width: 400px;
-  height: calc(100vh - 90px);
+  width: 340px;
+  height: calc(100vh - 68px);
   display: flex;
   justify-content: start;
   flex-direction: column;
@@ -414,7 +419,7 @@ select:focus {
   margin: 5px 0;
 }
 
-.singleUser:hover{
+.singleUser:hover {
   background-color: var(--primary-color);
   border-radius: 1rem;
   color: white;
@@ -431,7 +436,7 @@ select:focus {
   /* background-color: blueviolet; */
 }
 
-.emailText{
+.emailText {
   /* text-align: left; */
   padding: 0;
   color: var(--link-color);
@@ -464,7 +469,7 @@ select:focus {
 
 
 
-.spanLetter{
+.spanLetter {
   text-align: left;
   margin-left: 22px;
 }
@@ -472,7 +477,7 @@ select:focus {
 .frame-40 {
   display: flex;
   align-items: center;
-  width: 625px;
+  width: 600px;
   height: 73px;
   gap: 30px;
   position: relative;
@@ -506,15 +511,19 @@ select:focus {
   cursor: context-menu;
 }
 
-.contactInformations{
-  display: flex;flex-direction: column;
+.contactInformations {
+  display: flex;
+  flex-direction: column;
 }
 
-.contactInformations p{
+.contactInformations p {
   margin: 20px 0;
 }
-.contactInformations span,a,strong {
-  margin: 10px 0;
+
+.contactInformations span,
+a,
+strong {
+  margin: 00px 0;
 }
 
 .inputDiv {
@@ -558,7 +567,6 @@ select:focus {
   width: fit-content;
   padding: 0px 20px;
   cursor: pointer;
-
 }
 
 .blueBtn:hover {
@@ -590,5 +598,22 @@ select:focus {
 .loginButtonDiv {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
+}
+
+.addContactDiv {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 9;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hide {
+  display: none;
 }

@@ -7,7 +7,6 @@
   background-color: #fff;
   cursor: pointer;
   padding: 8px 10px;
-  margin-bottom: 10px;
   transition: all 0.2s ease-in-out;
   color: var(--text-color);
 }
@@ -15,6 +14,7 @@
 .custom-assigned-dropdown:hover {
   box-shadow: var(--shadow-color) 1px 1px 1px;
 }
+
 .dropdown-selected {
   display: flex;
   align-items: center;
@@ -30,6 +30,7 @@
 
 .select-icon:hover {
   background-color: var(--border-color);
+  cursor: pointer;
 }
 
 .assigned-chips {
@@ -147,9 +148,4 @@
 option.option:checked {
   background-color: var(--border-color, #e0e0e0) !important;
   color: var(--text-color, #000) !important;
-}
-
-.subTask-icons {
-    display: flex;
-    flex-direction: row
 }
