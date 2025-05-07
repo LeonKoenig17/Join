@@ -56,8 +56,7 @@ function checkSubtask(task) {
 }
 
 function generateTaskCard(task) {
-  const { completedSubtasks, totalSubtasks, progressPercentage } =
-    checkSubtask(task);
+  const { completedSubtasks: done, totalSubtasks: total, progressPercentage } = checkSubtask(task);
 
     const maxLen = 40;
     const desc = task.description || "";
@@ -65,6 +64,7 @@ function generateTaskCard(task) {
       ? desc.slice(0, maxLen) + "…" 
       : desc;
 
+      const stateCls = (total > 0 && done === total) ? 'all-done' : 'not-done';
   return `
     <div id="task${task.taskIndex}" tabindex="0" class="task" draggable="true"
          onclick="showTaskOverlay(${JSON.stringify(task).replace(
@@ -84,7 +84,9 @@ function generateTaskCard(task) {
           <div class="subtask-progress-container">
             <div class="subtask-progress-bar" style="width: ${progressPercentage}%"></div>
           </div>
-          <span class="subtask-count">${completedSubtasks}/${totalSubtasks} Subtasks</span>
+            <span class="subtask-count ${stateCls}">
+            ${done}/${total} Subtasks
+          </span>
         </div>
         <div class="task-bottom-info">
           <div class="task-assignees">
