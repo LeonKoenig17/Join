@@ -19,10 +19,10 @@ aside {
 }
 
 main {
-    max-width: 1440px;
-    position: relative;
-    top: 135px;
-    left: 272px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     background-color: var(--background-color);
 }
 
@@ -72,13 +72,13 @@ header span {
 #userLink {
     border: 3px solid #2A3647;
     border-radius: 100%;
-    padding: 10px;
+    padding: 16px;
     text-decoration: none;
     color: #29ABE2;
     font-weight: bold;
     height: 16px;
     width: 16px;
-    font-size: 18px;
+    font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,10 +99,6 @@ header span {
     background-color: var(--primary-color);
     padding: 15px 5px;
     border-radius: 20px 0px 20px 20px;
-}
-
-.userLinkOptions span {
-    font-size: 14px;
 }
 
 .userLinkOptionsLinks {
