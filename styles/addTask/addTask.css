@@ -337,6 +337,7 @@ select:focus {
 
 .close-btn-footer {
   display: flex;
+  justify-content: space-between;
   width: 126px;
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);

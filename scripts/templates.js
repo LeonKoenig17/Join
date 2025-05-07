@@ -59,6 +59,12 @@ function generateTaskCard(task) {
   const { completedSubtasks, totalSubtasks, progressPercentage } =
     checkSubtask(task);
 
+    const maxLen = 40;
+    const desc = task.description || "";
+    const shortDesc = desc.length > maxLen 
+      ? desc.slice(0, maxLen) + "…" 
+      : desc;
+
   return `
     <div id="task${task.taskIndex}" tabindex="0" class="task" draggable="true"
          onclick="showTaskOverlay(${JSON.stringify(task).replace(
@@ -71,7 +77,7 @@ function generateTaskCard(task) {
         ${task.category || ""}
       </div>
       <h3 class="task-title">${task.title || ""}</h3>
-      <p class="task-description">${task.description || ""}</p>
+      <p class="task-description">${shortDesc}</p>
       
       <div class="task-footer">
         <div class="task-subtasks">
@@ -259,7 +265,7 @@ function userOptionTemplate(user, id) {
   );
 }
 
-function addTaskOverlayTemplate() {
+function addTaskOverlayTemplate(stage) {
   const subtasksHTML = subtasks
     .map((subtask, index) => subtasksTemplate(subtask, index))
     .join("");
@@ -407,7 +413,7 @@ function addTaskOverlayTemplate() {
             <div class="create-btn-container">
               <button
                 id="create-task-btn"
-                onclick="createTask()"
+                onclick="createTask(${stage})"
                 type="button"
                 class="create-task-btn"
               >
