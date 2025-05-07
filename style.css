@@ -1,87 +1,55 @@
 body {
     display: flex;
-    width: calc(100vw - var(--scrollbar-width));
-    background-color: var(--background-color);
 }
 
 aside {
     height: 100vh;
     width: 200px;
-    padding: 32px 0;
     background-color: var(--primary-color);
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    z-index: 3;
-    top: 0;
+    justify-content: space-around;
 }
 
 main {
-    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: calc(100% - 200px);
     background-color: var(--background-color);
 }
 
 header {
     width: 100%;
-    height: 68px;
-    position: fixed;
-    top: 0;
-    z-index: 2;
+    height: 90px;
     background-color: white;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    margin-left: 280px;
-    margin-right: 16px;
-}
-
-.header-container div {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-header img {
-    display: flex;
+header span {
+    margin-left: 100px;
 }
 
 header img:hover {
     transform: scale(1.2);
 }
 
-header span {
-    cursor: context-menu;
+.header-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 #userLink {
     border: 3px solid #2A3647;
     border-radius: 100%;
-    padding: 16px;
+    padding: 10px;
     text-decoration: none;
     color: #29ABE2;
     font-weight: bold;
-    height: 16px;
-    width: 16px;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 16px;
 }
 
 #userLink:hover {
@@ -89,32 +57,31 @@ header span {
     cursor: pointer;
 }
 
-.userLinkOptions {
+.userLinkOptions{
     display: flex;
     flex-direction: column;
     align-items: start;
     position: absolute;
-    right: 16px;
-    top: 70px;
+    right: 50px;
+    top: 90px;
     background-color: var(--primary-color);
-    padding: 15px 5px;
+    padding:15px 5px;
     border-radius: 20px 0px 20px 20px;
-}
-
-.userLinkOptionsLinks {
+  }
+  
+ .userLinkOptionsLinks{
     text-decoration: none;
     color: var(--font-color);
-    padding: 10px 20px;
-    margin: 0;
+    padding:10px 20px;
+    margin:0;
     cursor: pointer;
-}
-
-.userLinkOptionsLinks:hover {
+  }
+  
+  .userLinkOptionsLinks:hover{
     color: var(--text-underline-color);
-}
+  }
 
 #logo {
-    height: 120px;
     display: flex;
     justify-content: center;
 }
@@ -123,31 +90,28 @@ nav {
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 16px;
-    flex: 1;
-    padding-top: 80px;
 }
 
-nav a,
-#legal a {
+nav a, #legal a{
     display: flex;
     align-items: center;
+    margin: 5px 0;
     text-decoration: none;
     color: #CDCDCD;
-    padding: 4px 0 4px 36px;
-    gap: 8px;
+    padding: 8px;
+    padding-left: 45px;
 }
 
 nav a:hover {
     background-color: #2A3D59;
 }
 
-nav a span {
-    font-size: 14px;
-    opacity: 0.7;
+nav img {
+    padding-right: 8px;
 }
 
 #legal {
+    height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -155,7 +119,6 @@ nav a span {
 
 #legal a {
     color: #A8A8A8;
-    font-size: 14px;
 }
 
 #legal a:hover {
@@ -174,14 +137,12 @@ nav a span {
 
 
 .hide {
-    display: none;
+    display:none;
 }
-
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -192,7 +153,6 @@ nav a span {
         transform: translateY(-20px);
         opacity: 0;
     }
-
     to {
         transform: translateY(0);
         opacity: 1;
