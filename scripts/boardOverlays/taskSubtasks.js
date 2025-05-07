@@ -14,21 +14,37 @@ function initSubtasksArray(taskData) {
     updateProgressBar();
   }
   
- function updateProgressBar() {
-  const done  = subtasks.filter(s => s.completed).length;
-  const total = subtasks.length;
-  const pct   = total > 0 ? (done / total) * 100 : 0;
+  function updateProgressBar() {
+    if (!currentTask || typeof currentTask.taskIndex === 'undefined') {
+      return;
+    }
 
-  const taskEl = document.querySelector(`#task${currentTask.taskIndex}`);
-  const bar    = taskEl.querySelector('.subtask-progress-bar');
-  const label  = taskEl.querySelector('.subtask-count');
+    const done  = subtasks.filter(s => s.completed).length;
+    const total = subtasks.length;
+    const pct   = total > 0 ? (done / total) * 100 : 0;
 
-  if (bar)   bar.style.width   = `${pct}%`;
-  if (label) label.textContent = `${done}/${total} Subtasks`;
+    const taskEl = document.getElementById(`task${currentTask.taskIndex}`);
+    if (!taskEl) {
+      return;
+    }
+ 
+    const progContainer = taskEl.querySelector('.subtask-progress-container');
+    if (progContainer) {
+      const bar = progContainer.querySelector('.subtask-progress-bar');
+      if (bar) {
+        bar.style.width = `${pct}%`;
+      }
+    }
 
-  taskEl.classList.toggle('all-done', done === total && total > 0);
-  taskEl.classList.toggle('not-done', done  !== total);
-}
+    const label = taskEl.querySelector('.subtask-count');
+    if (label) {
+      label.textContent = `${done}/${total} Subtasks`;
+    }
+  
+    taskEl.classList.toggle('all-done', done === total && total > 0);
+    taskEl.classList.toggle('not-done', done !== total);
+  }
+  
   
   async function toggleSubtaskCompletion(index) {
     subtasks[index].completed = !subtasks[index].completed;
