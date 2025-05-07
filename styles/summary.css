@@ -2,9 +2,9 @@ summary {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  position: absolute;
+  /* position: absolute;
   top: 140px;
-  left: 268px;
+  left: 268px; */
 }
 
 .frame-40 {
@@ -59,7 +59,7 @@ summary {
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
-  width: 400px;
+  min-width: 400px;
   height: 400px;
 }
 

@@ -1,0 +1,10 @@
+.legal-main h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.pp-container {
+  max-width: 950px;
+  word-break: break-all;
+  cursor: n-resize;
+}

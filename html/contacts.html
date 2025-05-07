@@ -46,6 +46,17 @@
       <a href="./legal-notice.html">Legal Notice</a>
     </div>
   </aside>
+  <header>
+    <div class="header-container">
+      <div>
+        <span>Kanban Project Management Tool</span>
+      </div>
+      <div>
+        <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
+      </div>
+    </div>
+  </header>
   <main>
     <!-- <header>
       <span>Kanban Project Management Tool</span>
@@ -54,17 +65,6 @@
         <a onclick="showUserLinksOptions()" id="userLink"></a>
       </div>
     </header> -->
-    <header>
-      <div class="header-container">
-        <div>
-          <span>Kanban Project Management Tool</span>
-        </div>
-        <div>
-          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-          <a onclick="showUserLinksOptions()" id="userLink"></a>
-        </div>
-      </div>
-    </header>
     <div id="userLinkOptions" class="userLinkOptions hide">
       <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
       <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
@@ -150,7 +150,8 @@
               <div style="display: flex;flex-direction: column; align-items: start; justify-content: space-around;">
                 <p id="contactDetailsName">Anja Schulz</p>
                 <div style="display: flex;align-items: center;width: 100%; justify-content: start;">
-                  <nav onclick="showContactForm('edit')" style="cursor: pointer; display: flex;flex-direction: row;justify-content: start; padding:0">
+                  <nav onclick="showContactForm('edit')"
+                    style="cursor: pointer; display: flex;flex-direction: row;justify-content: start; padding:0">
                     <img src="../images/edit-2.svg" alt="" style="height:24px">
                     <span style="margin-right: 20px;">Edit</span>
                   </nav>
