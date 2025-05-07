@@ -92,8 +92,8 @@ function getTaskById(taskId) {
     subtaskItem.classList.add("editing");
   
     subtaskText.innerHTML = `
-      <input type="text" class="edit-input" value="${subtasks[index].name}" 
-             data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})">
+      <input type="text" class="edit-input" maxlength="40" value="${subtasks[index].name}" 
+         data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})">
     `;
   
     subtaskIcons.innerHTML = `

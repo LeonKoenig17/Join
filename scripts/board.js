@@ -295,3 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
 });
+
+function showUserLinksOptions() {
+  document.getElementById("userLinkOptions").classList.toggle("hide")
+}

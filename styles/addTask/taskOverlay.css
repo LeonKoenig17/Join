@@ -108,6 +108,7 @@ p span {
 }
 
 .task-title {
+  word-break: break-word;
   font-size: 54px;
   font-weight: 700;
   color: #2a3647;

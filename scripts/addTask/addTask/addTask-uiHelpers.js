@@ -24,37 +24,40 @@ function setupFieldListeners() {
 
   
   
- function clearForm() {
-  document.getElementById("title").value = "";
-  document.getElementById("description").value = "";
-  dateInput.value = "";
+function clearForm() {
+  const titleEl = document.getElementById("title");
+  if (titleEl) titleEl.value = "";
 
-  for (let i = 0; i < priorityButtons.length; i++) {
-    priorityButtons[i].classList.remove("active-btn");
-  }
+  const descEl = document.getElementById("description");
+  if (descEl) descEl.value = "";
 
-  if (assignedToSelect) {
-    assignedToSelect.selectedIndex = -1;
-  }
-  if (categorySelect) {
-    categorySelect.selectedIndex = 0;
-  }
+  const dateEl = document.getElementById("due-date");
+  if (dateEl) dateEl.value = "";
+
+  priorityButtons.forEach(btn => btn.classList.remove("active-btn"));
+
+  const assignedChips = document.getElementById("assignedChips");
+  if (assignedChips) assignedChips.innerHTML = "";
+
+  const categoryEl = document.getElementById("categorySelect");
+  if (categoryEl) categoryEl.selectedIndex = 0;
 
   clearFieldErrors();
   updateSubtaskList();
 }
 
+
 function clearFieldErrors() {
-    document.getElementById("title-error").textContent = "";
-    document.getElementById("description-error").textContent = "";
-    document.getElementById("due-date-error").textContent = "";
-    document.getElementById("category-error").textContent = "";
-  
-    const inputFields = [titleInput, descriptionInput, dateInput, categorySelect];
-    inputFields.forEach((field) => {
-      field.classList.remove("fieldIsRequired");
-    });
-  }
+  ["title-error", "description-error", "due-date-error", "category-error"].forEach(id => {
+    const err = document.getElementById(id);
+    if (err) err.textContent = "";
+  });
+
+  ["title", "description", "due-date", "categorySelect"].forEach(id => {
+    const field = document.getElementById(id);
+    if (field) field.classList.remove("fieldIsRequired");
+  });
+}
 
   function initOverlayPriority() {
     const root = document.getElementById('taskOverlay') || document;

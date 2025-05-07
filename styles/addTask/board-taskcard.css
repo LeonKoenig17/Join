@@ -14,6 +14,7 @@
 
 .task:hover {
   transform: scale(1.02);
+  cursor: grab;
 }
 
 .task-category {
@@ -63,13 +64,17 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.task-subtasks:hover {
-  transform: none;
-}
-
 .task-subtasks:hover .subtask-count {
   transform: scale(1.15);
   transition: transform 0.2s ease-in-out;
+}
+
+.subtask-count.all-done:hover {
+  color: var(--priority-color-low) !important;
+}
+
+.subtask-count.not-done:hover {
+  color: var(--priority-color-urgent) !important;
 }
 
 .subtask-progress-container {

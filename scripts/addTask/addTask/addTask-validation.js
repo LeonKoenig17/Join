@@ -9,7 +9,6 @@ function validateFormElements(elements) {
   
   function validateFormData(data) {
     const titleInput = document.getElementById("title");
-    const descriptionInput = document.getElementById("description");
     const dateInput = document.getElementById("due-date");
     const categorySelect = document.getElementById("categorySelect");
   
@@ -22,15 +21,6 @@ function validateFormElements(elements) {
     } else {
       titleInput.classList.remove("fieldIsRequired");
       document.getElementById("title-error").textContent = "";
-    }
-  
-    if (!data.description) {
-      descriptionInput.classList.add("fieldIsRequired");
-      document.getElementById("description-error").textContent = "This field is required";
-      isValid = false;
-    } else {
-      descriptionInput.classList.remove("fieldIsRequired");
-      document.getElementById("description-error").textContent = "This field is required";
     }
   
     if (!data.dueDate) {
