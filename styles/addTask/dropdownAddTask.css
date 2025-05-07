@@ -30,6 +30,7 @@
 
 .select-icon:hover {
   background-color: var(--border-color);
+  cursor: pointer;
 }
 
 .assigned-chips {
@@ -147,9 +148,4 @@
 option.option:checked {
   background-color: var(--border-color, #e0e0e0) !important;
   color: var(--text-color, #000) !important;
-}
-
-.subTask-icons {
-  display: flex;
-  flex-direction: row
 }
