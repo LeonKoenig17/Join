@@ -21,10 +21,6 @@ button {
   padding: 10px 10px;
 }
 
-#mainContent.expanded {
-  
-  overflow-y: auto;
-}
 
 #boardHeader {
   display: flex;
@@ -158,7 +154,25 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-}
+  overflow: overlay;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--font-color);
+  
+  }
+
+  #boardContent::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #boardContent::-webkit-scrollbar-track {
+    background: #e7e7e7;
+  }
+
+  #boardContent::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 2px solid #e7e7e7;
+  }
 
 .noTasks {
   text-align: center;
@@ -185,16 +199,3 @@ button {
 .add-task:hover {
   background-image: url("../images/taskPlusHover.svg");
 }
-
-.toggleTasks {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 3%;
-  
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 24px;
-}
-
