@@ -4,23 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join</title>
+    <title>Join/Create Account</title>
 
+    <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/createaccount.css ">
-    <script src="../script/script.js"></script>
+    <script src="../scripts/createAccount.js"></script>
+    <script src="../scripts/script.js"></script>
+    <script src="../scripts/firebase.js"></script>
+
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
-<body>
+<body onload="initCreateAccount()">
     <img src="../images/joinlogodark.svg" alt="" class="logo">
     <main>
         <div id="mainContent">
 
             <div id="createAccountDiv" class="createAccountDiv">
                 <a href="../index.html">
-                    <img id="backToLogin" src="../images/arrow-left-line.svg" alt="" >
+                    <img id="backToLogin" src="../images/arrow-left-line.svg" alt="">
                 </a>
                 <span class="accountHeader" style="position: relative;top: -25px;">Sign up</span>
                 <div class="loginInputDiv">
@@ -61,20 +65,19 @@
                 </div>
                 <div class="loginButtonDiv">
                     <button id="signUpBtn" onclick="createAccount()" class="blueBtn disabled" disabled>Sign up</button>
-
                 </div>
             </div>
 
         </div>
 
         <div id="legal">
-            <a href="" class="legalText">Privacy Policy</a>
-            <a href="" class="legalText">Legal Notice</a>
+            <a href="./extern-privacy-policy.html" class="legalText">Privacy Policy</a>
+            <a href="./extern-legal-notice.html" class="legalText">Legal Notice</a>
         </div>
 
-        
-        <span id="signUpSuccess" class="animation signUpSuccess displayNone" >You signed up successfully.</span>
-        
+
+        <span id="signUpSuccess" class="animation signUpSuccess displayNone">You signed up successfully.</span>
+
     </main>
 </body>
 

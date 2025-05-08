@@ -3,17 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join/Add Task</title>
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
 
-   <link rel="stylesheet" href="../styles/addTask/addTask.css" />
+    <link
+      rel="shortcut icon"
+      href="../images/joinlogowhite.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/addTask/addTask.css" />
     <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
     <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
+
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
+    <script src="../scripts/script.js"></script>
   </head>
-  <body onload="init()">
+
+  <body class="add-task-page" onload="init()">
     <aside>
       <div id="logo">
         <img src="../images/joinlogowhite.svg" alt="" />
@@ -32,100 +40,117 @@
           <span>Board</span>
         </a>
         <a href="./contacts.html">
-          <img src="../images/contactsgray.svg" alt="logo">
+          <img src="../images/contactsgray.svg" alt="logo" />
           <span>Contacts</span>
         </a>
       </nav>
       <div id="legal">
-        <a href="">Privacy Policy</a>
-        <a href="">Legal Notice</a>
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal Notice</a>
       </div>
     </aside>
     <main>
-      <header>
-        <span>Kanban Project Management Tool</span>
+      <!-- <header>
+      <span>Kanban Project Management Tool</span>
+      <div>
+        <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
+        <a href="" id="userLink">LK</a>
+      </div>
+    </header> -->
+
+    <header>
+      <div class="header-container">
         <div>
-          <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
-          <a href="" id="userLink">LK</a>
+          <span>Kanban Project Management Tool</span>
         </div>
-      </header>
-      <div id="main">
         <div>
-          <div id="message"></div>
-          <h1>Add Task</h1>
-          <section id="addTask">
-            <div class="half-width addTask-left">
-              <form class="forms">
-                <label for="title">Title<span>*</span></label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Enter a title"
-                  required
-                />
+          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+          <a onclick="showUserLinksOptions()" id="userLink"></a>
+        </div>
+      </div>
+    </header>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+      <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+      <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+      <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+    </div>
+
+
+    <div id="main">
+      <div class="main-container">
+        <!-- <div id="message"></div> -->
+        <h1>Add Task</h1>
+        <section id="addTask" class="add-task">
+          <div class="half-width addTask-left">
+            <form class="forms">
+              <div class="input-container">
+                <label for="title">
+                  <h2>Title</h2><span class="star">*</span>
+                </label>
+                <input type="text" id="title" name="title" placeholder="Enter a title" required />
                 <span class="error-message" id="title-error"></span>
-                <label for="description">Description</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  placeholder="Enter a Description"
-                  style="resize: none"
-                  spellcheck="false"
-                ></textarea>
-                <span class="error-message" id="description-error"></span>
-                <label for="due-date">Due date<span>*</span></label>
+              </div>
+              <div class="input-container flex">
+                <h2 for="description">Description</h2>
+                <textarea id="description" name="description" placeholder="Enter a Description" class="description"
+                  spellcheck="false"></textarea>
+                <span class="error-message" style="opacity: 0;" id="description-error"></span>
+              </div>
+              <div class="input-container">
+                <h2 for="due-date">Due date<span class="star">*</span></h2>
                 <div class="custom-date-input">
-                  <input type="date" id="due-date" name="due-date" required />
+                  <input type="text" placeholder="TT.MM.JJJJ" id="due-date" name="due-date" required />
                   <img src="../images/calendar.svg" alt="Calendar Icon" />
                 </div>
                 <span class="error-message" id="due-date-error"></span>
-              </form>
-            </div>
-            <div class="separator"></div>
-            <div class="half-width addTask-right">
-              <h3 class="h3-priority">Priority</h3>
-              <div class="priority-buttons">
-                <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
-                  Urgent
+              </div>
+            </form>
+          </div>
+          <div class="separator"></div>
+          <div class="half-width addTask-right">
+            <h2>Priority</h2>
+            <div class="priority-buttons">
+              <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
+                Urgent
+                <div class="priority-icon">
                   <img src="../images/urgent.svg" alt="Urgent" />
-                </button>
-                <button type="button" class="priority priority-medium active-btn" onclick="setPriority(this)">
-                  Medium
-                  <img src="../images/medium.svg" alt="Medium" />
-                </button>
-                <button type="button" class="priority priority-low" onclick="setPriority(this)">
-                  Low
-                  <img src="../images/low.svg" alt="Low" />
-                </button>
-              </div>
-              <div>
-                <h3>Assigned to</h3>
-                <div class="custom-assigned-dropdown" id="assignedDropdown">
-                  <div class="dropdown-selected" id="assignedDropdownSelected">
-                    Select contacts to assign
-                    <img
-                      src="../images/arrow_drop_down.svg"
-                      alt="Dropdown Icon"
-                      class="select-icon"
-                    />
-                  </div>
-                  <span class="error-message" id="assigned-error"></span>
-
-                  <div
-                    class="dropdown-options"
-                    id="assignedDropdownOptions"
-                  ></div>
                 </div>
+              </button>
+              <button type="button" class="priority priority-medium active-btn" onclick="setPriority(this)">
+                Medium
+                <div class="priority-icon">
+                  <img src="../images/medium.svg" alt="Medium" />
+                </div>
+              </button>
+              <button type="button" class="priority priority-low" onclick="setPriority(this)">
+                Low
+                <div class="priority-icon">
+                  <img src="../images/low.svg" alt="Low" />
+                </div>
+              </button>
+            </div>
+            <div class="assigned-container">
+              <h3>Assigned to</h3>
+              <div class="custom-assigned-dropdown" id="assignedDropdown">
+                <div class="dropdown-selected" id="assignedDropdownSelected">
+                  Select contacts to assign
+                  <img src="../images/arrow_drop_down.svg" alt="Dropdown Icon" class="select-icon" />
+                </div>
+                <span class="error-message" id="assigned-error"></span>
+
+                <div class="dropdown-options" id="assignedDropdownOptions"></div>
               </div>
+            </div>
               <div class="assigned-chips" id="assignedChips"></div>
               <div>
-                <h3>Category<span>*</span></h3>
+                <h3>Category<span class="star">*</span></h3>
                 <div class="custom-select-container">
                   <select id="categorySelect">
-                    <option disabled selected >Select a category</option>
-                    <option class="option">Technical Task</option>
-                    <option class="option">User Story</option>
+                    <option value="" disabled selected>
+                      Select a category
+                    </option>
+                    <option value="Technical Task">Technical Task</option>
+                    <option value="User Story">User Story</option>
                   </select>
                   <img
                     src="../images/arrow_drop_down.svg"
@@ -178,17 +203,20 @@
           <p><span>*</span>This field is required</p>
           <div class="form-actions">
             <div class="clear-btn-container">
-              <button type="button" class="clear-button" onclick="clearForm()">
+              <button
+                type="button"
+                class="close-btn-footer"
+                onclick="clearForm()"
+              >
                 Clear
-                <img src="../images/canceldarkblue.svg" alt="Cancel icon" />
               </button>
             </div>
             <div class="create-btn-container">
               <button
-                id="create-task-btn"
+                id="create-task-btn "
                 onclick="createTask()"
                 type="button"
-                class="create-button"
+                class="create-task-btn"
               >
                 Create Task
                 <img src="../images/check.svg" alt="create icon" />
@@ -197,12 +225,18 @@
           </div>
         </div>
       </div>
-
     </main>
     <script src="../scripts/templates.js"></script>
     <script src="../scripts/firebase.js"></script>
-    <script src="../scripts/addTask/addTask.js"></script>
-    <script src="../scripts/addTask/addSubtask.js"></script>
+
+  <script src="../scripts/addTask/db.js"></script>
+  <script src="../scripts/addTask/addTask/addTask-init.js"></script>
+  <script src="../scripts/addTask/addTask/addTask-uiHelpers.js"></script>
+  <script src="../scripts/addTask/addTask/addTask-validation.js"></script>
+  <script src="../scripts/addTask/addTask/addTask-formData.js"></script>
+  <script src="../scripts/addTask/addTask/addTask-create.js"></script>
+
+    <script src="../scripts/addTask/addSubtasks/addSubtask.js"></script>
     <script src="../scripts/addTask/addTaskDropDown.js"></script>
   </body>
 </html>

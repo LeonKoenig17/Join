@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
 
+    <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/index.css">
-    <script src="./script/script.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/firebase.js"></script>
+
 
     <!-- <script src="../scripts/containerDebugger.js"></script> -->
 </head>
 
 <body onload="onLoad()">
 
-    <img src="../images/joinlogodark.svg" id="logoImg" class="animation">
+    <img src="../images/joinlogodark.svg" id="logoImg" class="animation hide">
 
     <main id="main" class="mainDiv">
         <div id="mainContent">
@@ -31,12 +34,15 @@
                     </div>
 
                     <div class="inputDiv">
-                        <input type="password" id="passwordInput" placeholder="Password" class="loginInput" onfocus="changeIconToVisibility(this.id)" onblur="showLockIconLogin(this.id,'login')">
-                        <img id="passwordImg" src="./images/lock.svg" alt="" class="inputImg" onclick="passwordVisibility(this.id)">
+                        <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
+                            onfocus="changeIconToVisibility(this.id)" onblur="showLockIconLogin(this.id,'login')">
+                        <img id="passwordImg" src="./images/lock.svg" alt="" class="inputImg"
+                            onclick="passwordVisibility(this.id)">
                     </div>
 
-                    <span id="errorSpan" class="errorSpan displayNone">Check your email and password. Please try again.</span>
-                        
+                    <span id="errorSpan" class="errorSpan displayNone">Check your email and password. Please try
+                        again.</span>
+
                 </div>
 
                 <div class="loginButtonDiv">
@@ -58,7 +64,7 @@
             <a href="" class="legalText">Legal Notice</a>
         </div>
 
-        <span id="loginSuccess" class="animation loginSuccess displayNone" >You logged in successfully.</span>
+        <span id="loginSuccess" class="animation loginSuccess displayNone">You logged in successfully.</span>
 
     </main>
 </body>

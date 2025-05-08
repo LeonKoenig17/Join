@@ -17,6 +17,7 @@ const noTaskHtml = '\
  * Lädt und rendert das Board beim Seiten-Load.
  */
 async function init() {
+  fillUserLinks();
   await fetchData();
   await renderLists();
   setupEventListeners();
@@ -274,3 +275,28 @@ function addDragFunction() {
     });
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof init === 'function') init();
+
+
+
+
+  const btn = document.getElementById('toggleBoardView');
+  const board = document.getElementById('mainContent');
+  if (btn && board) {
+    btn.addEventListener('click', () => {
+      const expanded = board.classList.toggle('expanded');
+      btn.textContent = expanded
+        ? 'Tasks ausblenden'
+        : 'Alle Tasks anzeigen';
+        btn.style.display = 'none';
+    });
+  }
+  
+});
+
+function showUserLinksOptions() {
+  document.getElementById("userLinkOptions").classList.toggle("hide")
+}
+

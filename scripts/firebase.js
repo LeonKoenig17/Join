@@ -8,8 +8,8 @@ const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.
  * @throws {Error} If the fetch request fails or the response cannot be parsed as JSON.
  */
 async function loadData(path = "") {
-    const response = await fetch(BASE_URL + path + ".json");
-    return await response.json();
+  const response = await fetch(BASE_URL + path + ".json");
+  return await response.json();
 }
 
 /**
@@ -22,13 +22,13 @@ async function loadData(path = "") {
  * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
  */
 async function postData(path = "", data = {}) {
-    await fetch(BASE_URL + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
+  await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
+  });
 }
 
 /**
@@ -40,13 +40,14 @@ async function postData(path = "", data = {}) {
  * @param {Object} [data={}] - The data to be sent in the request body.
  * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
  */
-async function updateData(path = "", data = {}) {
-    const response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    });
-    return await response.json();
+async function patchTask(taskId, data) {
+  const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+  const response = await fetch(`${BASE_URL}/${taskId}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  return await response.json();
 }
 
 /**
@@ -60,9 +61,9 @@ async function updateData(path = "", data = {}) {
  *                             If an error occurs or no JSON is returned, it defaults to `{ success: true }`.
  */
 async function deleteData(path = "") {
-    await fetch(BASE_URL + path + ".json", {
-        method: "DELETE"
-    });
+  await fetch(BASE_URL + path + ".json", {
+    method: "DELETE"
+  });
 }
 async function loadUsers() {
   try {
@@ -91,22 +92,62 @@ async function loadUsers() {
   }
 }
 
-  async function applyUserColors() {
-    try {
-      const users = await loadUsers();
-      const userElements = document.querySelectorAll('.task-assignee');
-  
-      userElements.forEach(function(el) {
-        const userId = el.getAttribute('data-user-id');
-  
-        for (const user of users) {
-          if (user.id === userId) {
-            el.style.backgroundColor = user.color;
-            break;
-          }
+async function applyUserColors() {
+  try {
+    const users = await loadUsers();
+    const userElements = document.querySelectorAll('.task-assignee');
+
+    userElements.forEach(function (el) {
+      const userId = el.getAttribute('data-user-id');
+
+      for (const user of users) {
+        if (user.id === userId) {
+          el.style.backgroundColor = user.color;
+          break;
         }
-      });
-    } catch (error) {
-      console.error("Fehler beim Anwenden der Benutzerfarben:", error);
-    }
+      }
+    });
+  } catch (error) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
   }
+}
+
+async function fillUserLinks() {
+  let myValue = ""
+  try {
+    myValue = fireBaseContent.login;
+  } catch (error) {
+    myValue = await loadData('login')
+  }
+
+  let myToken = localStorage.getItem('token')
+  let myName = myValue[myToken].name;
+
+  try {
+    const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+    document.getElementById("userLink").innerHTML = initials;
+  } catch (error) {
+    document.getElementById("userLink").innerHTML = "G";
+  }
+
+  try {
+    document.getElementById("userName").innerHTML = myName;
+  } catch (error) {
+    return null;
+  }
+
+}
+
+async function loadFromFirebase() {
+  fireBaseContent = await loadData();
+}
+
+async function lastColor() {
+  let ergebnisse = await loadData("login")
+  let result = Object.entries(ergebnisse);
+  let myLastColor = result.pop()[1].color;
+  let found = iconColors.indexOf(myLastColor);
+
+  if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
+  return iconColors[found];
+}

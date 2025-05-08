@@ -1,7 +1,7 @@
 main {
-  /* display: flex; */
-  /* align-items: center; */
-  /* flex-direction: column; */
+  display: flex;
+  align-items: start;
+  flex-direction: column;
   width: calc(100% - 200px);
   background-color: var(--background-color);
 }
@@ -11,6 +11,10 @@ main {
   flex-direction: row;
   background-color: var(--background-color);
   margin: 0;
+  position: absolute;
+  left: 200px;
+  top: 68px;
+  width: 50%;
 }
 
 #addTask {
@@ -28,6 +32,12 @@ main {
   margin-right: 20px;
 }
 
+#allContacts {
+  overflow-y: visible;
+  height: calc(100vh - 180px);
+  padding: 0;
+}
+
 .forms label {
   font-size: 20px;
   font-weight: 400;
@@ -35,15 +45,10 @@ main {
   margin-top: 20px !important;
 }
 
-#mainContent span {
-  /* color: #ff8190; */
-  /* padding-left: 2px; */
-}
-
 #contentLeft {
   background-color: white;
-  width: 400px;
-  height: calc(100vh - 90px);
+  width: 340px;
+  height: calc(100vh - 68px);
   display: flex;
   justify-content: start;
   flex-direction: column;
@@ -414,7 +419,7 @@ select:focus {
   margin: 5px 0;
 }
 
-.singleUser:hover{
+.singleUser:hover {
   background-color: var(--primary-color);
   border-radius: 1rem;
   color: white;
@@ -431,7 +436,7 @@ select:focus {
   /* background-color: blueviolet; */
 }
 
-.emailText{
+.emailText {
   /* text-align: left; */
   padding: 0;
   color: var(--link-color);
@@ -464,7 +469,7 @@ select:focus {
 
 
 
-.spanLetter{
+.spanLetter {
   text-align: left;
   margin-left: 22px;
 }
@@ -472,7 +477,7 @@ select:focus {
 .frame-40 {
   display: flex;
   align-items: center;
-  width: 625px;
+  width: 600px;
   height: 73px;
   gap: 30px;
   position: relative;
@@ -506,13 +511,109 @@ select:focus {
   cursor: context-menu;
 }
 
-.contactInformations{
-  display: flex;flex-direction: column;
+.contactInformations {
+  display: flex;
+  flex-direction: column;
 }
 
-.contactInformations p{
+.contactInformations p {
   margin: 20px 0;
 }
-.contactInformations span,a,strong {
-  margin: 10px 0;
+
+.contactInformations span,
+a,
+strong {
+  margin: 00px 0;
+}
+
+.inputDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding-left: 25px;
+}
+
+.inputImg {
+  position: relative;
+  right: 45px;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.loginInput {
+  border: solid 1px #D1D1D1;
+  border-radius: 10px;
+  height: 46px;
+  border-width: 1px;
+  width: 375px;
+  font-size: 20px;
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  padding: 0px 20px;
+  margin: 10px 0px;
+  outline: none;
+}
+
+.blueBtn {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 21px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: fit-content;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+
+.blueBtn:hover {
+  background-color: var(--text-underline-color);
+  box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-in-out;
+}
+
+.whiteBtn {
+  background-color: white;
+  color: black;
+  font-size: 21px;
+  font-weight: bold;
+  border: solid 1px var(--primary-color);
+  border-radius: 10px;
+  height: 48px;
+  width: fit-content;
+  text-wrap: nowrap;
+  padding: 0px 20px;
+}
+
+.whiteBtn:hover {
+  box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+  border-color: var(--text-underline-color);
+  color: var(--text-underline-color);
+  transition: all 0.1s ease-in-out;
+}
+
+.loginButtonDiv {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.addContactDiv {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 9;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hide {
+  display: none;
 }
