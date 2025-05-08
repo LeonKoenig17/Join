@@ -1,5 +1,32 @@
 const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
 
+function onLoad() {
+    moveLogo()
+    loadFromFirebase()
+}
+
+function moveLogo(){
+    let logoImg = document.getElementById('logoImg');
+    let mainDiv = document.getElementById('main');
+    setTimeout(() => {
+        logoImg.style.display = 'none';
+        logoImg.style.width = '0px'; logoImg.style.height = '0px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        logoImg.style.display = 'unset';
+        logoImg.style.width = '200px'; logoImg.style.height = '200px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
+    }, 500);
+
+    setTimeout(() => {
+        logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = 'calc(50px + 40px)'; logoImg.style.top = 'calc(50px + 48px)';
+    }, 1500);
+
+    setTimeout(() => {
+        mainDiv.style.opacity = '1';
+    }, 2000);
+}
+
 function onloadFunc() {
     console.log("test")
     // loadData("login") // holt datensatz
@@ -7,69 +34,8 @@ function onloadFunc() {
     //deleteData("login/-OMkJuc3knfDkLsczsu7") //löscht datensatz
 }
 
-async function loadData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json");
-    return resonseToJson = await response.json();
-}
-
-async function postData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "POST",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    let resonseToJson = await response.json();
-}
-
-async function putData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    let resonseToJson = await response.json();
-}
 
 
-async function deleteData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "DELETE"
-    });
-}
-
-async function createAccount() {
-    let chkboxPrivacy = document.getElementById("acceptPrivacyPolicy");
-    let privacyBoolean = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
-    let userName = document.getElementById("nameInput").value;
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passwordInput").value;
-    let confirmPassword = document.getElementById("confirmPasswordInput").value;
-
-
-    if (privacyBoolean == "false") {
-        return
-    }
-
-    let myValue = await findUser(email);
-
-
-    if (myValue != null) {
-        window.alert("Account already exists")
-    } else {
-        if (password == confirmPassword && password != "" && privacyBoolean == "true") {
-            let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
-            await writeLocalStorage();
-            showSuccess('signUpSuccess');
-        } else {
-            document.getElementById("confirmPasswordInput").classList.add("redBorder")
-        }
-    }
-}
 
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
@@ -176,26 +142,7 @@ function logout() {
     window.location = '../index.html';
 }
 
-function onLoad() {
-    let logoImg = document.getElementById('logoImg');
-    let mainDiv = document.getElementById('main');
 
-    setTimeout(() => {
-        logoImg.style.width = '0px'; logoImg.style.height = '0px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
-    }, 0);
-
-    setTimeout(() => {
-        logoImg.style.width = '200px'; logoImg.style.height = '200px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
-    }, 500);
-
-    setTimeout(() => {
-        logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = 'calc(50px + 40px)'; logoImg.style.top = 'calc(50px + 48px)';
-    }, 1500);
-
-    setTimeout(() => {
-        mainDiv.style.opacity = '1';
-    }, 2000);
-}
 
 
 function showSuccess(element) {
@@ -265,36 +212,7 @@ function showLockIconLogin(element) {
     }
 }
 
-async function lastColor() {
-    let ergebnisse = await loadData("login")
-    let result = Object.entries(ergebnisse);
-    let myLastColor = result.pop()[1].color;
-    let found = iconColors.indexOf(myLastColor);
 
-    if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
-    return iconColors[found];
-
-}
-
-async function fillUserLinks() {
-    let myToken = localStorage.getItem('token')
-    let myValue = await loadData('login')
-    let myName = myValue[myToken].name;
-
-    try {
-        const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
-        document.getElementById("userLink").innerHTML = initials;
-    } catch (error) {
-        document.getElementById("userLink").innerHTML = "G";
-    }
-
-    try {
-        document.getElementById("userName").innerHTML = myName;
-    } catch (error) {
-        return null;
-    }
-
-}
 
 function showContactFormOld(type) {
     let contact = document.getElementById(`${type}Contact`);
@@ -373,44 +291,11 @@ function showContactForm(type) {
 
 function hideContactForm(type) {
     let contact = document.getElementById(`${type}Contact`);
-    let contactDiv = document.getElementById(`${type}ContactDiv`);
+    // let contactDiv = document.getElementById(`${type}ContactDiv`);
 
     contact.classList.add("hide");
     document.getElementById("addContactDiv").classList.add("hide");
-
-    // setTimeout(() => {
-    //     contact.style.left = '100%';
-    //     contact.style.top = '50%';
-    //     contact.style.transform = 'translate(0%, -50%)';
-    // }, 0);
-
-    // setTimeout(() => {
-    //     contact.style.left = '50%';
-    //     contact.style.top = '50%';
-    //     contact.style.transform = 'translate(-50%, -50%)';
-    // }, 250);
 }
-
-// function showAddContact() {
-//     let addContact = document.getElementById('addContact');
-//     let addContactDiv = document.getElementById("addContactDiv")
-
-//     addContact.classList.remove("hide")
-//     addContactDiv.classList.remove("hide")
-
-//     setTimeout(() => {
-//         addContact.style.left = '100%';
-//         addContact.style.top = '50%';
-//         addContact.style.transform = 'translate(0%, -50%)';
-//     }, 0);
-
-//     setTimeout(() => {
-//         addContact.style.left = '50%';
-//         addContact.style.top = '50%';
-//         addContact.style.transform = 'translate(-50%, -50%)';
-//     }, 250);
-// }
-
 
 
 async function contactForm(task, type) {

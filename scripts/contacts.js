@@ -1,12 +1,21 @@
 
+let fireBaseContent = {}
+
+async function loadFromFirebase(){
+    fireBaseContent = await loadData();
+}
+
 async function onloadContacts() {
-    fillUserLinks()
+    await loadFromFirebase();
+    fillUserLinks();
     getContactsfromFirebase();
 }
 
-async function getContactsfromFirebase(){
-    const dataLogin = await loadData("login");
-    const dataContacts = await loadData("contacts");
+function getContactsfromFirebase(){
+    // const dataLogin = await loadData("login");
+    const dataLogin = fireBaseContent.login;
+    // const dataContacts = await loadData("contacts");
+    const dataContacts = fireBaseContent.contacts;
     const data = { ...dataContacts, ...dataLogin }
 
     const users = Object.values(data).map(user => ({
@@ -110,3 +119,4 @@ async function getContactsfromFirebase(){
         allContactsNav.appendChild(capitalDiv);
     });
 }
+
