@@ -48,6 +48,14 @@ header img:hover {
     align-items: center;
 }
 
+.header-container div:first-child img {
+    display: none;
+}
+
+footer {
+    display: none;
+}
+
 #userLink {
     width: 20px;
     height: 20px;
