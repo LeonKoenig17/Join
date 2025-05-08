@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/addTask/board-taskcard.css" />
     <link rel="stylesheet" href="../styles/addTask/taskOverlay.css" />
+    <link rel="stylesheet" href="../styles/responsive/style-resp.css">
 
     <link rel="stylesheet" href="../styles/addTask/addTask.css" />
     <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
@@ -54,6 +55,7 @@
       <header>
         <div class="header-container">
           <div>
+            <img src="../images/joinlogodark.svg" alt="logo dark">
             <span>Kanban Project Management Tool</span>
           </div>
           <div>
@@ -137,10 +139,26 @@
           onclick="handleOverlayClick(event)"
         ></div>
       </section>
-      <div class="toggleTasks">
-        <button id="toggleBoardView">Alle Tasks anzeigen</button>
-    </div>
+    
     </main>
+    <footer>
+      <a href="./summary.html">
+        <img src="../images/summarygray.svg" alt="logo">
+        <span>Summary</span>
+      </a>
+      <a href="./addTask.html">
+        <img src="../images/addtaskgray.svg" alt="logo">
+        <span>Add Task</span>
+      </a>
+      <a href="./board.html" class="active">
+        <img src="../images/boardwhite.svg" alt="logo">
+        <span>Board</span>
+      </a>
+      <a href="./contacts.html">
+        <img src="../images/contactsgray.svg" alt="logo">
+        <span>Contacts</span>
+      </a>
+    </footer>
     <!---->
 
     <script src="../scripts/firebase.js"></script>
@@ -163,6 +181,7 @@
     <script src="../scripts/boardOverlays/taskStorage.js"></script>
     <script src="../scripts/boardOverlays/taskBoard.js"></script>
 
+    <!-- <script src="../scripts/script.js"></script> -->
     <script src="../scripts/board.js"></script>
     <script src="../scripts/searchTask.js"></script>
   </body>
