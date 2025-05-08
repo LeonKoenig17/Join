@@ -17,7 +17,7 @@ const noTaskHtml = '\
  * Lädt und rendert das Board beim Seiten-Load.
  */
 async function init() {
- /* fillUserLinks();*/
+  fillUserLinks();
   await fetchData();
   await renderLists();
   setupEventListeners();
@@ -299,3 +299,4 @@ document.addEventListener('DOMContentLoaded', () => {
 function showUserLinksOptions() {
   document.getElementById("userLinkOptions").classList.toggle("hide")
 }
+
