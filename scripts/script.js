@@ -284,49 +284,7 @@ function hideContactForm(type) {
 }
 
 
-async function contactForm(task, type) {
-    const parentWindow = window.parent;
-    const addContact = parentWindow.document.getElementById(`${type}Contact`);
-    const addContactDiv = parentWindow.document.getElementById('addContactDiv');
-    const allContactsDiv = parentWindow.document.getElementById('allContacts');
-    let thisEmail = '';
 
-    addContact.classList.add("hide")
-    addContact.style.left = '100%';
-    addContact.style.top = '50%';
-    addContact.style.transform = 'translate(0%, -50%)';
-    addContactDiv.classList.add("hide")
-
-    if (task == 'add') {
-        await addContactTask();
-        window.parent.location.reload();
-        return null
-    }
-
-    try {
-        thisEmail = document.getElementById("emailInput").value;
-    } catch (error) {
-        thisEmail = document.getElementById("contactDetailsMail").innerHTML;
-    }
-    // let thisToken = await findUser(thisEmail);
-
-    if (task == 'delete') {
-        await deleteData(`contacts/${thisToken}`)
-        window.parent.location.reload();
-    }
-
-    if (task == 'save') {
-        let thisPhone = document.getElementById("phoneInput").value;
-        let thisName = document.getElementById("nameInput").value;
-        if(ergebnisse[thisToken].type == "contacts"){
-            myData = {"name":thisName,"email":thisEmail, "phone": thisPhone };
-        }else{
-            myData = {"phone": thisPhone };
-        }
-        await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, {"name":thisName,"email":thisEmail, "phone": thisPhone })
-        window.parent.location.reload();
-    }
-}
 
 async function addContactTask() {
     let thisName = document.getElementById("nameInput").value;
