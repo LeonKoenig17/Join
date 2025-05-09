@@ -1,7 +1,7 @@
 
 let fireBaseContent = {}
 
-async function loadFromFirebase(){
+async function loadFromFirebase() {
     fireBaseContent = await loadData();
 }
 
@@ -9,9 +9,10 @@ async function onloadContacts() {
     await loadFromFirebase();
     fillUserLinks();
     getContactsfromFirebase();
+    sendDataToIframe();
 }
 
-function getContactsfromFirebase(){
+function getContactsfromFirebase() {
     // const dataLogin = await loadData("login");
     const dataLogin = fireBaseContent.login;
     // const dataContacts = await loadData("contacts");
@@ -74,49 +75,64 @@ function getContactsfromFirebase(){
         // Iteriere über die Benutzer in der Gruppe
         groupedUsers[letter].forEach(user => {
             userNumber = userNumber + 1;
-            
+
             const userNav = document.createElement("nav");
             userNav.id = `singleUser${userNumber}`;
             userNav.classList.add(`singleUser`);
-            
+
             // Initialen erstellen
             const initials = document.createElement("span");
             initials.classList.add("userInitials");
             initials.classList.add(`userColor-${user.color.replace('#', '')}`);
             initials.textContent = user.name.split(" ").map(name => name[0]).join("");
             userNav.appendChild(initials);
-        
+
             // Benutzerdetails erstellen
             const userDetails = document.createElement("div");
             userDetails.classList.add("userDetails");
-        
+
             const userName = document.createElement("span");
             userName.classList.add("userName");
             userName.textContent = user.name;
-        
+
             const userEmail = document.createElement("a");
             userEmail.id = `singleUserMail${userNumber}`;
             userEmail.href = `mailto:${user.email}`;
             userEmail.classList.add("emailText");
             userEmail.textContent = user.email;
-        
+
             userDetails.appendChild(userName);
             userDetails.appendChild(userEmail);
             userNav.appendChild(userDetails);
-        
+
             // Füge die Klick-Funktion hinzu, die die contactDetails-Funktion aufruft
             userNav.addEventListener('click', () => {
                 contactDetails(userNav.id); // Die Funktion contactDetails mit dem userNav-Element aufrufen
             });
-        
+
             // Füge das Benutzer-Navi zu der Gruppe hinzu
             capitalDiv.appendChild(userNav);
         });
-        
-        
+
+
 
         // Füge die Gruppe zum allContacts div hinzu
         allContactsNav.appendChild(capitalDiv);
     });
 }
 
+
+function sendDataToIframe() {
+    const iframe = document.getElementById('editContact');
+    if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+            {
+                type: 'firebaseData',
+                data: fireBaseContent,
+                token: thisToken,
+                ergebnisse: ergebnisse
+            },
+            '*'
+        );
+    }
+}

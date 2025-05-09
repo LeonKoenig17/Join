@@ -1,11 +1,12 @@
-const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
+let ergebnisse = "";
+let thisToken = "";
 
 function onLoad() {
     moveLogo()
     loadFromFirebase()
 }
 
-function moveLogo(){
+function moveLogo() {
     let logoImg = document.getElementById('logoImg');
     let mainDiv = document.getElementById('main');
     setTimeout(() => {
@@ -27,41 +28,17 @@ function moveLogo(){
     }, 2000);
 }
 
-function onloadFunc() {
-    console.log("test")
-    // loadData("login") // holt datensatz
-    // postData("login",{"ach":"du scheisse"}) // schreibt datensatz
-    //deleteData("login/-OMkJuc3knfDkLsczsu7") //löscht datensatz
-}
+// function onloadFunc() {
+// console.log("test")
+// loadData("login") // holt datensatz
+// postData("login",{"ach":"du scheisse"}) // schreibt datensatz
+//deleteData("login/-OMkJuc3knfDkLsczsu7") //löscht datensatz
+// }
 
 
 
 
-async function login() {
-    let myPassword = await checkPassword(document.getElementById("emailInput").value);
-    let myEmail = await findUser(document.getElementById("emailInput").value);
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passwordInput").value;
 
-    if (myEmail == null) {
-        document.getElementById("passwordInput").classList.add("redBorder")
-        document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
-        return
-    }
-    if (password == myPassword) {
-        await writeLocalStorage();
-        showSuccess('loginSuccess');
-    } else {
-        document.getElementById("passwordInput").classList.add("redBorder")
-        document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
-
-    }
-
-}
 
 async function writeLocalStorage() {
     let myEmail = await findUser(document.getElementById("emailInput").value);
@@ -75,7 +52,7 @@ async function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
     document.getElementById("passwordInput").value = '123456789'
 
-    await writeLocalStorage();
+    writeLocalStorage();
 
     setTimeout(() => {
         window.location = '../html/summary.html'
@@ -83,15 +60,7 @@ async function guestLogin() {
 
 }
 
-async function checkPassword(email) {
-    let ergebnisse = await loadData("login")
-    for (let userId in ergebnisse) {
-        if (ergebnisse[userId].email === email) {
-            return ergebnisse[userId].password;
-        }
-    }
-    return null;
-}
+
 
 async function findName(name) {
     let ergebnisse = await loadData("login")
@@ -104,12 +73,21 @@ async function findName(name) {
 }
 
 async function findUser(email) {
-    let ergebnisseLogin = await loadData("login")
-    let ergebnisseContacts = await loadData("contacts")
-    let ergebnisse = { ...ergebnisseLogin, ...ergebnisseContacts }
+    let ergebnisseLogin = ""
+    let ergebnisseContacts = ""
+    // console.log(fireBaseContent);
 
+    try {
+        ergebnisseLogin = fireBaseContent.login;
+        ergebnisseContacts = fireBaseContent.contacts;
+    } catch (error) {
+        ergebnisseLogin = await loadData("login")
+        ergebnisseContacts = await loadData("contacts")
+    }
+    ergebnisse = { ...ergebnisseLogin, ...ergebnisseContacts }
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].email === email) {
+            // return ergebnisse[userId];
             return userId;
         }
     }
@@ -217,7 +195,7 @@ function showLockIconLogin(element) {
 function showContactFormOld(type) {
     let contact = document.getElementById(`${type}Contact`);
     let contactDiv = document.getElementById(`${type}ContactDiv`);
-
+    
     contact.classList.remove("hide");
     document.getElementById("addContactDiv").classList.remove("hide");
 
@@ -234,7 +212,7 @@ function showContactFormOld(type) {
     }, 250);
 }
 
-function showContactForm(type) {
+async function showContactForm(type) {
     let contact = document.getElementById(`${type}Contact`);
     let contactDiv = document.getElementById(`${type}ContactDiv`);
 
@@ -262,6 +240,14 @@ function showContactForm(type) {
         // Direkt auf contentWindow zugreifen, wenn iframe schon geladen ist
         const iframe = document.getElementById('editContact');
 
+        thisToken = await findUser(email);
+
+        iframe.contentWindow.postMessage({
+            type: 'tokenUpdate',
+            token: thisToken
+        }, '*');
+
+        
         // Wenn das iframe noch lädt, warte darauf
         iframe.onload = () => {
             try {
@@ -314,27 +300,31 @@ async function contactForm(task, type) {
     if (task == 'add') {
         await addContactTask();
         window.parent.location.reload();
+        return null
     }
 
-    if (task == 'delete') {
-        try {
-            thisEmail = document.getElementById("emailInput").value;
-        } catch (error) {
-            thisEmail = document.getElementById("contactDetailsMail").innerHTML;
-        }
+    try {
+        thisEmail = document.getElementById("emailInput").value;
+    } catch (error) {
+        thisEmail = document.getElementById("contactDetailsMail").innerHTML;
+    }
+    // let thisToken = await findUser(thisEmail);
 
-        let thisToken = await findUser(thisEmail);
+    if (task == 'delete') {
         await deleteData(`contacts/${thisToken}`)
         window.parent.location.reload();
-        // let thiscontactDetail = await getContactDetails(thisemail)
     }
 
     if (task == 'save') {
-        let thisEmail = document.getElementById("emailInput").value;
-        let thisToken = await findUser(thisEmail);
-        await deleteData(`contacts/${thisToken}`)
+        let thisPhone = document.getElementById("phoneInput").value;
+        let thisName = document.getElementById("nameInput").value;
+        if(ergebnisse[thisToken].type == "contacts"){
+            myData = {"name":thisName,"email":thisEmail, "phone": thisPhone };
+        }else{
+            myData = {"phone": thisPhone };
+        }
+        await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, {"name":thisName,"email":thisEmail, "phone": thisPhone })
         window.parent.location.reload();
-        // let thiscontactDetail = await getContactDetails(thisemail)
     }
 }
 
