@@ -138,10 +138,11 @@ function sendDataToIframe() {
 }
 
 async function contactForm(task, type) {
-    const parentWindow = window.parent;
+    // const parentWindow = window.parent;
     const addContact = document.getElementById(`${type}Contact`);
     const addContactDiv = document.getElementById('addContactDiv');
     const allContactsDiv = document.getElementById('allContacts');
+    
     let thisEmail = '';
 
     addContact.classList.add("hide")
