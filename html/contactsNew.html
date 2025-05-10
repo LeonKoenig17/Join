@@ -79,9 +79,8 @@
     <div id="mainContent">
       <div id="contentLeft">
         <section>
-          <div id="" onclick="showContactForm('add')"
-            style="display: flex;align-items: center;background-color: var(--primary-color);height: fit-content;color: white; font-size: 16px;font-weight: bold; margin:20px;width: 300px; justify-content: center;border-radius: 10px;cursor: pointer;">
-            <p style="margin:15px 10px;">Add new contant</p>
+          <div id="addContactBtn" onclick="showContactForm('add')">
+            <p>Add new contant</p>
             <img src="../images/person_add.svg" alt="">
           </div>
           <nav id="allContacts"></nav>
@@ -102,11 +101,11 @@
                 <p id="contactDetailsName">Anja Schulz</p>
                 <div>
                   <nav onclick="showContactForm('edit')">
-                    <img src="../images/edit-2.svg" alt="" style="height:24px">
+                    <img src="../images/edit-2.svg" alt="">
                     <span style="margin-right: 20px;">Edit</span>
                   </nav>
                   <nav onclick="contactForm('delete','edit')">
-                    <img src="../images/delete.svg" alt="" style="height:24px">
+                    <img src="../images/delete.svg" alt="">
                     <span style="margin-right: 20px;">Delete</span>
                   </nav>
                 </div>
