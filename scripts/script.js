@@ -217,15 +217,19 @@ async function showContactForm(type) {
     let contactDiv = document.getElementById(`${type}ContactDiv`);
 
     contact.classList.remove("hide");
-    document.getElementById("addContactDiv").classList.remove("hide");
+    contactDiv.classList.remove("hide");
+
+    // document.getElementById(contactDiv).classList.remove("hide");
 
     setTimeout(() => {
+        contactDiv.style.backgroundColor = 'rgba(100, 100, 100, 0.0)'
         contact.style.left = '100%';
         contact.style.top = '50%';
         contact.style.transform = 'translate(0%, -50%)';
     }, 0);
 
     setTimeout(() => {
+        contactDiv.style.backgroundColor = 'rgba(100, 100, 100, 0.5)'
         contact.style.left = '50%';
         contact.style.top = '50%';
         contact.style.transform = 'translate(-50%, -50%)';
