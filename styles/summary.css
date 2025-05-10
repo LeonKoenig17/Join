@@ -2,9 +2,7 @@ summary {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  /* position: absolute;
-  top: 140px;
-  left: 268px; */
+  margin: 40px 0 0 90px;
 }
 
 .frame-40 {
@@ -27,7 +25,7 @@ summary {
 .frame-40 p {
   margin: 0;
   font-weight: 500;
-  font-size: 19px;
+  font-size: 27px;
   color: #2A3647;
   cursor: context-menu;
 }
@@ -153,7 +151,6 @@ summary {
   width: 90px;
   margin: 0;
   text-align: center;
-  font-weight: 400;
   font-size: 14px;
   color: #2A3647;
 }
@@ -253,17 +250,13 @@ summary {
 
 .frame-68 h4 {
   margin: 0;
-  font-weight: 700;
   font-size: 16px;
-  line-height: 120%;
   color: #2A3647;
 }
 
 .frame-68 p {
   margin: 0;
-  font-weight: 400;
   font-size: 13px;
-  line-height: 120%;
 }
 
 .frame-65 {
@@ -327,7 +320,6 @@ summary {
   height: 77px;
   font-weight: 600;
   font-size: 64px;
-  line-height: 120%;
   text-align: center;
 }
 

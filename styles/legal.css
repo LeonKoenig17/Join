@@ -1,48 +1,50 @@
 .legal-main {
-  width: 1440px;
+  position: absolute;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  left: 200px;
+  top: 90px;
+  margin: 40px 90px 0 90px;
+  padding-bottom: 40px;
 }
 
 .legal-main h1 {
   margin: 0;
-  position: absolute;
-  top: 206px;
-  left: 350px;
-  width: 419px;
-  height: 73px;
-  font-weight: 700;
   font-size: 61px;
-  line-height: 120%;
 }
 
 .pp-container {
-  position: absolute;
-  top: 311px;
-  left: 350px;
   max-width: 950px;
   min-height: 309px;
-  cursor: n-resize;
+  cursor: context-menu;
 }
 
 aside {
   position: fixed;
   bottom: 0;
-  z-index: 10;
+  z-index: 3;
 }
 
 header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
-  z-index: 9;
-  width: 1440px;
+  z-index: 2
 }
 
 header span {
-  margin-left: 0;
-  left: 350px;
-  position: absolute;
+  margin-left: 300px;
 }
 
 .d-none {
   display: none;
+}
+
+.pp-container-heading {
+  margin-top: 0px;
+}
+
+.ln-container-heading {
+  margin-top: 0px;
 }
