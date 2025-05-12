@@ -227,7 +227,6 @@ async function showContactForm(type) {
 
 
 
-    // === Werte an editContact übergeben ===
     if (type === 'edit') {
         let name = document.getElementById("contactDetailsName").innerHTML;
         let email = document.getElementById("contactDetailsMail").innerHTML;
@@ -246,10 +245,10 @@ async function showContactForm(type) {
 
         return null
 
-        iframe.contentWindow.postMessage({
-            type: 'tokenUpdate',
-            token: thisToken
-        }, '*');
+        // iframe.contentWindow.postMessage({
+        //     type: 'tokenUpdate',
+        //     token: thisToken
+        // }, '*');
 
 
         // Wenn das iframe noch lädt, warte darauf
