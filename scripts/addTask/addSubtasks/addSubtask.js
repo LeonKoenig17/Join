@@ -1,121 +1,137 @@
 function initSubtaskUI() {
-    const subInput = document.getElementById("subtask-input");
-    const addIcon = document.getElementById("add-icon");
-    const checkIcon = document.getElementById("check-subtask-icon");
-    const closeIcon = document.getElementById("close-subtask-icon");
-    const seperator = document.getElementById("seperator");
+  const subInput = document.getElementById("subtask-input");
+  const addIcon = document.getElementById("add-icon");
+  const checkIcon = document.getElementById("check-subtask-icon");
+  const closeIcon = document.getElementById("close-subtask-icon");
+  const seperator = document.getElementById("seperator");
 
-    if (!subInput || !addIcon || !checkIcon || !closeIcon || !seperator) return;
+  if (!subInput || !addIcon || !checkIcon || !closeIcon || !seperator) return;
 
-    subInput.value = "";
-    toggleIcons(false);
+  subInput.value = "";
+  toggleIcons(false);
 }
 
 function toggleIcons(isActive) {
-    const addIcon = document.getElementById("add-icon");
-    const checkIcon = document.getElementById("check-subtask-icon");
-    const closeIcon = document.getElementById("close-subtask-icon");
-    const seperator = document.getElementById("seperator");
+  const addIcon = document.getElementById("add-icon");
+  const checkIcon = document.getElementById("check-subtask-icon");
+  const closeIcon = document.getElementById("close-subtask-icon");
+  const seperator = document.getElementById("seperator");
 
-    if (!addIcon || !checkIcon || !closeIcon || !seperator) return;
+  if (!addIcon || !checkIcon || !closeIcon || !seperator) return;
 
-    addIcon.classList.toggle("d-none", isActive);
-    checkIcon.classList.toggle("d-none", !isActive);
-    closeIcon.classList.toggle("d-none", !isActive);
-    seperator.classList.toggle("d-none", !isActive);
+  addIcon.classList.toggle("d-none", isActive);
+  checkIcon.classList.toggle("d-none", !isActive);
+  closeIcon.classList.toggle("d-none", !isActive);
+  seperator.classList.toggle("d-none", !isActive);
 }
 
 function activateSubtaskInput() {
-    const subInput = document.getElementById("subtask-input");
-    if (!subInput) return;
+  const subInput = document.getElementById("subtask-input");
+  if (!subInput) return;
 
-    subInput.style.color = "#000000";
-    toggleIcons(true);
-    subInput.focus();
+  subInput.style.color = "#000000";
+  toggleIcons(true);
+  subInput.focus();
 }
 
 function cancelSubtaskEntry() {
-    initSubtaskUI();
+  initSubtaskUI();
 }
 
 function confirmSubtaskEntry() {
-    const subInput = document.getElementById("subtask-input");
-    if (!subInput) return;
+  const subInput = document.getElementById("subtask-input");
+  if (!subInput) return;
 
-    const val = subInput.value.trim();
-    if (val) {
-        subtasks.push({ name: val, completed: false });
-        updateSubtaskList(subtasks);
-    }
-    initSubtaskUI(); 
+  const val = subInput.value.trim();
+  if (val) {
+    subtasks.push({ name: val, completed: false });
+    updateSubtaskList(subtasks);
+  }
+  initSubtaskUI();
 }
 
 function getTaskById(taskId) {
     return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
-  }
+}
 
   
-  function isEditMode() {
+function isEditMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.querySelector('.add-task-card')?.classList.contains('edit-mode');
-  }
+}
 
-  function isAddMode() {
+function isAddMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.classList.contains('add-task-page') || 
            document.body.classList.contains('add-task-page') || 
            window.location.pathname.includes('addTask.html');
-  }
+}
 
 
-  function updateSubtaskList() {
+function updateSubtaskList() {
     const list = document.getElementById('subtask-list');
-    if (!list) return;
-    
-    const editMode = isEditMode();
-    const addMode = isAddMode();
-    
-  
-    list.innerHTML = subtasks
-      .map((s, i) => (addMode || editMode ? subtasksTemplate(s, i) : taskOverlaySubtaskTemplate(s, i)))
-      .join('');
-  }
+  if (!list) return;
 
-  function editSubtask(index) {
-    const subtaskItems = document.querySelectorAll(".subtask-item");
-    const subtaskItem = subtaskItems[index];
-    if (!subtaskItem) return;
+  const editMode = isEditMode();
+  const addMode = isAddMode();
+
+  list.innerHTML = subtasks
+    .map((s, i) =>
+      addMode || editMode
+        ? subtasksTemplate(s, i)
+        : taskOverlaySubtaskTemplate(s, i)
+    )
+    .join("");
+
+  const done = subtasks.filter((s) => s.completed).length;
+  const total = subtasks.length;
+
+  const subtaskCountSpan = document.querySelector(".subtask-count");
+  if (subtaskCountSpan) {
+    subtaskCountSpan.textContent = `${done}/${total} Subtasks`;
+    subtaskCountSpan.classList.toggle("all-done", done === total && total > 0);
+    subtaskCountSpan.classList.toggle("not-done", done !== total);
+  }
   
-    const subtaskText = subtaskItem.querySelector(".subtask-text");
-    const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
-  
-    subtaskItem.classList.add("editing");
-  
-    subtaskText.innerHTML = `
+}
+
+function editSubtask(index) {
+  const subtaskItems = document.querySelectorAll(".subtask-item");
+  const subtaskItem = subtaskItems[index];
+  if (!subtaskItem) return;
+
+  const subtaskText = subtaskItem.querySelector(".subtask-text");
+  const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
+
+  subtaskItem.classList.add("editing");
+
+  subtaskText.innerHTML = `
       <input type="text" class="edit-input" maxlength="40" value="${subtasks[index].name}" 
          data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})">
     `;
-  
-    subtaskIcons.innerHTML = `
+
+  subtaskIcons.innerHTML = `
       <img src="../images/subtaskBin.svg" alt="Delete" 
            class="subtask-icon delete-subtask" data-index="${index}">
       <img src="../images/checkDark.svg" alt="Save" 
            class="subtask-icon confirm-subtask" data-index="${index}">
     `;
-  
-    subtaskText.querySelector(".edit-input").focus();
-  }
-  
+
+  subtaskText.querySelector(".edit-input").focus();
+}
+
 
 function handleEditKeyPress(event, index) {
 
-    if (event.key === "Enter") {
-        saveSubtask(index);
-    }
+  if (event.key === "Enter") {
+    saveSubtask(index);
+  }
 }
 
 function saveSubtask(index) {
-  const subtaskItem = document.querySelector(`.subtask-item[data-subtask-index="${index}"]`);
+  const subtaskItem = document.querySelector(
+    `.subtask-item[data-subtask-index="${index}"]`
+  );
   if (!subtaskItem) return;
 
   const input = subtaskItem.querySelector(".edit-input");
@@ -127,62 +143,60 @@ function saveSubtask(index) {
   subtasks[index].name = newValue;
   subtaskItem.classList.remove("editing");
 
-  updateSubtaskList(); // neu rendern
+  updateSubtaskList();
 }
 
-
 function deleteSubtask(index) {
-    subtasks.splice(index, 1);
-    updateSubtaskList();
+  subtasks.splice(index, 1);
+  updateSubtaskList();
 }
 
 function setupSubtaskListeners() {
-    const addIcon   = document.getElementById("add-icon");
-    const closeIcon = document.getElementById("close-subtask-icon");
-    const checkIcon = document.getElementById("check-subtask-icon");
-    const subInput  = document.getElementById("subtask-input");
-    if (!addIcon || !subInput) return;
-  
-    addIcon.addEventListener("click", () => {
-      if (subInput.value.trim() !== "") {
-        confirmSubtaskEntry();
-      } else {
-        activateSubtaskInput();
-      }
-    });
-  
-    subInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        confirmSubtaskEntry();
-      }
-    });
-  }
+  const addIcon = document.getElementById("add-icon");
+  const closeIcon = document.getElementById("close-subtask-icon");
+  const checkIcon = document.getElementById("check-subtask-icon");
+  const subInput = document.getElementById("subtask-input");
+  if (!addIcon || !subInput) return;
+
+  addIcon.addEventListener("click", () => {
+    if (subInput.value.trim() !== "") {
+      confirmSubtaskEntry();
+    } else {
+      activateSubtaskInput();
+    }
+  });
+
+  subInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      confirmSubtaskEntry();
+    }
+  });
+}
 
 function checkSubtaskClass() {
-    document.addEventListener("click", function (e) {
-      if (e.target.classList.contains("edit-subtask")) {
-        const index = +e.target.dataset.index;
-        editSubtask(index);
-      }
-  
-      if (e.target.classList.contains("delete-subtask")) {
-        const index = +e.target.dataset.index;
-        deleteSubtask(index);
-      }
-  
-      if (e.target.classList.contains("confirm-subtask")) {
-        const index = +e.target.dataset.index;
-        saveSubtask(index);
-      }
-      if (e.target.id === "close-subtask-icon") {
-        toggleIcons();
-      }
-    });
-  }
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("edit-subtask")) {
+      const index = +e.target.dataset.index;
+      editSubtask(index);
+    }
 
+    if (e.target.classList.contains("delete-subtask")) {
+      const index = +e.target.dataset.index;
+      deleteSubtask(index);
+    }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    initSubtaskUI();
-    setupSubtaskListeners();
-    checkSubtaskClass(); // data delegation für delete und edit
+    if (e.target.classList.contains("confirm-subtask")) {
+      const index = +e.target.dataset.index;
+      saveSubtask(index);
+    }
+    if (e.target.id === "close-subtask-icon") {
+      toggleIcons();
+    }
   });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initSubtaskUI();
+  setupSubtaskListeners();
+  checkSubtaskClass(); // data delegation für delete und edit
+});

@@ -246,6 +246,24 @@ async function applyUserColors() {
 }
 
 /**
+ * Erstellt einen neuen Task und zeigt das Overlay.
+ *
+function createNewTask(status) {
+  const taskData = {
+    id: Date.now().toString(),
+    category: "User Story",
+    title: "Neue Aufgabe",
+    description: "",
+    dueDate: new Date().toISOString().split("T")[0],
+    priority: "Medium",
+    assignedTo: [],
+    subtasks: [],
+    status: status
+  };
+  showAddTaskOverlay();;
+}
+
+/**
  * Wandelt Spaltenindex in Status-String um.
  */
 function getStatusFromColumnIndex(columnIndex) {

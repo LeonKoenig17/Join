@@ -72,7 +72,7 @@ async function showEditTaskOverlay(taskId) {
   }
 }
 
-function closeOverlay(force = false) {
+function closeOverlay() {
   const overlay = document.getElementById("taskOverlay");
   if (overlay) overlay.remove();
   currentTask = null;
