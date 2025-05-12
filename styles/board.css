@@ -39,6 +39,12 @@ button {
   cursor: pointer;
 }
 
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 #searchInput {
   background-color: white;
   padding: 10px;
@@ -183,9 +189,6 @@ button {
 }
 
 .add-task {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   width: 24px;
   height: 24px;
   background: url("../images/taskPlus.svg") no-repeat center;
