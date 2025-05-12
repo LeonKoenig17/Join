@@ -186,7 +186,7 @@ async function renderLists() {
         <button
           id="${statusKeys[i]}Btn"
           class="add-task"
-          onclick="createNewTask('${statusKeys[i]}')"
+          onclick="showAddTaskOverlay('${statusKeys[i]}')"
         ></button>
       </div>
     `;
@@ -243,24 +243,6 @@ async function applyUserColors() {
   } catch (error) {
     console.error("Fehler beim Anwenden der Benutzerfarben:", error);
   }
-}
-
-/**
- * Erstellt einen neuen Task und zeigt das Overlay.
- */
-function createNewTask(status) {
-  const taskData = {
-    id: Date.now().toString(),
-    category: "User Story",
-    title: "Neue Aufgabe",
-    description: "",
-    dueDate: new Date().toISOString().split("T")[0],
-    priority: "Medium",
-    assignedTo: [],
-    subtasks: [],
-    status: status
-  };
-  showAddTaskOverlay();;
 }
 
 /**

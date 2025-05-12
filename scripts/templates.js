@@ -415,7 +415,7 @@ function addTaskOverlayTemplate(stage) {
             <div class="create-btn-container">
               <button
                 id="create-task-btn"
-                onclick="createTask(${stage})"
+                onclick="createTask('${stage}')"
                 type="button"
                 class="create-task-btn"
               >

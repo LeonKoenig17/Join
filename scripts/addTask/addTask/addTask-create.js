@@ -1,9 +1,12 @@
-async function createTask() {
+async function createTask(stage) {
     const data = getFormData();
     if (!validateFormData(data)) return;
   
+
+    const stageMap = { todo: 0, inProgress: 1, awaitFeedback: 2, done: 3 };
+    data.stage     = stageMap[stage] ?? 0;
     data.taskIndex = Date.now();
-    data.stage = 0;
+   
   
     try {
       await postData("tasks", data);

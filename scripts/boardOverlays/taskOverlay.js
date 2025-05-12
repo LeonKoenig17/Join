@@ -13,8 +13,8 @@ function showTaskOverlay(taskData) {
   });
 }
 
-function showAddTaskOverlay() {
-  renderAddTaskOverlay();
+function showAddTaskOverlay(stage) {
+  renderAddTaskOverlay(stage);
   initOverlayPriority();
   initializeOverlayFeatures();
   setupTaskForm();
