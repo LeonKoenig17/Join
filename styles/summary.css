@@ -2,7 +2,7 @@ summary {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin: 40px 0 0 90px;
+  margin: 30px 40px 0 40px;
 }
 
 .frame-40 {
