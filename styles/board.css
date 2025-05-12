@@ -143,10 +143,7 @@ button {
   flex: 0 0 var(--column-width);
   position: relative;
   font-size: 20px;
-  padding-bottom: 14px;
-}
-
-#board-btn-section>div span {
+  padding-bottom: 40px;
   color: #42526e;
   font-weight: bold;
 }
@@ -159,7 +156,6 @@ button {
   overflow: overlay;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--font-color);
-
 }
 
 #boardContent::-webkit-scrollbar {
