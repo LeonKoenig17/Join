@@ -209,9 +209,21 @@ p span {
   margin-top: 8px;
   transition: background-color 0.2s ease;
 }
+
 .subtask-checkbox-container:hover {
   background-color: var(--border-color);
 }
+
+.subtask-count.not-done:hover {
+  color: var(--color-red);
+  cursor: pointer;
+}
+
+.subtask-count.all-done:hover {
+  color: var(--color-green);
+  cursor: pointer;
+}
+
 .subtask-checkbox-icon {
   width: 24px;
   height: 24px;
