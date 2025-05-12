@@ -476,12 +476,78 @@ strong {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+#addContactFrame {
+  display: flex;
+  width: 1200px;
+}
+
+.closeFormImg {
+  padding: 5px 5px;
+  position: absolute;
+  right: 25px;
+  top: calc(50% - 225px);
+}
+
+.closeFormImg:hover {
+  background-color: #EEEEEE;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
 .hide {
   display: none;
 }
 
 .flex {
   display: flex;
+}
+
+.visibleNone {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+#manipulateContactBackground {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(100, 100, 100, 0.0);
+}
+
+.showManipualteFormBackground {
+  visibility: visible;
+  animation: fadeBackground 250ms ease forwards;
+}
+
+.showManipualteFormFrame {
+  visibility: visible;
+  animation: slideInFromRight 250ms ease forwards;
+}
+
+@keyframes fadeBackground {
+  from {
+    background-color: rgba(100, 100, 100, 0);
+  }
+
+  to {
+    background-color: rgba(100, 100, 100, 0.5);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    left: 100%;
+    top: 50%;
+    transform: translate(0%, -50%)
+  }
+  to {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+  }
 }
 
 @keyframes fadeIn {

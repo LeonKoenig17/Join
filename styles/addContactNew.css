@@ -9,15 +9,16 @@
     background-color: rgba(100, 100, 100, 0.5);
 }
 
-#addContactDiv {
+#addContactRight {
     display: flex;
-    border-radius: 50px;
+    border-radius: 0px 50px 50px 0px;
     background-color: whitesmoke;
     width: fit-content;
 }
 
-#addContactBackground section {
+#addContactLeft {
     background-color: #2A3647;
+    border-radius: 50px 0px 0px 50px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -88,6 +89,12 @@
 #addContactRightInputs {
     height: fit-content;
     width: 100%;
+}
+
+#addContactFrame {
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 600px)
 }
 
 .flexColumn {
