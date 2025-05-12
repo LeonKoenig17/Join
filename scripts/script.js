@@ -79,10 +79,10 @@ async function findUser(email) {
 
     try {
         ergebnisseLogin = fireBaseContent.login;
-        ergebnisseContacts = fireBaseContent.contacts;
+        ergebnisseContacts = fireBaseContent.contact;
     } catch (error) {
         ergebnisseLogin = await loadData("login")
-        ergebnisseContacts = await loadData("contacts")
+        ergebnisseContacts = await loadData("contact")
     }
     ergebnisse = { ...ergebnisseLogin, ...ergebnisseContacts }
     for (let userId in ergebnisse) {

@@ -1,5 +1,8 @@
 
 let fireBaseContent = {}
+let dataLogin = "";
+let dataContact = ""
+let dataFull = "";
 
 async function loadFromFirebase() {
     fireBaseContent = await loadData();
@@ -151,40 +154,56 @@ async function contactForm(task, type) {
     // addContact.style.transform = 'translate(0%, -50%)';
     // addContactDiv.classList.add("hide")
 
+    if (type == "edit") {
+        thisEmail = document.getElementById("emailInput").value;
+    } else {
+        thisEmail = document.getElementById("contactDetailsMail").innerHTML;
+    }
+
     if (task == 'add') {
         await addContactTask();
         window.parent.location.reload();
         return null
     }
 
-    try {
-        thisEmail = document.getElementById("emailInput").value;
-    } catch (error) {
-        thisEmail = document.getElementById("contactDetailsMail").innerHTML;
-    }
+
+
     // let thisToken = await findUser(thisEmail);
 
     if (task == 'delete') {
-        await deleteData(`contact/${thisToken}`)
-        window.parent.location.reload();
+        thisToken = await findUser(thisEmail);
+        if (dataFull[thisToken].type == "login") {
+            window.alert("This contact is a registered user, you can't delete it.")
+            return null;
+        } else {
+            await deleteData(`contact/${thisToken}`)
+            window.parent.location.reload();
+        }
     }
 
     if (task == 'save') {
+
+        // let thisEmail = document.getElementById("emailInput").value;
         let thisPhone = document.getElementById("phoneInput").value;
         let thisName = document.getElementById("nameInput").value;
+
+        thisToken = await findUser(thisEmail);
+
         if (ergebnisse[thisToken].type == "contact") {
             myData = { "name": thisName, "email": thisEmail, "phone": thisPhone };
         } else {
-            myData = { "phone": thisPhone };
+            myData = { "name": thisName, "phone": thisPhone };
         }
-        await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, { "name": thisName, "email": thisEmail, "phone": thisPhone })
+        // await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, { "name": thisName, "email": thisEmail, "phone": thisPhone })
+        await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, myData)
+
         window.parent.location.reload();
     }
 }
 
 
 function changeImage(element) {
-    document.getElementById("cancelImg").src = `../images/cancel${element}.svg`;
+    document.getElementById("leftBtnImg").src = `../images/cancel${element}.svg`;
 }
 
 
@@ -206,19 +225,28 @@ async function showContactForm(type) {
 
     background.classList.add("showManipualteFormBackground")
     frame.classList.add("showManipualteFormFrame")
+    contactFormBtn(type);
 
 
 
     // === Werte an editContact übergeben ===
     if (type === 'edit') {
-        const name = document.getElementById('contactDetailsName')?.innerText || '';
-        const email = document.getElementById('contactDetailsMail')?.innerText || '';
-        const phone = document.getElementById('contactDetailsPhone')?.innerText || '';
+        let name = document.getElementById("contactDetailsName").innerHTML;
+        let email = document.getElementById("contactDetailsMail").innerHTML;
+        let phone = document.getElementById("contactDetailsPhone").innerHTML;
+
+        document.getElementById("nameInput").value = name
+        document.getElementById("emailInput").value = email
+        document.getElementById("phoneInput").value = phone
+
+        // const name = document.getElementById('contactDetailsName')?.innerText || '';
+        // const email = document.getElementById('contactDetailsMail')?.innerText || '';
+        // const phone = document.getElementById('contactDetailsPhone')?.innerText || '';
 
         // Direkt auf contentWindow zugreifen, wenn iframe schon geladen ist
-        const iframe = document.getElementById('editContact');
+        // const iframe = document.getElementById('editContact');
 
-        thisToken = await findUser(email);
+        return null
 
         iframe.contentWindow.postMessage({
             type: 'tokenUpdate',
@@ -249,6 +277,23 @@ async function showContactForm(type) {
                 console.error("Fehler beim direkten Zugriff auf editContact iframe:", e);
             }
         }
+    }
+}
+
+function contactFormBtn(type) {
+    let leftBtn = document.getElementById("leftBtn");
+    let rightBtn = document.getElementById("rightBtn");
+    if (type == "edit") {
+        leftBtn.innerHTML = `Delete<img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10">`;
+        leftBtn.setAttribute('onclick', 'contactForm("delete","edit")')
+        rightBtn.innerHTML = `Save<img src="../images/check.svg" alt="" class="marginLeft10">`;
+        rightBtn.setAttribute('onclick', 'contactForm("save","edit")')
+    }
+    else {
+        leftBtn.innerHTML = `Cancel<img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10">`;
+        leftBtn.setAttribute('onclick', 'hideContactForm("add")')
+        rightBtn.innerHTML = `Create Contact<img src="../images/check.svg" alt="" class="marginLeft10">`;
+        rightBtn.setAttribute('onclick', 'contactForm("add","add")')
     }
 }
 
@@ -285,23 +330,22 @@ async function contactDetails(element) {
 }
 
 async function getContactDetails(emailToFind) {
-    let dataLogin = "";
-    let dataContact = ""
+
     try {
         dataLogin = fireBaseContent.login;
         dataContact = fireBaseContent.contact;
     } catch (error) {
-        dataLogin =  await loadData("login");
-        dataContact =  await loadData("contact");
+        dataLogin = await loadData("login");
+        dataContact = await loadData("contact");
     }
     // const dataLogin = await loadData("login");
     // const dataContacts = await loadData("contacts");
 
-    const data = { ...dataContact, ...dataLogin };
+    dataFull = { ...dataContact, ...dataLogin };
 
     let contactDetail = {};
 
-    for (const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(dataFull)) {
         if (value.email === emailToFind) {
             contactDetail = { "name": value.name, "email": value.email, "color": value.color, "phone": value.phone }
             return contactDetail;

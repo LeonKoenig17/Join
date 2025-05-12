@@ -429,10 +429,11 @@ main {
 .contactInformations {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .contactInformations p {
-  margin: 20px 0;
+  margin-top: 20px;
   font-weight: bold;
 }
 
