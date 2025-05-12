@@ -5,10 +5,10 @@
 #mainContent {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  margin: 30px 40px 0 40px;
+  /* gap: 24px; */
   position: fixed;
-  top: 10%;
-  left: 25%;
+  top: 90px;
   max-height: calc(100vh - 20px);
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -26,14 +26,15 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 }
 
-#boardHeader > div {
+#boardHeader>div {
   display: flex;
   align-items: center;
 }
 
-#boardHeader > div * {
+#boardHeader>div * {
   font-size: 20px;
   cursor: pointer;
 }
@@ -131,7 +132,15 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-.column-header {
+#board-btn-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  /* padding-top: 24px; */
+}
+
+#board-btn-section>div {
+  flex: 0 0 var(--column-width);
   position: relative;
   font-size: 20px;
   padding-bottom: 40px;
@@ -142,25 +151,26 @@ button {
 #boardContent {
   display: flex;
   justify-content: space-between;
+  margin-top: 24px;
   gap: 24px;
   overflow: overlay;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--font-color);
-  }
+}
 
-  #boardContent::-webkit-scrollbar {
-    width: 8px;
-  }
+#boardContent::-webkit-scrollbar {
+  width: 8px;
+}
 
-  #boardContent::-webkit-scrollbar-track {
-    background: #e7e7e7;
-  }
+#boardContent::-webkit-scrollbar-track {
+  background: #e7e7e7;
+}
 
-  #boardContent::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    border: 2px solid #e7e7e7;
-  }
+#boardContent::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid #e7e7e7;
+}
 
 .noTasks {
   text-align: center;
@@ -184,6 +194,7 @@ button {
   cursor: pointer;
   z-index: 2;
 }
+
 .add-task:hover {
   background-image: url("../images/taskPlusHover.svg");
 }

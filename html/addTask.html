@@ -1,64 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join/Add Task</title>
-    <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../style.css" />
 
-    <link
-      rel="shortcut icon"
-      href="../images/joinlogowhite.svg"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../styles/addTask/addTask.css" />
-    <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
-    <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
-    <link rel="stylesheet" href="../styles/fonts.css" />
-    <link rel="stylesheet" href="../styles/responsive/style-resp.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join/Add Task</title>
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../style.css" />
 
-    <!-- <script src="../scripts/containerDebugger.js"></script> -->
-    <script src="../scripts/script.js"></script>
-  </head>
+  <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="../styles/addTask/addTask.css" />
+  <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
+  <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../styles/responsive/style-resp.css">
 
-  <body class="add-task-page" onload="init()">
-    <aside>
-      <div id="logo">
-        <img src="../images/joinlogowhite.svg" alt="" />
-      </div>
-      <nav>
-        <a href="./summary.html">
-          <img src="../images/summarygray.svg" alt="logo" />
-          <span>Summary</span>
-        </a>
-        <a href="./addTask.html" class="active">
-          <img src="../images/addtaskwhite.svg" alt="logo" />
-          <span>Add Task</span>
-        </a>
-        <a href="./board.html">
-          <img src="../images/boardgray.svg" alt="logo" />
-          <span>Board</span>
-        </a>
-        <a href="./contacts.html">
-          <img src="../images/contactsgray.svg" alt="logo" />
-          <span>Contacts</span>
-        </a>
-      </nav>
-      <div id="legal">
-        <a href="./privacy-policy.html">Privacy Policy</a>
-        <a href="./legal-notice.html">Legal Notice</a>
-      </div>
-    </aside>
-    <main>
-      <!-- <header>
-      <span>Kanban Project Management Tool</span>
-      <div>
-        <a href=""><img src="../images/help20x20.svg" alt="help" /></a>
-        <a href="" id="userLink">LK</a>
-      </div>
-    </header> -->
+  <!-- <script src="../scripts/containerDebugger.js"></script> -->
+  <script src="../scripts/script.js"></script>
+</head>
 
+<body class="add-task-page" onload="init()">
+  <aside>
+    <div id="logo">
+      <img src="../images/joinlogowhite.svg" alt="" />
+    </div>
+    <nav>
+      <a href="./summary.html">
+        <img src="../images/summarygray.svg" alt="logo" />
+        <span>Summary</span>
+      </a>
+      <a href="./addTask.html" class="active">
+        <img src="../images/addtaskwhite.svg" alt="logo" />
+        <span>Add Task</span>
+      </a>
+      <a href="./board.html">
+        <img src="../images/boardgray.svg" alt="logo" />
+        <span>Board</span>
+      </a>
+      <a href="./contacts.html">
+        <img src="../images/contactsgray.svg" alt="logo" />
+        <span>Contacts</span>
+      </a>
+    </nav>
+    <div id="legal">
+      <a href="./privacy-policy.html">Privacy Policy</a>
+      <a href="./legal-notice.html">Legal Notice</a>
+    </div>
+  </aside>
+  <main>
     <header>
       <div class="header-container">
         <div>
@@ -78,7 +67,7 @@
     </div>
 
 
-    <div id="main">
+    <div id="main" class="main-addTask">
       <div class="main-container">
         <!-- <div id="message"></div> -->
         <h1>Add Task</h1>
@@ -143,111 +132,79 @@
                 <div class="dropdown-options" id="assignedDropdownOptions"></div>
               </div>
             </div>
-              <div class="assigned-chips" id="assignedChips"></div>
-              <div>
-                <h3>Category<span class="star">*</span></h3>
-                <div class="custom-select-container">
-                  <select id="categorySelect">
-                    <option value="" disabled selected>
-                      Select a category
-                    </option>
-                    <option value="Technical Task">Technical Task</option>
-                    <option value="User Story">User Story</option>
-                  </select>
-                  <img
-                    src="../images/arrow_drop_down.svg"
-                    alt=""
-                    class="select-icon category-icon"
-                  />
-                </div>
-                <span class="error-message" id="category-error"></span>
+            <div class="assigned-chips" id="assignedChips"></div>
+            <div>
+              <h3>Category<span class="star">*</span></h3>
+              <div class="custom-select-container">
+                <select id="categorySelect">
+                  <option value="" disabled selected>
+                    Select a category
+                  </option>
+                  <option value="Technical Task">Technical Task</option>
+                  <option value="User Story">User Story</option>
+                </select>
+                <img src="../images/arrow_drop_down.svg" alt="" class="select-icon category-icon" />
               </div>
-              <div>
-                <h3>Subtasks</h3>
-                <div class="subtask-input">
-                  <input
-                    type="text"
-                    id="subtask-input"
-                    placeholder="Add new subtask"
-                    onclick="activateSubtaskInput()"
-                    autocomplete="off"
-                  />
-                  <div class="subTask-icons">
-                    <img
-                      onclick="confirmSubtaskEntry()"
-                      id="check-subtask-icon"
-                      src="../images/checkDark.svg"
-                      alt="Confirm"
-                      class="subtask-icon-check d-none select-icon"
-                    />
-                    <img
-                      id="close-subtask-icon"
-                      src="../images/close.svg"
-                      alt="Cancel"
-                      class="subtask-icon d-none select-icon"
-                    />
-                  </div>
-                  <div class="seperator d-none" id="seperator"></div>
+              <span class="error-message" id="category-error"></span>
+            </div>
+            <div>
+              <h3>Subtasks</h3>
+              <div class="subtask-input">
+                <input type="text" id="subtask-input" placeholder="Add new subtask" onclick="activateSubtaskInput()"
+                  autocomplete="off" />
+                <div class="subTask-icons">
+                  <img onclick="confirmSubtaskEntry()" id="check-subtask-icon" src="../images/checkDark.svg"
+                    alt="Confirm" class="subtask-icon-check d-none select-icon" />
+                  <img id="close-subtask-icon" src="../images/close.svg" alt="Cancel"
+                    class="subtask-icon d-none select-icon" />
+                </div>
+                <div class="seperator d-none" id="seperator"></div>
 
-                  <img
-                    id="add-icon"
-                    src="../images/addDark.svg"
-                    alt="subtask-icon"
-                    class="select-icon"
-                  />
-                </div>
-                <div id="subtask-list"></div>
+                <img id="add-icon" src="../images/addDark.svg" alt="subtask-icon" class="select-icon" />
               </div>
+              <div id="subtask-list"></div>
             </div>
-          </section>
-        </div>
-        <div class="create-task-footer">
-          <p><span>*</span>This field is required</p>
-          <div class="form-actions">
-            <div class="clear-btn-container">
-              <button
-                type="button"
-                class="close-btn-footer"
-                onclick="clearForm()"
-              >
-                Clear
-              </button>
-            </div>
-            <div class="create-btn-container">
-              <button
-                id="create-task-btn "
-                onclick="createTask()"
-                type="button"
-                class="create-task-btn"
-              >
-                Create Task
-                <img src="../images/check.svg" alt="create icon" />
-              </button>
-            </div>
+          </div>
+        </section>
+      </div>
+      <div class="create-task-footer">
+        <p><span>*</span>This field is required</p>
+        <div class="form-actions">
+          <div class="clear-btn-container">
+            <button type="button" class="close-btn-footer" onclick="clearForm()">
+              Clear
+            </button>
+          </div>
+          <div class="create-btn-container">
+            <button id="create-task-btn " onclick="createTask()" type="button" class="create-task-btn">
+              Create Task
+              <img src="../images/check.svg" alt="create icon" />
+            </button>
           </div>
         </div>
       </div>
-    </main>
-    <footer>
-      <a href="./summary.html">
-        <img src="../images/summarygray.svg" alt="logo">
-        <span>Summary</span>
-      </a>
-      <a href="./addTask.html" class="active">
-        <img src="../images/addtaskwhite.svg" alt="logo">
-        <span>Add Task</span>
-      </a>
-      <a href="./board.html">
-        <img src="../images/boardgray.svg" alt="logo">
-        <span>Board</span>
-      </a>
-      <a href="./contacts.html">
-        <img src="../images/contactsgray.svg" alt="logo">
-        <span>Contacts</span>
-      </a>
-    </footer>
-    <script src="../scripts/templates.js"></script>
-    <script src="../scripts/firebase.js"></script>
+    </div>
+  </main>
+  <footer>
+    <a href="./summary.html">
+      <img src="../images/summarygray.svg" alt="logo">
+      <span>Summary</span>
+    </a>
+    <a href="./addTask.html" class="active">
+      <img src="../images/addtaskwhite.svg" alt="logo">
+      <span>Add Task</span>
+    </a>
+    <a href="./board.html">
+      <img src="../images/boardgray.svg" alt="logo">
+      <span>Board</span>
+    </a>
+    <a href="./contacts.html">
+      <img src="../images/contactsgray.svg" alt="logo">
+      <span>Contacts</span>
+    </a>
+  </footer>
+  <script src="../scripts/templates.js"></script>
+  <script src="../scripts/firebase.js"></script>
 
   <script src="../scripts/addTask/db.js"></script>
   <script src="../scripts/addTask/addTask/addTask-init.js"></script>
@@ -256,7 +213,8 @@
   <script src="../scripts/addTask/addTask/addTask-formData.js"></script>
   <script src="../scripts/addTask/addTask/addTask-create.js"></script>
 
-    <script src="../scripts/addTask/addSubtasks/addSubtask.js"></script>
-    <script src="../scripts/addTask/addTaskDropDown.js"></script>
-  </body>
+  <script src="../scripts/addTask/addSubtasks/addSubtask.js"></script>
+  <script src="../scripts/addTask/addTaskDropDown.js"></script>
+</body>
+
 </html>
