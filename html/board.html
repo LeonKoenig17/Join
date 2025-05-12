@@ -12,11 +12,11 @@
     />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/addTask/board-taskcard.css" />
     <link rel="stylesheet" href="../styles/addTask/taskOverlay.css" />
-    <link rel="stylesheet" href="../styles/responsive/style-resp.css">
+    <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
 
     <link rel="stylesheet" href="../styles/addTask/addTask.css" />
     <link rel="stylesheet" href="../styles/addTask/addSubtask.css" />
@@ -55,7 +55,7 @@
       <header>
         <div class="header-container">
           <div>
-            <img src="../images/joinlogodark.svg" alt="logo dark">
+            <img src="../images/joinlogodark.svg" alt="logo dark" />
             <span>Kanban Project Management Tool</span>
           </div>
           <div>
@@ -81,7 +81,12 @@
           <h2>Board</h2>
           <div>
             <div id="searchInput">
-              <input id="taskSearch" onclick="initializeTaskSearch()" type="text" placeholder="Find Task" />
+              <input
+                id="taskSearch"
+                onclick="initializeTaskSearch()"
+                type="text"
+                placeholder="Find Task"
+              />
               <button><img src="../images/search.svg" alt="search" /></button>
             </div>
             <button id="addTaskBtn" class="darkblueButton">
@@ -91,45 +96,22 @@
           </div>
         </section>
 
-        <section id="board-btn-section">
-          <div>
-            <span>To do</span>
-            <button
-              id="toDoBtn"
-              class="add-task"
-              onclick="createNewTask('todo')"
-            ></button>
-          </div>
-          <div>
-            <span>In progress</span>
-            <button
-              id="inProgressBtn"
-              class="add-task"
-              onclick="createNewTask('inProgress')"
-            ></button>
-          </div>
-          <div>
-            <span>Await feedback</span>
-            <button
-              id="feedbackBtn"
-              class="add-task"
-              onclick="createNewTask('awaitFeedback')"
-            ></button>
-          </div>
-          <div>
-            <span>Done</span>
-            <button
-              id="doneBtn"
-              class="add-task"
-              onclick="createNewTask('done')"
-            ></button>
-          </div>
-        </section>
         <section id="boardContent">
-          <div id="toDo"></div>
-          <div id="inProgress"></div>
-          <div id="awaitFeedback"></div>
-          <div id="done"></div>
+          <div class="board-column">
+            <div id="toDo" class="task-list"></div>
+          </div>
+
+          <div class="board-column">
+            <div id="inProgress" class="task-list"></div>
+          </div>
+
+          <div class="board-column">
+            <div id="awaitFeedback" class="task-list"></div>
+          </div>
+
+          <div class="board-column">
+            <div id="done" class="task-list"></div>
+          </div>
         </section>
 
         <div
@@ -139,23 +121,22 @@
           onclick="handleOverlayClick(event)"
         ></div>
       </section>
-    
     </main>
     <footer>
       <a href="./summary.html">
-        <img src="../images/summarygray.svg" alt="logo">
+        <img src="../images/summarygray.svg" alt="logo" />
         <span>Summary</span>
       </a>
       <a href="./addTask.html">
-        <img src="../images/addtaskgray.svg" alt="logo">
+        <img src="../images/addtaskgray.svg" alt="logo" />
         <span>Add Task</span>
       </a>
       <a href="./board.html" class="active">
-        <img src="../images/boardwhite.svg" alt="logo">
+        <img src="../images/boardwhite.svg" alt="logo" />
         <span>Board</span>
       </a>
       <a href="./contacts.html">
-        <img src="../images/contactsgray.svg" alt="logo">
+        <img src="../images/contactsgray.svg" alt="logo" />
         <span>Contacts</span>
       </a>
     </footer>

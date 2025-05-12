@@ -75,6 +75,7 @@ async function updateStage(container, taskId) {
     });
 
     await fetchData();
+    
   }
 }
 
@@ -142,7 +143,7 @@ async function fetchData() {
  * Setzt Drag & Drop und Button-Listener.
  */
 function setupEventListeners() {
-  const containers = document.querySelectorAll("#boardContent > div");
+  const containers = document.querySelectorAll("#boardContent .task-list");
   for (let i = 0; i < containers.length; i++) {
     const container = containers[i];
 
@@ -170,41 +171,56 @@ function setupEventListeners() {
 /**
  * Rendert alle vier Spalten des Boards.
  */
+/**
+ * Rendert alle vier Spalten des Boards – inklusive Header + Add-Task-Button.
+ */
 async function renderLists() {
-  const containers = document.querySelectorAll("#boardContent > div");
+  const containers = document.querySelectorAll("#boardContent .task-list");
+  const statusLabels = ["To do", "In Progress", "Await Feedback", "Done"];
+  const statusKeys   = ["todo",  "inProgress",  "awaitFeedback",  "done"];
+
   for (let i = 0; i < containers.length; i++) {
-    containers[i].innerHTML = "";
+    containers[i].innerHTML = `
+      <div class="column-header">
+        <span>${statusLabels[i]}</span>
+        <button
+          id="${statusKeys[i]}Btn"
+          class="add-task"
+          onclick="createNewTask('${statusKeys[i]}')"
+        ></button>
+      </div>
+    `;
   }
 
   for (let column = 0; column < arrays.length; column++) {
     const list = arrays[column];
-    for (let j = 0; j < list.length; j++) {
-      const task = list[j];
-      const taskData = {
-        id: task.id,
-        taskIndex: task.taskIndex || Date.now(),
-        category: task.category || "User Story",
-        title: task.title || "",
-        description: task.description || "",
-        dueDate: task.dueDate || new Date().toISOString().split("T")[0],
-        priority: task.priority || "Medium",
-        assignedTo: task.assignedTo || [],
-        subtasks: task.subtasks || [],
-        status: getStatusFromColumnIndex(task.stage || 0)
-      };
-      containers[column].innerHTML += generateTaskCard(taskData);
-    }
-  }
 
-  for (let i = 0; i < containers.length; i++) {
-    if (containers[i].innerHTML === "") {
-      containers[i].innerHTML = '<div class="noTasks"><span>No tasks to do</span></div>';
+    if (list.length === 0) {
+      containers[column].innerHTML += noTaskHtml;
+    } else {
+      for (let j = 0; j < list.length; j++) {
+        const task = list[j];
+        const taskData = {
+          id:          task.id,
+          taskIndex:   task.taskIndex   || Date.now(),
+          category:    task.category    || "User Story",
+          title:       task.title       || "",
+          description: task.description || "",
+          dueDate:     task.dueDate     || new Date().toISOString().split("T")[0],
+          priority:    task.priority    || "Medium",
+          assignedTo:  task.assignedTo  || [],
+          subtasks:    task.subtasks    || [],
+          status:      getStatusFromColumnIndex(task.stage || 0)
+        };
+        containers[column].innerHTML += generateTaskCard(taskData);
+      }
     }
   }
 
   addDragFunction();
   await applyUserColors();
 }
+
 
 /**
  * Wendet User-Farben auf Task-Avatare an.
