@@ -1,0 +1,170 @@
+#addContactBackground {
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+#addContactRight {
+    display: flex;
+    border-radius: 0px 50px 50px 0px;
+    background-color: whitesmoke;
+    width: fit-content;
+}
+
+#addContactLeft {
+    background-color: #2A3647;
+    border-radius: 50px 0px 0px 50px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    align-items: start;
+    justify-content: center;
+    border-radius: 50px 0px 0px 50px;
+}
+
+#addContactDivMiddle {
+    margin-left: 30px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+#addContactDivMiddle img {
+    height: 75px;
+    margin: 0;
+}
+
+#addContactDivMiddle h1 {
+    margin: 20px 0px;
+    font-size: 48px;
+    color: white
+}
+
+#addContactDivMiddle h4 {
+    margin: 0;
+    font-weight: normal;
+    color: white
+}
+
+#addContactDivMiddle figure {
+    background-color: #29ABE2;
+    height: 2px;
+    width: 100px;
+    margin: 20px 0px;
+    border-radius: 1rem;
+}
+
+#addContactRight {
+    height: 500px;
+    width: 800px;
+}
+
+#addContactRightDiv {
+    display: flex;
+    margin: 100px;
+    height: calc(100% - 2 * 100px);
+    align-items: center;
+}
+
+#addContactRightImg {
+    background-color: #D1D1D1;
+    height: fit-content;
+    width: fit-content;
+    margin-right: 50px;
+    border-radius: 100%;
+    padding: 10px;
+    border: solid 4px white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+#addContactRightImg img {
+    height: 100px;
+}
+
+#addContactRightInputs {
+    height: fit-content;
+    width: 100%;
+}
+
+#addContactFrame {
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 600px)
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    /* padding-left: 0px; */
+}
+
+.inputImg {
+    position: relative;
+    right: 45px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.flex {
+    display: flex;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.marginLeft10 {
+    margin-left: 10px;
+}
+
+.contactBtn {
+    font-size: 21px;
+    font-weight: normal;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px 10px;
+    cursor: pointer;
+    height: 48px;
+    display: flex;
+    text-wrap: nowrap;
+    align-items: center;
+}
+
+.whiteBtn {
+    background-color: white;
+    color: black;
+    border: solid 1px var(--primary-color);
+}
+
+.whiteBtn:hover {
+    box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+    border-color: var(--text-underline-color);
+    color: var(--text-underline-color);
+    transition: all 0.1s ease-in-out;
+}
+
+.blueBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    margin-left: 20px;
+}
+
+.blueBtn:hover {
+    background-color: var(--text-underline-color);
+    box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.1s ease-in-out;
+}
