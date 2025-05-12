@@ -324,7 +324,6 @@ main {
 }
 
 .singleUser {
-  /* background-color: yellow; */
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -332,6 +331,7 @@ main {
   padding: 10px 10px;
   margin: 5px 0;
   color: black;
+  cursor: pointer;
 }
 
 .singleUser:hover {
@@ -495,21 +495,7 @@ strong {
   border-radius: 50%;
 }
 
-.hide {
-  display: none;
-}
 
-.flex {
-  display: flex;
-}
-
-.visibleNone {
-  visibility: hidden;
-}
-
-.visible {
-  visibility: visible;
-}
 
 #manipulateContactBackground {
   position: absolute;
@@ -526,6 +512,29 @@ strong {
 .showManipualteFormFrame {
   visibility: visible;
   animation: slideInFromRight 250ms ease forwards;
+}
+
+#deleteError {
+  position: absolute;
+  flex-wrap: nowrap;
+  color: red;
+  font-size: 12px;
+}
+
+.hide {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.visibleNone {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
 }
 
 @keyframes fadeBackground {

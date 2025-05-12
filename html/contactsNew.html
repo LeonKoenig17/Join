@@ -97,7 +97,7 @@
 
             <div id="contactDetailsPerson" class="contactDetailsPerson">
               <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
-              <section>
+              <section style="background-color: yellow;">
                 <p id="contactDetailsName">Anja Schulz</p>
                 <div>
                   <nav onclick="showContactForm('edit')">
@@ -106,7 +106,7 @@
                   </nav>
                   <nav onclick="contactForm('delete','')">
                     <img src="../images/delete.svg" alt="">
-                    <span style="margin-right: 20px;">Delete</span>
+                    <span style="margin-right: 20px;" id="deleteBtn">Delete</span>
                   </nav>
                 </div>
               </section>
@@ -185,6 +185,8 @@
       </div>
     <!-- </div> -->
   <!-- </div> -->
+
+              <span id="deleteError" class="hide">Registered users<br>can't be deleted</span>
 
 
   <script src="../scripts/script.js"></script>

@@ -166,14 +166,11 @@ async function contactForm(task, type) {
         return null
     }
 
-
-
-    // let thisToken = await findUser(thisEmail);
-
     if (task == 'delete') {
         thisToken = await findUser(thisEmail);
         if (dataFull[thisToken].type == "login") {
-            window.alert("This contact is a registered user, you can't delete it.")
+            // window.alert("This contact is a registered user, you can't delete it.")
+            deleteError();
             return null;
         } else {
             await deleteData(`contact/${thisToken}`)
@@ -327,6 +324,21 @@ async function contactDetails(element) {
     document.getElementById("contactDetailsName").innerHTML = thiscontactDetail.name;
     document.getElementById("contactDetailsMail").innerHTML = thiscontactDetail.email;
     document.getElementById("contactDetailsPhone").innerHTML = thiscontactDetail.phone;
+
+
+}
+
+function deleteError() {
+    try {
+        let element = document.getElementById("deleteBtn");
+        let position = element.getBoundingClientRect();
+        let span = document.getElementById("deleteError");
+        span.classList.remove("hide")
+        span.style.left = Number.parseInt((position.left - 30)) + "px";
+        span.style.top = Number.parseInt((position.top + 30)) + "px";
+    } catch (error) {
+        return null
+    }
 }
 
 async function getContactDetails(emailToFind) {
