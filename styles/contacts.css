@@ -52,6 +52,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header span {
@@ -552,6 +553,7 @@ strong {
     top: 50%;
     transform: translate(0%, -50%)
   }
+
   to {
     left: 50%;
     top: 50%;

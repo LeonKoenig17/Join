@@ -1,5 +1,6 @@
 body {
     display: flex;
+    background: var(--background-color);
 }
 
 aside {
@@ -25,10 +26,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header span {
     margin-left: 100px;
+    cursor: context-menu;
 }
 
 header img:hover {
