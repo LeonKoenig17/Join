@@ -161,6 +161,8 @@ header img:hover {
   padding: 0;
   height: calc(100vh - 190px);
   overflow: auto;
+  overflow-y: visible;
+
 }
 
 #contentRight {
@@ -240,11 +242,7 @@ main {
   margin-right: 20px;
 }
 
-#allContacts {
-  overflow-y: visible;
-  height: calc(100vh - 180px);
-  padding: 0;
-}
+
 
 .forms label {
   font-size: 20px;

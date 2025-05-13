@@ -3,6 +3,7 @@ let fireBaseContent = {}
 let dataLogin = "";
 let dataContact = ""
 let dataFull = "";
+// let thisToken = "";
 
 async function loadFromFirebase() {
     fireBaseContent = await loadData();
@@ -16,13 +17,19 @@ async function onloadContacts() {
 }
 
 function getContactsfromFirebase() {
-    // const dataLogin = await loadData("login");
-    const dataLogin = fireBaseContent.login;
-    // const dataContacts = await loadData("contacts");
-    const dataContacts = fireBaseContent.contact;
-    const data = { ...dataContacts, ...dataLogin }
+    dataLogin = fireBaseContent.login;
+    dataContact = fireBaseContent.contact;
 
-    const users = Object.values(data).map(user => ({
+    dataFull = { ...dataContact, ...dataLogin };
+
+
+    // const dataLogin = await loadData("login");
+    // const dataLogin = fireBaseContent.login;
+    // const dataContacts = await loadData("contacts");
+    // const dataContacts = fireBaseContent.contact;
+    // const data = { ...dataContact, ...dataLogin }
+
+    const users = Object.values(dataFull).map(user => ({
         name: user.name,
         email: user.email,
         color: user.color,
@@ -142,18 +149,8 @@ function sendDataToIframe() {
 }
 
 async function contactForm(task, type) {
-    // const parentWindow = window.parent;
-    // const addContact = document.getElementById(`${type}Contact`);
-    // const addContactDiv = document.getElementById('addContactDiv');
-    // const allContactsDiv = document.getElementById('allContacts');
 
     let thisEmail = '';
-
-    // addContact.classList.add("hide")
-    // addContact.style.left = '100%';
-    // addContact.style.top = '50%';
-    // addContact.style.transform = 'translate(0%, -50%)';
-    // addContactDiv.classList.add("hide")
 
     if (type == "edit") {
         thisEmail = document.getElementById("emailInput").value;
@@ -170,8 +167,7 @@ async function contactForm(task, type) {
     if (task == 'delete') {
         thisToken = await findUser(thisEmail);
         if (dataFull[thisToken].type == "login") {
-            // window.alert("This contact is a registered user, you can't delete it.")
-            deleteError();
+            (type === 'edit') ? deleteError("leftBtn", 18, 50) : deleteError("deleteIcon", 18, 30);
             return null;
         } else {
             await deleteData(`contact/${thisToken}`)
@@ -212,18 +208,30 @@ function hideContactForm(type) {
     background.classList.add("visibleNone");
     frame.removeAttribute("class")
     frame.classList.add("visibleNone");
+    document.getElementById("deleteError").classList.add("hide")
 }
 
 async function showContactForm(type) {
     // let contact = document.getElementById(`${type}Contact`);
     // let contactDiv = document.getElementById(`${type}ContactDiv`);
+    
+    let myToken = localStorage.getItem("token")
+    if (myToken != thisToken && dataFull[thisToken].type === "login") {
+        deleteError("editIcon", 18, 30);
+        return null;
+    }
 
     let background = document.getElementById("manipulateContactBackground")
     let frame = document.getElementById("addContactFrame")
 
     background.classList.add("showManipualteFormBackground")
     frame.classList.add("showManipualteFormFrame")
+
+    background.classList.remove("visibleNone")
+    frame.classList.remove("visibleNone")
+
     contactFormBtn(type);
+
 
 
 
@@ -231,50 +239,13 @@ async function showContactForm(type) {
         let name = document.getElementById("contactDetailsName").innerHTML;
         let email = document.getElementById("contactDetailsMail").innerHTML;
         let phone = document.getElementById("contactDetailsPhone").innerHTML;
-
         document.getElementById("nameInput").value = name
         document.getElementById("emailInput").value = email
         document.getElementById("phoneInput").value = phone
-
-        // const name = document.getElementById('contactDetailsName')?.innerText || '';
-        // const email = document.getElementById('contactDetailsMail')?.innerText || '';
-        // const phone = document.getElementById('contactDetailsPhone')?.innerText || '';
-
-        // Direkt auf contentWindow zugreifen, wenn iframe schon geladen ist
-        // const iframe = document.getElementById('editContact');
-
         return null
-
-        // iframe.contentWindow.postMessage({
-        //     type: 'tokenUpdate',
-        //     token: thisToken
-        // }, '*');
-
-
-        // Wenn das iframe noch lädt, warte darauf
-        iframe.onload = () => {
-            try {
-                const doc = iframe.contentWindow.document;
-                doc.getElementById('nameInput').value = name;
-                doc.getElementById('emailInput').value = email;
-                doc.getElementById('phoneInput').value = phone;
-            } catch (e) {
-                console.error("Fehler beim Zugriff auf editContact iframe:", e);
-            }
-        };
-
-        // Falls iframe schon geladen ist (onload wird dann nicht mehr aufgerufen)
-        if (iframe.contentWindow.document.readyState === 'complete') {
-            try {
-                const doc = iframe.contentWindow.document;
-                doc.getElementById('nameInput').value = name;
-                doc.getElementById('emailInput').value = email;
-                doc.getElementById('phoneInput').value = phone;
-            } catch (e) {
-                console.error("Fehler beim direkten Zugriff auf editContact iframe:", e);
-            }
-        }
     }
+
+
 }
 
 function contactFormBtn(type) {
@@ -326,17 +297,22 @@ async function contactDetails(element) {
     document.getElementById("contactDetailsMail").innerHTML = thiscontactDetail.email;
     document.getElementById("contactDetailsPhone").innerHTML = thiscontactDetail.phone;
     document.getElementById("deleteError").classList.add("hide")
-
+    thisToken = await findUser(thiscontactDetail.email);
 }
 
-function deleteError() {
+function deleteError(type, setOffX, setOffY) {
     try {
-        let element = document.getElementById("deleteBtn");
+        let element = document.getElementById(type);
         let position = element.getBoundingClientRect();
         let span = document.getElementById("deleteError");
+        if(type === 'editIcon'){
+            span.innerHTML = `You can't edit<br>other registered users`
+        }else{
+            span.innerHTML = `You can't delete<br>other registered users`
+        }
         span.classList.remove("hide")
-        span.style.left = Number.parseInt((position.left - 30)) + "px";
-        span.style.top = Number.parseInt((position.top + 30)) + "px";
+        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
     } catch (error) {
         return null
     }

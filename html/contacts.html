@@ -8,8 +8,6 @@
 
   <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
   <link rel="stylesheet" href="../styles/standard.css" />
-  <!-- <link rel="stylesheet" href="../style copy.css" /> -->
-  <!-- <link rel="stylesheet" href="../styles/responsive/style-resp.css"> -->
   <link rel="stylesheet" href="../styles/addcontact.css">
   <link rel="stylesheet" href="../styles/contacts.css" />
 
@@ -18,10 +16,6 @@
 </head>
 
 <body onload="onloadContacts()" style="overflow: hidden;">
-
-  <iframe id="editContact" src="../html/editContact.html" frameborder="0" class="animation hide"
-    style="position: absolute; height: 100vh;width: 100%;z-index:10;"></iframe>
-
 
   <aside>
     <div id="logo">
@@ -102,11 +96,11 @@
                 <p id="contactDetailsName">Anja Schulz</p>
                 <div>
                   <nav onclick="showContactForm('edit')">
-                    <img src="../images/edit-2.svg" alt="">
+                    <img id="editIcon" src="../images/edit-2.svg" alt="">
                     <span style="margin-right: 20px;">Edit</span>
                   </nav>
                   <nav onclick="contactForm('delete','')">
-                    <img src="../images/delete.svg" alt="">
+                    <img id="deleteIcon" src="../images/delete.svg" alt="">
                     <span style="margin-right: 20px;" id="deleteBtn">Delete</span>
                   </nav>
                 </div>
@@ -187,7 +181,7 @@
     <!-- </div> -->
   <!-- </div> -->
 
-              <span id="deleteError" class="hide">Registered users<br>can't be deleted</span>
+              <span id="deleteError" class="hide"></span>
 
 
   <script src="../scripts/script.js"></script>
