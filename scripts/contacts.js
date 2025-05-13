@@ -211,12 +211,12 @@ function hideContactForm(type) {
     document.getElementById("deleteError").classList.add("hide")
 }
 
-async function showContactForm(type) {
+async function showContactForm(task) {
     // let contact = document.getElementById(`${type}Contact`);
     // let contactDiv = document.getElementById(`${type}ContactDiv`);
     
     let myToken = localStorage.getItem("token")
-    if (myToken != thisToken && dataFull[thisToken].type === "login") {
+    if (thisToken && myToken != thisToken && dataFull[thisToken].type === "login" && task != 'add') {
         deleteError("editIcon", 18, 30);
         return null;
     }
@@ -230,12 +230,12 @@ async function showContactForm(type) {
     background.classList.remove("visibleNone")
     frame.classList.remove("visibleNone")
 
-    contactFormBtn(type);
+    contactFormBtn(task);
 
 
 
 
-    if (type === 'edit') {
+    if (task === 'edit') {
         let name = document.getElementById("contactDetailsName").innerHTML;
         let email = document.getElementById("contactDetailsMail").innerHTML;
         let phone = document.getElementById("contactDetailsPhone").innerHTML;
