@@ -31,7 +31,6 @@ summary {
 }
 
 .frame-69 {
-  width: fit-content;
   gap: 3px;
   display: flex;
   flex-direction: column;
@@ -407,4 +406,34 @@ summary {
 
 .d-none {
   visibility: hidden;
+}
+
+@media (max-width: 1050px) {
+  .frame-69 h3 {
+    font-size: 40px;
+  }
+
+  .frame-69 h2 {
+    font-size: 30px;
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+  .frame-69 {
+    display: none;
+  }
+
+  .frame-40 {
+    justify-content: center;
+  }
+
+  .summary-container {
+    justify-content: center;
+  }
+
+  summary {
+    margin: 30px 30px 0 30px;
+  }
 }
