@@ -1,7 +1,7 @@
-function renderAddTaskOverlay() {
+function renderAddTaskOverlay(stage) {
     const existing = document.getElementById("taskOverlay");
     if (existing) existing.remove();
-    const overlayHTML = addTaskOverlayTemplate();
+    const overlayHTML = addTaskOverlayTemplate(stage);
     document.body.insertAdjacentHTML("beforeend", overlayHTML);
   }
   

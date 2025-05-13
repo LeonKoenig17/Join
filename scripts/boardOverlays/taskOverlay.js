@@ -13,8 +13,8 @@ function showTaskOverlay(taskData) {
   });
 }
 
-function showAddTaskOverlay() {
-  renderAddTaskOverlay();
+function showAddTaskOverlay(stage) {
+  renderAddTaskOverlay(stage);
   initOverlayPriority();
   initializeOverlayFeatures();
   setupTaskForm();
@@ -72,7 +72,7 @@ async function showEditTaskOverlay(taskId) {
   }
 }
 
-function closeOverlay(force = false) {
+function closeOverlay() {
   const overlay = document.getElementById("taskOverlay");
   if (overlay) overlay.remove();
   currentTask = null;

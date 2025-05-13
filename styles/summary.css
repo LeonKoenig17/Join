@@ -2,9 +2,7 @@ summary {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  /* position: absolute;
-  top: 140px;
-  left: 268px; */
+  margin: 30px 80px 0 80px;
 }
 
 .frame-40 {
@@ -27,13 +25,12 @@ summary {
 .frame-40 p {
   margin: 0;
   font-weight: 500;
-  font-size: 19px;
+  font-size: 27px;
   color: #2A3647;
   cursor: context-menu;
 }
 
 .frame-69 {
-  width: fit-content;
   gap: 3px;
   display: flex;
   flex-direction: column;
@@ -153,7 +150,6 @@ summary {
   width: 90px;
   margin: 0;
   text-align: center;
-  font-weight: 400;
   font-size: 14px;
   color: #2A3647;
 }
@@ -253,17 +249,13 @@ summary {
 
 .frame-68 h4 {
   margin: 0;
-  font-weight: 700;
   font-size: 16px;
-  line-height: 120%;
   color: #2A3647;
 }
 
 .frame-68 p {
   margin: 0;
-  font-weight: 400;
   font-size: 13px;
-  line-height: 120%;
 }
 
 .frame-65 {
@@ -327,7 +319,6 @@ summary {
   height: 77px;
   font-weight: 600;
   font-size: 64px;
-  line-height: 120%;
   text-align: center;
 }
 
@@ -415,4 +406,34 @@ summary {
 
 .d-none {
   visibility: hidden;
+}
+
+@media (max-width: 1050px) {
+  .frame-69 h3 {
+    font-size: 40px;
+  }
+
+  .frame-69 h2 {
+    font-size: 30px;
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+  .frame-69 {
+    display: none;
+  }
+
+  .frame-40 {
+    justify-content: center;
+  }
+
+  .summary-container {
+    justify-content: center;
+  }
+
+  summary {
+    margin: 30px 30px 0 30px;
+  }
 }

@@ -1,4 +1,5 @@
 const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/';
+const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
 
 /**
  * Asynchronously loads JSON data from a specified path.
@@ -50,6 +51,15 @@ async function patchTask(taskId, data) {
   return await response.json();
 }
 
+async function patchData(path = "", data = {}) {
+  // const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+  await fetch(BASE_URL + path + ".json", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  // return await response.json();
+}
 /**
  * Deletes data from the specified path on the server.
  *
@@ -124,7 +134,8 @@ async function fillUserLinks() {
   let myName = myValue[myToken].name;
 
   try {
-    const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+    // const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
+    const initials = getInitials(myName)
     document.getElementById("userLink").innerHTML = initials;
   } catch (error) {
     document.getElementById("userLink").innerHTML = "G";
@@ -150,4 +161,16 @@ async function lastColor() {
 
   if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
   return iconColors[found];
+}
+
+function getInitials(element) {
+  let completeName = element.split(" ");
+  let firstName = completeName[0]
+
+  if (completeName.length == 1) {
+    return firstName[0];
+  } else {
+    let lastName = (completeName.length == 1) ? "" : completeName[completeName.length - 1];
+    return firstName[0] + lastName[0];
+  }
 }

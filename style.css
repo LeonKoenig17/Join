@@ -1,5 +1,6 @@
 body {
     display: flex;
+    background: var(--background-color);
 }
 
 aside {
@@ -13,7 +14,6 @@ aside {
 
 main {
     display: flex;
-    align-items: center;
     flex-direction: column;
     width: calc(100% - 200px);
     background-color: var(--background-color);
@@ -26,10 +26,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header span {
     margin-left: 100px;
+    cursor: context-menu;
 }
 
 header img:hover {
@@ -76,7 +78,7 @@ footer {
     cursor: pointer;
 }
 
-.userLinkOptions{
+.userLinkOptions {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -84,22 +86,22 @@ footer {
     right: 50px;
     top: 90px;
     background-color: var(--primary-color);
-    padding:15px 5px;
+    padding: 15px 5px;
     border-radius: 20px 0px 20px 20px;
     z-index: 1;
-  }
-  
- .userLinkOptionsLinks{
+}
+
+.userLinkOptionsLinks {
     text-decoration: none;
     color: var(--font-color);
-    padding:10px 20px;
-    margin:0;
+    padding: 10px 20px;
+    margin: 0;
     cursor: pointer;
-  }
-  
-  .userLinkOptionsLinks:hover{
+}
+
+.userLinkOptionsLinks:hover {
     color: var(--text-underline-color);
-  }
+}
 
 #logo {
     display: flex;
@@ -112,7 +114,8 @@ nav {
     text-align: center;
 }
 
-nav a, #legal a{
+nav a,
+#legal a {
     display: flex;
     align-items: center;
     margin: 5px 0;
@@ -157,12 +160,14 @@ nav img {
 
 
 .hide {
-    display:none;
+    display: none;
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -173,6 +178,7 @@ nav img {
         transform: translateY(-20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
