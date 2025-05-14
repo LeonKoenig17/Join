@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../styles/addTask/board-taskcard.css" />
   <link rel="stylesheet" href="../styles/addTask/taskOverlay.css" />
   <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
-  <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon" />
+
   <link rel="stylesheet" href="../styles/standard.css" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../styles/fonts.css" />
@@ -109,7 +109,7 @@
         </div>
       </section>
 
-      <div id="task-Overlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)">
+      <div id="taskOverlay" class="d-none task-overlay" data-task-id="${task.id}" onclick="handleOverlayClick(event)">
       </div>
     </section>
   </main>
@@ -131,31 +131,18 @@
       <span>Contacts</span>
     </a>
   </footer>
-  <!---->
 
-  <script src="../scripts/firebase.js"></script>
+    <script src="../scripts/firebase.js"></script>
   <script src="../scripts/templates.js"></script>
+  <script src="../scripts/userVerification.js"></script>
 
-  <script src="../scripts/addTask/db.js"></script>
-  <script src="../scripts/addTask/addTask/addTask-init.js"></script>
-  <script src="../scripts/addTask/addTask/addTask-uiHelpers.js"></script>
-  <script src="../scripts/addTask/addTask/addTask-validation.js"></script>
-  <script src="../scripts/addTask/addTask/addTask-formData.js"></script>
-  <script src="../scripts/addTask/addTask/addTask-create.js"></script>
-  <script src="../scripts/addTask/addSubtasks/addSubtask.js"></script>
-  <script src="../scripts/addTask/addTaskDropDown.js"></script>
+  <script src="../scripts/tasks/addTask.js"></script>
+  <script src="../scripts/tasks/subtask.js"></script>
+  <script src="../scripts/tasks/addTaskDropDown.js"></script>
 
-  <script src="../scripts/boardOverlays/tasksHelper.js"></script>
-  <script src="../scripts/boardOverlays/taskOverlay.js"></script>
-  <script src="../scripts/boardOverlays/taskRender.js"></script>
-  <script src="../scripts/boardOverlays/taskEvents.js"></script>
-  <script src="../scripts/boardOverlays/taskSubtasks.js"></script>
-  <script src="../scripts/boardOverlays/taskStorage.js"></script>
-  <script src="../scripts/boardOverlays/taskBoard.js"></script>
-
-  <!-- <script src="../scripts/script.js"></script> -->
-  <script src="../scripts/board.js"></script>
-  <script src="../scripts/searchTask.js"></script>
+  <script src="../scripts/tasks/taskOverlay.js"></script>
+  <script src="../scripts/tasks/board.js"></script>
+  <script src="../scripts/tasks/searchTask.js"></script>
 </body>
 
 </html>
