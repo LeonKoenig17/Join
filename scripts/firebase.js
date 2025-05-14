@@ -1,6 +1,7 @@
 const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/';
 const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
 
+
 /**
  * Asynchronously loads JSON data from a specified path.
  *
@@ -13,6 +14,7 @@ async function loadData(path = "") {
   return await response.json();
 }
 
+
 /**
  * Sends a POST request to the specified path with the provided data.
  *
@@ -22,15 +24,17 @@ async function loadData(path = "") {
  * @param {Object} data - The data to be sent in the request body.
  * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
  */
-async function postData(path = "", data = {}) {
-  await fetch(BASE_URL + path + ".json", {
+async function postData(path, data) {
+  const response = await fetch(`${BASE_URL}${path}.json`, {
     method: "POST",
+    body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
   });
+  return await response.json();
 }
+
 
 /**
  * Sends a PATCH request to update data at the specified path on the server.
@@ -51,15 +55,7 @@ async function patchTask(taskId, data) {
   return await response.json();
 }
 
-async function patchData(path = "", data = {}) {
-  // const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks";
-  await fetch(BASE_URL + path + ".json", {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-  // return await response.json();
-}
+
 /**
  * Deletes data from the specified path on the server.
  *

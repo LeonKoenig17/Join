@@ -1,62 +1,25 @@
-const subtasks = []; // Array für Subtasks
+/**
+ * subtask.js - Verwalten von Subtasks (Checkbox-Logik, UI, ProgressBar)
+ */
 
-function initSubtaskUI() {
-  const subInput = document.getElementById("subtask-input");
-  const addIcon = document.getElementById("add-icon");
-  const checkIcon = document.getElementById("check-subtask-icon");
-  const closeIcon = document.getElementById("close-subtask-icon");
-  const seperator = document.getElementById("seperator");
+const subtasks = [];
 
-  if (!subInput || !addIcon || !checkIcon || !closeIcon || !seperator) return;
-
-  subInput.value = "";
-  toggleIcons(false);
-}
-
-function toggleIcons(isActive) {
-  const addIcon = document.getElementById("add-icon");
-  const checkIcon = document.getElementById("check-subtask-icon");
-  const closeIcon = document.getElementById("close-subtask-icon");
-  const seperator = document.getElementById("seperator");
-
-  if (!addIcon || !checkIcon || !closeIcon || !seperator) return;
-
-  addIcon.classList.toggle("d-none", isActive);
-  checkIcon.classList.toggle("d-none", !isActive);
-  closeIcon.classList.toggle("d-none", !isActive);
-  seperator.classList.toggle("d-none", !isActive);
-}
-
-function activateSubtaskInput() {
-  const subInput = document.getElementById("subtask-input");
-  if (!subInput) return;
-
-  subInput.style.color = "#000000";
-  toggleIcons(true);
-  subInput.focus();
-}
-
-function cancelSubtaskEntry() {
-  initSubtaskUI();
-}
-
-function confirmSubtaskEntry() {
-  const subInput = document.getElementById("subtask-input");
-  if (!subInput) return;
-
-  const val = subInput.value.trim();
-  if (val) {
-    subtasks.push({ name: val, completed: false });
-    updateSubtaskList(subtasks);
+function initSubtasksArray(taskData) {
+  subtasks.length = 0;
+  if (!Array.isArray(taskData.subtasks)) return;
+  for (let i = 0; i < taskData.subtasks.length; i++) {
+    const s = taskData.subtasks[i];
+    subtasks.push({ name: s.name, completed: s.completed });
   }
-  initSubtaskUI();
 }
 
-function getTaskById(taskId) {
-    return tasks.find(task => task.id === taskId); // tasks ist ein globales Array mit allen Tasks
+function initializeSubtaskModule(taskData) {
+  initSubtasksArray(taskData);
+  /*initSubtaskUI();*/
+  updateSubtaskList();
+  updateProgressBar();
 }
 
-  
 function isEditMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.querySelector('.add-task-card')?.classList.contains('edit-mode');
@@ -97,6 +60,44 @@ function updateSubtaskList() {
   
 }
 
+function updateProgressBar() {
+  if (!currentTask?.id) return;
+
+  const done = subtasks.filter(s => s.completed).length;
+  const total = subtasks.length;
+  const pct = total > 0 ? (done / total) * 100 : 0;
+
+  const taskEl = document.getElementById(`task${currentTask.id}`);
+  if (!taskEl) return;
+
+  const progContainer = taskEl.querySelector('.subtask-progress-container');
+  if (progContainer) {
+    const bar = progContainer.querySelector('.subtask-progress-bar');
+    if (bar) bar.style.width = `${pct}%`;
+  }
+
+  const label = taskEl.querySelector('.subtask-count');
+  if (label) {
+    label.textContent = `${done}/${total} Subtasks`;
+    label.classList.toggle('all-done', done === total && total > 0);
+    label.classList.toggle('not-done', done !== total);
+  }
+
+  taskEl.classList.toggle('all-done', done === total && total > 0);
+  taskEl.classList.toggle('not-done', done !== total);
+}
+
+async function toggleSubtaskCompletion(index) {
+  subtasks[index].completed = !subtasks[index].completed;
+  updateSubtaskList();
+  updateProgressBar();
+
+  if (currentTask?.id) {
+    const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
+    await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+  }
+}
+
 function editSubtask(index) {
   const subtaskItems = document.querySelectorAll(".subtask-item");
   const subtaskItem = subtaskItems[index];
@@ -130,7 +131,7 @@ function handleEditKeyPress(event, index) {
   }
 }
 
-function saveSubtask(index) {
+async function saveSubtask(index) {
   const subtaskItem = document.querySelector(
     `.subtask-item[data-subtask-index="${index}"]`
   );
@@ -146,11 +147,22 @@ function saveSubtask(index) {
   subtaskItem.classList.remove("editing");
 
   updateSubtaskList();
+
+  if (currentTask?.id) {
+    const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
+    await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+  }
 }
 
-function deleteSubtask(index) {
+async function deleteSubtask(index) {
   subtasks.splice(index, 1);
   updateSubtaskList();
+
+  // ⬇ Backend speichern
+  if (currentTask?.id) {
+    const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
+    await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+  }
 }
 
 function setupSubtaskListeners() {
@@ -198,7 +210,41 @@ function checkSubtaskClass() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initSubtaskUI();
   setupSubtaskListeners();
-  checkSubtaskClass(); // data delegation für delete und edit
+  checkSubtaskClass();
 });
+
+function activateSubtaskInput() {
+  const subInput = document.getElementById("subtask-input");
+  if (!subInput) return;
+
+  subInput.style.color = "#000000";
+  toggleIcons(true);
+  subInput.focus();
+}
+
+function toggleIcons(isActive) {
+  const addIcon = document.getElementById("add-icon");
+  const checkIcon = document.getElementById("check-subtask-icon");
+  const closeIcon = document.getElementById("close-subtask-icon");
+  const seperator = document.getElementById("seperator");
+
+  if (!addIcon || !checkIcon || !closeIcon || !seperator) return;
+
+  addIcon.classList.toggle("d-none", isActive);
+  checkIcon.classList.toggle("d-none", !isActive);
+  closeIcon.classList.toggle("d-none", !isActive);
+  seperator.classList.toggle("d-none", !isActive);
+}
+
+
+function confirmSubtaskEntry() {
+  const subInput = document.getElementById("subtask-input");
+  if (!subInput) return;
+
+  const val = subInput.value.trim();
+  if (val) {
+    subtasks.push({ name: val, completed: false });
+    updateSubtaskList();
+  }
+}
