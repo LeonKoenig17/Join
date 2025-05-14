@@ -12,6 +12,27 @@ function getInitials(str) {
 }
 
 
+/**
+ * Normalisiert task.subtasks und berechnet Count + Progress.
+ * @param {Object} task
+ * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}}
+ */
+function checkSubtask(task) {
+  const subs = Array.isArray(task.subtasks)
+    ? task.subtasks
+    : task.subtasks && typeof task.subtasks === "object"
+    ? Object.values(task.subtasks)
+    : [];
+
+  const totalSubtasks = subs.length;
+  const completedSubtasks = subs.filter((s) => s.completed === true).length;
+  const progressPercentage =
+    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  return { completedSubtasks, totalSubtasks, progressPercentage };
+}
+
+
 function assignedUserTemplate(user, index, isChecked = false) {
   return `
     <div class="assigned-user-item">
@@ -35,42 +56,42 @@ function assignedUserTemplate(user, index, isChecked = false) {
   `;
 }
 
-/**
- * Normalisiert task.subtasks und berechnet Count + Progress.
- * @param {Object} task
- * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}}
- */
-function checkSubtask(task) {
-  const subs = Array.isArray(task.subtasks)
-    ? task.subtasks
-    : task.subtasks && typeof task.subtasks === "object"
-    ? Object.values(task.subtasks)
-    : [];
 
-  const totalSubtasks = subs.length;
-  const completedSubtasks = subs.filter((s) => s.completed === true).length;
-  const progressPercentage =
-    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
-  return { completedSubtasks, totalSubtasks, progressPercentage };
+function generateCardAssigneeHTML(assignees) {
+  if (!Array.isArray(assignees)) return "";
+  return assignees
+    .map((person) => {
+      if (!person || (!person.id && !person.userId)) return "";
+      const userId = person.id || person.userId;
+      const name = person.name || person.email || "?";
+      const initials = getInitials(name);
+      return /*html*/ `
+            <div class="assignee task-assignee" 
+                 data-user-id="${userId}"
+                 data-user-name="${name}"
+                 data-user-color="${person.color || "#A8A8A8"}">
+                ${initials}
+            </div>
+        `;
+    })
+    .join("");
 }
+
 
 function generateTaskCard(task) {
   const { completedSubtasks: done, totalSubtasks: total, progressPercentage } = checkSubtask(task);
 
-    const maxLen = 40;
-    const desc = task.description || "";
-    const shortDesc = desc.length > maxLen 
-      ? desc.slice(0, maxLen) + "…" 
-      : desc;
+  const maxLen = 40;
+  const desc = task.description || "";
+  const shortDesc = desc.length > maxLen 
+    ? desc.slice(0, maxLen) + "…" 
+    : desc;
 
-      const stateCls = (total > 0 && done === total) ? 'all-done' : 'not-done';
+  const stateCls = (total > 0 && done === total) ? 'all-done' : 'not-done';
   return `
-    <div id="task${task.taskIndex}" tabindex="0" class="task" draggable="true"
-         onclick="showTaskOverlay(${JSON.stringify(task).replace(
-           /"/g,
-           "&quot;"
-         )})">
+    <div id="task${task.id}" tabindex="0" class="task" draggable="true"
+         onclick="showTaskOverlayById('${task.id}')">
       <div class="task-category ${
         task.category ? task.category.toLowerCase().replace(" ", "-") : ""
       }">
@@ -106,25 +127,6 @@ function generateTaskCard(task) {
   `;
 }
 
-function generateCardAssigneeHTML(assignees) {
-  if (!Array.isArray(assignees)) return "";
-  return assignees
-    .map((person) => {
-      if (!person || (!person.id && !person.userId)) return "";
-      const userId = person.id || person.userId;
-      const name = person.name || person.email || "?";
-      const initials = getInitials(name);
-      return /*html*/ `
-            <div class="assignee task-assignee" 
-                 data-user-id="${userId}"
-                 data-user-name="${name}"
-                 data-user-color="${person.color || "#A8A8A8"}">
-                ${initials}
-            </div>
-        `;
-    })
-    .join("");
-}
 
 function subtasksTemplate(subtask, index) {
   return `
@@ -140,21 +142,25 @@ function subtasksTemplate(subtask, index) {
 }
 
 function generateTaskOverlay(task) {
-  const subtasksOverlayHTML = (task.subtasks || [])
+  const subs = Array.isArray(task.subtasks)
+    ? task.subtasks
+    : typeof task.subtasks === "object"
+    ? Object.values(task.subtasks)
+    : [];
+
+  const subtasksOverlayHTML = subs
     .map((subtask, idx) => taskOverlaySubtaskTemplate(subtask, idx))
     .join("");
 
   const assigneesHTML = taskOverlayAssignee(task.assignedTo || []);
 
-  return /*html*/ `
+  return `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="task-card-overlay">
         <div class="task-header">
-         <div class="task-category ${
-        task.category ? task.category.toLowerCase().replace(" ", "-") : ""
-      }">
-        ${task.category || ""}
-      </div>
+          <div class="task-category ${
+            task.category ? task.category.toLowerCase().replace(" ", "-") : ""
+          }">${task.category || ""}</div>
           <button class="close-btn" onclick="closeOverlay()">
             <img src="../images/close.svg" alt="Close">
           </button>
@@ -165,18 +171,15 @@ function generateTaskOverlay(task) {
           <div class="task-details">
             <div class="detail-row">
               <span class="detail-label">Due date:</span>
-              <span class="detail-value">${task.dueDate ? task.dueDate.replace(/-/g, '/') : ''}</span>
+              <span class="detail-value">${task.dueDate ? task.dueDate.replace(/-/g, "/") : ""}</span>
             </div>
             <div class="detail-row">
               <span class="detail-label">Priority:</span>
-              <div class="task-priority ${
-                task.priority ? task.priority.toLowerCase() : ""
-              }"> ${task.priority} &nbsp;
-            <img src="../images/${
-              task.priority ? task.priority.toLowerCase() : "low"
-            }.svg"
-                 alt="${task.priority || "Low priority"}">
-          </div>
+              <div class="task-priority ${task.priority ? task.priority.toLowerCase() : ""}">
+                ${task.priority || "Low"} &nbsp;
+                <img src="../images/${task.priority ? task.priority.toLowerCase() : "low"}.svg"
+                     alt="${task.priority || "Low"}">
+              </div>
             </div>
             <div class="detail-row assigned-to">
               <span class="detail-label">Assigned To:</span>
@@ -272,7 +275,7 @@ function addTaskOverlayTemplate(stage) {
     .map((subtask, index) => subtasksTemplate(subtask, index))
     .join("");
   return `
-    <div class="task-overlay add-task-page" id="taskOverlay" onclick="handleOverlayClick(event)">
+    <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
         <div class="task-header">
           <h1>Add Task</h1>
@@ -396,7 +399,7 @@ function addTaskOverlayTemplate(stage) {
                     class="select-icon"
                   />
                 </div>
-                <div id="subtask-list" class="subtask-list">
+                <div id="subtask-list">
                 ${subtasksHTML}
                 </div>
               </div>
@@ -569,7 +572,7 @@ function editTaskOverlayTemplate(task, users) {
     <div class="create-task-footer">
       <div class="form-actions-edit">
         <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
-        <button id="save-task-btn" type="button" class="create-task-btn" onclick="saveTask('${task.id}')">Ok <img src="../images/check.svg" /></button>
+       <button id="save-task-btn" type="button" class="create-task-btn">Ok <img src="../images/check.svg" /></button>
       </div>
     </div>
   </div>
