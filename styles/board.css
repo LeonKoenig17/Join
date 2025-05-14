@@ -6,12 +6,9 @@
   display: flex;
   flex-direction: column;
   margin: 30px 40px 0 40px;
-  /* gap: 24px; */
   position: fixed;
-  top: 90px;
-  max-height: calc(100vh - 20px);
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  top: 10vh;
+  height: 81vh;
 }
 
 button {
@@ -160,8 +157,8 @@ button {
   margin-top: 24px;
   gap: 24px;
   overflow: overlay;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) var(--font-color);
+  scrollbar-width: none;
+  
 }
 
 #boardContent::-webkit-scrollbar {
