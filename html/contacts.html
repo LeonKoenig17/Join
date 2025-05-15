@@ -70,11 +70,6 @@
       </div>
     </div>
 
-    <!-- <div id="addContactDiv" class="addContactDiv hide">
-
-    </div> -->
-
-
     <div id="mainContent">
       <div id="contentLeft">
         <section>
@@ -125,16 +120,10 @@
       </div>
     </div>
 
-    <!-- <nav id="allContacts"
-      style="background-color: rosybrown; position: absolute; left: 1000px;top: 200px; padding: 0;height: 500px;overflow: auto;">
-
-    </nav> -->
   </main>
 
 
-  <!-- <div class="animation visibleNone" id="addContactBackground"> -->
-  <!-- <div id="addContactDiv"> -->
-  <div id="manipulateContactBackground" class="visibleNone"></div>
+  <div id="manipulateContactBackground" class="visibleNone" onclick="hideContactForm('add')"></div>
   <div id="addContactFrame" class="visibleNone">
     <img class="closeFormImg" src="../images/close.svg" alt="" onclick="hideContactForm('add')">
 
@@ -176,24 +165,19 @@
               contact<img src="../images/check.svg" alt="" class="marginLeft10"></button>
           </div>
         </div>
-
       </div>
-      <!-- <img class="closeFormImg" src="../images/close.svg" alt="" onclick="contactForm(false,'add')"> -->
     </div>
-
   </div>
-  <!-- </div> -->
-  <!-- </div> -->
 
   <span id="deleteError" class="hide"></span>
 
 
-  <script src="../scripts/script.js"></script>
-  <script src="../scripts/firebase.js"></script>
-  <script src="../scripts/contacts.js"></script>
-  <script src="../scripts/userLink.js"></script>
-
-
 </body>
+
+<script src="../scripts/script.js"></script>
+<script src="../scripts/firebase.js"></script>
+<script src="../scripts/templates/contactTemp.js"></script>
+<script src="../scripts/contacts.js"></script>
+<script src="../scripts/userLink.js"></script>
 
 </html>
