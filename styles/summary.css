@@ -11,6 +11,11 @@ summary {
   gap: 20px;
 }
 
+.frame-40-container {
+  display: flex;
+  gap: 20px;
+}
+
 .frame-40-vektor {
   border: 2px solid #29ABE2;
   height: 48px;
@@ -22,10 +27,14 @@ summary {
   gap: 60px;
 }
 
+.frame-40 h1 {
+  white-space: nowrap;
+}
+
 .frame-40 p {
   margin: 0;
-  font-weight: 500;
-  font-size: 27px;
+  font-weight: 400;
+  font-size: 22px;
   color: #2A3647;
   cursor: context-menu;
 }
@@ -435,5 +444,44 @@ summary {
 
   summary {
     margin: 30px 30px 0 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  summary {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .frame-71 {
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: unset;
+    gap: 20px;
+  }
+
+  .frame-40 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .frame-40-container {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .frame-40-vektor {
+    height: 0px;
+    width: 90px;
+  }
+
+  .frame-64 {
+    gap: 20px;
+  }
+
+  .frame-64 div {
+    width: 100%;
   }
 }
