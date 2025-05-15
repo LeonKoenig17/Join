@@ -80,7 +80,6 @@ function checkSubProgress(task) {
 }
 
 
-
 function updateProgressBar() {
   if (!currentTask?.id) return;
 
@@ -226,6 +225,8 @@ function checkSubtaskClass() {
     }
     if (e.target.id === "close-subtask-icon") {
       toggleIcons();
+      const subInput = document.getElementById("subtask-input");
+      subInput.value = "";
     }
   });
 }
@@ -267,5 +268,7 @@ function confirmSubtaskEntry() {
   if (val) {
     subtasks.push({ name: val, completed: false });
     updateSubtaskList();
+    const subInput = document.getElementById("subtask-input");
+      subInput.value = "";
   }
 }

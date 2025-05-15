@@ -124,6 +124,9 @@ function closeOverlay() {
     container.innerHTML = "";
     container.classList.add("d-none");
     container.style.display = "none";
+    if (typeof subtasks !== 'undefined') {
+      subtasks.length = 0;
+    }
   }
   document.body.classList.remove("add-task-page");
   currentTask = null;
