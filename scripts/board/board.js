@@ -1,10 +1,6 @@
 let allTasks = [];
 
-const noTaskHtml = `
-  <div class="noTasks">
-    <span>No tasks To do</span>
-  </div>
-`;
+
 
 /**
  * Lädt und rendert das Board beim Seiten-Load.
@@ -105,16 +101,7 @@ async function fetchData() {
  */
 async function renderTasks() {
   const containers = document.querySelectorAll("#boardContent .task-list");
-  const statusLabels = ["To do", "In Progress", "Await Feedback", "Done"];
-  const statusKeys = ["todo", "inProgress", "awaitFeedback", "done"];
-
-  containers.forEach((container, i) => {
-    container.innerHTML = `
-      <div class="column-header">
-        <span>${statusLabels[i]}</span>
-        <button id="${statusKeys[i]}Btn" class="add-task" onclick="showAddTaskOverlay('${statusKeys[i]}')"></button>
-      </div>`;
-  });
+  renderColumnBtns(containers);
 
   for (let i = 0; i < 4; i++) {
     const stageTasks = allTasks.filter(task => task.stage === i);
@@ -131,6 +118,20 @@ async function renderTasks() {
   await applyUserColors();
 }
 
+
+function renderColumnBtns(containers) {
+  const statusLabels = ["To do", "In Progress", "Await Feedback", "Done"];
+  const statusKeys = ["todo", "inProgress", "awaitFeedback", "done"];
+
+  containers.forEach((container, i) => {
+    container.innerHTML = `
+      <div class="column-header">
+        <span>${statusLabels[i]}</span>
+        <button id="${statusKeys[i]}Btn" class="add-task" onclick="showAddTaskOverlay('${statusKeys[i]}')"></button>
+      </div>`;
+  });
+  return containers;
+}
 /**
  * Wendet Farben auf Task-Avatare an.
  */
