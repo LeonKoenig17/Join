@@ -36,6 +36,7 @@
   width: 500px !important;
   height: 720px !important;
   overflow: auto;
+  scrollbar-width: none;
 }
 
 .task-card-overlay {

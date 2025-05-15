@@ -10,6 +10,7 @@ function showTaskOverlayById(taskId) {
   showTaskOverlay(taskId);
 }
 
+
 function showTaskOverlay(taskId) {
   loadFirebaseUsers().then(async (users) => {
     const allTasks = await loadData('tasks');
@@ -37,6 +38,7 @@ function showTaskOverlay(taskId) {
   });
 }
 
+
 function showAddTaskOverlay(stage) {
   const overlayHTML = addTaskOverlayTemplate(stage);
   document.body.classList.add("add-task-page");
@@ -57,6 +59,7 @@ function showAddTaskOverlay(stage) {
     updateAssignedChips(users);
   });
 }
+
 
 async function showEditTaskOverlay(taskId) {
   try {
@@ -86,6 +89,7 @@ async function showEditTaskOverlay(taskId) {
     setTimeout(() => {
       renderDropdownOptions(users, taskData.assignedTo || []);
       updateAssignedChips(users);
+      setupDropdownEventListeners(users);
     }, 50);
 
     initializeOverlayFeatures();
@@ -113,17 +117,22 @@ async function showEditTaskOverlay(taskId) {
   }
 }
 
+
 function closeOverlay() {
   const container = document.getElementById("taskOverlay");
   if (container) {
     container.innerHTML = "";
     container.classList.add("d-none");
     container.style.display = "none";
+    if (typeof subtasks !== 'undefined') {
+      subtasks.length = 0;
+    }
   }
   document.body.classList.remove("add-task-page");
   currentTask = null;
   isEditing = false;
 }
+
 
 function checkUserColor(taskData, users) {
     if (!Array.isArray(taskData.assignedTo)) return;
@@ -139,9 +148,9 @@ function checkUserColor(taskData, users) {
   }
 
 
-
 function handleOverlayClick(event) {
   if (event.target.id === "taskOverlay") {
     closeOverlay();
   }
 }
+
