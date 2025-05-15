@@ -12,8 +12,6 @@ function subtasksTemplate(subtask, index) {
 }
 
 
-
-
 /**
  * Renders subtasks in the overlay with custom checkbox icons
  */
@@ -35,9 +33,3 @@ function taskOverlaySubtaskTemplate(subtask, index) {
     </div>
   `;
 }
-
-
-
-
-
-

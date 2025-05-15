@@ -22,7 +22,6 @@ function assignedUserTemplate(user, index, isChecked = false) {
 }
 
 
-
 function generateCardAssigneeHTML(assignees) {
   if (!Array.isArray(assignees)) return "";
   return assignees
@@ -64,6 +63,7 @@ function taskOverlayAssignee(assignees) {
     })
     .join("");
 }
+
 
 /**
  * Generates an HTML option element as a string for a given user.

@@ -68,7 +68,6 @@ function addTaskOverlayTemplate(stage) {
                     />
                   </div>
                   <span class="error-message" id="assigned-error"></span>
-
                   <div
                     class="dropdown-options"
                     id="assignedDropdownOptions"
