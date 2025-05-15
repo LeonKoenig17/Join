@@ -1,9 +1,34 @@
+let dataLogin = "";
+let dataContact = "";
+let dataFull = "";
+let userNumber = 0;
+let groupedUsers = {};
+
 function getContactsfromFirebase() {
     dataLogin = fireBaseContent.login;
     dataContact = fireBaseContent.contact;
-
     dataFull = { ...dataContact, ...dataLogin };
 
+    sortUsers();
+
+    const allContactsNav = document.getElementById("allContacts");
+    allContactsNav.innerHTML = ""; // Leeren, falls vorher schon Inhalte da waren
+
+    Object.keys(groupedUsers).forEach(letter => {
+        const groupDiv = createGroupDiv(letter);
+
+        groupedUsers[letter].forEach(user => {
+            userNumber++;
+            const userNav = createSingleUserNav(user, userNumber);
+            groupDiv.appendChild(userNav);
+        });
+
+        allContactsNav.appendChild(groupDiv);
+    });
+}
+
+
+function sortUsers() {
     const users = Object.values(dataFull).map(user => ({
         name: user.name,
         email: user.email,
@@ -17,7 +42,8 @@ function getContactsfromFirebase() {
         return firstNameA.localeCompare(firstNameB);
     });
 
-    const groupedUsers = {};
+    // groupedUsers = {};
+
     users.forEach(user => {
         const firstLetter = user.name[0].toUpperCase();
         if (!groupedUsers[firstLetter]) {
@@ -25,73 +51,86 @@ function getContactsfromFirebase() {
         }
         groupedUsers[firstLetter].push(user);
     });
+}
 
-    const allContactsNav = document.getElementById("allContacts");
-    let userNumber = 0;
+function createGroupDiv(letter) {
+    const div = document.createElement("div");
+    div.id = `capital${letter}`;
+    div.classList.add("capital");
 
-    Object.keys(groupedUsers).forEach(letter => {
-        // Erstelle das div für die Gruppe (A, B, C, ...)
-        const capitalDiv = document.createElement("div");
-        capitalDiv.id = `capital${letter}`;
-        capitalDiv.classList.add("capital");
+    const spanLetter = document.createElement("span");
+    spanLetter.textContent = letter;
+    spanLetter.classList.add("spanLetter");
+    div.appendChild(spanLetter);
 
-        // Füge den Buchstaben hinzu
-        const spanLetter = document.createElement("span");
-        spanLetter.textContent = letter;
-        spanLetter.classList.add("spanLetter")
-        capitalDiv.appendChild(spanLetter);
+    const separator = document.createElement("div");
+    separator.classList.add("separator");
+    div.appendChild(separator);
 
-        // Füge die Trennlinie hinzu
-        const separator = document.createElement("div");
-        separator.classList.add("separator");
-        capitalDiv.appendChild(separator);
+    return div;
+}
 
-        // Iteriere über die Benutzer in der Gruppe
-        groupedUsers[letter].forEach(user => {
-            userNumber = userNumber + 1;
+function createSingleUserNav(user, userNumber) {
+    const nav = document.createElement("nav");
+    nav.id = `singleUser${userNumber}`;
+    nav.classList.add("singleUser");
 
-            const userNav = document.createElement("nav");
-            userNav.id = `singleUser${userNumber}`;
-            userNav.classList.add(`singleUser`);
+    const initials = createUserInitials(user);
+    const details = createUserDetails(user, userNumber);
 
-            // Initialen erstellen
-            const initials = document.createElement("span");
-            initials.classList.add("userInitials");
-            initials.classList.add(`userColor-${user.color.replace('#', '')}`);
-            // initials.textContent = user.name.split(" ").map(name => name[0]).join("");
-            initials.textContent = getInitials(user.name);
-            userNav.appendChild(initials);
+    nav.appendChild(initials);
+    nav.appendChild(details);
+    addUserClickHandler(nav);
 
-            // Benutzerdetails erstellen
-            const userDetails = document.createElement("div");
-            userDetails.classList.add("userDetails");
+    return nav;
+}
 
-            const userName = document.createElement("span");
-            userName.classList.add("userName");
-            userName.textContent = user.name;
+function createUserInitials(user) {
+    const initials = document.createElement("span");
+    initials.classList.add("userInitials");
 
-            const userEmail = document.createElement("a");
-            userEmail.id = `singleUserMail${userNumber}`;
-            userEmail.href = `mailto:${user.email}`;
-            userEmail.classList.add("emailText");
-            userEmail.textContent = user.email;
+    const colorClass = user.color
+        ? `userColor-${user.color.replace('#', '')}`
+        : "userColor-default";
+    initials.classList.add(colorClass);
 
-            userDetails.appendChild(userName);
-            userDetails.appendChild(userEmail);
-            userNav.appendChild(userDetails);
+    initials.textContent = getInitials(user.name);
+    return initials;
+}
 
-            // Füge die Klick-Funktion hinzu, die die contactDetails-Funktion aufruft
-            userNav.addEventListener('click', () => {
-                contactDetails(userNav.id); // Die Funktion contactDetails mit dem userNav-Element aufrufen
-            });
+function createUserDetails(user, userNumber) {
+    const userDetails = document.createElement("div");
+    userDetails.classList.add("userDetails");
 
-            // Füge das Benutzer-Navi zu der Gruppe hinzu
-            capitalDiv.appendChild(userNav);
-        });
+    const userName = document.createElement("span");
+    userName.classList.add("userName");
+    userName.textContent = user.name;
 
+    const userEmail = document.createElement("a");
+    userEmail.id = `singleUserMail${userNumber}`;
+    userEmail.href = `mailto:${user.email}`;
+    userEmail.classList.add("emailText");
+    userEmail.textContent = user.email;
 
+    userDetails.appendChild(userName);
+    userDetails.appendChild(userEmail);
+    return userDetails;
+}
 
-        // Füge die Gruppe zum allContacts div hinzu
-        allContactsNav.appendChild(capitalDiv);
+function addUserClickHandler(navElement) {
+    navElement.addEventListener("click", () => {
+        contactDetails(navElement.id);
     });
 }
+
+
+function getInitials(fullName) {
+    if (!fullName) return "";
+    return fullName
+        .split(" ")
+        .map(name => name[0])
+        .join("")
+        .toUpperCase();
+}
+
+

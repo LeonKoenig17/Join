@@ -1,8 +1,6 @@
 
 let fireBaseContent = {}
-let dataLogin = "";
-let dataContact = ""
-let dataFull = "";
+
 // let thisToken = "";
 
 async function loadFromFirebase() {
