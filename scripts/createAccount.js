@@ -91,13 +91,19 @@ emailInput.addEventListener('keydown', function (event) {
     }
 });
 
+// Auslösen beim Verlassen des Feldes (Blur)
+emailInput.addEventListener('blur', function () {
+    checkEmailInput();
+});
+
 confirmInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         showLockIconCreateAccount(this.id);
     }
 });
 
-// Auslösen beim Verlassen des Feldes (Blur)
-emailInput.addEventListener('blur', function () {
-    checkEmailInput();
+
+
+confirmInput.addEventListener('blur', function () {
+    showLockIconCreateAccount(this.id);
 });

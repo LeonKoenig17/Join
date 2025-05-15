@@ -342,3 +342,4 @@ async function getContactDetails(emailToFind) {
     }
     return null;
 }
+

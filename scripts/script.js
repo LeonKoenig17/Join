@@ -110,9 +110,7 @@ function acceptPrivacyPolicy(element) {
 
 }
 
-function showUserLinksOptions() {
-    document.getElementById("userLinkOptions").classList.toggle("hide")
-}
+
 
 function logout() {
     localStorage.setItem("user", "")
@@ -227,6 +225,6 @@ function showContactFormOld(type) {
 
 
 
-function consolelog() {
-    console.log('test')
+function consolelog(element) {
+    console.log(element)
 }
