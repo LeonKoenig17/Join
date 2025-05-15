@@ -22,11 +22,13 @@ async function createAccount() {
 
 
     if (myValue != null) {
-        window.alert("Account already exists")
+        // window.alert("Account already exists")
+        deleteError("signUpBtn","accountErrorSpan",-48  ,50,'Account with this email-address already exists.')
     } else {
         if (password == confirmPassword && password != "" && privacyBoolean == "true") {
             let nextcolor = await lastColor();
             await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
+            await loadFromFirebase();
             await writeLocalStorage();
             showSuccess('signUpSuccess');
         } else {
@@ -51,15 +53,17 @@ function checkEmailInput() {
         // console.log("input is not a valid email address")
         return
     } else {
-        hideError("emailErrorSpan")
+        hideError("emailInput", "emailErrorSpan")
         // errorSpan.classList.add("displayNone")
         // errorSpan.innerHTML = "Your passwords don't match. Please try again."
     }
 }
 
-function hideError(type){
-        let element = document.getElementById(type);
+function hideError(firstType,secondType){
+        let element = document.getElementById(secondType);
         element.classList.add("displayNone")
+        document.getElementById(firstType).classList.remove("redBorder")
+        document.getElementById("accountErrorSpan").classList.add("displayNone")
 }
 
 function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
@@ -67,7 +71,7 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
         let element = document.getElementById(firstType);
         let position = element.getBoundingClientRect();
         let span = document.getElementById(secondType);
-        document.getElementById(firstType).classList.add("redborder")
+        document.getElementById(firstType).classList.add("redBorder")
         span.innerHTML = errorText
         span.classList.remove("displayNone")
         span.style.left = Number.parseInt((position.left + setOffX)) + "px";
@@ -78,11 +82,18 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
 }
 
 const emailInput = document.getElementById('emailInput');
+const confirmInput = document.getElementById('confirmPasswordInput')
 
 // Auslösen bei "Enter"-Taste
 emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         checkEmailInput();
+    }
+});
+
+confirmInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        showLockIconCreateAccount(this.id);
     }
 });
 
