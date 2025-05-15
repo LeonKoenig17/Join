@@ -1,4 +1,4 @@
-const emailInputField = document.getElementById("emailInput");
+
 
 function initCreateAccount() {
     loadFromFirebase();
@@ -43,23 +43,50 @@ function checkEmailInput() {
     let email = document.getElementById("emailInput").value;
 
     if (emailIsValid(email) == false) {
-        let errorSpan = document.getElementById("errorSpan")
-        errorSpan.classList.remove("displayNone")
-        errorSpan.innerHTML = "Your Email-Address is not valid. Please check your input."
+        deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
+
+        // let errorSpan = document.getElementById("errorSpan")
+        // errorSpan.classList.remove("displayNone")
+        // errorSpan.innerHTML = "Your Email-Address is not valid. Please check your input."
         // console.log("input is not a valid email address")
         return
     } else {
-        errorSpan.classList.add("displayNone")
+        hideError("emailErrorSpan")
+        // errorSpan.classList.add("displayNone")
         // errorSpan.innerHTML = "Your passwords don't match. Please try again."
     }
 }
 
-emailInputField.addEventListener('keydown', function (event) {
-    if(event.key === 'Enter'){
+function hideError(type){
+        let element = document.getElementById(type);
+        element.classList.add("displayNone")
+}
+
+function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
+    try {
+        let element = document.getElementById(firstType);
+        let position = element.getBoundingClientRect();
+        let span = document.getElementById(secondType);
+        document.getElementById(firstType).classList.add("redborder")
+        span.innerHTML = errorText
+        span.classList.remove("displayNone")
+        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+    } catch (error) {
+        return null
+    }
+}
+
+const emailInput = document.getElementById('emailInput');
+
+// Auslösen bei "Enter"-Taste
+emailInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
         checkEmailInput();
     }
-})
+});
 
-emailInputField.addEventListener('blur', function() {
+// Auslösen beim Verlassen des Feldes (Blur)
+emailInput.addEventListener('blur', function () {
     checkEmailInput();
-})
+});

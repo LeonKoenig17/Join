@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/createaccount.css ">
-    <script src="../scripts/createAccount.js"></script>
     <script src="../scripts/script.js"></script>
     <script src="../scripts/firebase.js"></script>
 
@@ -38,7 +37,6 @@
                         <input type="text" id="emailInput" placeholder="Email" class="loginInput">
                         <img src="../images/mail.svg" alt="" class="inputImg">
                     </div>
-                    <span id="emailErrorSpan" class="errorSpan displayNone">Your Email-Address is not valid. Please check your input.</span>
                     <div class="inputDiv">
                         <input type="password" id="passwordInput" placeholder="Password" class="loginInput passwordIcon"
                             onfocus="changeIconToVisibility(this.id)" onblur="showLockIconCreateAccount(this.id)">
@@ -53,8 +51,7 @@
                         <img id="confirmPasswordImg" src="../images/lock.svg" alt="" class="inputImg"
                             onclick="passwordVisibility(this.id)">
                     </div>
-                    <span id="errorSpan" class="errorSpan displayNone">Your passwords don't match. Please try
-                        again.</span>
+                    
 
                 </div>
                 <div id="acceptPrivacy">
@@ -76,9 +73,17 @@
         </div>
 
 
-        <span id="signUpSuccess" class="animation signUpSuccess displayNone">You signed up successfully.</span>
+        <span id="signUp  Success" class="animation signUpSuccess displayNone">You signed up successfully.</span>
+        
+        <span id="emailErrorSpan" class="errorSpan displayNone">Your Email-Address is not valid. Please check your
+            input.</span>
+        <span id="passwordErrorSpan" class="errorSpan displayNone">Your passwords don't match. Please try again.</span>
+
 
     </main>
 </body>
+
+<script src="../scripts/createAccount.js"></script>
+
 
 </html>
