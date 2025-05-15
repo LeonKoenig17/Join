@@ -57,8 +57,29 @@ function updateSubtaskList() {
     subtaskCountSpan.classList.toggle("all-done", done === total && total > 0);
     subtaskCountSpan.classList.toggle("not-done", done !== total);
   }
-  
 }
+
+/**
+ * Normalisiert task.subtasks und berechnet Count + Progress.
+ * @param {Object} task
+ * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}}
+ */
+function checkSubProgress(task) {
+  const subs = Array.isArray(task.subtasks)
+    ? task.subtasks
+    : task.subtasks && typeof task.subtasks === "object"
+    ? Object.values(task.subtasks)
+    : [];
+
+  const totalSubtasks = subs.length;
+  const completedSubtasks = subs.filter((s) => s.completed === true).length;
+  const progressPercentage =
+    totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  return { completedSubtasks, totalSubtasks, progressPercentage };
+}
+
+
 
 function updateProgressBar() {
   if (!currentTask?.id) return;

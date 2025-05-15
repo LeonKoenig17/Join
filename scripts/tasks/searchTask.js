@@ -54,10 +54,13 @@ async function renderFilteredTasks(searchTerm) {
   const awaitFeedback = document.getElementById("awaitFeedback");
   const done = document.getElementById("done");
 
+  
+
   toDo.innerHTML = "";
   inProgress.innerHTML = "";
   awaitFeedback.innerHTML = "";
   done.innerHTML = "";
+  
 
   for (let id in allTasksSearch) {
     const task = allTasksSearch[id];
