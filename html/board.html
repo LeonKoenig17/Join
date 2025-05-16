@@ -58,7 +58,7 @@
     </div>
   </aside>
   <main>
-    <header>
+    <!-- <header>
       <div class="header-container">
         <div>
           <img src="../images/joinlogodark.svg" alt="logo dark" />
@@ -69,13 +69,35 @@
           <a onclick="showUserLinksOptions()" id="userLink"></a>
         </div>
       </div>
+      <div id="userLinkOptionsBackground" class="hide" onclick="showUserLinksOptions()"></div>
       <div id="userLinkOptions" class="userLinkOptions hide">
         <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
         <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
       </div>
+      </div>
+    </header> -->
+    <header class="zindex1">
+      <div class="header-container">
+        <div>
+          <img src="../images/joinlogodark.svg" alt="logo dark">
+          <span>Kanban Project Management Tool</span>
+        </div>
+        <div>
+          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+          <a onclick="showUserLinksOptions()" id="userLink"></a>
+        </div>
+      </div>
     </header>
 
+    <div id="userLinkOptionsBackground" class="hide" onclick="showUserLinksOptions()">
+      <div id="userLinkOptions" class="userLinkOptions hide" onclick="donothing(event)">
+        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+      </div>
+    </div>
+    
     <section id="mainContent">
       <section id="boardHeader">
         <h1>Board</h1>

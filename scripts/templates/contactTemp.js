@@ -12,7 +12,7 @@ function getContactsfromFirebase() {
     sortUsers();
 
     const allContactsNav = document.getElementById("allContacts");
-    allContactsNav.innerHTML = ""; // Leeren, falls vorher schon Inhalte da waren
+    allContactsNav.innerHTML = "";
 
     Object.keys(groupedUsers).forEach(letter => {
         const groupDiv = createGroupDiv(letter);
