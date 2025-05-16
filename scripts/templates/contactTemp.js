@@ -119,10 +119,10 @@ function createUserDetails(user, userNumber) {
 
 function addUserClickHandler(navElement) {
     navElement.addEventListener("click", () => {
-        contactDetails(navElement.id);
+        // contactDetails(navElement.id);
+        chooseTaskDetails(navElement.id);
     });
 }
-
 
 function getInitials(fullName) {
     if (!fullName) return "";

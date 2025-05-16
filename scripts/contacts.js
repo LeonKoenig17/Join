@@ -1,7 +1,6 @@
 
 let fireBaseContent = {}
-
-// let thisToken = "";
+let chosenCard = 0;
 
 async function loadFromFirebase() {
     fireBaseContent = await loadData();
@@ -33,7 +32,6 @@ function sendDataToIframe() {
 }
 
 async function contactForm(task, type) {
-
     let thisEmail = '';
 
     if (type == "edit") {
@@ -42,41 +40,72 @@ async function contactForm(task, type) {
         thisEmail = document.getElementById("contactDetailsMail").innerHTML;
     }
 
-    if (task == 'add') {
-        await addContactTask();
-        window.parent.location.reload();
-        return null
-    }
-
-    if (task == 'delete') {
-        thisToken = await findUser(thisEmail);
-        if (dataFull[thisToken].type == "login") {
-            (type === 'edit') ? deleteError("leftBtn", 18, 50) : deleteError("deleteIcon", 18, 30);
-            return null;
-        } else {
-            await deleteData(`contact/${thisToken}`)
+    switch (task) {
+        case 'add':
+            await addContactTask();
             window.parent.location.reload();
-        }
+            break;
+        case 'delete':
+            thisToken = await findUser(thisEmail);
+            if (dataFull[thisToken].type == "login") {
+                (type === 'edit') ? deleteError("leftBtn", 18, 50) : deleteError("deleteIcon", 18, 30);
+                return null;
+            } else {
+                await deleteData(`contact/${thisToken}`)
+                window.parent.location.reload();
+            }
+            break;
+        case 'save':
+            let thisPhone = document.getElementById("phoneInput").value;
+            let thisName = document.getElementById("nameInput").value;
+            thisToken = await findUser(thisEmail);
+
+            if (ergebnisse[thisToken].type == "contact") {
+                myData = { "name": thisName, "email": thisEmail, "phone": thisPhone };
+            } else {
+                myData = { "name": thisName, "phone": thisPhone };
+            }
+
+            await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, myData)
+            window.parent.location.reload();
+            break;
+        default:
+            break;
     }
 
-    if (task == 'save') {
 
-        // let thisEmail = document.getElementById("emailInput").value;
-        let thisPhone = document.getElementById("phoneInput").value;
-        let thisName = document.getElementById("nameInput").value;
 
-        thisToken = await findUser(thisEmail);
+    // if (task == 'add') {
+    //     await addContactTask();
+    //     window.parent.location.reload();
+    //     return null
+    // }
 
-        if (ergebnisse[thisToken].type == "contact") {
-            myData = { "name": thisName, "email": thisEmail, "phone": thisPhone };
-        } else {
-            myData = { "name": thisName, "phone": thisPhone };
-        }
-        // await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, { "name": thisName, "email": thisEmail, "phone": thisPhone })
-        await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, myData)
+    // if (task == 'delete') {
+    //     thisToken = await findUser(thisEmail);
+    //     if (dataFull[thisToken].type == "login") {
+    //         (type === 'edit') ? deleteError("leftBtn", 18, 50) : deleteError("deleteIcon", 18, 30);
+    //         return null;
+    //     } else {
+    //         await deleteData(`contact/${thisToken}`)
+    //         window.parent.location.reload();
+    //     }
+    // }
 
-        window.parent.location.reload();
-    }
+    // if (task == 'save') {
+    //     let thisPhone = document.getElementById("phoneInput").value;
+    //     let thisName = document.getElementById("nameInput").value;
+    //     thisToken = await findUser(thisEmail);
+
+    //     if (ergebnisse[thisToken].type == "contact") {
+    //         myData = { "name": thisName, "email": thisEmail, "phone": thisPhone };
+    //     } else {
+    //         myData = { "name": thisName, "phone": thisPhone };
+    //     }
+
+    //     await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, myData)
+    //     window.parent.location.reload();
+    // }
 }
 
 
@@ -96,9 +125,7 @@ function hideContactForm(type) {
 }
 
 async function showContactForm(task) {
-    // let contact = document.getElementById(`${type}Contact`);
-    // let contactDiv = document.getElementById(`${type}ContactDiv`);
-    
+
     let myToken = localStorage.getItem("token")
     if (thisToken && myToken != thisToken && dataFull[thisToken].type === "login" && task != 'add') {
         deleteError("editIcon", 18, 30);
@@ -115,9 +142,6 @@ async function showContactForm(task) {
     frame.classList.remove("visibleNone")
 
     contactFormBtn(task);
-
-
-
 
     if (task === 'edit') {
         let name = document.getElementById("contactDetailsName").innerHTML;
@@ -163,25 +187,48 @@ async function addContactTask() {
 
 }
 
-
-
-async function contactDetails(element) {
+function chooseTaskDetails(element) {
     let thenum = element.match(/\d+/)[0];
+
+    if (chosenCard != thenum && chosenCard != 0) {
+        hideDetails(`singleUser${chosenCard}`);
+        contactDetails(element, thenum);
+    }
+
+    if (chosenCard == 0) {
+        contactDetails(element, thenum);
+    } else {
+        hideDetails(element);
+    }
+}
+
+async function contactDetails(element, thenum) {
+    chosenCard = thenum;
     let thisemail = document.getElementById(`singleUserMail${thenum}`).innerHTML
     let thiscontactDetail = await getContactDetails(thisemail)
     let thisInitials = getInitials(thiscontactDetail.name);
     let thisColor = thiscontactDetail.color.replace("#", "");
+    let contactDetailsInitials = document.getElementById("contactDetailsInitials");
 
+    document.getElementById(element).classList.remove("singleUser")
+    document.getElementById(element).classList.add("singleUserChosen")
     document.getElementById("contentRight").classList.remove("hide")
-    document.getElementById("contactDetailsInitials").removeAttribute("class");
-    document.getElementById("contactDetailsInitials").classList.add(`userInitialsBig`);
-    document.getElementById("contactDetailsInitials").classList.add(`userColor-${thisColor}`);
-    document.getElementById("contactDetailsInitials").innerHTML = thisInitials;
     document.getElementById("contactDetailsName").innerHTML = thiscontactDetail.name;
     document.getElementById("contactDetailsMail").innerHTML = thiscontactDetail.email;
     document.getElementById("contactDetailsPhone").innerHTML = thiscontactDetail.phone;
     document.getElementById("deleteError").classList.add("hide")
+    contactDetailsInitials.removeAttribute("class");
+    contactDetailsInitials.classList.add(`userInitialsBig`);
+    contactDetailsInitials.classList.add(`userColor-${thisColor}`);
+    contactDetailsInitials.innerHTML = thisInitials;
     thisToken = await findUser(thiscontactDetail.email);
+}
+
+function hideDetails(element) {
+    document.getElementById("contentRight").classList.add("hide")
+    document.getElementById("deleteError").classList.remove("hide")
+    document.getElementById(element).classList.add("singleUser")
+    document.getElementById(element).classList.remove("singleUserChosen")
 }
 
 function deleteError(type, setOffX, setOffY) {
@@ -189,9 +236,9 @@ function deleteError(type, setOffX, setOffY) {
         let element = document.getElementById(type);
         let position = element.getBoundingClientRect();
         let span = document.getElementById("deleteError");
-        if(type === 'editIcon'){
+        if (type === 'editIcon') {
             span.innerHTML = `You can't edit<br>other registered users`
-        }else{
+        } else {
             span.innerHTML = `You can't delete<br>other registered users`
         }
         span.classList.remove("hide")
@@ -211,8 +258,6 @@ async function getContactDetails(emailToFind) {
         dataLogin = await loadData("login");
         dataContact = await loadData("contact");
     }
-    // const dataLogin = await loadData("login");
-    // const dataContacts = await loadData("contacts");
 
     dataFull = { ...dataContact, ...dataLogin };
 
