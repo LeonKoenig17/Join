@@ -11,32 +11,32 @@ function showTaskOverlayById(taskId) {
 }
 
 
-function showTaskOverlay(taskId) {
-  loadFirebaseUsers().then(async (users) => {
-    const allTasks = await loadData('tasks');
-    const rawTask = allTasks[taskId];
+async function showTaskOverlay(taskId) {
+  const [users, allTasks] = await Promise.all([
+    loadFirebaseUsers(),
+    loadData('tasks')
+  ]) || [[], {}];
 
-    if (!rawTask) {
-      alert("Task nicht gefunden");
-      return;
-    }
+  const rawTask = allTasks?.[taskId];
+  if (!rawTask) {
+    console.warn(`Task ${taskId} nicht gefunden`);
+    return;
+  }
+  const taskData = { id: taskId, ...rawTask };
+  checkUserColor(taskData, users);
+  initSubtasksArray(taskData);
+  currentTask = taskData;
 
-    const taskData = { id: taskId, ...rawTask };
-    checkUserColor(taskData, users);
-    initSubtasksArray(taskData);
-    currentTask = taskData;
+  const overlayContainer = document.getElementById("taskOverlay");
+  overlayContainer.innerHTML     = generateTaskOverlay(taskData);
+  overlayContainer.classList.remove("d-none");
+  overlayContainer.style.display = "flex";
 
-    const overlayHTML = generateTaskOverlay(taskData);
-    const container = document.getElementById("taskOverlay");
-    if (container) {
-      container.innerHTML = overlayHTML;
-      container.classList.remove("d-none");
-      container.style.display = "flex";
-    }
+  initOverlaySetup(overlayContainer, users, taskData);
 
-    updateSubtaskList();
-  });
+  updateSubtaskList();
 }
+
 
 
 function showAddTaskOverlay(stage) {
@@ -53,7 +53,7 @@ function showAddTaskOverlay(stage) {
   initializeOverlayFeatures();
   setupTaskForm(stage);
 
-  loadFirebaseUsers().then(users => {
+    loadFirebaseUsers().then(users => {
     renderDropdownOptions(users);
     setupDropdownEventListeners(users);
     updateAssignedChips(users);
@@ -61,61 +61,76 @@ function showAddTaskOverlay(stage) {
 }
 
 
-async function showEditTaskOverlay(taskId) {
-  try {
-    closeOverlay();
-
-    let taskData = currentTask && currentTask.id === taskId ? currentTask : null;
-    if (!taskData) {
-      const allTasks = await loadData('tasks');
-      const raw = allTasks[taskId];
-      if (!raw) throw new Error('Task not found');
-      taskData = { id: taskId, ...raw };
-    }
-
-    if (!taskData.subtasks) taskData.subtasks = [];
-
-    const users = await loadFirebaseUsers();
-    const overlayHTML = editTaskOverlayTemplate(taskData, users);
-    const container = document.getElementById("taskOverlay");
-
-    if (container) {
-      container.innerHTML = overlayHTML;
-      container.classList.remove("d-none");
-      container.style.display = "flex";
-    }
-
-    initPriorityButtons(document.getElementById("taskOverlay"));
-    setTimeout(() => {
-      renderDropdownOptions(users, taskData.assignedTo || []);
-      updateAssignedChips(users);
-      setupDropdownEventListeners(users);
-    }, 50);
-
-    initializeOverlayFeatures();
-    currentTask = taskData;
-    initializeSubtaskModule(taskData);
-
-    document.getElementById('save-task-btn').addEventListener('click', async () => {
-      const data = getFormData();
-      if (!validateFormData(data)) return;
-
-      try {
-        await patchTask(taskData.id, {
-          ...data,
-          subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed })),
-        });
-        closeOverlay();
-        window.location.reload();
-      } catch (error) {
-        console.error('Error saving task:', error);
-        alert('An error occurred while saving the task. Please try again.');
-      }
-    });
-  } catch (err) {
-    console.error('Error in edit overlay:', err);
-  }
+/**
+ * Lädt Task oder liefert null, wenn nicht vorhanden.
+ */
+async function loadTaskById(id) {
+  if (currentTask?.id === id) return currentTask;
+  const all = await loadData('tasks') || {};
+  const raw = all[id];
+  return raw ? { id, ...raw, subtasks: raw.subtasks || [] } : null;
 }
+
+
+/**
+ * Initialisiert alle Overlay-Komponenten für Edit/Add.
+ *
+ * @param {HTMLElement} overlayContainer  Container-Element des Overlays
+ * @param {Array}       users             Liste aller User
+ * @param {Object}      taskData          Aktuelle Task-Daten
+ */
+function initOverlaySetup(overlayContainer, users, taskData) {
+  initPriorityButtons(overlayContainer);
+  renderDropdownOptions(users, taskData.assignedTo || []);
+  updateAssignedChips(users);
+  setupDropdownEventListeners(users);
+  initializeOverlayFeatures();
+  initializeSubtaskModule(taskData);
+}
+
+
+
+/**
+ * Registriert den Klick-Handler des Speichern-Buttons,
+ * um die Task-Daten zu sammeln und zu patchen.
+ *
+ * @param {HTMLElement} overlayContainer  Container des Overlays
+ * @param {Object}      taskData          Aktuelle Task-Daten
+ */
+function registerSaveTaskHandler(overlayContainer, taskData) {
+  const saveBtn = overlayContainer.querySelector('#save-task-btn');
+  saveBtn.addEventListener('click', async () => {
+    const data = getFormData();
+    if (!validateFormData(data)) return;
+    await patchTask(taskData.id, {
+      ...data,
+      subtasks: subtasks.map(s => ({ name: s.name, completed: s.completed }))
+    });
+    closeOverlay();
+    window.location.reload();
+  });
+}
+
+async function showEditTaskOverlay(taskId) {
+  closeOverlay();
+
+  const taskData        = await loadTaskById(taskId);
+  if (!taskData) return;
+
+  const users            = await loadFirebaseUsers();
+  const overlayContainer = document.getElementById('taskOverlay');
+
+  overlayContainer.innerHTML     = editTaskOverlayTemplate(taskData, users);
+  overlayContainer.classList.remove('d-none');
+  overlayContainer.style.display = 'flex';
+
+  initOverlaySetup(overlayContainer, users, taskData);
+  registerSaveTaskHandler(overlayContainer, taskData);
+
+  currentTask = taskData;
+}
+
+
 
 
 function closeOverlay() {

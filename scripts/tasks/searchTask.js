@@ -17,6 +17,11 @@ const noTaskHtml = `
   </div>
 `;
 
+function focusSearchInput() {
+  document.getElementById('taskSearch').focus();
+  initializeTaskSearch();
+}
+
 async function initializeTaskSearch() {
   if (!searchInput) return;
 

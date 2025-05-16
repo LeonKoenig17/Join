@@ -1,7 +1,6 @@
 let allTasks = [];
 
 
-
 /**
  * Lädt und rendert das Board beim Seiten-Load.
  */
@@ -9,9 +8,10 @@ async function init() {
   fillUserLinks();
   await fetchData();
   await renderTasks();
-  setupEventListeners();
+  setupDragDrop();
   setupSubtaskInputListeners();
 }
+
 
 function setupSubtaskInputListeners() {
   const inputField = document.querySelector("#subtasks input");
@@ -33,6 +33,7 @@ function setupSubtaskInputListeners() {
     });
   }
 }
+
 
 /**
  * Aktualisiert die Stage eines Tasks in Firebase.
@@ -58,6 +59,7 @@ async function updateStage(container, taskId) {
   }
 }
 
+
 /**
  * Wandelt Container-ID in Stage-Index um.
  */
@@ -75,6 +77,7 @@ function getStageFromContainer(containerId) {
       return 0;
   }
 }
+
 
 /**
  * Ruft alle Tasks aus Firebase ab und füllt das globale allTasks-Array.
@@ -95,6 +98,7 @@ async function fetchData() {
 
   renderTasks();
 }
+
 
 /**
  * Rendert alle vier Spalten des Boards.
@@ -124,14 +128,12 @@ function renderColumnBtns(containers) {
   const statusKeys = ["todo", "inProgress", "awaitFeedback", "done"];
 
   containers.forEach((container, i) => {
-    container.innerHTML = `
-      <div class="column-header">
-        <span>${statusLabels[i]}</span>
-        <button id="${statusKeys[i]}Btn" class="add-task" onclick="showAddTaskOverlay('${statusKeys[i]}')"></button>
-      </div>`;
+    container.innerHTML = columnBtnTemplate(statusLabels[i], statusKeys[i]);
   });
   return containers;
 }
+
+
 /**
  * Wendet Farben auf Task-Avatare an.
  */
@@ -149,10 +151,11 @@ async function applyUserColors() {
   }
 }
 
+
 /**
  * Setzt Drag & Drop und Event-Listener für Buttons.
  */
-function setupEventListeners() {
+function setupDragDrop() {
   const containers = document.querySelectorAll("#boardContent .task-list");
 
   containers.forEach(container => {
@@ -177,6 +180,7 @@ function setupEventListeners() {
   }
 }
 
+
 /**
  * Macht Tasks draggable.
  */
@@ -192,6 +196,7 @@ function addDragFunction() {
     });
   }
 }
+
 
 /**
  * Öffnet/Schließt das Benutzermenü.
