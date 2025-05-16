@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../styles/standard.css">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../styles/legal.css">
+  <link rel="stylesheet" href="../styles/responsive/style-resp.css">
 
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,7 @@
     rel="stylesheet">
 
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
+  <script src="../scripts/userVerification.js"></script>
 </head>
 
 <body>
@@ -37,7 +39,7 @@
         <img src="../images/boardgray.svg" alt="logo">
         <span>Board</span>
       </a>
-      <a href="">
+      <a href="./contacts.html">
         <img src="../images/contactsgray.svg" alt="logo">
         <span>Contacts</span>
       </a>
@@ -49,16 +51,17 @@
   </aside>
   <main>
     <header>
-      <span>Kanban Project Management Tool</span>
-      <div class="d-none">
-        <a href=""><img src="../images/help20x20.svg" alt="help"></a>
-        <a href="" id="userLink"></a>
+      <div class="header-container">
+        <div>
+          <img src="../images/joinlogodark.svg" alt="logo dark">
+          <span>Kanban Project Management Tool</span>
+        </div>
       </div>
     </header>
     <div class="legal-main">
       <h1>Legal Notice</h1>
       <div class="pp-container">
-        <p>Angaben gemäß § 5 DDG</p>
+        <p class="ln-container-heading">Angaben gemäß § 5 DDG</p>
         <p>Max Muster - Musterberuf<br>
           c/o Beispielbüro<br>
           Musterweg<br>
@@ -136,6 +139,25 @@
 
       </div>
     </div>
+  </main>
+  <footer>
+    <a href="./summary.html">
+      <img src="../images/summarygray.svg" alt="logo">
+      <span>Summary</span>
+    </a>
+    <a href="./addTask.html">
+      <img src="../images/addtaskgray.svg" alt="logo">
+      <span>Add Task</span>
+    </a>
+    <a href="./board.html">
+      <img src="../images/boardgray.svg" alt="logo">
+      <span>Board</span>
+    </a>
+    <a href="./contacts.html">
+      <img src="../images/contactsgray.svg" alt="logo">
+      <span>Contacts</span>
+    </a>
+  </footer>
 </body>
 
 </html>

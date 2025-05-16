@@ -13,18 +13,15 @@ h2 {
 }
 
 .addTask-right-edit h3 {
-        font-size: 16px!important;
-        font-weight: 500!important;
-        color: #2A3647!important;
-        margin: 5px 0!important;
-    }
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #2A3647 !important;
+    margin: 5px 0 !important;
+}
 
 
 
 #boardHeader h2 {
-    font-size: 60px!important;
-    font-weight: 700!important;
-  }
-
-
-  
+    font-size: 60px !important;
+    font-weight: 700 !important;
+}

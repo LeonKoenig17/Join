@@ -247,7 +247,7 @@ input[type=password]:focus {
     flex-wrap: nowrap;
     font-size: 10px;
     color: red;
-    position: relative;
+    position: absolute;
     top: -5px;
     left: 25px;
 }

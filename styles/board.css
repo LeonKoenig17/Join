@@ -5,13 +5,10 @@
 #mainContent {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  margin: 30px 40px 0 40px;
   position: fixed;
-  top: 10%;
-  left: 25%;
-  max-height: calc(100vh - 20px);
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  top: 10vh;
+  height: 81vh;
 }
 
 button {
@@ -21,25 +18,29 @@ button {
   padding: 10px 10px;
 }
 
-#mainContent.expanded {
-  
-  overflow-y: auto;
-}
 
 #boardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 }
 
-#boardHeader > div {
+#boardHeader>div {
   display: flex;
   align-items: center;
 }
 
-#boardHeader > div * {
+#boardHeader>div * {
   font-size: 20px;
   cursor: pointer;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  width: 287px;
 }
 
 #searchInput {
@@ -138,18 +139,15 @@ button {
 #board-btn-section {
   display: flex;
   justify-content: space-between;
-  gap: 24px;;
-  padding-top: 24px;
+  gap: 24px;
+  /* padding-top: 24px; */
 }
 
-#board-btn-section > div {
+#board-btn-section>div {
   flex: 0 0 var(--column-width);
   position: relative;
   font-size: 20px;
-  padding-bottom: 14px;
-}
-
-#board-btn-section > div span {
+  padding-bottom: 40px;
   color: #42526e;
   font-weight: bold;
 }
@@ -157,7 +155,25 @@ button {
 #boardContent {
   display: flex;
   justify-content: space-between;
+  margin-top: 24px;
   gap: 24px;
+  overflow: overlay;
+  scrollbar-width: none;
+  
+}
+
+#boardContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+#boardContent::-webkit-scrollbar-track {
+  background: #e7e7e7;
+}
+
+#boardContent::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid #e7e7e7;
 }
 
 .noTasks {
@@ -171,9 +187,6 @@ button {
 }
 
 .add-task {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   width: 24px;
   height: 24px;
   background: url("../images/taskPlus.svg") no-repeat center;
@@ -182,19 +195,7 @@ button {
   cursor: pointer;
   z-index: 2;
 }
+
 .add-task:hover {
   background-image: url("../images/taskPlusHover.svg");
 }
-
-.toggleTasks {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 3%;
-  
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 24px;
-}
-
