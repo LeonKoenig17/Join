@@ -136,22 +136,6 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-#board-btn-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  /* padding-top: 24px; */
-}
-
-#board-btn-section>div {
-  flex: 0 0 var(--column-width);
-  position: relative;
-  font-size: 20px;
-  padding-bottom: 40px;
-  color: #42526e;
-  font-weight: bold;
-}
-
 #boardContent {
   display: flex;
   justify-content: space-between;
@@ -159,7 +143,10 @@ button {
   gap: 24px;
   overflow: overlay;
   scrollbar-width: none;
-  
+}
+
+#toDo, #inProgress, #awaitFeedback, #done {
+  height: 100vh;
 }
 
 #boardContent::-webkit-scrollbar {

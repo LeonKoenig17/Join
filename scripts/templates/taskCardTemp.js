@@ -45,3 +45,15 @@ function generateTaskCard(task) {
     </div>
   `;
 }
+
+function columnBtnTemplate(label, key) {
+  return `
+    <div class="column-header">
+      <span>${label}</span>
+      <button id="${key}Btn"
+              class="add-task"
+              onclick="showAddTaskOverlay('${key}')">
+      </button>
+    </div>
+  `;
+}
