@@ -21,6 +21,7 @@
     rel="stylesheet">
 
   <script src="../scripts/userVerification.js"></script>
+  <script src="../scripts/userLink.js"></script>
   <script src="../scripts/firebase.js" defer></script>
   <script src="../scripts/summary.js"></script>
   <script src="../scripts/script.js"></script>
@@ -67,10 +68,12 @@
         </div>
       </div>
     </header>
+    <div id="userLinkOptionsBackground" class="hide" onclick="showUserLinksOptions()">
     <div id="userLinkOptions" class="userLinkOptions hide">
       <a href="../html/legal-notice.html" class="userLinkOptionsLinks"><span>Legal Notice</span></a>
       <a href="../html/privacy-policy.html" class="userLinkOptionsLinks"><span>Privacy Policy</span></a>
       <a onclick="logout()" class="userLinkOptionsLinks"><span>Log out</span></a>
+    </div>
     </div>
     <summary id="summaryContent">
       <div class="frame-40">
