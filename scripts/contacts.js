@@ -190,22 +190,30 @@ async function addContactTask() {
 
 function chooseTaskDetails(element) {
     let thenum = element.match(/\d+/)[0];
-
-    if(chosen == true && chosenCard != thenum){
-        hideDetails(`singleUser${chosenCard}`);
-        contactDetails(element, thenum);
-        return
+    let caseKey = '';
+    
+    if (chosen === true && chosenCard !== thenum) {
+        caseKey = 'chosen-different';
+    } else if (chosen === false) {
+        caseKey = 'not-chosen';
+    } else if (chosen === true) {
+        caseKey = 'chosen-same';
     }
 
-    if (chosen == false) {
-        contactDetails(element, thenum);
+    switch (caseKey) {
+        case 'chosen-different':
+            hideDetails(`singleUser${chosenCard}`);
+            contactDetails(element, thenum);
+            break;
+        case 'not-chosen':
+            contactDetails(element, thenum);
+            break;
+        case 'chosen-same':
+            hideDetails(`singleUser${chosenCard}`);
+            break;
     }
 
-    if (chosen == true) {
-        hideDetails(`singleUser${chosenCard}`);
-    }
-
-    return 
+    return
 }
 
 async function contactDetails(element, thenum) {
