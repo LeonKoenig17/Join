@@ -367,9 +367,12 @@ main {
 }
 
 .emailText {
-  /* text-align: left; */
   padding: 0;
   color: var(--link-color);
+}
+
+.emailText:hover {
+  background-color: transparent;
 }
 
 .separator {
