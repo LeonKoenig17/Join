@@ -1,4 +1,3 @@
-/* from style.css */
 aside {
   height: 100vh;
   width: 200px;
@@ -44,17 +43,6 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-
-/* header {
-  width: 100%;
-  height: 90px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-} */
 
 header span {
   margin-left: 100px;
@@ -155,8 +143,6 @@ header img:hover {
   cursor: default;
 }
 
-/* from style.css */
-
 #allContacts {
   position: absolute;
   top: 100px;
@@ -244,8 +230,6 @@ main {
   margin-right: 20px;
 }
 
-
-
 .forms label {
   font-size: 20px;
   font-weight: 400;
@@ -298,7 +282,6 @@ main {
 }
 
 .userInitials {
-  /* background-color: red; */
   color: white;
   border-radius: 50%;
   height: 35px;
@@ -311,7 +294,6 @@ main {
 }
 
 .userInitialsBig {
-  /* background-color: red; */
   color: white;
   border: solid 3px white;
   border-radius: 50%;
@@ -339,7 +321,6 @@ main {
 .singleUser:hover {
   background-image:linear-gradient( white, lightgray);
   border-radius: 1rem;
-  /* color: white; */
 }
 
 .singleUserChosen {
@@ -363,7 +344,6 @@ main {
 .userName {
   margin: 5px 0px;
   text-align: left;
-  /* background-color: blueviolet; */
 }
 
 .emailText {
@@ -382,8 +362,6 @@ main {
   margin: 20px 0px;
 }
 
-
-
 .personAddBtn {
   display: flex;
   flex-direction: row;
@@ -399,8 +377,6 @@ main {
   border-radius: 10px;
   margin: 10px;
 }
-
-
 
 .spanLetter {
   text-align: left;
@@ -458,7 +434,7 @@ main {
 .contactInformations span,
 a,
 strong {
-  margin: 00px 0;
+  margin: 0px 0px;
 }
 
 .loginInput {
@@ -513,8 +489,6 @@ strong {
   cursor: pointer;
   border-radius: 50%;
 }
-
-
 
 #manipulateContactBackground {
   position: absolute;
@@ -586,7 +560,7 @@ strong {
   }
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -606,4 +580,4 @@ strong {
     transform: translateY(0);
     opacity: 1;
   }
-}
+} */

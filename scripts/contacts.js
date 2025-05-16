@@ -1,6 +1,7 @@
 
 let fireBaseContent = {}
 let chosenCard = 0;
+let chosen = false;
 
 async function loadFromFirebase() {
     fireBaseContent = await loadData();
@@ -190,16 +191,21 @@ async function addContactTask() {
 function chooseTaskDetails(element) {
     let thenum = element.match(/\d+/)[0];
 
-    if (chosenCard != thenum && chosenCard != 0) {
+    if(chosen == true && chosenCard != thenum){
         hideDetails(`singleUser${chosenCard}`);
+        contactDetails(element, thenum);
+        return
+    }
+
+    if (chosen == false) {
         contactDetails(element, thenum);
     }
 
-    if (chosenCard == 0) {
-        contactDetails(element, thenum);
-    } else {
-        hideDetails(element);
+    if (chosen == true) {
+        hideDetails(`singleUser${chosenCard}`);
     }
+
+    return 
 }
 
 async function contactDetails(element, thenum) {
@@ -222,13 +228,15 @@ async function contactDetails(element, thenum) {
     contactDetailsInitials.classList.add(`userColor-${thisColor}`);
     contactDetailsInitials.innerHTML = thisInitials;
     thisToken = await findUser(thiscontactDetail.email);
+    chosen = true
 }
 
 function hideDetails(element) {
     document.getElementById("contentRight").classList.add("hide")
-    document.getElementById("deleteError").classList.remove("hide")
+    document.getElementById("deleteError").classList.add("hide")
     document.getElementById(element).classList.add("singleUser")
     document.getElementById(element).classList.remove("singleUserChosen")
+    chosen = false
 }
 
 function deleteError(type, setOffX, setOffY) {
