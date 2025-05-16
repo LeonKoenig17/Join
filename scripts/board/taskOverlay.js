@@ -11,32 +11,32 @@ function showTaskOverlayById(taskId) {
 }
 
 
-function showTaskOverlay(taskId) {
-  loadFirebaseUsers().then(async (users) => {
-    const allTasks = await loadData('tasks');
-    const rawTask = allTasks[taskId];
+async function showTaskOverlay(taskId) {
+  const [users, allTasks] = await Promise.all([
+    loadFirebaseUsers(),
+    loadData('tasks')
+  ]) || [[], {}];
 
-    if (!rawTask) {
-      alert("Task nicht gefunden");
-      return;
-    }
+  const rawTask = allTasks?.[taskId];
+  if (!rawTask) {
+    console.warn(`Task ${taskId} nicht gefunden`);
+    return;
+  }
+  const taskData = { id: taskId, ...rawTask };
+  checkUserColor(taskData, users);
+  initSubtasksArray(taskData);
+  currentTask = taskData;
 
-    const taskData = { id: taskId, ...rawTask };
-    checkUserColor(taskData, users);
-    initSubtasksArray(taskData);
-    currentTask = taskData;
+  const overlayContainer = document.getElementById("taskOverlay");
+  overlayContainer.innerHTML     = generateTaskOverlay(taskData);
+  overlayContainer.classList.remove("d-none");
+  overlayContainer.style.display = "flex";
 
-    const overlayHTML = generateTaskOverlay(taskData);
-    const container = document.getElementById("taskOverlay");
-    if (container) {
-      container.innerHTML = overlayHTML;
-      container.classList.remove("d-none");
-      container.style.display = "flex";
-    }
+  initOverlaySetup(overlayContainer, users, taskData);
 
-    updateSubtaskList();
-  });
+  updateSubtaskList();
 }
+
 
 
 function showAddTaskOverlay(stage) {
