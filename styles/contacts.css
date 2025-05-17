@@ -164,6 +164,11 @@ header img:hover {
   left: 10px;
 }
 
+#contactDetailsMail {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
 .contactDetailsPerson {
   display: flex;
   flex-direction: row;

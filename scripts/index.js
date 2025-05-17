@@ -21,8 +21,16 @@ async function login() {
         document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
 
     }
-
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        const blueBtn = document.querySelector('.blueBtn');
+        if (blueBtn) {
+            blueBtn.click();
+        }
+    }
+});
 
 async function checkPassword(email) {
     // let ergebnisse = await loadData("login")

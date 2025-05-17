@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="assignedUserTemplate"><span class="type-signature"></span>assignedUserTemplate<span class="signature">(user, index)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="addUserClickHandler"><span class="type-signature"></span>addUserClickHandler<span class="signature">(navElement)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +112,303 @@
 
 
 <div class="description">
-    Generates an HTML template string for an assigned user item.
+    Attaches a click event listener to the given navigation element.When clicked, it calls the chooseTaskDetails function with the element's id.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>navElement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The navigation element to attach the click handler to.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createGroupDiv"><span class="type-signature"></span>createGroupDiv<span class="signature">(letter)</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a group container div element for a given letter, including a styled letter span and a separator.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>letter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The letter to display in the group header.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The constructed group div element containing the letter and a separator.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLDivElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createSingleUserNav"><span class="type-signature"></span>createSingleUserNav<span class="signature">(user, userNumber)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a navigation element representing a single user, including their initials and details.Appends click event handlers for user interaction.
 </div>
 
 
@@ -164,9 +460,149 @@
 
             
 
-            <td class="description last">The user object containing user details.
-                <h6>Properties</h6>
+            <td class="description last">The user object containing user information.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userNumber</code></td>
+            
+
+            <td class="type">
+            
                 
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The unique number or index for the user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The constructed navigation element for the user.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createUserDetails"><span class="type-signature"></span>createUserDetails<span class="signature">(user, userNumber)</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a DOM element containing user details including name and email.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
 
 <table class="params">
     <thead>
@@ -190,13 +626,13 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>user</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -206,9 +642,28 @@
 
             
 
-            <td class="description last">The unique identifier of the user.</td>
-        </tr>
+            <td class="description last">The user object containing user information.
+                <h6>Properties</h6>
+                
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -252,7 +707,7 @@
 
             
 
-            <td class="description last">The email of the user.</td>
+            <td class="description last">The email address of the user.</td>
         </tr>
 
     
@@ -266,7 +721,7 @@
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>userNumber</code></td>
             
 
             <td class="type">
@@ -282,7 +737,7 @@
 
             
 
-            <td class="description last">The index of the user in the list.</td>
+            <td class="description last">A unique number used to generate the email element's ID.</td>
         </tr>
 
     
@@ -323,7 +778,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="templates.js.html">templates.js</a>, <a href="templates.js.html#line32">line 32</a>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -352,7 +807,7 @@
 
         
 <div class="param-desc">
-    The HTML template string for the assigned user item.
+    The DOM element containing the user's details.
 </div>
 
 
@@ -363,7 +818,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">HTMLDivElement</span>
 
 
     </dd>
@@ -381,7 +836,7 @@
     
 
     
-    <h4 class="name" id="userOptionTemplate"><span class="type-signature"></span>userOptionTemplate<span class="signature">(user, id)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="createUserInitials"><span class="type-signature"></span>createUserInitials<span class="signature">(user)</span><span class="type-signature"> &rarr; {HTMLSpanElement}</span></h4>
     
 
     
@@ -389,7 +844,7 @@
 
 
 <div class="description">
-    Generates an HTML option element as a string for a given user.
+    Creates a span element containing the user's initials with appropriate styling.
 </div>
 
 
@@ -441,7 +896,7 @@
 
             
 
-            <td class="description last">The user object containing user details.
+            <td class="description last">The user object containing user information.
                 <h6>Properties</h6>
                 
 
@@ -454,6 +909,8 @@
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -480,17 +937,25 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The name of the user (optional).</td>
+            <td class="description last">The full name of the user.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>email</code></td>
+                <td class="name"><code>color</code></td>
             
 
             <td class="type">
@@ -503,10 +968,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The email of the user (used if name is not provided).</td>
+            <td class="description last">Optional hex color code for the user's initials background.</td>
         </tr>
 
     
@@ -514,32 +989,6 @@
 </table>
 
             </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The unique identifier for the user, used as the value of the option element.</td>
         </tr>
 
     
@@ -580,7 +1029,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="templates.js.html">templates.js</a>, <a href="templates.js.html#line17">line 17</a>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -609,7 +1058,254 @@
 
         
 <div class="param-desc">
-    An HTML string representing an option element with the user's name or email as the display text.
+    The span element with the user's initials and color class.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLSpanElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getContactsFromFirebase"><span class="type-signature"></span>getContactsFromFirebase<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Fetches contact and login data from Firebase, merges them, sorts the users,groups them alphabetically, and renders the grouped contact list in the navigation UI.Side Effects:- Modifies global variables: `userNumber`, `groupedUsers`, `dataLogin`, `dataContact`, `dataFull`.- Updates the DOM element with id "allContacts" by clearing its content and appending grouped user elements.Dependencies:- Assumes existence of `fireBaseContent` object with `login` and `contact` properties.- Relies on helper functions: `sortUsers()`, `createGroupDiv(letter)`, and `createSingleUserNav(user, userNumber)`.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getInitials"><span class="type-signature"></span>getInitials<span class="signature">(fullName)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the initials of a given full name.Splits the full name by spaces and concatenates the first character of each part,returning the result in uppercase.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fullName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The full name from which to extract initials.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The uppercase initials of the full name, or an empty string if no name is provided.
 </div>
 
 
@@ -621,6 +1317,112 @@
     <dd>
         
 <span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sortUsers"><span class="type-signature"></span>sortUsers<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sorts users from the global `dataFull` object alphabetically by their first name,then groups them into the global `groupedUsers` object by the first letter of their name.Each user object contains `name`, `email`, `color`, and `phone` properties.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
 
 
     </dd>
@@ -648,13 +1450,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#assignedUserTemplate">assignedUserTemplate</a></li><li><a href="global.html#userOptionTemplate">userOptionTemplate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUserClickHandler">addUserClickHandler</a></li><li><a href="global.html#createGroupDiv">createGroupDiv</a></li><li><a href="global.html#createSingleUserNav">createSingleUserNav</a></li><li><a href="global.html#createUserDetails">createUserDetails</a></li><li><a href="global.html#createUserInitials">createUserInitials</a></li><li><a href="global.html#getContactsFromFirebase">getContactsFromFirebase</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#sortUsers">sortUsers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 04 2025 13:40:36 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 17 2025 17:05:53 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

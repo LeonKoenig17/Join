@@ -89,6 +89,9 @@ footer {
     padding: 15px 5px;
     border-radius: 20px 0px 20px 20px;
     z-index: 1;
+    transition: border-radius 0.3s ease-in-out,
+                background-image 0.3s ease-in-out;
+
 }
 
 .userLinkOptionsLinks {

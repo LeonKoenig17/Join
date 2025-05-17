@@ -1,9 +1,7 @@
 let allTasks = [];
 
 
-/**
- * Lädt und rendert das Board beim Seiten-Load.
- */
+
 async function init() {
   fillUserLinks();
   await fetchData();

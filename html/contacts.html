@@ -1,183 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join/Contacts</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join/Contacts</title>
+    <link
+      rel="shortcut icon"
+      href="../images/joinlogowhite.svg"
+      type="image/x-icon"
+    />
 
-  <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/addcontact.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
 
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/addcontact.css">
-  <link rel="stylesheet" href="../styles/contacts.css" />
+    <script src="../scripts/userVerification.js"></script>
+  </head>
 
-  <script src="../scripts/userVerification.js"></script>
-
-</head>
-
-<body onload="onloadContacts()" style="overflow: hidden;">
-
-  <aside>
-    <div id="logo">
-      <img src="../images/joinlogowhite.svg" alt="" />
-    </div>
-    <nav>
-      <a href="./summary.html">
-        <img src="../images/summarygray.svg" alt="logo">
-        <span>Summary</span>
-      </a>
-      <a href="./addTask.html">
-        <img src="../images/addtaskgray.svg" alt="logo">
-        <span>Add Task</span>
-      </a>
-      <a href="./board.html">
-        <img src="../images/boardgray.svg" alt="logo">
-        <span>Board</span>
-      </a>
-      <a href="./contacts.html" class="active">
-        <img src="../images/contactswhite.svg" alt="logo">
-        <span>Contacts</span>
-      </a>
-    </nav>
-    <div id="legal">
-      <a href="./privacy-policy.html">Privacy Policy</a>
-      <a href="./legal-notice.html">Legal Notice</a>
-    </div>
-  </aside>
-
-  <main>
-
-    <header class="zindex1">
-      <div class="header-container">
-        <div>
-          <img src="../images/joinlogodark.svg" alt="logo dark">
-          <span>Kanban Project Management Tool</span>
-        </div>
-        <div>
-          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-          <a onclick="showUserLinksOptions()" id="userLink"></a>
-        </div>
+  <body onload="onloadContacts()" style="overflow: hidden">
+    <aside>
+      <div id="logo">
+        <img src="../images/joinlogowhite.svg" alt="" />
       </div>
-    </header>
-
-    <div id="userLinkOptionsBackground" class="hide" onclick="showUserLinksOptions()">
-      <div id="userLinkOptions" class="userLinkOptions hide" onclick="donothing(event)">
-        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
-        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
-        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+      <nav>
+        <a href="./summary.html">
+          <img src="../images/summarygray.svg" alt="logo" />
+          <span>Summary</span>
+        </a>
+        <a href="./addTask.html">
+          <img src="../images/addtaskgray.svg" alt="logo" />
+          <span>Add Task</span>
+        </a>
+        <a href="./board.html">
+          <img src="../images/boardgray.svg" alt="logo" />
+          <span>Board</span>
+        </a>
+        <a href="./contacts.html" class="active">
+          <img src="../images/contactswhite.svg" alt="logo" />
+          <span>Contacts</span>
+        </a>
+      </nav>
+      <div id="legal">
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal Notice</a>
       </div>
-    </div>
+    </aside>
 
-    <div id="mainContent">
-      <div id="contentLeft">
-        <section>
-          <div id="addContactBtn" onclick="showContactForm('add')">
-            <p>Add new contant</p>
-            <img src="../images/person_add.svg" alt="">
+    <main>
+      <header class="zindex1">
+        <div class="header-container">
+          <div>
+            <img src="../images/joinlogodark.svg" alt="logo dark" />
+            <span>Kanban Project Management Tool</span>
           </div>
-          <nav id="allContacts"></nav>
-        </section>
-      </div>
-
-      <div id="contentRight" class="hide">
-        <div class="frame-40">
-          <h1>Contacts</h1>
-          <div class="frame-40-vektor"></div>
-          <p>Better with a team</p>
-
-          <div id="contactDetails">
-
-            <div id="contactDetailsPerson" class="contactDetailsPerson">
-              <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
-              <section>
-                <p id="contactDetailsName">Anja Schulz</p>
-                <div>
-                  <nav onclick="showContactForm('edit')">
-                    <img id="editIcon" src="../images/edit-2.svg" alt="">
-                    <span style="margin-right: 20px;">Edit</span>
-                  </nav>
-                  <nav onclick="contactForm('delete','')">
-                    <img id="deleteIcon" src="../images/delete.svg" alt="">
-                    <span style="margin-right: 20px;" id="deleteBtn">Delete</span>
-                  </nav>
-                </div>
-              </section>
-            </div>
-
-            <div class="contactInformations">
-              <p>Contact Information</p>
-              <strong>Email</strong>
-              <a id="contactDetailsMail" href="mailto:schulz@hotmail.com">schulz@hotmail.com</a>
-              <strong>Phone</strong>
-              <span id="contactDetailsPhone"></span>
-            </div>
+          <div>
+            <a href="./help.html"
+              ><img src="../images/help20x20.svg" alt="help"
+            /></a>
+            <a onclick="showUserLinksOptions()" id="userLink"></a>
           </div>
         </div>
+      </header>
 
-
-      </div>
-    </div>
-
-  </main>
-
-
-  <div id="manipulateContactBackground" class="visibleNone" onclick="hideContactForm('add')"></div>
-  <div id="addContactFrame" class="visibleNone">
-    <img class="closeFormImg" src="../images/close.svg" alt="" onclick="hideContactForm('add')">
-
-    <section id="addContactLeft">
-      <div id="addContactDivMiddle">
-        <img src="../images/joinlogowhite.svg" alt="">
-        <h1>Add contact</h1>
-        <h4>Tasks are better with a team!</h4>
-        <figure>
-        </figure>
-      </div>
-    </section>
-
-    <div id="addContactRight">
-      <div id="addContactRightDiv">
-        <div id="addContactRightImg">
-          <img src="../images/personwhite.svg" alt="">
+      <div
+        id="userLinkOptionsBackground"
+        class="hide"
+        onclick="showUserLinksOptions()"
+      >
+        <div
+          id="userLinkOptions"
+          class="userLinkOptions hide"
+          onclick="donothing(event)"
+        >
+          <a href="../html/legal-notice.html" class="userLinkOptionsLinks"
+            >Legal Notice</a
+          >
+          <a href="../html/privacy-policy.html" class="userLinkOptionsLinks"
+            >Privacy Policy</a
+          >
+          <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         </div>
-        <div id="addContactRightInputs">
-          <div class="flexColumn">
-            <div class="inputDiv">
-              <input type="text" id="nameInput" placeholder="Name" class="loginInput">
-              <img src="../images/person.svg" alt="" class="inputImg">
+      </div>
+
+      <div id="mainContent">
+        <div id="contentLeft">
+          <section>
+            <div id="addContactBtn" onclick="showContactForm('add')">
+              <p>Add new contant</p>
+              <img src="../images/person_add.svg" alt="" />
             </div>
-            <div class="inputDiv">
-              <input type="text" id="emailInput" placeholder="Email" class="loginInput">
-              <img src="../images/mail.svg" alt="" class="inputImg">
+            <nav id="allContacts"></nav>
+          </section>
+        </div>
+
+        <div id="contentRight">
+          <div class="frame-40">
+            <h1>Contacts</h1>
+            <div class="frame-40-vektor"></div>
+            <p>Better with a team</p>
+
+            <div id="contactDetails" class="hide">
+              <div id="contactDetailsPerson" class="contactDetailsPerson">
+                <span
+                  id="contactDetailsInitials"
+                  class="userInitialsBig userColor-FF745E"
+                ></span>
+                <section>
+                  <p id="contactDetailsName">Anja Schulz</p>
+                  <div>
+                    <nav onclick="showContactForm('edit')">
+                      <img id="editIcon" src="../images/edit-2.svg" alt="" />
+                      <span style="margin-right: 20px">Edit</span>
+                    </nav>
+                    <nav onclick="contactForm('delete','')">
+                      <img id="deleteIcon" src="../images/delete.svg" alt="" />
+                      <span style="margin-right: 20px" id="deleteBtn"
+                        >Delete</span
+                      >
+                    </nav>
+                  </div>
+                </section>
+              </div>
+
+              <div class="contactInformations">
+                <p>Contact Information</p>
+                <strong>Email</strong>
+                <a id="contactDetailsMail" href="mailto:schulz@hotmail.com"
+                  >schulz@hotmail.com</a
+                >
+                <strong>Phone</strong>
+                <span id="contactDetailsPhone"></span>
+              </div>
             </div>
-            <div class="inputDiv">
-              <input type="text" id="phoneInput" placeholder="Phone" class="loginInput">
-              <img src="../images/call.svg" alt="" class="inputImg">
-            </div>
-          </div>
-          <div class="flex marginTop10">
-            <button onmouseover="changeImage('blue')" onmouseleave="changeImage('darkblue')"
-              onclick="hideContactForm('add')" id="leftBtn" class="contactBtn whiteBtn">Cancel<img id="leftBtnImg"
-                src="../images/canceldarkblue.svg" alt="" class="marginLeft10"></button>
-            <button onclick="contactForm('add','add')" id="rightBtn" class="contactBtn blueBtn">Create
-              contact<img src="../images/check.svg" alt="" class="marginLeft10"></button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </main>
 
-  <span id="deleteError" class="hide"></span>
+    <div
+      id="manipulateContactBackground"
+      class="visibleNone"
+      onclick="hideContactForm('add')"
+    ></div>
 
+    <span id="deleteError" class="hide"></span>
+  </body>
 
-</body>
+  <script src="../scripts/script.js"></script>
+  <script src="../scripts/firebase.js"></script>
 
-<script src="../scripts/script.js"></script>
-<script src="../scripts/firebase.js"></script>
-<script src="../scripts/templates/contactTemp.js"></script>
-<script src="../scripts/contacts.js"></script>
-<script src="../scripts/userLink.js"></script>
+  <script src="../scripts/templates/contactOverlayTemp.js"></script>
+  <script src="../scripts/contacts/contactList.js"></script>
+  <script src="../scripts/contacts/addContact.js"></script>
+  <script src="../scripts/contacts/contact.js"></script>
 
+  <script src="../scripts/userLink.js"></script>
 </html>
