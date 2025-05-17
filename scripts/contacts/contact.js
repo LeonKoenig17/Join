@@ -164,21 +164,6 @@ function createSingleUserNav(user, userNumber) {
 
 
 /**
- * Returns the initials of a given full name.
- *
- * @param {string} [fullName=""] - The full name from which to extract initials.
- * @returns {string} The initials in uppercase letters.
- */
-function getInitials(fullName = "") {
-  return fullName
-    .split(" ")
-    .filter(Boolean)
-    .map(n => n[0].toUpperCase())
-    .join("");
-}
-
-
-/**
  * Handles the selection and display of task details for a contact element.
  * Determines the action to take based on whether a contact is already chosen,
  * if the same contact is chosen again, or if a different contact is selected.

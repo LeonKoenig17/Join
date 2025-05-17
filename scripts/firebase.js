@@ -168,6 +168,12 @@ async function lastColor() {
   return iconColors[found];
 }
 
+/**
+ * Returns the initials of a given full name.
+ *
+ * @param {string} [element] - The full name from which to extract initials.
+ * @returns {string} The initials in uppercase letters.
+ */
 function getInitials(element) {
   let completeName = element.split(" ");
   let firstName = completeName[0]
