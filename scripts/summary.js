@@ -120,3 +120,27 @@ function setGreeting() {
   }
 }
 
+
+function showFullscreenGreeting() {
+  const screen = document.getElementById("greetingScreen");
+
+  // Nur für Viewports unter 1000 px
+  if (window.innerWidth < 1000 && screen) {
+    // 1) Overlay‑Klasse aktivieren
+    screen.classList.add("overlay");
+
+    // 2) Nach 2 s ausblenden …
+    setTimeout(() => screen.classList.add("fade-out"), 2000);
+
+    // 3) … und nach der Transition komplett entfernen
+    screen.addEventListener("transitionend", () => {
+      screen.remove();               // nimmt das Element ganz aus dem DOM
+    }, { once: true });
+  }
+}
+
+/* Bei Seiten‑Ladung */
+window.addEventListener("DOMContentLoaded", () => {
+  setGreeting();
+  showFullscreenGreeting();
+});
