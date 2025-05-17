@@ -2,14 +2,18 @@ let ergebnisse = "";
 let thisToken = "";
 
 function onLoad() {
-    moveLogo()
-    loadFromFirebase()
+    moveLogo();
+    loadFromFirebase();
 }
 
 function moveLogo() {
     let logoImg = document.getElementById('logoImg');
     let mainDiv = document.getElementById('main');
+
+    console.log("moveLogo");
+
     setTimeout(() => {
+        window.innerWidth < 800 ? logoImg.src = '../images/joinlogowhite.svg' : ""
         logoImg.style.display = 'none';
         logoImg.style.width = '0px'; logoImg.style.height = '0px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
     }, 0);
@@ -24,9 +28,12 @@ function moveLogo() {
     }, 1500);
 
     setTimeout(() => {
+        window.innerWidth < 800 ? logoImg.src = '../images/joinlogodark.svg' : ""
         mainDiv.style.opacity = '1';
     }, 2000);
 }
+
+
 
 // function onloadFunc() {
 // console.log("test")
@@ -34,11 +41,6 @@ function moveLogo() {
 // postData("login",{"ach":"du scheisse"}) // schreibt datensatz
 //deleteData("login/-OMkJuc3knfDkLsczsu7") //löscht datensatz
 // }
-
-
-
-
-
 
 async function writeLocalStorage() {
     let myEmail = await findUser(document.getElementById("emailInput").value);
@@ -195,7 +197,7 @@ function showLockIconLogin(element) {
 function showContactFormOld(type) {
     let contact = document.getElementById(`${type}Contact`);
     let contactDiv = document.getElementById(`${type}ContactDiv`);
-    
+
     contact.classList.remove("hide");
     document.getElementById("addContactDiv").classList.remove("hide");
 
