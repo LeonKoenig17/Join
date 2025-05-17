@@ -70,6 +70,7 @@ function updateAssignedChips(users) {
       const initials = getInitials(user.name || user.email);
       const chipHTML = `<div class="assigned-chip" style="background-color: ${user.color};">${initials}</div>`;
       chips.push(chipHTML);
+
     }
   });
 
@@ -81,16 +82,14 @@ function updateAssignedChips(users) {
  * Gibt die Initialen eines Namens oder einer E-Mail zurück.
  */
 
-function getInitials(str) {
-  if (!str) return "?";
-  if (typeof str !== "string") {
-    if (str.name) return getInitials(str.name);
-    if (str.email) return getInitials(str.email);
-    return "?";
-  }
-  const parts = str.split(" ");
-  return parts.map(part => part.charAt(0).toUpperCase()).join("");
+function getInitials(fullName = "") {
+  return fullName
+    .split(" ")
+    .filter(Boolean)
+    .map(n => n[0].toUpperCase())
+    .join("");
 }
+
 
 async function loadFirebaseUsers() {
   const url = BASE_URL + "login.json";

@@ -184,22 +184,3 @@ function addUserClickHandler(navElement) {
         chooseTaskDetails(navElement.id);
     });
 }
-
-
-/**
- * Returns the initials of a given full name.
- *
- * Splits the full name by spaces and concatenates the first character of each part,
- * returning the result in uppercase.
- *
- * @param {string} fullName - The full name from which to extract initials.
- * @returns {string} The uppercase initials of the full name, or an empty string if no name is provided.
- */
-function getInitials(fullName) {
-    if (!fullName) return "";
-    return fullName
-        .split(" ")
-        .map(name => name[0])
-        .join("")
-        .toUpperCase();
-}

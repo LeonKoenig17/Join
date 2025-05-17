@@ -70,6 +70,7 @@ button {
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 #searchInput button:hover {
@@ -181,6 +182,7 @@ button {
   border: none;
   cursor: pointer;
   z-index: 2;
+  transition: background-image 0.2s ease-in-out,
 }
 
 .add-task:hover {

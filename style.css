@@ -34,6 +34,10 @@ header span {
     cursor: context-menu;
 }
 
+header img {
+    transition: transform 0.3s ease-in-out;
+}
+
 header img:hover {
     transform: scale(1.2);
 }
@@ -71,6 +75,7 @@ footer {
     color: #29ABE2;
     font-weight: bold;
     margin: 16px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 #userLink:hover {
@@ -100,6 +105,7 @@ footer {
     padding: 10px 20px;
     margin: 0;
     cursor: pointer;
+    transition: color 0.3s ease-in-out;
 }
 
 .userLinkOptionsLinks:hover {
@@ -126,6 +132,7 @@ nav a,
     color: #CDCDCD;
     padding: 8px;
     padding-left: 45px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 nav a:hover {
@@ -145,10 +152,12 @@ nav img {
 
 #legal a {
     color: #A8A8A8;
+    transition: color 0.3s ease-in-out,
+                font-weight 0.3s ease-in-out;
 }
 
 #legal a:hover {
-    color: #29ABE2;
+    color: var(--hover-color);
     font-weight: bold;
 }
 

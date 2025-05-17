@@ -273,6 +273,15 @@ main {
   justify-content: center;
   border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#addContactBtn img {
+  padding-left: 20px;
+}
+
+#addContactBtn:hover {
+  background-color: var(--hover-color);
 }
 
 #addContactBtn p {
@@ -313,6 +322,8 @@ main {
 }
 
 .singleUser {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -321,10 +332,19 @@ main {
   margin: 5px 0;
   color: black;
   cursor: pointer;
+  background: linear-gradient(to bottom, white, lightgray);
+  background-size: 100% 0%;
+  background-repeat: no-repeat;
+  background-position: top;
+
+  transition: 
+    background-size 0.3s ease-in-out,
+    border-radius  0.1s ease-in-out;
+  
 }
 
 .singleUser:hover {
-  background-image:linear-gradient( white, lightgray);
+  background-size: 100% 100%;
   border-radius: 1rem;
 }
 
