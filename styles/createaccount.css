@@ -204,10 +204,11 @@ header img:hover {
     cursor: pointer;
 }
 
-#backToLogin:hover{
+#backToLogin:hover {
     background-color: #eeeeee;
     border-radius: 1rem;
 }
+
 #acceptPrivacyPolicy {
     margin-right: 10px;
 }
@@ -254,7 +255,7 @@ input[type=password]:focus {
 
 
 
-.signUpSuccess{
+.signUpSuccess {
     /* position: absolute; */
     left: 50%;
     top: 100%;
@@ -285,4 +286,87 @@ input[type=password]:focus {
     cursor: auto;
     box-shadow: none;
     background-color: var(--primary-color);
+}
+
+@media (max-width: 650px) {
+    .createAccountDiv {
+        /* height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: white;
+        width: fit-content; */
+        /* border-radius: 30px; */
+        padding: 20px 5px;
+        /* box-shadow: 00px 00px 15px rgba(0, 0, 0, 0.05); */
+    }
+
+    #backToLogin {
+        /* position: relative; */
+        left: -150px;
+        /* top: 30px; */
+        /* cursor: pointer; */
+    }
+
+    .blueBtn {
+        width: 168px;
+        font-size: 16px;
+    }
+
+    #accountHeader {
+        font-size: 47px;
+    }
+}
+
+@media (max-width: 550px) {
+    .loginInputDiv{
+        gap: 16px;
+    }
+    .loginInput {
+        height: 46px;
+        width: 75%;
+        font-size: 20px;
+        padding: 0px 20px;
+        margin: 10px 0px;
+        font-size: 16px;
+    }
+
+    .accountHeader {
+        font-size: 47px;
+    }
+
+    #backToLogin {
+        left: -125px;
+    }
+
+    #acceptPrivacy {
+        font-size: 14px;
+    }
+
+    #acceptPrivacyPolicy {
+        height: 80%;
+    }
+}
+
+@media(max-width: 400px) {
+    .accountHeader {
+        font-size: 30px;
+    }
+
+    #backToLogin {
+        left: -75px;
+    }
+
+    .loginInput {
+        padding-right: 60px;
+    }
+
+    .errorSpan {
+        width: 125px;
+        flex-wrap: wrap;
+        font-size: 8px;
+        top: -0px;
+        left: 0px;
+    }
 }
