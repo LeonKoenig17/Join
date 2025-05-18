@@ -35,13 +35,13 @@
     width: 100%;
     background-color: var(--border-color);
   }
-  
+
   .half-width {
     width: 100%;
   }
 
   .addTask-right {
-    gap: 8px;
+    gap: 0;
   }
 
   .create-task-footer {
@@ -62,4 +62,9 @@
   .create-task-footer label {
     display: none;
   }
+
+  .custom-date-input img {
+    left: 90%;
+  }
+
 }
