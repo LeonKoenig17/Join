@@ -103,44 +103,44 @@ function setCurrentDate() {
 }
 
 
-/** Tageszeit-Begrüßung */
+// /** Tageszeit-Begrüßung */
+// function setGreeting() {
+//   const currentHour = new Date().getHours();
+//   let greeting = "Good morning,";
+
+//   if (currentHour >= 12 && currentHour < 18) {
+//     greeting = "Good afternoon,";
+//   } else if (currentHour >= 18 || currentHour < 5) {
+//     greeting = "Good evening,";
+//   }
+
+//   const greetingElement = document.getElementById("greeting");
+//   if (greetingElement) {
+//     greetingElement.innerText = greeting;
+//   }
+// }
+
+/** Zeitabhängige Begrüßung ---------------------------------- */
 function setGreeting() {
-  const currentHour = new Date().getHours();
-  let greeting = "Good morning,";
-
-  if (currentHour >= 12 && currentHour < 18) {
-    greeting = "Good afternoon,";
-  } else if (currentHour >= 18 || currentHour < 5) {
-    greeting = "Good evening,";
-  }
-
-  const greetingElement = document.getElementById("greeting");
-  if (greetingElement) {
-    greetingElement.innerText = greeting;
-  }
+  const h = new Date().getHours();
+  const greeting =
+    h >= 18 || h < 5 ? "Good evening," :
+      h >= 12 ? "Good afternoon," :
+        "Good morning,";
+  document.getElementById("greeting").textContent = greeting;
 }
 
+/** Overlay bei schmalen Screens ----------------------------- */
+window.addEventListener("load", () => {
+  setGreeting();                       // Text setzen
 
-function showFullscreenGreeting() {
-  const screen = document.getElementById("greetingScreen");
-
-  // Nur für Viewports unter 1000 px
-  if (window.innerWidth < 1000 && screen) {
-    // 1) Overlay‑Klasse aktivieren
-    screen.classList.add("overlay");
-
-    // 2) Nach 2 s ausblenden …
-    setTimeout(() => screen.classList.add("fade-out"), 2000);
-
-    // 3) … und nach der Transition komplett entfernen
-    screen.addEventListener("transitionend", () => {
-      screen.remove();               // nimmt das Element ganz aus dem DOM
-    }, { once: true });
+  const box = document.getElementById("greetingScreen");
+  if (box && window.innerWidth <= 1000) {
+    box.classList.add("fullscreen");   // Overlay anzeigen
+    setTimeout(() => {
+      box.classList.remove("fullscreen"); // nach 2 s wieder weg
+      // Media‑Query macht den Rest (display:none)
+    }, 2000);
   }
-}
-
-/* Bei Seiten‑Ladung */
-window.addEventListener("DOMContentLoaded", () => {
-  setGreeting();
-  showFullscreenGreeting();
 });
+
