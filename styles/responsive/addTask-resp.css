@@ -1,0 +1,50 @@
+@media (max-width: 1056px) {
+  #main {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  #main {
+    transform: scale(0.85) translate(0, -5%);
+  }
+
+  .main-container {
+    gap: 24px;
+  }
+
+  #addTask {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions {
+    gap: 16px;
+  }
+
+  .create-task-footer p {
+    display: none;
+  }
+
+
+  .separator {
+    height: 1px;
+    width: 100%;
+    background-color: var(--border-color);
+  }
+  .half-width {
+    width: 100%;
+  }
+
+  .addTask-right {
+    gap: 0;
+  }
+  .create-task-footer {
+     justify-content: flex-end;
+    margin-top: 24px;
+  }
+}

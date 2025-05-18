@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../styles/addTask/dropdownAddTask.css" />
   <link rel="stylesheet" href="../styles/fonts.css" />
   <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
+  <link rel="stylesheet" href="../styles/responsive/addTask-resp.css" />
 
   <!-- <script src="../scripts/containerDebugger.js"></script> -->
   <!-- <script src="../scripts/userVerification.js"></script>-->
@@ -93,29 +94,28 @@
       </div>
     </div>
 
-    <div id="main" class="main-addTask">
+    <div id="main">
       <div class="main-container">
-
         <h1>Add Task</h1>
         <section id="addTask" class="add-task">
           <div class="half-width addTask-left">
             <form class="forms">
               <div class="input-container">
                 <label for="title">
-                  <h2>Title</h2>
+                  <label>Title</label>
                   <span class="star">*</span>
                 </label>
                 <input type="text" id="title" name="title" placeholder="Enter a title" required />
                 <span class="error-message" id="title-error"></span>
               </div>
               <div class="input-container flex">
-                <h2 for="description">Description</h2>
+                <label for="description">Description</label>
                 <textarea id="description" name="description" placeholder="Enter a Description" class="description"
                   spellcheck="false"></textarea>
                 <span class="error-message" style="opacity: 0" id="description-error"></span>
               </div>
               <div class="input-container">
-                <h2 for="due-date">Due date<span class="star">*</span></h2>
+                <label for="due-date">Due date<span class="star">*</span></label>
                 <div class="custom-date-input">
                   <input type="date" placeholder="TT.MM.JJJJ" id="due-date" name="due-date" min="2025-01-01"
                     max="2025-12-31" required />
@@ -127,7 +127,7 @@
           </div>
           <div class="separator"></div>
           <div class="half-width addTask-right">
-            <h2>Priority</h2>
+            <label>Priority</label>
             <div class="priority-buttons">
               <button type="button" class="priority priority-urgent" onclick="setPriority(this)">
                 Urgent
@@ -149,7 +149,7 @@
               </button>
             </div>
             <div class="assigned-container">
-              <h3>Assigned to</h3>
+              <label>Assigned to</label>
               <div class="custom-assigned-dropdown" id="assignedDropdown">
                 <div class="dropdown-selected" id="assignedDropdownSelected">
                   Select contacts to assign
@@ -162,7 +162,7 @@
             </div>
             <div class="assigned-chips" id="assignedChips"></div>
             <div>
-              <h3>Category<span class="star">*</span></h3>
+              <label>Category<span class="star">*</span></label>
               <div class="custom-select-container">
                 <select id="categorySelect">
                   <option value="" disabled selected>
@@ -176,7 +176,7 @@
               <span class="error-message" id="category-error"></span>
             </div>
             <div>
-              <h3>Subtasks</h3>
+              <label>Subtasks</label>
               <div class="subtask-input">
                 <input type="text" id="subtask-input" placeholder="Add new subtask" onclick="activateSubtaskInput()"
                   autocomplete="off" />
@@ -234,17 +234,8 @@
   <script src="../scripts/tasks/addTask.js"></script>
   <script src="../scripts/tasks/subtask.js"></script>
   <script src="../scripts/tasks/addTaskDropDown.js"></script>
-  <script src="../scripts/board/taskOverlay.js"></script>
-  <script src="../scripts/board/board.js"></script>
-
-  <script src="../scripts/tasks/addTaskDropDown.js"></script>
   <script src="../scripts/templates/subtaskTemp.js"></script>
   <script src="../scripts/templates/assigneeTemp.js"></script>
-
-  <script src="../scripts/templates/taskOverlayTemp.js"></script>
-
-
   <script src="../scripts/firebase.js"></script>
 </body>
-
 </html>

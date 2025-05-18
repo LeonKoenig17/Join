@@ -139,16 +139,6 @@ function validateFormData(data) {
     document.getElementById("title-error").textContent = "";
   }
 
-  if (!data.description) {
-    descriptionInput.classList.add("fieldIsRequired");
-    document.getElementById("description-error").textContent =
-      "This field is required";
-    isValid = false;
-  } else {
-    descriptionInput.classList.remove("fieldIsRequired");
-    document.getElementById("description-error").textContent = "";
-  }
-
   if (!data.dueDate) {
     dateInput.classList.add("fieldIsRequired");
     document.getElementById("due-date-error").textContent =
