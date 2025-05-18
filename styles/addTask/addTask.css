@@ -47,6 +47,12 @@ label {
   color: var(--text-color);
 }
 
+label span {
+  color: var(--priority-color-urgent);
+  font-size: 12px;
+  margin: 0 4px;
+}
+
 .description {
   resize: none;
   padding-top: 16px;
@@ -125,12 +131,6 @@ label {
   flex-direction: column;
   width: 100% !important;
   gap: 16px
-}
-
-.right-label {
-  font-size: 20px;
-  color: var(--text-color);
-  margin-bottom: 8px;
 }
 
 .priority-buttons {

@@ -26,25 +26,40 @@
     gap: 16px;
   }
 
-  .create-task-footer p {
-    display: none;
+  .create-task-footer label {
+    transform: scale(0.8);
   }
-
 
   .separator {
     height: 1px;
     width: 100%;
     background-color: var(--border-color);
   }
+  
   .half-width {
     width: 100%;
   }
 
   .addTask-right {
-    gap: 0;
+    gap: 8px;
   }
+
   .create-task-footer {
-     justify-content: flex-end;
+    justify-content: space-between;
     margin-top: 24px;
+  }
+
+  .custom-date-input img {
+    left: 95%;
+  }
+}
+
+@media (max-width: 500px) {
+  .create-task-footer {
+    justify-content: flex-end;
+  }
+
+  .create-task-footer label {
+    display: none;
   }
 }
