@@ -46,7 +46,8 @@ summary {
   flex-direction: column;
 }
 
-.frame-69 h2 {
+.frame-69 h2,
+.fullscreen h2 {
   margin: 0;
   font-weight: 500;
   font-size: 40px;
@@ -54,7 +55,8 @@ summary {
   cursor: context-menu;
 }
 
-.frame-69 h3 {
+.frame-69 h3,
+.fullscreen h3 {
   margin: 0;
   font-weight: 700;
   font-size: 48px;
@@ -419,21 +421,44 @@ summary {
   visibility: hidden;
 }
 
+.fullscreen {
+  position: fixed;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0 */
+  width: 100vw;
+  height: 100vh;
+  background: #f8f8f8;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  animation: fadeOut 0.5s ease-out 1.5s forwards;
+  /* startet nach 1,5 s */
+}
+
 @media (max-width: 1050px) {
-  .frame-69 h3 {
+
+  .frame-69 h3,
+  .fullscreen h3 {
     font-size: 40px;
   }
 
-  .frame-69 h2 {
+  .frame-69 h2,
+  .fullscreen h2 {
     font-size: 30px;
   }
 }
 
-
-
 @media (max-width: 1000px) {
   .frame-69 {
     display: none;
+  }
+
+  .frame-69.fullscreen {
+    /* Override für die ersten 2 s */
+    display: flex !important;
   }
 
   .frame-40 {
@@ -524,32 +549,10 @@ summary {
   }
 }
 
-.greeting-screen {
-  padding: 1rem 2rem;
-}
-
-/* ▼ Overlay‑Stil nur unter 1000 px */
-@media (max-width: 999px) {
-  .greeting-screen.overlay {
-    position: fixed;
-    inset: 0;
-    /* top/right/bottom/left: 0 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
-    z-index: 9999;
-
-    /* sanft ausblenden */
-    opacity: 1;
-    pointer-events: all;
-    transition: opacity .4s ease;
-  }
-
-  /* nach dem Ausblenden nicht mehr im Flow */
-  .greeting-screen.overlay.fade-out {
+/* sanftes Ausblenden ---------------------------------------- */
+@keyframes fadeOut {
+  to {
     opacity: 0;
-    pointer-events: none;
+    visibility: hidden;
   }
 }
