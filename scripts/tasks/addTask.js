@@ -286,12 +286,9 @@ async function deleteTask(taskId) {
  * Initialisiert die Add-Task-Seite beim Laden.
  */
 function initAddTaskPage() {
-  // explizit auf der Seite:
   initPriorityButtons();
   setupDatePicker();
   setupFieldListeners();
-
-  // Formular-Setup & Dropdown
   setupTaskForm('todo');
   initAssignedDropdown().then(users => updateAssignedChips(users));
 }
