@@ -5,8 +5,6 @@
 
     main {
         width: 100%;
-        /* height: calc(100vh - 80px); */
-        /* position: relative; */
     }
 
     header {
@@ -53,7 +51,6 @@
         text-decoration: none;
         font-size: 14px;
         color: var(--font-color);
-        /* padding: 10px; */
         margin: 0 5px;
         border-radius: 16px;
         white-space: nowrap;
