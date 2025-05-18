@@ -178,7 +178,6 @@ async function deleteSubtask(index) {
   subtasks.splice(index, 1);
   updateSubtaskList();
 
-  // ⬇ Backend speichern
   if (currentTask?.id) {
     const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
     await patchTask(currentTask.id, { subtasks: updatedSubtasks });

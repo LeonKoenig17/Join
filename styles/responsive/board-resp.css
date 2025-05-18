@@ -1,0 +1,22 @@
+@media (max-width: 800px) {
+    #boardContent {
+        flex-direction: column;
+        /* align-items: center; */
+    }
+
+    .task-list {
+        display: flex;
+        /* flex-direction: row; */
+    }
+
+    .column-header {
+        position: absolute;
+        /* padding-bottom: 30px; */
+    }
+
+    .task {
+        margin-right: 16px;
+        margin-top: 36px;
+        user-select: none;
+    }
+}

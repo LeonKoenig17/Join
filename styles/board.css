@@ -147,7 +147,7 @@ button {
 }
 
 #toDo, #inProgress, #awaitFeedback, #done {
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 #boardContent::-webkit-scrollbar {

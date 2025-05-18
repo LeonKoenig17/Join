@@ -204,3 +204,17 @@ function showUserLinksOptions() {
   document.getElementById("userLinkOptionsBackground").classList.toggle("hide");
 
 }
+
+function updateDraggable() {
+    const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
+    const tasks = document.querySelectorAll(".task");
+    tasks.forEach(task => {
+      task.setAttribute("draggable", !isSmallScreen);
+    })
+  }
+
+// Run on load
+updateDraggable();
+
+// Run on resize
+window.addEventListener("resize", updateDraggable);

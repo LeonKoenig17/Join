@@ -1,49 +1,47 @@
 @media (max-width: 800px) {
-    aside {
-        display: none;
-    }
+  aside {
+    display: none;
+  }
 
     main {
         width: 100%;
-        /* height: calc(100vh - 80px); */
-        /* position: relative; */
     }
 
-    header {
-        height: 80px;
-    }
+  header {
+    height: 80px;
+  }
 
-    /* help button hidden */
-    .header-container div:nth-child(2) a:first-child {
-        display: none;
-    }
+  /* help button hidden */
+  .header-container div:nth-child(2) a:first-child {
+    display: none;
+  }
 
-    .header-container div:first-child span{
-        display: none;
-    }
+  .header-container div:first-child span {
+    display: none;
+  }
 
-    .header-container div:first-child img {
-        display: block;
-        height: 40px;
-        padding: 16px;
-    }
+  .header-container div:first-child img {
+    display: block;
+    height: 40px;
+    padding: 16px;
+  }
 
-    footer {
-        display: flex;
-        justify-content: space-around;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 80px;
-        width: 100vw;
-        background-color: var(--primary-color);
-    }
+  footer {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 80px;
+    width: 100vw;
+    background-color: var(--primary-color);
+  }
 
-    footer img {
-        width: 20px;
-        height: 20px;
-        margin-bottom: 4px;
-    }
+  footer img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+  }
 
     footer a {
         display: flex;
@@ -53,7 +51,6 @@
         text-decoration: none;
         font-size: 14px;
         color: var(--font-color);
-        /* padding: 10px; */
         margin: 0 5px;
         border-radius: 16px;
         white-space: nowrap;
@@ -62,7 +59,7 @@
 }
 
 @media (max-width: 350px) {
-    footer a {
-        font-size: 12px;
-    }
+  footer a {
+    font-size: 12px;
+  }
 }
