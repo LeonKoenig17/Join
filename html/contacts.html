@@ -90,11 +90,11 @@
               <section>
                 <p id="contactDetailsName">Anja Schulz</p>
                 <div>
-                  <nav onclick="showContactForm('edit')">
+                  <nav class="blueHover" onmouseover="changeImage('editIcon','edit-1')" onmouseleave="changeImage('editIcon','edit-2')" onclick="showContactForm('edit')">
                     <img id="editIcon" src="../images/edit-2.svg" alt="" />
                     <span style="margin-right: 20px">Edit</span>
                   </nav>
-                  <nav onclick="contactForm('delete','')">
+                  <nav class="blueHover" onmouseover="changeImage('deleteIcon','delete-blue')" onmouseleave="changeImage('deleteIcon','delete')" onclick="contactForm('delete','')">
                     <img id="deleteIcon" src="../images/delete.svg" alt="" />
                     <span style="margin-right: 20px" id="deleteBtn">Delete</span>
                   </nav>

@@ -337,10 +337,10 @@ main {
   background-repeat: no-repeat;
   background-position: top;
 
-  transition: 
+  transition:
     background-size 0.3s ease-in-out,
-    border-radius  0.1s ease-in-out;
-  
+    border-radius 0.1s ease-in-out;
+
 }
 
 .singleUser:hover {
@@ -374,6 +374,12 @@ main {
 .emailText {
   padding: 0;
   color: var(--link-color);
+  display: inline-block;
+  max-width: 210px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
 }
 
 .emailText:hover {
@@ -533,6 +539,11 @@ strong {
   animation: slideInFromRight 250ms ease forwards;
 }
 
+.blueHover:hover {
+  color: var(--text-underline-color);
+  transition: all 0.1s ease-in-out;
+}
+
 #deleteError {
   position: absolute;
   flex-wrap: nowrap;
@@ -557,7 +568,7 @@ strong {
   visibility: visible;
 }
 
-.zindex1{
+.zindex1 {
   z-index: 1;
 }
 

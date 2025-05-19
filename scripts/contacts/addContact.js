@@ -222,6 +222,6 @@ async function saveContact(email) {
  *
  * @param {string} variant - The variant string to append to the image filename (e.g., 'Active', 'Inactive').
  */
-function changeImage(variant) {
-  document.getElementById("leftBtnImg").src = `../images/cancel${variant}.svg`;
+function changeImage(element,variant) {
+  document.getElementById(element).src = `../images/${variant}.svg`;
 }

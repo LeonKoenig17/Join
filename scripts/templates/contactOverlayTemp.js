@@ -65,8 +65,8 @@ function contactDetailsTemp(mode) {
             </div>
             <div class="flex marginTop10">
               <button
-                onmouseover="changeImage('blue')"
-                onmouseleave="changeImage('darkblue')"
+                onmouseover="changeImage('leftBtnImg','cancelblue')"
+                onmouseleave="changeImage('leftBtnImg','canceldarkblue')"
                 onclick="${leftBtnAction}"
                 id="leftBtn"
                 class="contactBtn whiteBtn"
