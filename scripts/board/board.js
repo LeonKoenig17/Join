@@ -9,6 +9,7 @@ async function init() {
   setupDragDrop();
   setupSubtaskInputListeners();
   getCurrentHTML();
+  addHelpToPopup();
 }
 
 

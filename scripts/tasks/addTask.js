@@ -8,6 +8,7 @@ let priorityButtons = [];
 function initAddTask(){
   fillUserLinks();
   getCurrentHTML();
+  addHelpToPopup();
 }
 
 function initializeOverlayFeatures() {

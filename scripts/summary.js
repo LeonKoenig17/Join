@@ -1,6 +1,7 @@
 async function init() {
   fillUserLinks();
   await loadAndDisplayTaskCounts();
+  addHelpToPopup();
 }
 
 init(); // Startpunkt
