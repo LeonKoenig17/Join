@@ -2,7 +2,7 @@ function addTaskOverlayTemplate(stage) {
   const subtasksHTML = subtasks
     .map((subtask, index) => subtasksTemplate(subtask, index))
     .join("");
-    
+
   const today = new Date().toISOString().split('T')[0];
 
   return `
@@ -104,6 +104,7 @@ function addTaskOverlayTemplate(stage) {
                     placeholder="Add new subtask"
                     onclick="activateSubtaskInput()"
                     autocomplete="off"
+                    maxlength="35"
                   />
                   <div class="subTask-icons">
                     <img

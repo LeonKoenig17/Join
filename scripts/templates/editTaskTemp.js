@@ -3,8 +3,7 @@
  * @param {Object} task - Task-Daten aus Firebase
  * @param {Array} users - Liste aller User für Dropdown/Chips
  */
-function editTaskOverlayTemplate(task, users) {
-  // Subtasks als Listeneinträge
+function editTaskOverlayTemplate(task) {
   const subsHTML = (
     Array.isArray(task.subtasks)
       ? task.subtasks
@@ -13,19 +12,8 @@ function editTaskOverlayTemplate(task, users) {
     .map((s, i) => subtasksTemplate(s, i))
     .join("\n");
 
-  // Priority-Buttons aktiv setzen
   const p = (level) =>
     task.priority.toLowerCase() === level.toLowerCase() ? "active-btn" : "";
-
-  // Assignee-Chips
-  const chipsHTML = (task.assignedTo || [])
-    .map(
-      (u) =>
-        `<div class="assigned-chip" style="background:${
-          u.color
-        };">${getInitials(u.name)}</div>`
-    )
-    .join("\n");
 
     const today = new Date().toISOString().split('T')[0];
   return `
@@ -54,7 +42,7 @@ function editTaskOverlayTemplate(task, users) {
              <span id="description-error" class="error-msg"></span>
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
-              <input type="date" id="due-date" name="due-date"  required min="${today}"/>
+              <input type="date" id="due-date" name="due-date"  required min="${today}" value="${task.dueDate || ''}"/>
               <img src="../images/calendar.svg" alt="Calendar Icon" />
               <span id="due-date-error" class="error-msg"></span>
             </div>
@@ -94,21 +82,6 @@ function editTaskOverlayTemplate(task, users) {
               </div>
               <div class="assigned-chips" id="assignedChips"></div>
 
-          <h3>Category<span>*</span></h3>
-          <div class="custom-select-container">
-            <select id="categorySelect">
-              <option disabled>Select a category</option>
-              <option ${
-                task.category === "User Story" ? "selected" : ""
-              }>User Story</option>
-              <option ${
-                task.category === "Technical Task" ? "selected" : ""
-              }>Technical Task</option>
-            </select>
-            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon"/>
-            <span id="category-error" class="error-msg"></span>
-          </div>
-
           <h3>Subtasks</h3>
           <div class="subtask-input">
                   <input
@@ -117,6 +90,7 @@ function editTaskOverlayTemplate(task, users) {
                     placeholder="Add new subtask"
                     onclick="activateSubtaskInput()"
                     autocomplete="off"
+                    maxlength="35"
                   />
                   <div class="subTask-icons">
                     <img

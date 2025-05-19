@@ -29,7 +29,7 @@ function taskOverlaySubtaskTemplate(subtask, index) {
         class="subtask-checkbox-icon"
         onclick="toggleSubtaskCompletion(${index})"
       />
-      <label for="subtask-${index}" class="subtask-label">${subtask.name}</label>
+      <p for="subtask-${index}" class="subtask-label">${subtask.name}</p>
     </div>
   `;
 }

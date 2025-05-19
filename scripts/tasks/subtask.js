@@ -15,7 +15,6 @@ function initSubtasksArray(taskData) {
 
 function initializeSubtaskModule(taskData) {
   initSubtasksArray(taskData);
-  /*initSubtaskUI();*/
   updateSubtaskList();
   updateProgressBar();
 }
@@ -189,11 +188,12 @@ function setupSubtaskListeners() {
   const closeIcon = document.getElementById("close-subtask-icon");
   const checkIcon = document.getElementById("check-subtask-icon");
   const subInput = document.getElementById("subtask-input");
-  if (!addIcon || !subInput) return;
+  if (!addIcon || !subInput || !closeIcon || !checkIcon) return;
 
   addIcon.addEventListener("click", () => {
     if (subInput.value.trim() !== "") {
       confirmSubtaskEntry();
+      toggleIcons(false);
     } else {
       activateSubtaskInput();
     }
@@ -202,7 +202,13 @@ function setupSubtaskListeners() {
   subInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       confirmSubtaskEntry();
+      subInput.value = "";
+      toggleIcons(false);
     }
+  });
+  checkIcon.addEventListener("click", () => {
+    subInput.value = "";
+    toggleIcons(false);
   });
 }
 
