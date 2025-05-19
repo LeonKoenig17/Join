@@ -5,6 +5,10 @@
 let activePriorityButton = null;
 let priorityButtons = [];
 
+function initAddTask(){
+  fillUserLinks();
+  getCurrentHTML();
+}
 
 function initializeOverlayFeatures() {
   const taskOverlay = document.getElementById("taskOverlay");

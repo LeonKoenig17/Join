@@ -8,6 +8,7 @@ async function init() {
   await renderTasks();
   setupDragDrop();
   setupSubtaskInputListeners();
+  getCurrentHTML();
 }
 
 
