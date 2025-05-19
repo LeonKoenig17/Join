@@ -1,5 +1,6 @@
 
 
+
 function initCreateAccount() {
     loadFromFirebase();
 }
@@ -13,19 +14,24 @@ async function createAccount() {
     let confirmPassword = document.getElementById("confirmPasswordInput").value;
 
 
+    if (emailIsValid(email) == false) {
+        return
+    }
 
     if (privacyBoolean == "false") {
+        // deleteError('acceptPrivacyPolicy','privacyErrorSpan',0,0)
         return
     }
 
     let myValue = await findUser(email);
 
 
+
     if (myValue != null) {
         // window.alert("Account already exists")
         deleteError("signUpBtn","accountErrorSpan",-48  ,50,'Account with this email-address already exists.')
     } else {
-        if (password == confirmPassword && password != "" && privacyBoolean == "true") {
+        if (password == confirmPassword && password != "" && privacyBoolean == "true" && userName !=  "" && emailIsValid(email) == true) {
             let nextcolor = await lastColor();
             await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
             await loadFromFirebase();
@@ -74,6 +80,14 @@ emailInput.addEventListener('keydown', function (event) {
 emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Backspace') {
         clearErrorEmailInput();
+    }
+});
+
+// Auslösen bei @
+emailInput.addEventListener('input', function (event) {
+    const value = event.target.value;
+    if (value.includes('@') && value.includes('.')) {
+        checkEmailInput();
     }
 });
 
