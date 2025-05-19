@@ -67,6 +67,7 @@ function toasterPopup(element,target) {
 
 function addHelpToPopup() {
     const windowWidth = window.innerWidth;
+    try {
     if (windowWidth <= 800) {
         document.getElementById("userLinkOptions").innerHTML = `
         <a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
@@ -80,6 +81,9 @@ function addHelpToPopup() {
         <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         `
+    }
+    } catch (error) {
+        
     }
 }
 
@@ -111,9 +115,9 @@ function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-function clearErrorEmailInput(){
+function clearErrorInput(firstElement,secondElement){
     // let email = document.getElementById("emailInput").value;
-        hideError("emailInput", "emailErrorSpan")
+        hideError(firstElement, secondElement)
 
 }
 

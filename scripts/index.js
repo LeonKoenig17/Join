@@ -7,8 +7,6 @@ function moveLogo() {
     let logoImg = document.getElementById('logoImg');
     let mainDiv = document.getElementById('main');
 
-    console.log("moveLogo");
-
     setTimeout(() => {
         window.innerWidth < 800 ? logoImg.src = '../images/joinlogowhite.svg' : ""
         logoImg.style.display = 'none';
@@ -45,7 +43,7 @@ async function login() {
     }
     if (password == myPassword) {
         writeLocalStorage();
-        toasterPopup('loginSuccess','../html/summary');
+        toasterPopup('loginSuccess', '../html/summary');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
@@ -60,7 +58,7 @@ async function guestLogin() {
     document.getElementById("passwordInput").value = '123456789'
 
     writeLocalStorage();
-    toasterPopup('loginSuccess','../html/summary');
+    toasterPopup('loginSuccess', '../html/summary');
 }
 
 
@@ -76,17 +74,21 @@ async function checkPassword(email) {
 
 
 function acceptPrivacyPolicy(element) {
-    let myChk = document.getElementById(element);
-    let myValue = myChk.src.search("true") > 0 ? "true" : "false";
+    chkboxPrivacy = document.getElementById(element);
+    // let myChk = document.getElementById(element);
+    let myValue = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
 
     if (myValue == "false") {
-        myChk.src = "../images/checkboxtrueblack.svg"
-        document.getElementById("signUpBtn").classList.remove("disabled")
+        chkboxPrivacy.src = "../images/checkboxtrueblack.svg"
+        document.getElementById("signUpBtn").disabled = false
+        // document.getElementById("signUpBtn").classList.remove("disabled")
         document.getElementById("signUpBtn").removeAttribute("disabled")
     } else {
-        myChk.src = "../images/checkboxfalseblack.svg"
+        chkboxPrivacy.src = "../images/checkboxfalseblack.svg"
         document.getElementById("signUpBtn").classList.add("disabled")
-        document.getElementById("signUpBtn").setAttribute("disabled")
+        // document.getElementById("signUpBtn").setAttribute("disabled")
+        document.getElementById("signUpBtn").disabled = true
+
     }
 }
 

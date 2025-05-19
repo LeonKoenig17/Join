@@ -109,7 +109,7 @@ header img:hover {
     background-repeat: no-repeat;
     background-position: right 20px center;
     padding: 0px 20px;
-    margin: 10px 0px;
+    margin: 0px 0px;
     outline: none;
 }
 
@@ -219,6 +219,8 @@ header img:hover {
     align-items: center;
     width: fit-content;
     padding-left: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .inputImg {
@@ -243,17 +245,32 @@ input[type=password]:focus {
 }
 
 .errorSpan {
-    display: flex;
+    display: block;
+    /* wichtig für Höhe */
+    height: 14px;
+    /* Höhe reservieren */
+    font-size: 10px;
+    color: red;
+    margin-left: 95px;
+    visibility: hidden;
+        width: 100%;
+        /* background-color: blue; */
+    /* statt display: none */
+    /* display: flex;
     width: 100%;
     flex-wrap: nowrap;
     font-size: 10px;
     color: red;
-    position: absolute;
+    margin-left: 50px;
+    opacity: 1; */
+    /* position: absolute;
     top: -5px;
-    left: 25px;
+    left: 25px; */
 }
 
-
+.errorSpan.visible {
+    visibility: visible;
+}
 
 .signUpSuccess {
     /* position: absolute; */
@@ -320,15 +337,17 @@ input[type=password]:focus {
 }
 
 @media (max-width: 550px) {
-    .loginInputDiv{
-        gap: 16px;
+    .loginInputDiv {
+        gap: 5px;
+    
     }
+
     .loginInput {
         height: 46px;
         width: 75%;
         font-size: 20px;
         padding: 0px 20px;
-        margin: 10px 0px;
+        margin: 0px 0px;
         font-size: 16px;
     }
 
@@ -362,11 +381,13 @@ input[type=password]:focus {
         padding-right: 60px;
     }
 
+    
     .errorSpan {
-        width: 125px;
+        margin-left: 100px;
+        /* width: 125px;
         flex-wrap: wrap;
         font-size: 8px;
         top: -0px;
-        left: 0px;
-    }
+        left: 0px; */
+    } 
 }
