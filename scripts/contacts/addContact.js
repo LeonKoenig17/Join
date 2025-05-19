@@ -57,6 +57,23 @@ function checkMode() {
  */
 function checkLocalUser(mode) {
   const myToken = localStorage.getItem("token");
+
+  if (mode === 'add') { return true }
+
+  try {
+    if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
+      return true;
+    } else {
+      deleteError("editIcon", 18, 30);
+      return false;
+    }
+  } catch (error) {
+
+  }
+  // "contact" bearbeiten
+
+
+  // sich selber bearbeiten
   if (mode === "edit" && thisToken !== myToken) {
     deleteError("editIcon", 18, 30);
     return false;
@@ -182,16 +199,12 @@ async function deleteContact(email, mode) {
   const myToken = localStorage.getItem("token");
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
-  if (token !== myToken) {
+  if (token !== myToken && ergebnisse[token].type === "login") {
     deleteError(elementId, 18, 30);
     return;
   }
-
-  if (ergebnisse[token].type === "login") {
-    deleteError(elementId, 18, 30);
-    return;
-  }
-  await deleteData(`contact/${token}`);
+  await deleteData(`${ergebnisse[token].type}/${token}`);
+  window.location.reload();
 }
 
 
@@ -222,6 +235,6 @@ async function saveContact(email) {
  *
  * @param {string} variant - The variant string to append to the image filename (e.g., 'Active', 'Inactive').
  */
-function changeImage(element,variant) {
+function changeImage(element, variant) {
   document.getElementById(element).src = `../images/${variant}.svg`;
 }
