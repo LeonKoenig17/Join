@@ -70,10 +70,7 @@ function checkLocalUser(mode) {
   } catch (error) {
 
   }
-  // "contact" bearbeiten
-
-
-  // sich selber bearbeiten
+  
   if (mode === "edit" && thisToken !== myToken) {
     deleteError("editIcon", 18, 30);
     return false;
