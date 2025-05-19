@@ -208,6 +208,9 @@ function clearForm() {
   );
   document.getElementById("categorySelect").selectedIndex = 0;
   document.getElementById("assignedChips").innerHTML = "";
+  subtasks.length = 0;
+    document.getElementById("subtask-list").innerHTML = "";
+
   updateSubtaskList();
 }
 
@@ -230,6 +233,7 @@ function setPriority(button) {
 
 function setupDatePicker() {
   const dateInput = document.getElementById("due-date");
+  if (!dateInput) return;
   const icon = document.querySelector(".custom-date-input img");
 
   const today = new Date().toISOString().split('T')[0];
