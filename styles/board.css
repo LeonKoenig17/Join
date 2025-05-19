@@ -5,10 +5,13 @@
 #mainContent {
   display: flex;
   flex-direction: column;
-  margin: 30px 40px 0 40px;
+  margin: 60px;
+  max-width: 1440px;
+  height: calc(100vh - 210px);
+  /* margin: 30px 40px 0 40px;
   position: fixed;
   top: 10vh;
-  height: 81vh;
+  height: 81vh; */
 }
 
 button {
@@ -40,7 +43,7 @@ button {
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
-  width: 287px;
+  /* width: 287px; */
 }
 
 #searchInput {
@@ -142,12 +145,14 @@ button {
   justify-content: space-between;
   margin-top: 24px;
   gap: 24px;
-  overflow: overlay;
+  /* overflow: overlay; */
   scrollbar-width: none;
+  height: 100%;
 }
 
 #toDo, #inProgress, #awaitFeedback, #done {
-  height: 100vh;
+  /* height: 100vh; */
+  height: 100%;
 }
 
 #boardContent::-webkit-scrollbar {
