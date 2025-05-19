@@ -27,6 +27,7 @@ function editTaskOverlayTemplate(task, users) {
     )
     .join("\n");
 
+    const today = new Date().toISOString().split('T')[0];
   return `
 <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
   <div class="add-task-card edit-mode">
@@ -53,9 +54,7 @@ function editTaskOverlayTemplate(task, users) {
              <span id="description-error" class="error-msg"></span>
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
-              <input type="date" id="due-date" name="due-date" required value="${
-                task.dueDate
-              }" />
+              <input type="date" id="due-date" name="due-date"  required min="${today}"/>
               <img src="../images/calendar.svg" alt="Calendar Icon" />
               <span id="due-date-error" class="error-msg"></span>
             </div>
