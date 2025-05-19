@@ -44,23 +44,6 @@ async function findUser(email) {
 }
 
 
-function acceptPrivacyPolicy(element) {
-    let myChk = document.getElementById(element);
-    let myValue = myChk.src.search("true") > 0 ? "true" : "false";
-
-    if (myValue == "false") {
-        myChk.src = "../images/checkboxtrueblack.svg"
-        document.getElementById("signUpBtn").classList.remove("disabled")
-        document.getElementById("signUpBtn").removeAttribute("disabled")
-    } else {
-        myChk.src = "../images/checkboxfalseblack.svg"
-        document.getElementById("signUpBtn").classList.add("disabled")
-        document.getElementById("signUpBtn").setAttribute("disabled")
-    }
-
-}
-
-
 function logout() {
     localStorage.setItem("user", "")
     localStorage.setItem("token", "")
@@ -81,81 +64,6 @@ function toasterPopup(element,target) {
     }, 2000)
 }
 
-
-function passwordVisibility(element) {
-    let myContent = document.getElementById(element);
-    let myInputContent = element.replace("Img", "Input");
-    myInputContent = document.getElementById(myInputContent);
-
-    let myValue = myContent.src.search("on") > 0 ? "true" : "false";
-
-    if (myValue == "true") {
-        myContent.src = "../images/visibilityoff.svg"
-        myInputContent.type = "text";
-    } else {
-        myContent.src = "../images/visibilityon.svg"
-        myInputContent.type = "password";
-    }
-}
-
-
-function changeIconToVisibility(element) {
-    let myInputContent = element.replace("Input", "Img");
-    myInputContent = document.getElementById(myInputContent);
-    myInputContent.src = "../images/visibilityon.svg"
-}
-
-
-function showLockIconCreateAccount(element) {
-    let myContent = document.getElementById(element);
-    let myInputContent = element.replace("Input", "Img");
-    let password = document.getElementById("passwordInput").value;
-    let confirmPassword = document.getElementById("confirmPasswordInput").value;
-    myInputContent = document.getElementById(myInputContent)
-
-    if (myContent.value.length == 0) {
-        myInputContent.src = "../images/lock.svg"
-    }
-
-    if (password != confirmPassword && element == "confirmPasswordInput") {
-        document.getElementById("confirmPasswordInput").classList.add("redBorder")
-        deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
-    } else {
-        hideError("confirmPasswordInput", "passwordErrorSpan")
-    }
-}
-
-
-function showLockIconLogin(element) {
-    let myContent = document.getElementById(element);
-    let myInputContent = element.replace("Input", "Img");
-    myInputContent = document.getElementById(myInputContent)
-
-    if (myContent.value.length == 0) {
-        myInputContent.src = "../images/lock.svg"
-    }
-}
-
-
-function showContactFormOld(type) {
-    let contact = document.getElementById(`${type}Contact`);
-    let contactDiv = document.getElementById(`${type}ContactDiv`);
-
-    contact.classList.remove("hide");
-    document.getElementById("addContactDiv").classList.remove("hide");
-
-    setTimeout(() => {
-        contact.style.left = '100%';
-        contact.style.top = '50%';
-        contact.style.transform = 'translate(0%, -50%)';
-    }, 0);
-
-    setTimeout(() => {
-        contact.style.left = '50%';
-        contact.style.top = '50%';
-        contact.style.transform = 'translate(-50%, -50%)';
-    }, 250);
-}
 
 function addHelpToPopup() {
     const windowWidth = window.innerWidth;
@@ -197,5 +105,36 @@ function getCurrentHTML() {
         });
 }
 }
+
+
+function emailIsValid(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function clearErrorEmailInput(){
+    // let email = document.getElementById("emailInput").value;
+        hideError("emailInput", "emailErrorSpan")
+
+}
+
+
+function checkEmailInput() {
+    let email = document.getElementById("emailInput").value;
+    if(email == ""){return}
+    if (emailIsValid(email) == false) {
+        deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
+
+        // let errorSpan = document.getElementById("errorSpan")
+        // errorSpan.classList.remove("displayNone")
+        // errorSpan.innerHTML = "Your Email-Address is not valid. Please check your input."
+        // console.log("input is not a valid email address")
+        return
+    } else {
+        hideError("emailInput", "emailErrorSpan")
+        // errorSpan.classList.add("displayNone")
+        // errorSpan.innerHTML = "Your passwords don't match. Please try again."
+    }
+}
+
 
 window.addEventListener("resize", addHelpToPopup)

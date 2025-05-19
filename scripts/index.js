@@ -61,17 +61,8 @@ async function guestLogin() {
 
     writeLocalStorage();
     toasterPopup('loginSuccess','../html/summary');
-
 }
 
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        const blueBtn = document.querySelector('.blueBtn');
-        if (blueBtn) {
-            blueBtn.click();
-        }
-    }
-});
 
 async function checkPassword(email) {
     let ergebnisse = fireBaseContent.login;
@@ -82,3 +73,84 @@ async function checkPassword(email) {
     }
     return null;
 }
+
+
+function acceptPrivacyPolicy(element) {
+    let myChk = document.getElementById(element);
+    let myValue = myChk.src.search("true") > 0 ? "true" : "false";
+
+    if (myValue == "false") {
+        myChk.src = "../images/checkboxtrueblack.svg"
+        document.getElementById("signUpBtn").classList.remove("disabled")
+        document.getElementById("signUpBtn").removeAttribute("disabled")
+    } else {
+        myChk.src = "../images/checkboxfalseblack.svg"
+        document.getElementById("signUpBtn").classList.add("disabled")
+        document.getElementById("signUpBtn").setAttribute("disabled")
+    }
+}
+
+
+function passwordVisibility(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Img", "Input");
+    myInputContent = document.getElementById(myInputContent);
+
+    let myValue = myContent.src.search("on") > 0 ? "true" : "false";
+
+    if (myValue == "true") {
+        myContent.src = "../images/visibilityoff.svg"
+        myInputContent.type = "text";
+    } else {
+        myContent.src = "../images/visibilityon.svg"
+        myInputContent.type = "password";
+    }
+}
+
+
+function changeIconToVisibility(element) {
+    let myInputContent = element.replace("Input", "Img");
+    myInputContent = document.getElementById(myInputContent);
+    myInputContent.src = "../images/visibilityon.svg"
+}
+
+
+function showLockIconCreateAccount(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Input", "Img");
+    let password = document.getElementById("passwordInput").value;
+    let confirmPassword = document.getElementById("confirmPasswordInput").value;
+    myInputContent = document.getElementById(myInputContent)
+
+    if (myContent.value.length == 0) {
+        myInputContent.src = "../images/lock.svg"
+    }
+
+    if (password != confirmPassword && element == "confirmPasswordInput") {
+        document.getElementById("confirmPasswordInput").classList.add("redBorder")
+        deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
+    } else {
+        hideError("confirmPasswordInput", "passwordErrorSpan")
+    }
+}
+
+
+function showLockIconLogin(element) {
+    let myContent = document.getElementById(element);
+    let myInputContent = element.replace("Input", "Img");
+    myInputContent = document.getElementById(myInputContent)
+
+    if (myContent.value.length == 0) {
+        myInputContent.src = "../images/lock.svg"
+    }
+}
+
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        const blueBtn = document.querySelector('.blueBtn');
+        if (blueBtn) {
+            blueBtn.click();
+        }
+    }
+});

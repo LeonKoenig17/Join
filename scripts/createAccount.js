@@ -37,27 +37,6 @@ async function createAccount() {
     }
 }
 
-function emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-function checkEmailInput() {
-    let email = document.getElementById("emailInput").value;
-
-    if (emailIsValid(email) == false) {
-        deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
-
-        // let errorSpan = document.getElementById("errorSpan")
-        // errorSpan.classList.remove("displayNone")
-        // errorSpan.innerHTML = "Your Email-Address is not valid. Please check your input."
-        // console.log("input is not a valid email address")
-        return
-    } else {
-        hideError("emailInput", "emailErrorSpan")
-        // errorSpan.classList.add("displayNone")
-        // errorSpan.innerHTML = "Your passwords don't match. Please try again."
-    }
-}
 
 function hideError(firstType,secondType){
         let element = document.getElementById(secondType);
@@ -88,6 +67,13 @@ const confirmInput = document.getElementById('confirmPasswordInput')
 emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         checkEmailInput();
+    }
+});
+
+// Auslösen bei Backspace
+emailInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Backspace') {
+        clearErrorEmailInput();
     }
 });
 
