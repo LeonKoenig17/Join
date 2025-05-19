@@ -188,3 +188,4 @@ function getInitials(element) {
     return firstName[0] + lastName[0];
   }
 }
+

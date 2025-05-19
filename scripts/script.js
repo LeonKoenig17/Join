@@ -46,7 +46,7 @@ async function writeLocalStorage() {
     let myEmail = await findUser(document.getElementById("emailInput").value);
     let email = document.getElementById("emailInput").value;
 
-    localStorage.setItem("user", email)
+    localStorage.setItem("name", email)
     localStorage.setItem("token", myEmail)
 }
 
@@ -214,19 +214,64 @@ function showContactFormOld(type) {
     }, 250);
 }
 
+function addHelpToPopup() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth <= 800) {
+        document.getElementById("userLinkOptions").innerHTML = `
+        <a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
+        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+        `
+    } else {
+        document.getElementById("userLinkOptions").innerHTML = `
+        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
+        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
+        `
+    }
+}
 
+window.addEventListener("resize", addHelpToPopup)
 
+function getCurrentHTMLOld() {
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
 
+    const searchNav = document.getElementById('linkNav')
+    if (searchNav) {
+        const links = searchNav.querySelectorAll('a');
 
+        links.forEach(link => {
+            link.href.search(page) > 0 ? link.classList.add("active") : link.classList.remove("active")
+        });
 
+        const images = searchNav.querySelectorAll('img');
+        images.forEach(img => {
+            console.log('Image :', img.src);
+        });
+    }
 
+}
 
+function getCurrentHTML() {
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+    const nav = document.getElementById('linkNav');
 
+    if (nav) {
+        const links = nav.querySelectorAll('a');
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            const img = link.querySelector('img');
 
-
-
-
-
-function consolelog(element) {
-    console.log(element)
+            if (link.href.search(page) > 0) {
+                link.classList.add("active")
+                img.src = img.getAttribute('src').replace('gray', 'white')
+            } else {
+                link.classList.remove("active")
+                img.src = img.getAttribute('src').replace('white', 'gray')
+            }
+        });
+}
 }

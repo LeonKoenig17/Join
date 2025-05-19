@@ -29,6 +29,8 @@ async function onloadContacts() {
   getContactsFromFirebase();
   autoSelect();
   sendDataToIframe();
+  addHelpToPopup();
+  getCurrentHTML();
 }
 
 
