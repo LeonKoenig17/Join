@@ -2,6 +2,9 @@ function addTaskOverlayTemplate(stage) {
   const subtasksHTML = subtasks
     .map((subtask, index) => subtasksTemplate(subtask, index))
     .join("");
+    
+  const today = new Date().toISOString().split('T')[0];
+
   return `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
@@ -33,7 +36,7 @@ function addTaskOverlayTemplate(stage) {
                 <span class="error-message" id="description-error"></span>
                 <label for="due-date">Due date<span> *</span></label>
                 <div class="custom-date-input">
-                  <input type="date" id="due-date" name="due-date" required />
+                  <input type="date" id="due-date" name="due-date" required min="${today}" />
                   <img src="../images/calendar.svg" alt="Calendar Icon" />
                 </div>
                 <span class="error-message" id="due-date-error"></span>

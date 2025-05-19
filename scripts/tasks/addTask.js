@@ -11,18 +11,13 @@ function initializeOverlayFeatures() {
   if (taskOverlay) {
     taskOverlay.style.display = "flex";
     initPriorityButtons();
-    /*initAssignedDropdown();*/
-    /*initSubtaskUI();*/
     setupDatePicker();
-    /*setupSubtaskListeners();*/
     applyUserColors();
-   /* setupFieldListeners();*/
-    /*checkSubtaskClass();*/
   }
     else if (document.body.classList.contains("add-task-page")) {
     initPriorityButtons();
     setupDatePicker();
-    setupFieldListeners();  // falls du Fehler-Listener möchtest
+    setupFieldListeners();
   }
 }
 
@@ -63,7 +58,7 @@ function getStageFromStatus(status) {
 }
 
 
-function getFormData(stage) {
+function getFormData() {
   const elements = getFormElements();
   if (!validateFormElements(elements)) return null;
   const { title, description, dueDate, category } = getFormValues(elements);
@@ -213,6 +208,9 @@ function clearForm() {
   );
   document.getElementById("categorySelect").selectedIndex = 0;
   document.getElementById("assignedChips").innerHTML = "";
+  subtasks.length = 0;
+    document.getElementById("subtask-list").innerHTML = "";
+
   updateSubtaskList();
 }
 
@@ -235,7 +233,15 @@ function setPriority(button) {
 
 function setupDatePicker() {
   const dateInput = document.getElementById("due-date");
+  if (!dateInput) return;
   const icon = document.querySelector(".custom-date-input img");
+
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+
+  const year = new Date().getFullYear();
+  dateInput.max = `${year}-12-31`;
+
   if (icon) {
     icon.addEventListener("click", () => {
       if (dateInput.showPicker) dateInput.showPicker();
@@ -271,6 +277,7 @@ async function deleteTask(taskId) {
     if (!window.confirm("Delete permanently?")) return;
     deleteTask(taskId);
   }
+
 
 /**
  * Initialisiert die Add-Task-Seite beim Laden.

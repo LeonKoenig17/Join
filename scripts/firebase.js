@@ -128,30 +128,33 @@ async function applyUserColors() {
 }
 
 async function fillUserLinks() {
-  let myValue = ""
+  let myValue = "";
   try {
     myValue = fireBaseContent.login;
   } catch (error) {
-    myValue = await loadData('login')
+    myValue = await loadData('login');
   }
 
-  let myToken = localStorage.getItem('token')
+  let myToken = localStorage.getItem('token');
   let myName = myValue[myToken].name;
 
   try {
-    // const initials = myName.split(" ").map(w => w[0].toUpperCase()).join("");
-    const initials = getInitials(myName)
+    const initials = getInitials(myName);
     document.getElementById("userLink").innerHTML = initials;
   } catch (error) {
     document.getElementById("userLink").innerHTML = "G";
   }
 
   try {
-    document.getElementById("userName").innerHTML = myName;
+    // Nur den Namen anzeigen, wenn es nicht "Guest" ist
+    if (myName !== "Guest") {
+      document.getElementById("userName").innerHTML = myName;
+    } else {
+      document.getElementById("userName").innerHTML = ""; // Leer lassen wenn Guest
+    }
   } catch (error) {
     return null;
   }
-
 }
 
 async function loadFromFirebase() {
