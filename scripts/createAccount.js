@@ -29,8 +29,8 @@ async function createAccount() {
             let nextcolor = await lastColor();
             await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
             await loadFromFirebase();
-            await writeLocalStorage();
-            showSuccess('signUpSuccess');
+            writeLocalStorage();
+            toasterPopup('signUpSuccess','../html/summary');
         } else {
             document.getElementById("confirmPasswordInput").classList.add("redBorder")
         }

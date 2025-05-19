@@ -1,3 +1,35 @@
+function onLoad() {
+    moveLogo();
+    loadFromFirebase();
+}
+
+function moveLogo() {
+    let logoImg = document.getElementById('logoImg');
+    let mainDiv = document.getElementById('main');
+
+    console.log("moveLogo");
+
+    setTimeout(() => {
+        window.innerWidth < 800 ? logoImg.src = '../images/joinlogowhite.svg' : ""
+        logoImg.style.display = 'none';
+        logoImg.style.width = '0px'; logoImg.style.height = '0px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
+    }, 0);
+
+    setTimeout(() => {
+        logoImg.style.display = 'unset';
+        logoImg.style.width = '200px'; logoImg.style.height = '200px'; logoImg.style.top = '50%'; logoImg.style.left = '50%'; logoImg.style.transform = 'translate(-50%, -50%)';
+    }, 500);
+
+    setTimeout(() => {
+        logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = 'calc(50px + 40px)'; logoImg.style.top = 'calc(50px + 48px)';
+    }, 1500);
+
+    setTimeout(() => {
+        window.innerWidth < 800 ? logoImg.src = '../images/joinlogodark.svg' : ""
+        mainDiv.style.opacity = '1';
+    }, 2000);
+}
+
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
     let myEmail = await findUser(document.getElementById("emailInput").value);
@@ -12,8 +44,8 @@ async function login() {
         return
     }
     if (password == myPassword) {
-        await writeLocalStorage();
-        showSuccess('loginSuccess');
+        writeLocalStorage();
+        toasterPopup('loginSuccess','../html/summary');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
@@ -23,7 +55,16 @@ async function login() {
     }
 }
 
-document.addEventListener('keydown', function(event) {
+async function guestLogin() {
+    document.getElementById("emailInput").value = 'sofiam@gmail.com'
+    document.getElementById("passwordInput").value = '123456789'
+
+    writeLocalStorage();
+    toasterPopup('loginSuccess','../html/summary');
+
+}
+
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         const blueBtn = document.querySelector('.blueBtn');
         if (blueBtn) {
@@ -33,7 +74,6 @@ document.addEventListener('keydown', function(event) {
 });
 
 async function checkPassword(email) {
-    // let ergebnisse = await loadData("login")
     let ergebnisse = fireBaseContent.login;
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].email === email) {
