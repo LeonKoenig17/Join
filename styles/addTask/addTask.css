@@ -123,7 +123,7 @@ label span {
   display: flex;
   flex-direction: column;
   width: 100% !important;
-  gap: 16px
+  gap: 10px
 }
 
 .addTask-left-edit {
