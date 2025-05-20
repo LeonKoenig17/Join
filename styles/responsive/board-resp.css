@@ -7,7 +7,25 @@
     }
 }
 
+@media (max-width: 1000px) {
+    #boardContent {
+        justify-content: flex-start;
+    }
+}
+
 @media (max-width: 800px) {
+    main {
+        overflow: scroll;
+    }
+
+    #mainContent {
+        transform: scale(1);
+        transform-origin: unset;
+        position: unset;
+        /* margin: 16px; */
+        margin-top: 120px;
+    }
+
     #boardContent {
         flex-direction: column;
     }
@@ -23,6 +41,7 @@
     .task-list {
         display: flex;
         scrollbar-width: none;
+        overflow-x: auto;
     }
 
     .task-list .column-header {
@@ -35,7 +54,6 @@
 
     .task {
         margin-right: 16px;
-        /* margin-top: 36px; */
         user-select: none;
     }
 
@@ -45,26 +63,35 @@
         left: 0;
         width: 100vw;
     }
-}
 
-@media (max-width: 800px) {
-    .task-list {
-        overflow-x: auto;
-    }
-
-    #mainContent {
-        transform: scale(1);
-        transform-origin: unset;
-        position: unset;
-        /* margin: 16px; */
-        margin-top: 90px;
-    }
-
-    main {
-        overflow: scroll;
-    }
-
-    #searchInput {
+    #boardHeader div > #searchInput {
         display: none;
+    }
+
+    .searchInput-resp {
+        display: flex !important;
+        /* justify-content: space-between; */
+    }
+
+    .searchInput-resp #taskSearch {
+        width: 100%;
+    }
+
+    .searchInput-resp #taskSearch::placeholder {
+        font-size: 20px;
+    }
+
+    #addTaskBtn {
+        padding: 6px;
+        height: unset;
+        transition: none;
+    }
+
+    #addTaskBtn span {
+        display: none;
+    }
+
+    .darkblueButton img {
+        padding: 0;
     }
 }

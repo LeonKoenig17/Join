@@ -89,6 +89,10 @@ button {
   background: none;
 }
 
+.searchInput-resp {
+  display: none !important;
+}
+
 .darkblueButton {
   padding: 16px;
   background-color: var(--primary-color);
