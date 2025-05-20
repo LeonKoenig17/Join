@@ -206,7 +206,8 @@ function chooseTaskDetails(elementId) {
 async function contactDetails(elementId, thenum) {
   console.log("contactDetails");
 
-  window.innerWidth < 800 ? responsiveContentRight('show') : ""
+  // window.innerWidth < 800 ? responsiveContentRight('show') : ""
+  responsiveContentRight('show')
 
   chosenCard = thenum;
   const email = document.getElementById(`singleUserMail${thenum}`).innerText;
@@ -216,7 +217,7 @@ async function contactDetails(elementId, thenum) {
   const color = detail.color.replace("#", "");
 
   const nav = document.getElementById(elementId);
-  nav.classList.replace("singleUser", "singleUserChosen");
+  window.innerWidth > 800 ? nav.classList.replace("singleUser", "singleUserChosen") : ""
 
   document.getElementById("contactDetails").classList.remove("hide");
   document.getElementById("contactDetailsInitials")
@@ -232,14 +233,16 @@ async function contactDetails(elementId, thenum) {
 }
 
 function responsiveContentRight(task) {
-  if (task == 'show') {
+  if (task == 'show' && window.innerWidth <= 800) {
     document.getElementById("contentRight").classList.add("showContentRight")
     document.getElementById("allContacts").classList.add("width0")
     document.getElementById("contentLeft").classList.add("width0")
+    document.getElementById("backToList").classList.remove("displayNone")
   } else {
     document.getElementById("contentRight").classList.remove("showContentRight")
     document.getElementById("allContacts").classList.remove("width0")
     document.getElementById("contentLeft").classList.remove("width0")
+    document.getElementById("backToList").classList.add("displayNone")
   }
 }
 

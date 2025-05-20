@@ -82,10 +82,16 @@
 
       <div id="contentRight" class="contentRight">
         <div class="frame-40">
-          <h1>Contacts</h1>
-          <div class="frame-40-vektor"></div>
-          <p>Better with a team</p>
-
+          <div class="contactsFrame">
+            <h1>Contacts</h1>
+            <div class="frame-40-vektor"></div>
+            <p>Better with a team</p>
+          </div>
+          <div class="contactsFrameResponsive">
+            <h1>Contacts</h1>
+            <p>Better with a team</p>
+            <div class="frame-40-vektor-resp"></div>
+          </div>
           <div id="contactDetails" class="hide">
             <div id="contactDetailsPerson" class="contactDetailsPerson">
               <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
@@ -115,11 +121,13 @@
             </div>
           </div>
         </div>
-        
+        <img id="backToList" onclick="responsiveContentRight('hide')" class="displayNone"
+          src="../images/arrow-left-line.svg" alt="">
+
       </div>
     </div>
   </main>
-    <footer>
+  <footer>
     <a href="./summary.html">
       <img src="../images/summarygray.svg" alt="logo">
       <span>Summary</span>
@@ -132,7 +140,7 @@
       <img src="../images/boardgray.svg" alt="logo">
       <span>Board</span>
     </a>
-    <a href="./contacts.html"  class="active">
+    <a href="./contacts.html" class="active">
       <img src="../images/contactswhite.svg" alt="logo">
       <span>Contacts</span>
     </a>

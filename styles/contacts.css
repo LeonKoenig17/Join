@@ -431,18 +431,19 @@ main {
   height: 73px;
   width: 264px;
   line-height: 120%;
-  margin: 0;
+  margin-right: 20px;
   cursor: context-menu;
 }
 
 .frame-40-vektor {
-  border: 3px solid #29ABE2;
+  border: 2px solid #29ABE2;
   height: 59px;
+  border-radius: 1rem;
 }
 
 
 .frame-40 p {
-  margin: 0;
+  margin-left: 20px;
   height: 32px;
   line-height: 120%;
   font-weight: 400;
@@ -550,6 +551,24 @@ strong {
   color: red;
   font-size: 10px;
   font-weight: normal;
+}
+
+.contactsParagraph {
+  margin-left: 20px;
+}
+
+.contactsFrame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contactsFrameResponsive {
+  display: none;
+}
+
+#backToList {
+  visibility: hidden;
 }
 
 .hide {
