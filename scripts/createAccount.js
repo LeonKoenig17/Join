@@ -174,6 +174,12 @@ nameInput.addEventListener('keydown', function (event) {
     }
 });
 
+nameInput.addEventListener('blur', function (event) {
+    if (nameInput.value != "") {
+        clearErrorInput("nameInput", "nameErrorSpan");
+    }
+});
+
 passwordInput.addEventListener('keydown', function (event) {
     if (passwordInput.value != "") {
         clearErrorInput("passwordInput", "passwordErrorSpan");

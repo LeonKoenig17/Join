@@ -129,11 +129,11 @@ function showLockIconCreateAccount(element) {
     }
 
     if (password != confirmPassword && element == "confirmPasswordInput") {
-        document.getElementById("confirmPasswordInput").classList.add("redBorder")
-        deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
-    } else {
-        hideError("confirmPasswordInput", "passwordErrorSpan")
-    }
+        document.getElementById("confirmPasswordInput").classList.add("redBorder")}
+    //     deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
+    // } else {
+    //     hideError("confirmPasswordInput", "passwordErrorSpan")
+    // }
 }
 
 
