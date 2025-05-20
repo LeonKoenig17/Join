@@ -229,28 +229,3 @@ function updateDraggable() {
 updateDraggable();
 
 window.addEventListener("resize", updateDraggable);
-
-const contactsCol = firebase.firestore().collection("contacts");
-
-contactsCol.onSnapshot(snapshot => {
-  let didRemove = false;
-
-  snapshot.docChanges().forEach(change => {
-    if (change.type === "removed") {
-      didRemove = true;
-    }
-  });
-
-  if (didRemove) {
-    // 1. Dein lokales contacts-Array updaten (optional, falls du es nutzt)
-    contacts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    // 2. Board neu aufräumen: entferne alle Badges ohne Matching-ID
-    updateAllTaskCards();
-
-    // 3. Falls gerade ein Overlay mit Chips offen ist:
-    if (document.getElementById("assignedChips")) {
-      updateAssignedChips();
-    }
-  }
-});
