@@ -156,7 +156,8 @@ nav img {
     font-size: 20px;
     background-repeat: no-repeat;
     background-position: right 20px center;
-    padding: 0px 20px;
+    padding-left: 20px;
+    padding-right: 50px;
     margin: 10px 0px;
     outline: none;
 }
@@ -368,12 +369,27 @@ input[type=password]:focus {
         height: 46px;
         width: 75%;
         font-size: 20px;
-        padding: 0px 20px;
+        padding-left: 20px;
+        padding-right: 50px;
         margin: 10px 0px;
         font-size: 16px;
     }
 
+    .blueBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
+    .whiteBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
     .accountHeader {
         font-size: 47px;
+    }
+    .errorSpan{
+        width: 130px;
+        background-color: green;
     }
 }
