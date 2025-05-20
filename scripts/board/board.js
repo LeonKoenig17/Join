@@ -139,15 +139,26 @@ function renderColumnBtns(containers) {
  */
 async function applyUserColors() {
   try {
-    const users = await loadUsers();
-    const userEls = document.querySelectorAll(".task-assignee");
-    userEls.forEach(el => {
-      const userId = el.getAttribute("data-user-id");
-      const user = users.find(u => u.id === userId);
-      if (user) el.style.backgroundColor = user.color;
+    const [users, contacts] = await Promise.all([
+        loadFirebaseUsers(),
+        loadFirebaseContacts()
+    ]);
+    
+    const allPeople = [...users, ...contacts];
+    const peopleById = allPeople.reduce((map, person) => {
+      map[person.id] = person;
+      return map;
+    }, {});
+  
+    document.querySelectorAll(".task-assignee").forEach(el => {
+      const uid = el.dataset.userId;
+      const person = peopleById[uid];
+      if (person && person.color) {
+        el.style.backgroundColor = person.color;
+      }
     });
-  } catch (error) {
-    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  } catch (err) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", err);
   }
 }
 
@@ -175,7 +186,7 @@ function setupDragDrop() {
   const addTaskBtn = document.getElementById("addTaskBtn");
   if (addTaskBtn) {
     addTaskBtn.addEventListener("click", function () {
-      showAddTaskOverlay();
+      showAddTaskOverlay("add");
     });
   }
 }
@@ -215,8 +226,31 @@ function updateDraggable() {
     })
   }
 
-// Run on load
 updateDraggable();
 
-// Run on resize
 window.addEventListener("resize", updateDraggable);
+
+const contactsCol = firebase.firestore().collection("contacts");
+
+contactsCol.onSnapshot(snapshot => {
+  let didRemove = false;
+
+  snapshot.docChanges().forEach(change => {
+    if (change.type === "removed") {
+      didRemove = true;
+    }
+  });
+
+  if (didRemove) {
+    // 1. Dein lokales contacts-Array updaten (optional, falls du es nutzt)
+    contacts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    // 2. Board neu aufräumen: entferne alle Badges ohne Matching-ID
+    updateAllTaskCards();
+
+    // 3. Falls gerade ein Overlay mit Chips offen ist:
+    if (document.getElementById("assignedChips")) {
+      updateAssignedChips();
+    }
+  }
+});
