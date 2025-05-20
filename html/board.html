@@ -103,19 +103,34 @@
 
         <section id="boardContent">
           <div class="board-column">
-            <div class=".column-header-resp">header</div>
+            <div class="column-header">
+              <span>To do</span>
+              <button id="todoBtn" class="add-task" onclick="showAddTaskOverlay('todo')"></button>
+            </div>
             <div id="toDo" class="task-list"></div>
           </div>
 
         <div class="board-column">
+          <div class="column-header">
+            <span>In Progress</span>
+            <button id="inProgressBtn" class="add-task" onclick="showAddTaskOverlay('inProgress')"></button>
+          </div>
           <div id="inProgress" class="task-list"></div>
         </div>
 
         <div class="board-column">
+          <div class="column-header">
+            <span>Await Feedback</span>
+            <button id="awaitFeedbackBtn" class="add-task" onclick="showAddTaskOverlay('awaitFeedback')"></button>
+          </div>
           <div id="awaitFeedback" class="task-list"></div>
         </div>
 
         <div class="board-column">
+          <div class="column-header">
+            <span>Done</span>
+            <button id="doneBtn" class="add-task" onclick="showAddTaskOverlay('done')"></button>
+          </div>
           <div id="done" class="task-list"></div>
         </div>
       </section>

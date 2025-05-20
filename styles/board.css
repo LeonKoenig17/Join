@@ -2,6 +2,10 @@
   --column-width: calc((100% - 72px) / 4);
 }
 
+main {
+  scrollbar-width: none;
+}
+
 #mainContent {
   display: flex;
   flex-direction: column;
@@ -23,6 +27,7 @@ button {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 #boardHeader>div {
@@ -41,7 +46,7 @@ button {
   margin-bottom: 16px;
 }
 
-.column-header-resp {
+.board-column > .column-header {
   display: none;
 }
 
@@ -144,13 +149,12 @@ button {
   justify-content: space-between;
   margin-top: 24px;
   gap: 24px;
-  /* overflow: overlay; */
+  overflow: overlay;
   scrollbar-width: none;
   height: 100%;
 }
 
 #toDo, #inProgress, #awaitFeedback, #done {
-  /* height: 100vh; */
   height: 100%;
 }
 

@@ -1,26 +1,41 @@
-@media (max-width: 1480px) {
-    #toDo, #inProgress, #awaitFeedback, #done {
-        height: unset;
+@media (max-width: 1250px) {
+    #mainContent {
+        transform: scale(0.8);
+        transform-origin: left;
+        margin: 16px;
+        position: absolute;
     }
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 800px) {
     #boardContent {
         flex-direction: column;
-        /* overflow: visible; */
+    }
+
+    .board-column {
+        margin-bottom: 30px;
+    }
+
+    .board-column > .column-header {
+        display: flex;
     }
 
     .task-list {
         display: flex;
+        scrollbar-width: none;
     }
 
-    .column-header {
+    .task-list .column-header {
         display: none;
+    }
+
+    .column-header span {
+        font-size: 27px;
     }
 
     .task {
         margin-right: 16px;
-        margin-top: 36px;
+        /* margin-top: 36px; */
         user-select: none;
     }
 
@@ -38,7 +53,10 @@
     }
 
     #mainContent {
-        margin: 16px;
+        transform: scale(1);
+        transform-origin: unset;
+        position: unset;
+        /* margin: 16px; */
         margin-top: 90px;
     }
 
@@ -46,15 +64,7 @@
         overflow: scroll;
     }
 
-    #boardHeader div {
+    #searchInput {
         display: none;
-    }
-
-    .column-header {
-        width: calc(100vw - 32px);
-    }
-
-    .column-header span {
-        font-size: 27px;
     }
 }
