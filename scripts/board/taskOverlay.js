@@ -52,6 +52,8 @@ function showAddTaskOverlay(stage) {
   initPriorityButtons();
   initializeOverlayFeatures();
   setupTaskForm(stage);
+  setupSubtaskListeners();
+   checkSubtaskClass();
 
     loadFirebaseUsers().then(users => {
     renderDropdownOptions(users);
@@ -60,6 +62,21 @@ function showAddTaskOverlay(stage) {
   });
 }
 
+
+function initializeOverlayFeatures() {
+  const taskOverlay = document.getElementById("taskOverlay");
+  if (taskOverlay) {
+    taskOverlay.style.display = "flex";
+    initPriorityButtons();
+    setupDatePicker();
+    applyUserColors();
+  }
+    else if (document.body.classList.contains("add-task-page")) {
+    initPriorityButtons();
+    setupDatePicker();
+    setupFieldListeners();
+  }
+}
 
 /**
  * Lädt Task oder liefert null, wenn nicht vorhanden.
@@ -86,6 +103,7 @@ function initOverlaySetup(overlayContainer, users, taskData) {
   setupDropdownEventListeners(users);
   initializeOverlayFeatures();
   initializeSubtaskModule(taskData);
+  toggleIcons(false, overlay);
 }
 
 
@@ -129,8 +147,6 @@ async function showEditTaskOverlay(taskId) {
 
   currentTask = taskData;
 }
-
-
 
 
 function closeOverlay() {

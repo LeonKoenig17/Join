@@ -199,18 +199,22 @@ function setupSubtaskListeners() {
     }
   });
 
-  subInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      confirmSubtaskEntry();
-      subInput.value = "";
-      toggleIcons(false);
-    }
-  });
+ subInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    e.stopPropagation();
+    confirmSubtaskEntry();
+    subInput.value = "";
+    toggleIcons(false);
+  }
+});
+  
   checkIcon.addEventListener("click", () => {
     subInput.value = "";
     toggleIcons(false);
   });
 }
+
 
 function checkSubtaskClass() {
   document.addEventListener("click", function (e) {
@@ -229,7 +233,7 @@ function checkSubtaskClass() {
       saveSubtask(index);
     }
     if (e.target.id === "close-subtask-icon") {
-      toggleIcons();
+      toggleIcons(false);
       const subInput = document.getElementById("subtask-input");
       subInput.value = "";
     }

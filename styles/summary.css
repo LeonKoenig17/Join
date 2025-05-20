@@ -6,7 +6,8 @@ summary {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin: 30px;
+  margin-top: 40px;
+  margin-left: 80px;
 }
 
 .frame-40 {

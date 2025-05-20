@@ -7,8 +7,6 @@ function moveLogo() {
     let logoImg = document.getElementById('logoImg');
     let mainDiv = document.getElementById('main');
 
-    console.log("moveLogo");
-
     setTimeout(() => {
         window.innerWidth < 800 ? logoImg.src = '../images/joinlogowhite.svg' : ""
         logoImg.style.display = 'none';
@@ -39,17 +37,19 @@ async function login() {
     if (myEmail == null) {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
         document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
         return
     }
     if (password == myPassword) {
         writeLocalStorage();
-        toasterPopup('loginSuccess','../html/summary');
+        toasterPopup('loginSuccess', '../html/summary');
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
         document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
 
     }
@@ -60,7 +60,7 @@ async function guestLogin() {
     document.getElementById("passwordInput").value = '123456789'
 
     writeLocalStorage();
-    toasterPopup('loginSuccess','../html/summary');
+    toasterPopup('loginSuccess', '../html/summary');
 }
 
 
@@ -76,17 +76,21 @@ async function checkPassword(email) {
 
 
 function acceptPrivacyPolicy(element) {
-    let myChk = document.getElementById(element);
-    let myValue = myChk.src.search("true") > 0 ? "true" : "false";
+    chkboxPrivacy = document.getElementById(element);
+    // let myChk = document.getElementById(element);
+    let myValue = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
 
     if (myValue == "false") {
-        myChk.src = "../images/checkboxtrueblack.svg"
-        document.getElementById("signUpBtn").classList.remove("disabled")
+        chkboxPrivacy.src = "../images/checkboxtrueblack.svg"
+        document.getElementById("signUpBtn").disabled = false
+        // document.getElementById("signUpBtn").classList.remove("disabled")
         document.getElementById("signUpBtn").removeAttribute("disabled")
     } else {
-        myChk.src = "../images/checkboxfalseblack.svg"
+        chkboxPrivacy.src = "../images/checkboxfalseblack.svg"
         document.getElementById("signUpBtn").classList.add("disabled")
-        document.getElementById("signUpBtn").setAttribute("disabled")
+        // document.getElementById("signUpBtn").setAttribute("disabled")
+        document.getElementById("signUpBtn").disabled = true
+
     }
 }
 
@@ -128,10 +132,11 @@ function showLockIconCreateAccount(element) {
 
     if (password != confirmPassword && element == "confirmPasswordInput") {
         document.getElementById("confirmPasswordInput").classList.add("redBorder")
-        deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
-    } else {
-        hideError("confirmPasswordInput", "passwordErrorSpan")
     }
+    //     deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
+    // } else {
+    //     hideError("confirmPasswordInput", "passwordErrorSpan")
+    // }
 }
 
 

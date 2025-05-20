@@ -1,3 +1,9 @@
+let chkboxPrivacy = ""
+let privacyBoolean = ""
+let userName = ""
+let email = ""
+let password = ""
+let confirmPassword = ""
 
 
 function initCreateAccount() {
@@ -5,44 +11,123 @@ function initCreateAccount() {
 }
 
 async function createAccount() {
-    let chkboxPrivacy = document.getElementById("acceptPrivacyPolicy");
-    let privacyBoolean = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
-    let userName = document.getElementById("nameInput").value;
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passwordInput").value;
-    let confirmPassword = document.getElementById("confirmPasswordInput").value;
+    chkboxPrivacy = document.getElementById("acceptPrivacyPolicy");
+    privacyBoolean = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
+    userName = document.getElementById("nameInput").value;
+    email = document.getElementById("emailInput").value;
+    password = document.getElementById("passwordInput").value;
+    confirmPassword = document.getElementById("confirmPasswordInput").value;
 
 
+    // if (emailIsValid(email) == false) {
+    //     return
+    // }
 
-    if (privacyBoolean == "false") {
-        return
-    }
+
 
     let myValue = await findUser(email);
 
 
+
     if (myValue != null) {
         // window.alert("Account already exists")
-        deleteError("signUpBtn","accountErrorSpan",-48  ,50,'Account with this email-address already exists.')
-    } else {
-        if (password == confirmPassword && password != "" && privacyBoolean == "true") {
-            let nextcolor = await lastColor();
-            await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
-            await loadFromFirebase();
-            writeLocalStorage();
-            toasterPopup('signUpSuccess','../html/summary');
-        } else {
-            document.getElementById("confirmPasswordInput").classList.add("redBorder")
-        }
+        checkMissingInputs('accountExist')
+        // return
+    }
+
+    if (privacyBoolean == "false") {
+        // deleteError('acceptPrivacyPolicy','privacyErrorSpan',0,0)
+        checkMissingInputs('privacyPolicy')
+        // return
+    }
+
+    if (password != confirmPassword) {
+        checkMissingInputs('passwordsNoMatch')
+    }else{
+        clearErrorInput("passwordInput", "passwordErrorSpan");
+        clearErrorInput("confirmPasswordInput", "confirmPasswordErrorSpan");
+    }
+
+    if (password == "") {
+        checkMissingInputs('passwordEmpty')
+    }
+
+    if (confirmPassword == "") {
+        checkMissingInputs('confirmPasswordEmpty')
+    }
+
+    if (userName == "") {
+        checkMissingInputs('userNameEmpty')
+    }
+
+    if (emailIsValid(email) == false) {
+        checkMissingInputs('emailExist')
+    }
+
+    if (email == "") {
+        checkMissingInputs('emailEmpty')
+    }
+
+    if (password == confirmPassword && password != "" && privacyBoolean == "true" && userName != "" && emailIsValid(email) == true && myValue == null) {
+        let nextcolor = await lastColor();
+        await postData("login", { "name": userName, "email": email, "password": password, "color": nextcolor, "phone": '', "type": "login" })
+        await loadFromFirebase();
+        writeLocalStorage();
+        toasterPopup('signUpSuccess', '../html/summary');
     }
 }
 
 
-function hideError(firstType,secondType){
-        let element = document.getElementById(secondType);
-        element.classList.add("displayNone")
-        document.getElementById(firstType).classList.remove("redBorder")
-        document.getElementById("accountErrorSpan").classList.add("displayNone")
+function checkMissingInputs(element) {
+    const addRed = id => document.getElementById(id).classList.add("redBorder");
+
+    switch (element) {
+        case "accountExist":
+            deleteError("signUpBtn", "accountErrorSpan", -48, 50, 'Account with this email-address already exists.');
+            break;
+        case "passwordsNoMatch":
+            addRed("passwordInput");
+            addRed("confirmPasswordInput");
+            deleteError("passwordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
+            deleteError("confirmPasswordInput", "confirmPasswordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
+            break;
+        case "userNameEmpty":
+            addRed("nameInput");
+            deleteError("nameInput", "nameErrorSpan", 8, 50, 'Name must be filled.');
+            break;
+        case "passwordEmpty":
+            addRed("passwordInput");
+            deleteError("passwordInput", "passwordErrorSpan", 8, 50, 'Password must be filled.');
+            break;
+        case "confirmPasswordEmpty":
+            addRed("confirmPasswordInput");
+            deleteError("confirmPasswordInput", "confirmPasswordErrorSpan", 8, 50, 'Confirm Password must be filled.');
+            break;
+        case "emailExist":
+            addRed("emailInput");
+            deleteError("emailInput", "emailErrorSpan", 8, 50, 'Your Email-Address is not valid. Please check your input.');
+            break;
+        case "emailEmpty":
+            addRed("emailInput");
+            deleteError("emailInput", "emailErrorSpan", 8, 50, 'Email must be filled.');
+            break;
+        case "privacyPolicy":
+            deleteError("acceptPrivacyPolicy", "privacyErrorSpan", -48, 50, 'Privacy policy must be accepted.');
+            break;
+    }
+}
+
+
+
+    function addRedBorder(id) {
+        document.getElementById(id).classList.add("redBorder");
+    }
+
+function hideError(firstType, secondType) {
+    let element = document.getElementById(secondType);
+    // element.classList.remove("displayNone")
+    document.getElementById(firstType).classList.remove("redBorder")
+    document.getElementById(secondType).classList.remove("visible")
 }
 
 function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
@@ -52,7 +137,7 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
         let span = document.getElementById(secondType);
         document.getElementById(firstType).classList.add("redBorder")
         span.innerHTML = errorText
-        span.classList.remove("displayNone")
+        span.classList.add("visible")
         span.style.left = Number.parseInt((position.left + setOffX)) + "px";
         span.style.top = Number.parseInt((position.top + setOffY)) + "px";
     } catch (error) {
@@ -60,7 +145,9 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
     }
 }
 
+const nameInput = document.getElementById('nameInput');
 const emailInput = document.getElementById('emailInput');
+const passwordInput = document.getElementById('passwordInput')
 const confirmInput = document.getElementById('confirmPasswordInput')
 
 // Auslösen bei "Enter"-Taste
@@ -68,12 +155,47 @@ emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         checkEmailInput();
     }
+    if (emailInput.value != "") {
+        clearErrorInput("emailInput", "emailErrorSpan");
+    }
 });
 
+
 // Auslösen bei Backspace
-emailInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Backspace') {
-        clearErrorEmailInput();
+// emailInput.addEventListener('keydown', function (event) {
+//     if (event.key === 'Backspace') {
+//         clearErrorInput("emailInput", "emailErrorSpan");
+//     }
+// });
+
+nameInput.addEventListener('keydown', function (event) {
+    if (nameInput.value != "") {
+        clearErrorInput("nameInput", "nameErrorSpan");
+    }
+});
+
+nameInput.addEventListener('blur', function (event) {
+    if (nameInput.value != "") {
+        clearErrorInput("nameInput", "nameErrorSpan");
+    }
+});
+
+passwordInput.addEventListener('keydown', function (event) {
+    if (passwordInput.value != "") {
+        clearErrorInput("passwordInput", "passwordErrorSpan");
+    }
+});
+
+// passwordInput.addEventListener('blur', function (event) {
+//     if (passwordInput.value != "") {
+//         clearErrorInput("passwordInput", "passwordErrorSpan");
+//     }else{
+
+//     }
+// });
+confirmInput.addEventListener('keydown', function (event) {
+    if (passwordInput.value != "") {
+        clearErrorInput("confirmPasswordInput", "confirmPasswordErrorSpan");
     }
 });
 
@@ -84,7 +206,8 @@ emailInput.addEventListener('blur', function () {
 
 confirmInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        showLockIconCreateAccount(this.id);
+        // showLockIconCreateAccount(this.id);
+        createAccount();
     }
 });
 
@@ -93,3 +216,9 @@ confirmInput.addEventListener('keydown', function (event) {
 confirmInput.addEventListener('blur', function () {
     showLockIconCreateAccount(this.id);
 });
+
+function errorPositions(){
+
+}
+
+window.addEventListener("resize", errorPositions)

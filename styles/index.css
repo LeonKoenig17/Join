@@ -156,7 +156,8 @@ nav img {
     font-size: 20px;
     background-repeat: no-repeat;
     background-position: right 20px center;
-    padding: 0px 20px;
+    padding-left: 20px;
+    padding-right: 50px;
     margin: 10px 0px;
     outline: none;
 }
@@ -263,6 +264,8 @@ input[type=password]:focus {
     align-items: center;
     width: fit-content;
     padding-left: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .inputImg {
@@ -278,14 +281,16 @@ input[type=password]:focus {
 }
 
 .errorSpan {
-    display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
+    height: 14px;
     font-size: 10px;
     color: red;
-    position: relative;
-    top: -5px;
-    left: 25px;
+    padding-left: 95px;
+    visibility: hidden;
+    width: 100%;
+}
+
+.errorSpan.visible {
+    visibility: visible;
 }
 
 .loginSuccess {
@@ -334,10 +339,6 @@ input[type=password]:focus {
         gap: 16px;
     }
 
-    .loginInputDiv {
-        gap: 16px;
-    }
-
     .blueBtn {
         width: 168px;
         font-size: 16px;
@@ -368,12 +369,27 @@ input[type=password]:focus {
         height: 46px;
         width: 75%;
         font-size: 20px;
-        padding: 0px 20px;
+        padding-left: 20px;
+        padding-right: 50px;
         margin: 10px 0px;
         font-size: 16px;
     }
 
+    .blueBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
+    .whiteBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
     .accountHeader {
         font-size: 47px;
+    }
+
+    .errorSpan {
+        font-size: 8px;
     }
 }

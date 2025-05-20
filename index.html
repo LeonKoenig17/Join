@@ -31,6 +31,7 @@
                         <input type="text" id="emailInput" placeholder="Email" class="loginInput">
                         <img src="./images/mail.svg" alt="" class="inputImg">
                     </div>
+                    <span id="errorSpanPuffer" class="errorSpan">just a puffer</span>
 
                     <div class="inputDiv">
                         <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
@@ -38,9 +39,8 @@
                         <img id="passwordImg" src="./images/lock.svg" alt="" class="inputImg"
                             onclick="passwordVisibility(this.id)">
                     </div>
+                    <span id="errorSpan" class="errorSpan">Check your email and password. Please try again.</span>
 
-                    <span id="errorSpan" class="errorSpan displayNone">Check your email and password. Please try
-                        again.</span>
 
                 </div>
 
@@ -59,8 +59,8 @@
         </div>
 
         <div id="legal">
-            <a href="./html/extern-privacy-policy.html" class="legalText">Privacy Policy</a>
-            <a href="./html/extern-legal-notice.html" class="legalText">Legal Notice</a>
+            <a href="./html/externPrivacyPolicy.html" class="legalText">Privacy Policy</a>
+            <a href="./html/externLegalNotice.html" class="legalText">Legal Notice</a>
         </div>
 
         <span id="loginSuccess" class="animation loginSuccess displayNone">You logged in successfully.</span>
