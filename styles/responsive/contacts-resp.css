@@ -121,10 +121,62 @@
         cursor: pointer;
     }
 
-    .addContactResponsiv:hover{
+    .addContactResponsiv:hover {
         background-color: var(--hover-color);
     }
+
     .addContactResponsiv img {
         height: 65%;
     }
+
+    .showManipualteFormFrame {
+        visibility: visible;
+        animation: slideInFromBottom 250ms ease forwards;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #addContactDivMiddle img {
+        display: none;
+    }
+
+    #addContactFrame {
+        /* display: flex; */
+        width: fit-content;
+        /* z-index: 10; */
+    }
+
+    #addContactLeft {
+        background-color: #2A3647;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+        align-items: start;
+        justify-content: center;
+        border-radius: 50px 50px 0px 0px;
+    }
+
+    #addContactRight {
+        height: 500px;
+        width: 800px;
+        display: flex;
+        border-radius: 0px 0px 50px 50px;
+        background-color: white;
+        width: fit-content;
+    }
+
+    #addContactRightDiv {
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        height: calc(100% - 2 * 100px);
+        align-items: center;
+    }
+      .inputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }
