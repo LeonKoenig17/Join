@@ -37,7 +37,8 @@ async function login() {
     if (myEmail == null) {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
         document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
         return
     }
@@ -47,7 +48,8 @@ async function login() {
     } else {
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
-        document.getElementById("errorSpan").classList.remove("displayNone")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
         document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
 
     }
@@ -129,7 +131,8 @@ function showLockIconCreateAccount(element) {
     }
 
     if (password != confirmPassword && element == "confirmPasswordInput") {
-        document.getElementById("confirmPasswordInput").classList.add("redBorder")}
+        document.getElementById("confirmPasswordInput").classList.add("redBorder")
+    }
     //     deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
     // } else {
     //     hideError("confirmPasswordInput", "passwordErrorSpan")

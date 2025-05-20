@@ -43,19 +43,19 @@
     margin-bottom: 4px;
   }
 
-    footer a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        font-size: 14px;
-        color: var(--font-color);
-        margin: 0 5px;
-        border-radius: 16px;
-        white-space: nowrap;
-        width: 80px;
-    }
+  footer a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--font-color);
+      margin: 0 5px;
+      border-radius: 16px;
+      white-space: nowrap;
+      width: 80px;
+  }
 }
 
 @media (max-width: 350px) {

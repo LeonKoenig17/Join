@@ -8,10 +8,6 @@
   margin: 60px;
   max-width: 1440px;
   height: calc(100vh - 210px);
-  /* margin: 30px 40px 0 40px;
-  position: fixed;
-  top: 10vh;
-  height: 81vh; */
 }
 
 button {
@@ -43,7 +39,10 @@ button {
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
-  /* width: 287px; */
+}
+
+.column-header-resp {
+  display: none;
 }
 
 #searchInput {
