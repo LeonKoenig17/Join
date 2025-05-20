@@ -1,14 +1,4 @@
 @media (max-width: 1480px) {
-    /* #mainContent {
-        transform: scale(0.8);
-        transform-origin: top left;
-    }
-    
-    #boardHeader h1 {
-        transform: scale(1.3);
-        transform-origin: left;
-    } */
-
     #toDo, #inProgress, #awaitFeedback, #done {
         height: unset;
     }
@@ -16,25 +6,55 @@
 
 @media (max-width: 1250px) {
     #boardContent {
-        /* transform: scale(1); */
-        /* flex-direction: column; */
-        /* align-items: center; */
+        flex-direction: column;
+        /* overflow: visible; */
     }
 
     .task-list {
-        /* display: flex; */
-        /* flex-direction: row; */
-        /* width: 30px; */
+        display: flex;
     }
 
     .column-header {
-        /* position: absolute; */
-        /* padding-bottom: 30px; */
+        display: none;
     }
 
-    /* .task {
+    .task {
         margin-right: 16px;
         margin-top: 36px;
         user-select: none;
-    } */
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+    }
+}
+
+@media (max-width: 800px) {
+    .task-list {
+        overflow-x: auto;
+    }
+
+    #mainContent {
+        margin: 16px;
+        margin-top: 90px;
+    }
+
+    main {
+        overflow: scroll;
+    }
+
+    #boardHeader div {
+        display: none;
+    }
+
+    .column-header {
+        width: calc(100vw - 32px);
+    }
+
+    .column-header span {
+        font-size: 27px;
+    }
 }
