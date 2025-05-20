@@ -264,6 +264,8 @@ input[type=password]:focus {
     align-items: center;
     width: fit-content;
     padding-left: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .inputImg {
@@ -279,14 +281,16 @@ input[type=password]:focus {
 }
 
 .errorSpan {
-    display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
+    height: 14px;
     font-size: 10px;
     color: red;
-    position: relative;
-    top: -5px;
-    left: 25px;
+    padding-left: 95px;
+    visibility: hidden;
+    width: 100%;
+}
+
+.errorSpan.visible {
+    visibility: visible;
 }
 
 .loginSuccess {
@@ -332,10 +336,6 @@ input[type=password]:focus {
     .loginButtonDiv {
         flex-direction: column;
         align-items: center;
-        gap: 16px;
-    }
-
-    .loginInputDiv {
         gap: 16px;
     }
 
@@ -388,8 +388,8 @@ input[type=password]:focus {
     .accountHeader {
         font-size: 47px;
     }
-    .errorSpan{
-        width: 130px;
-        background-color: green;
+
+    .errorSpan {
+        font-size: 8px;
     }
 }

@@ -1,6 +1,6 @@
 let fireBaseContent = {};
-let chosenCard      = 0;
-let chosen          = false;
+let chosenCard = 0;
+let chosen = false;
 
 
 /**
@@ -45,9 +45,9 @@ function sendDataToIframe() {
   const iframe = document.getElementById("editContact");
   if (iframe?.contentWindow) {
     iframe.contentWindow.postMessage({
-      type:    "firebaseData",
-      data:    fireBaseContent,
-      token:   thisToken,
+      type: "firebaseData",
+      data: fireBaseContent,
+      token: thisToken,
       ergebnisse
     }, "*");
   }
@@ -65,9 +65,9 @@ function sendDataToIframe() {
  * @returns {void}
  */
 function getContactsFromFirebase() {
-  const dataLogin   = fireBaseContent.login   || {};
+  const dataLogin = fireBaseContent.login || {};
   const dataContact = fireBaseContent.contact || {};
-  const dataFull    = { ...dataContact, ...dataLogin };
+  const dataFull = { ...dataContact, ...dataLogin };
 
   const users = Object.values(dataFull)
     .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
@@ -136,8 +136,8 @@ function createSingleUserNav(user, userNumber) {
 
   const initials = document.createElement("span");
   initials.classList.add("userInitials");
-  const colorClass = user.color 
-    ? `userColor-${user.color.replace("#", "")}` 
+  const colorClass = user.color
+    ? `userColor-${user.color.replace("#", "")}`
     : "userColor-default";
   initials.classList.add(colorClass);
   initials.textContent = getInitials(user.name);
@@ -177,8 +177,8 @@ function chooseTaskDetails(elementId) {
   let caseKey = !chosen
     ? "not-chosen"
     : chosenCard !== thenum
-    ? "chosen-different"
-    : "chosen-same";
+      ? "chosen-different"
+      : "chosen-same";
 
   switch (caseKey) {
     case "chosen-different":
@@ -204,6 +204,10 @@ function chooseTaskDetails(elementId) {
  * @returns {Promise<void>} Resolves when the contact details have been displayed and UI updated.
  */
 async function contactDetails(elementId, thenum) {
+  console.log("contactDetails");
+
+  window.innerWidth < 800 ? responsiveContentRight('show') : ""
+
   chosenCard = thenum;
   const email = document.getElementById(`singleUserMail${thenum}`).innerText;
   localStorage.setItem('selectedContactEmail', email);
@@ -214,12 +218,12 @@ async function contactDetails(elementId, thenum) {
   const nav = document.getElementById(elementId);
   nav.classList.replace("singleUser", "singleUserChosen");
 
-   document.getElementById("contactDetails").classList.remove("hide");
+  document.getElementById("contactDetails").classList.remove("hide");
   document.getElementById("contactDetailsInitials")
     .className = `userInitialsBig userColor-${color}`;
   document.getElementById("contactDetailsInitials").innerText = initials;
-  document.getElementById("contactDetailsName").innerText  = detail.name;
-  document.getElementById("contactDetailsMail").innerText  = detail.email;
+  document.getElementById("contactDetailsName").innerText = detail.name;
+  document.getElementById("contactDetailsMail").innerText = detail.email;
   document.getElementById("contactDetailsPhone").innerText = detail.phone;
   document.getElementById("deleteError").classList.add("hide");
 
@@ -227,6 +231,17 @@ async function contactDetails(elementId, thenum) {
   chosen = true;
 }
 
+function responsiveContentRight(task) {
+  if (task == 'show') {
+    document.getElementById("contentRight").classList.add("showContentRight")
+    document.getElementById("allContacts").classList.add("width0")
+    document.getElementById("contentLeft").classList.add("width0")
+  } else {
+    document.getElementById("contentRight").classList.remove("showContentRight")
+    document.getElementById("allContacts").classList.remove("width0")
+    document.getElementById("contentLeft").classList.remove("width0")
+  }
+}
 
 /**
  * Hides the contact details and resets the selected user state.
@@ -235,7 +250,7 @@ async function contactDetails(elementId, thenum) {
  */
 function hideDetails(elementId) {
   document.getElementById(elementId).classList.replace("singleUserChosen", "singleUser");
-   document.getElementById("contactDetails").classList.add("hide");
+  document.getElementById("contactDetails").classList.add("hide");
   document.getElementById("deleteError").classList.add("hide");
   chosen = false;
 }
@@ -285,7 +300,7 @@ function deleteError(type, offsetX) {
       : `You can't delete<br>other registered users`;
     span.classList.remove("hide");
     span.style.left = `${Math.round(pos.left + offsetX)}px`;
-    span.style.top  = `370px`;
+    span.style.top = `370px`;
   } catch {
     /* ignore */
   }
@@ -307,10 +322,10 @@ function deleteError(type, offsetX) {
 async function getContactDetails(emailToFind) {
   let dataLogin, dataContact;
   try {
-    dataLogin   = fireBaseContent.login;
+    dataLogin = fireBaseContent.login;
     dataContact = fireBaseContent.contact;
   } catch {
-    dataLogin   = await loadData("login");
+    dataLogin = await loadData("login");
     dataContact = await loadData("contact");
   }
   const dataFull = { ...dataContact, ...dataLogin };

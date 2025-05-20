@@ -1,0 +1,50 @@
+@media (max-width: 800px) {
+    body {
+        background-color: white;
+    }
+
+    #mainContent {
+        left: 0;
+        top: 86px;
+        width: 100%;
+    }
+
+    .contentRight {
+        display: none;
+    }
+
+    .contentLeft {
+        width: 100%;
+        height: calc(100vh - 170px);
+        box-shadow: none;
+        z-index: 1;
+    }
+
+    #addContactBtn {
+        display: none;
+    }
+
+    #allContacts {
+        top: 0;
+        width: 100%;
+        height: calc(100vh - 166px);
+    }
+
+    header {
+        z-index: 200;
+    }
+
+    .showContentRight {
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: -6px;
+        z-index: 10;
+        background-color: var(--background-color);
+        height: calc(100vh - 160px);
+    }
+
+    .width0{
+        display: none;
+    }
+}

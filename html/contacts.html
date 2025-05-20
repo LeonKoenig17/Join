@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="../styles/standard.css" />
   <link rel="stylesheet" href="../styles/addcontact.css" />
   <link rel="stylesheet" href="../styles/contacts.css" />
+  <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
+  <link rel="stylesheet" href="../styles/responsive/contacts-resp.css" />
 
   <script src="../scripts/userVerification.js"></script>
 </head>
@@ -46,7 +48,7 @@
   </aside>
 
   <main>
-    <header class="zindex1">
+    <header>
       <div class="header-container">
         <div>
           <img src="../images/joinlogodark.svg" alt="logo dark" />
@@ -68,7 +70,7 @@
     </div>
 
     <div id="mainContent">
-      <div id="contentLeft">
+      <div id="contentLeft" class="contentLeft">
         <section>
           <div id="addContactBtn" onclick="showContactForm('add')">
             <p>Add new contact</p>
@@ -78,7 +80,7 @@
         </section>
       </div>
 
-      <div id="contentRight">
+      <div id="contentRight" class="contentRight">
         <div class="frame-40">
           <h1>Contacts</h1>
           <div class="frame-40-vektor"></div>
@@ -113,9 +115,28 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </main>
+    <footer>
+    <a href="./summary.html">
+      <img src="../images/summarygray.svg" alt="logo">
+      <span>Summary</span>
+    </a>
+    <a href="./addTask.html">
+      <img src="../images/addtaskgray.svg" alt="logo">
+      <span>Add Task</span>
+    </a>
+    <a href="./board.html">
+      <img src="../images/boardgray.svg" alt="logo">
+      <span>Board</span>
+    </a>
+    <a href="./contacts.html"  class="active">
+      <img src="../images/contactswhite.svg" alt="logo">
+      <span>Contacts</span>
+    </a>
+  </footer>
 
   <div id="manipulateContactBackground" class="visibleNone" onclick="hideContactForm('add')"></div>
 
