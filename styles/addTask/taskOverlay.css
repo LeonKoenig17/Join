@@ -39,7 +39,7 @@
 .edit-mode {
   width: 500px !important;
   /* height: 720px !important; */
-  /* overflow: auto; */
+  overflow: auto;
   scrollbar-width: none;
 }
 
