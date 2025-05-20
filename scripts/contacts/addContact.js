@@ -204,7 +204,6 @@ async function deleteContact(email, mode) {
   window.location.reload();
 }
 
-
 /**
  * Saves a contact by collecting input values and sending a PATCH request.
  * Determines the payload structure based on the user's type.
