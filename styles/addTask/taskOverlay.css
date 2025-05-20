@@ -19,7 +19,7 @@
 
 .add-task-card {
   width: 850px !important;
-  height: 600px !important;
+  /* height: 600px !important; */
   background-color: #ffffff;
   padding: 60px;
   margin: 0 20px;
@@ -38,8 +38,8 @@
 
 .edit-mode {
   width: 500px !important;
-  height: 720px !important;
-  overflow: auto;
+  /* height: 720px !important; */
+  /* overflow: auto; */
   scrollbar-width: none;
 }
 

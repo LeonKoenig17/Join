@@ -53,7 +53,9 @@
 
     .task {
         margin-right: 16px;
+        /* margin-bottom: 0; */
         user-select: none;
+        max-height: 230px;
     }
 
     header {
@@ -97,6 +99,10 @@
         gap: 0;
         padding: 30px;
         height: 90%;
+        max-height: 800px;
+        justify-content: space-between;
+        overflow: auto;
+        scrollbar-width: none;
     }
 
     .add-task-card {
@@ -108,11 +114,8 @@
     }
 
     .task-actions {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        padding-bottom: 20px;
-        padding-right: 20px;
+        margin-top: 0;
+        /* justify-content: unset; */
     }
 
     .assignee-item {
@@ -133,5 +136,10 @@
 
     .edit-mode {
         height: 90% !important;
+        max-height: 900px;
+    }
+
+    .form-actions-edit button {
+        font-size: 16px;
     }
 }
