@@ -8,7 +8,7 @@
  */
 async function showContactForm(mode) {
   const bg = document.getElementById("manipulateContactBackground");
-  bg.innerHTML = contactDetailsTemp(mode);
+  window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode,'small') : bg.innerHTML = contactDetailsTemp(mode,'big')
 
   if (!checkLocalUser(mode)) return;
   const frame = document.getElementById("addContactFrame");

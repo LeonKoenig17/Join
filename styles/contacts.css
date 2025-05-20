@@ -571,6 +571,10 @@ strong {
   visibility: hidden;
 }
 
+.addContactResponsiv{
+  display: none;
+}
+
 .hide {
   display: none;
 }

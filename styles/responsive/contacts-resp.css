@@ -104,4 +104,27 @@
         top: 160px;
         left: 10px;
     }
+
+    .addContactResponsiv {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 50px;
+        bottom: 120px;
+        height: 70px;
+        width: 70px;
+        z-index: 400;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .addContactResponsiv:hover{
+        background-color: var(--hover-color);
+    }
+    .addContactResponsiv img {
+        height: 65%;
+    }
 }
