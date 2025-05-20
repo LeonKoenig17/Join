@@ -30,7 +30,7 @@ function generateCardAssigneeHTML(assignees) {
       const userId = person.id || person.userId;
       const name = person.name || person.email || "?";
       const initials = getInitials(name);
-      return /*html*/ `
+      return `
             <div class="assignee task-assignee" 
                  data-user-id="${userId}"
                  data-user-name="${name}"

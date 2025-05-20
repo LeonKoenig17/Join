@@ -571,6 +571,10 @@ strong {
   visibility: hidden;
 }
 
+.addContactResponsiv{
+  display: none;
+}
+
 .hide {
   display: none;
 }
@@ -606,6 +610,20 @@ strong {
     left: 100%;
     top: 50%;
     transform: translate(0%, -50%)
+  }
+
+  to {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%,0%)
   }
 
   to {

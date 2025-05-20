@@ -6,8 +6,10 @@
 async function initAssignedDropdown() {
   try {
     const users = await loadFirebaseUsers();
-    renderDropdownOptions(users);
-    setupDropdownEventListeners(users);
+     const contacts = await loadFirebaseContacts();
+     const options  = [...users, ...contacts];
+    renderDropdownOptions(options);
+    setupDropdownEventListeners(options);
   } catch (err) {
     console.error("Fehler beim Initialisieren des Dropdowns:", err);
   }
@@ -92,24 +94,39 @@ function getInitials(fullName = "") {
 
 
 async function loadFirebaseUsers() {
-  const url = BASE_URL + "login.json";
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    const users = [];
+  const res      = await fetch(BASE_URL + "/login.json");
+  const usersObj = await res.json();
+  const users    = [];
 
-    if (!data) return users;
-
-    for (const [id, entry] of Object.entries(data)) {
-      users.push({ id, ...entry });
+  if (usersObj) {
+    for (const key in usersObj) {
+      const entry = usersObj[key];
+      const { password, ...rest } = entry;
+      users.push({
+        id:    key,
+        ...rest,
+      });
     }
-
-    return users;
-  } catch (e) {
-    console.error("Fehler beim Laden der Benutzer:", e);
-    return [];
   }
+
+  return users;
 }
 
 
+async function loadFirebaseContacts() {
+  const res         = await fetch(BASE_URL + "/contact.json");
+  const contactsObj = await res.json();
+  const contacts    = [];
 
+  if (contactsObj) {
+    for (const key in contactsObj) {
+      const entry = contactsObj[key];
+      contacts.push({
+        id:    key,
+        ...entry
+      });
+    }
+  }
+
+  return contacts;
+}

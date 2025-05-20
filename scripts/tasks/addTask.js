@@ -104,11 +104,11 @@ function validateFormElements(elements) {
 
 function validateFormData(data) {
   const titleInput = document.getElementById("title");
-  const descriptionInput = document.getElementById("description");
+  
   const dateInput = document.getElementById("due-date");
   const categorySelect = document.getElementById("categorySelect");
 
-  if (!titleInput || !descriptionInput || !dateInput || !categorySelect) {
+  if (!titleInput || !dateInput || !categorySelect) {
     return false;
   }
 
@@ -134,15 +134,17 @@ function validateFormData(data) {
     document.getElementById("due-date-error").textContent = "";
   }
 
-  if (!data.category || data.category === "Select task category") {
+  if (categorySelect) {
+    if (!data.category || data.category === "Select a category") {
     categorySelect.classList.add("fieldIsRequired");
-    document.getElementById("category-error").textContent =
-      "This field is required";
-    isValid = false;
+     document.getElementById("category-error").textContent =
+     "This field is required";
+     isValid = false;
   } else {
     categorySelect.classList.remove("fieldIsRequired");
     document.getElementById("category-error").textContent = "";
   }
+}
 
   return isValid;
 }

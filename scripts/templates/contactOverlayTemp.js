@@ -2,9 +2,10 @@
  * Liefert das HTML-Overlay für „Add Contact“ (mode='add')
  * bzw. „Edit Contact“ (mode='edit').
  * @param {'add'|'edit'} mode
+ * @param {'big'|'small'} size
  * @returns {string} HTML-String
  */
-function contactDetailsTemp(mode) {
+function contactDetailsTemp(mode,size) {
   const isAdd = mode === 'add';
   const title  = isAdd ? 'Add contact' : 'Edit contact';
   const leftBtnLabel  = isAdd ? 'Cancel' : 'Delete';
@@ -19,7 +20,71 @@ function contactDetailsTemp(mode) {
          Save<img src="../images/check.svg" alt="" class="marginLeft10"/>
        </button>`;
 
-  return `
+  if(size == 'big'){
+       return `
+    <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
+      <img
+        class="closeFormImg"
+        src="../images/close.svg"
+        alt="Close"
+        onclick="hideContactForm('${mode}')"
+      />
+
+      <section id="addContactLeft">
+        <div id="addContactDivMiddle">
+          <img src="../images/joinlogowhite.svg" alt="Logo" />
+          <h1>${title}</h1>
+          <h4>Tasks are better with a team!</h4>
+          <figure></figure>
+        </div>
+      </section>
+
+      <div id="addContactRight">
+        <div id="addContactRightDiv">
+          <div id="addContactRightImg">
+            <img src="../images/personwhite.svg" alt="Avatar" />
+          </div>
+          <div id="addContactRightInputs">
+            <div class="flexColumn">
+              <div class="inputDiv">
+                <input type="text" id="nameInput"    placeholder="Name"  class="loginInput"/>
+                <img   src="../images/person.svg" alt="Name" class="inputImg"/>
+              </div>
+              <div class="inputDiv">
+                <input
+                  type="text"
+                  id="emailInput"
+                  placeholder="Email"
+                  class="loginInput"
+                  ${!isAdd ? 'readonly' : ''}
+                />
+                <img src="../images/mail.svg" alt="Email" class="inputImg"/>
+              </div>
+              <div class="inputDiv">
+                <input type="text" id="phoneInput" placeholder="Phone" class="loginInput"/>
+                <img   src="../images/call.svg" alt="Phone" class="inputImg"/>
+              </div>
+            </div>
+            <div class="flex marginTop10">
+              <button
+                onmouseover="changeImage('leftBtnImg','cancelblue')"
+                onmouseleave="changeImage('leftBtnImg','canceldarkblue')"
+                onclick="${leftBtnAction}"
+                id="leftBtn"
+                class="contactBtn whiteBtn"
+              >
+                ${leftBtnLabel}
+                <img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10"/>
+              </button>
+              ${rightBtn}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;}
+    else{
+      return `
     <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
       <img
         class="closeFormImg"
@@ -81,4 +146,5 @@ function contactDetailsTemp(mode) {
       </div>
     </div>
   `;
+    }
 }

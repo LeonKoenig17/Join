@@ -139,15 +139,26 @@ function renderColumnBtns(containers) {
  */
 async function applyUserColors() {
   try {
-    const users = await loadUsers();
-    const userEls = document.querySelectorAll(".task-assignee");
-    userEls.forEach(el => {
-      const userId = el.getAttribute("data-user-id");
-      const user = users.find(u => u.id === userId);
-      if (user) el.style.backgroundColor = user.color;
+    const [users, contacts] = await Promise.all([
+        loadFirebaseUsers(),
+        loadFirebaseContacts()
+    ]);
+    
+    const allPeople = [...users, ...contacts];
+    const peopleById = allPeople.reduce((map, person) => {
+      map[person.id] = person;
+      return map;
+    }, {});
+  
+    document.querySelectorAll(".task-assignee").forEach(el => {
+      const uid = el.dataset.userId;
+      const person = peopleById[uid];
+      if (person && person.color) {
+        el.style.backgroundColor = person.color;
+      }
     });
-  } catch (error) {
-    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  } catch (err) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", err);
   }
 }
 
@@ -175,7 +186,7 @@ function setupDragDrop() {
   const addTaskBtn = document.getElementById("addTaskBtn");
   if (addTaskBtn) {
     addTaskBtn.addEventListener("click", function () {
-      showAddTaskOverlay();
+      showAddTaskOverlay("add");
     });
   }
 }
@@ -215,8 +226,6 @@ function updateDraggable() {
     })
   }
 
-// Run on load
 updateDraggable();
 
-// Run on resize
 window.addEventListener("resize", updateDraggable);
