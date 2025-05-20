@@ -153,7 +153,7 @@ button {
   justify-content: space-between;
   margin-top: 24px;
   gap: 24px;
-  overflow: overlay;
+  overflow: visible;
   scrollbar-width: none;
   height: 100%;
 }

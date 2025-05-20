@@ -22,7 +22,6 @@
         transform: scale(1);
         transform-origin: unset;
         position: unset;
-        /* margin: 16px; */
         margin-top: 120px;
     }
 
@@ -70,7 +69,6 @@
 
     .searchInput-resp {
         display: flex !important;
-        /* justify-content: space-between; */
     }
 
     .searchInput-resp #taskSearch {
@@ -93,5 +91,47 @@
 
     .darkblueButton img {
         padding: 0;
+    }
+
+    .task-card-overlay {
+        gap: 0;
+        padding: 30px;
+        height: 90%;
+    }
+
+    .add-task-card {
+        padding: 30px;
+    }
+
+    .task-content {
+        gap: 0;
+    }
+
+    .task-actions {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding-bottom: 20px;
+        padding-right: 20px;
+    }
+
+    .assignee-item {
+        padding: 0;
+    }
+
+    .subtask-checkbox-container {
+        margin-top: 0;
+    }
+
+    .subtask-checkbox-container p {
+        margin: 8px 0;
+    }
+
+    .subtask-list {
+        margin: 0;
+    }
+
+    .edit-mode {
+        height: 90% !important;
     }
 }
