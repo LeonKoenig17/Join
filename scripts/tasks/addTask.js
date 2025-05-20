@@ -11,21 +11,6 @@ function initAddTask(){
   addHelpToPopup();
 }
 
-function initializeOverlayFeatures() {
-  const taskOverlay = document.getElementById("taskOverlay");
-  if (taskOverlay) {
-    taskOverlay.style.display = "flex";
-    initPriorityButtons();
-    setupDatePicker();
-    applyUserColors();
-  }
-    else if (document.body.classList.contains("add-task-page")) {
-    initPriorityButtons();
-    setupDatePicker();
-    setupFieldListeners();
-  }
-}
-
 
 function setupTaskForm(stage) {
   const taskForm = document.getElementById("taskForm");
