@@ -245,31 +245,22 @@ input[type=password]:focus {
 }
 
 .errorSpan {
-    display: block;
-    /* wichtig für Höhe */
     height: 14px;
-    /* Höhe reservieren */
     font-size: 10px;
     color: red;
-    margin-left: 95px;
+    padding-left: 95px;
     visibility: hidden;
         width: 100%;
         /* background-color: blue; */
-    /* statt display: none */
-    /* display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
-    font-size: 10px;
-    color: red;
-    margin-left: 50px;
-    opacity: 1; */
-    /* position: absolute;
-    top: -5px;
-    left: 25px; */
 }
 
 .errorSpan.visible {
     visibility: visible;
+}
+
+.textcenter{
+    text-align: center;
+    padding-left: 0;
 }
 
 .signUpSuccess {
@@ -383,11 +374,6 @@ input[type=password]:focus {
 
     
     .errorSpan {
-        margin-left: 100px;
-        /* width: 125px;
-        flex-wrap: wrap;
         font-size: 8px;
-        top: -0px;
-        left: 0px; */
     } 
 }
