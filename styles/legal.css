@@ -22,6 +22,7 @@ html {
   max-width: 950px;
   min-height: 309px;
   cursor: context-menu;
+  word-break: break-word;
 }
 
 aside {
@@ -51,4 +52,39 @@ header span {
 
 .ln-container-heading {
   margin-top: 0px;
+}
+
+@media (max-width: 800px) {
+  .legal-main {
+    left: 0;
+    top: 80px;
+    margin: 30px 20px 0 20px;
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-width: 380px) {
+  .legal-main h1 {
+    font-size: 40px;
+  }
+}
+
+/* Für Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px;
+  /* schmal */
+  background: transparent;
+  /* unsichtbarer Hintergrund */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.6);
+  /* Farbe des beweglichen Teils */
+  border-radius: 10px;
+  /* abgerundete Kanten */
+}
+
+/* Optional: Beim Hover dunkler */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.8);
 }

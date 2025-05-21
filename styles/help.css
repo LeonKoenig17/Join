@@ -13,12 +13,12 @@
   position: absolute;
   top: 206px;
   left: 350px;
-  font-size: 61px;
+  font-size: 48px;
 }
 
 .help {
   margin: 0;
-  font-size: 61px;
+  font-size: 48px;
 }
 
 .text-container {
@@ -106,4 +106,14 @@ h3 {
   cursor: pointer;
   transform: scale(1.1);
   transform-origin: center;
+}
+
+@media (max-width: 800px) {
+
+  .help-main {
+    left: 0;
+    top: 80px;
+    margin: 30px 20px 0 20px;
+  }
+
 }
