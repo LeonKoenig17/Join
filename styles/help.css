@@ -145,6 +145,17 @@ h3 {
   transform-origin: center;
 }
 
+@media (max-width: 1000px) {
+
+  main {
+    margin-left: 150px;
+  }
+
+  header span {
+    margin-left: 250px;
+  }
+}
+
 @media (max-width: 800px) {
 
   .help-main {
