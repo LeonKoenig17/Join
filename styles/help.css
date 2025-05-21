@@ -1,4 +1,45 @@
+body {
+  overflow: hidden;
+}
+
+/* width */
+main::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+main::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+main {
+  scroll-behavior: smooth;
+  height: calc(100vh - 110px);
+  overflow-y: auto;
+  margin-left: 200px;
+  margin-top: 100px;
+  margin-right: 4px;
+}
+
 .help-main {
+  padding: 30px 80px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .help-main {
   position: absolute;
   gap: 40px;
   display: flex;
@@ -6,7 +47,7 @@
   left: 200px;
   top: 90px;
   margin: 30px 40px 0 40px;
-}
+} */
 
 .legal-main h1 {
   margin: 0;

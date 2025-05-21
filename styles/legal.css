@@ -1,16 +1,42 @@
-html {
+body {
+  overflow: hidden;
+}
+
+/* width */
+main::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+main::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+main {
   scroll-behavior: smooth;
+  height: calc(100vh - 110px);
+  overflow-y: auto;
+  margin-left: 200px;
+  margin-top: 100px;
+  margin-right: 4px;
 }
 
 .legal-main {
-  position: absolute;
+  padding: 30px 80px;
   gap: 40px;
   display: flex;
   flex-direction: column;
-  left: 200px;
-  top: 90px;
-  margin: 40px 80px 0 80px;
-  padding-bottom: 30px;
 }
 
 .legal-main h1 {
@@ -19,7 +45,6 @@ html {
 }
 
 .pp-container {
-  max-width: 950px;
   min-height: 309px;
   cursor: context-menu;
   word-break: break-word;
@@ -35,11 +60,12 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
+  left: 200px;
   z-index: 2
 }
 
 header span {
-  margin-left: 300px;
+  margin-left: 100px;
 }
 
 .d-none {
@@ -67,24 +93,4 @@ header span {
   .legal-main h1 {
     font-size: 40px;
   }
-}
-
-/* Für Chrome, Edge, Safari */
-::-webkit-scrollbar {
-  width: 6px;
-  /* schmal */
-  background: transparent;
-  /* unsichtbarer Hintergrund */
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.6);
-  /* Farbe des beweglichen Teils */
-  border-radius: 10px;
-  /* abgerundete Kanten */
-}
-
-/* Optional: Beim Hover dunkler */
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(100, 100, 100, 0.8);
 }
