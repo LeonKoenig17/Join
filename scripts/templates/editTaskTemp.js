@@ -141,7 +141,6 @@ function editTaskOverlayTemplate(task) {
     </div>
     <div class="create-task-footer">
       <div class="form-actions-edit">
-        <button class="close-btn-footer" onclick="closeOverlay()">Cancel</button>
        <button id="save-task-btn" type="button" class="create-task-btn">Ok <img src="../images/check.svg" /></button>
       </div>
     </div>
