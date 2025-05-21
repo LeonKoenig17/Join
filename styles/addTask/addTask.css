@@ -47,6 +47,12 @@ label {
   color: var(--text-color);
 }
 
+.required-label {
+  position: relative;
+  bottom: -56px;
+}
+
+.required-label span,
 label span {
   color: var(--priority-color-urgent);
   font-size: 12px;
@@ -68,12 +74,12 @@ label span {
   padding-left: 16px;
   box-sizing: border-box;
   cursor: pointer;
+  scrollbar-width: none;
 }
 
 .addTask input::placeholder {
   opacity: 0.5;
 }
-
 
 .input-container {
   display: flex;
@@ -123,14 +129,14 @@ label span {
   display: flex;
   flex-direction: column;
   width: 100% !important;
-  gap: 10px
+  gap: 10px;
 }
 
 .addTask-left-edit {
   display: flex;
   flex-direction: column;
   width: 100% !important;
-  gap: 16px
+  gap: 16px;
 }
 
 .priority-buttons {
@@ -298,10 +304,12 @@ select:focus {
 .create-task-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   max-width: 850px;
-  margin-top: 64px;
+  margin-top: 24px;
+  position: sticky;
+  bottom: 24px;
 }
 
 .form-actions {
@@ -314,7 +322,6 @@ select:focus {
   justify-content: flex-end;
   gap: 32px;
   width: 100%;
-
 }
 
 .create-task-footer img {
@@ -342,8 +349,7 @@ select:focus {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: auto;
-  transition: color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out,
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out,
     background-image 0.2s ease-in-out;
 }
 

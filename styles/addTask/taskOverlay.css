@@ -18,9 +18,9 @@
 }
 
 .add-task-card {
-  width: 850px !important;
-  /* height: 600px !important; */
-  background-color: #ffffff;
+  width: 750px !important;
+  height: 580px !important;
+  background-color: var(--background-color);
   padding: 60px;
   margin: 0 20px;
   border-radius: 30px;
@@ -29,6 +29,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .edit-task {
@@ -38,8 +40,7 @@
 
 .edit-mode {
   width: 500px !important;
-  /* height: 720px !important; */
-  /* overflow: auto; */
+  height: 640px !important;
   scrollbar-width: none;
 }
 
@@ -49,12 +50,15 @@
   gap: 24px;
   position: relative;
   width: 500px;
+  max-height: 640px;
   background-color: #ffffff;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 48px 40px;
   margin: 16px;
   animation: slideInFromRight 0.5s ease-out;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .add-task-card h3 span,
@@ -94,6 +98,11 @@ p span {
   font-weight: 500;
 }
 
+.overlay-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .close-btn {
   background: none;
   border: none;
@@ -109,8 +118,13 @@ p span {
   transition: background-color 0.2s;
 }
 
-.close-btn:hover {
+.close-btn img {
+  transition: background-color 0.2s;
+}
+
+.close-btn img:hover {
   background-color: #f7f7f7;
+  border-radius: 50%;
 }
 
 .task-title {
@@ -196,7 +210,7 @@ p span {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 10px;
+  padding: 8px 0;
   border-radius: 10px;
   transition: background-color 0.2s;
 }
@@ -272,12 +286,12 @@ p span {
 }
 
 .task-actions {
-  margin-top: 72px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
 }
+
 
 .action-btn {
   display: flex;
@@ -312,4 +326,31 @@ p span {
   width: 1px;
   height: 24px;
   background: #d1d1d1;
+}
+
+@media (max-width: 800px) {
+  .required-label-overlay {
+    bottom: 208px;
+  }
+}
+
+@media (max-width: 640px) {
+  #addTask {
+    flex-direction: column;
+  }
+
+  .required-label-overlay {
+    margin-top: 10px;
+    bottom: 0 !important;
+  }
+
+  .half-width {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 450px) {
+.form-actions-edit, .form-actions {
+  transform: scale(0.85) translate(9%, -5%);
+}
 }

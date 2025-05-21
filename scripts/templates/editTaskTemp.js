@@ -15,7 +15,7 @@ function editTaskOverlayTemplate(task) {
   const p = (level) =>
     task.priority.toLowerCase() === level.toLowerCase() ? "active-btn" : "";
 
-    const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   return `
 <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
   <div class="add-task-card edit-mode">
@@ -36,13 +36,15 @@ function editTaskOverlayTemplate(task) {
             }" />
               <span id="title-error" class="error-msg"></span>
             <label for="description">Description</label>
-            <textarea id="description" name="description" style="max-height: 200px; max-width: 500px;" spellcheck="false">${
+            <textarea id="description" name="description" style="resize: none; max-height: 300px; max-width: 500px; min-height= 500px" spellcheck="false">${
               task.description
             }</textarea>
              <span id="description-error" class="error-msg"></span>
             <label for="due-date">Due date<span>*</span></label>
             <div class="custom-date-input">
-              <input type="date" id="due-date" name="due-date"  required min="${today}" value="${task.dueDate || ''}"/>
+              <input type="date" id="due-date" name="due-date"  required min="${today}" value="${
+    task.dueDate || ""
+  }"/>
               <img src="../images/calendar.svg" alt="Calendar Icon" />
               <span id="due-date-error" class="error-msg"></span>
             </div>
@@ -93,7 +95,7 @@ function editTaskOverlayTemplate(task) {
                 task.category === "Technical Task" ? "selected" : ""
               }>Technical Task</option>
             </select>
-            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon"/>
+            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon d-none"/>
             <span id="category-error" class="error-msg"></span>
           </div>
 

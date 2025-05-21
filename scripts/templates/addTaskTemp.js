@@ -136,10 +136,12 @@ function addTaskOverlayTemplate(stage) {
               </div>
             </div>
           </section>
+                              <label class="required-label-overlay"><span>*</span>This field is required</label>
+
         </div>
 
-        <div class="create-task-footer">
-          <p><span>*</span>This field is required</p>
+        <div class="create-task-footer overlay-footer">
+
           <div class="form-actions">
             <div class="close-btn-container">
               
