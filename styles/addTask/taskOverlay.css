@@ -296,7 +296,6 @@ p span {
   gap: 8px;
 }
 
-
 .action-btn {
   display: flex;
   align-items: center;
@@ -354,7 +353,9 @@ p span {
 }
 
 @media (max-width: 450px) {
-.form-actions-edit, .form-actions {
-  transform: scale(0.85) translate(9%, -5%);
-}
+  .form-actions-edit,
+  .form-actions {
+    transform: scale(0.85) translate(9%, -5%);
+    gap: 4px !important;
+  }
 }
