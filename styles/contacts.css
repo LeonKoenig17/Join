@@ -477,12 +477,24 @@ strong {
   width: 375px;
   font-size: 20px;
   background-repeat: no-repeat;
-  background-position: right 20px center;
-  padding: 0px 20px;
+  background-position: calc(100% - 20px) center;
+  padding:0px 20px;
   margin: 10px 0px;
   outline: none;
+  /* padding-right: 15px; */
 }
 
+.personImgBackground{
+  background-image: url("../images/person.svg");
+}
+
+.mailImgBackground{
+  background-image: url("../images/mail.svg");
+}
+
+.callImgBackground{
+  background-image: url("../images/call.svg");
+}
 
 .loginButtonDiv {
   width: 100%;
@@ -527,7 +539,7 @@ strong {
   width: 100%;
   height: 100vh;
   background-color: rgba(100, 100, 100, 0.0);
-  z-index: 5;
+  z-index: 1000;
 }
 
 .showManipualteFormBackground {
@@ -571,8 +583,14 @@ strong {
   visibility: hidden;
 }
 
-.addContactResponsiv{
+.addContactResponsiv {
   display: none;
+}
+
+.inputBackground {
+  background-image: url('../images/mail.svg');
+  background-position: right;
+  background-repeat: no-repeat;
 }
 
 .hide {
@@ -623,7 +641,7 @@ strong {
   from {
     left: 50%;
     top: 100%;
-    transform: translate(-50%,0%)
+    transform: translate(-50%, 0%)
   }
 
   to {
