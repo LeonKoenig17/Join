@@ -82,6 +82,21 @@ function editTaskOverlayTemplate(task) {
               </div>
               <div class="assigned-chips" id="assignedChips"></div>
 
+          <h3 class="d-none">Category<span>*</span></h3>
+          <div class="custom-select-container">
+            <select class="d-none" id="categorySelect">
+              <option disabled>Select a category</option>
+              <option ${
+                task.category === "User Story" ? "selected" : ""
+              }>User Story</option>
+              <option ${
+                task.category === "Technical Task" ? "selected" : ""
+              }>Technical Task</option>
+            </select>
+            <img src="../images/arrow_drop_down.svg" alt="" class="select-icon"/>
+            <span id="category-error" class="error-msg"></span>
+          </div>
+
           <h3>Subtasks</h3>
           <div class="subtask-input">
                   <input

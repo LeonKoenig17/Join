@@ -1,40 +1,145 @@
-@media (max-width: 1480px) {
-    /* #mainContent {
+@media (max-width: 1250px) {
+    #mainContent {
         transform: scale(0.8);
-        transform-origin: top left;
-    }
-    
-    #boardHeader h1 {
-        transform: scale(1.3);
         transform-origin: left;
-    } */
-
-    #toDo, #inProgress, #awaitFeedback, #done {
-        height: unset;
+        margin: 16px;
+        position: absolute;
     }
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1000px) {
     #boardContent {
-        /* transform: scale(1); */
-        /* flex-direction: column; */
-        /* align-items: center; */
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 800px) {
+    main {
+        overflow: scroll;
+    }
+
+    #mainContent {
+        transform: scale(1);
+        transform-origin: unset;
+        position: unset;
+        margin-top: 120px;
+    }
+
+    #boardContent {
+        flex-direction: column;
+    }
+
+    .board-column {
+        margin-bottom: 30px;
+    }
+
+    .board-column > .column-header {
+        display: flex;
     }
 
     .task-list {
-        /* display: flex; */
-        /* flex-direction: row; */
-        /* width: 30px; */
+        display: flex;
+        scrollbar-width: none;
+        overflow-x: auto;
     }
 
-    .column-header {
-        /* position: absolute; */
-        /* padding-bottom: 30px; */
+    .task-list .column-header {
+        display: none;
     }
 
-    /* .task {
+    .column-header span {
+        font-size: 27px;
+    }
+
+    .task {
         margin-right: 16px;
-        margin-top: 36px;
+        /* margin-bottom: 0; */
         user-select: none;
-    } */
+        max-height: 230px;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+    }
+
+    #boardHeader div > #searchInput {
+        display: none;
+    }
+
+    .searchInput-resp {
+        display: flex !important;
+    }
+
+    .searchInput-resp #taskSearch {
+        width: 100%;
+    }
+
+    .searchInput-resp #taskSearch::placeholder {
+        font-size: 20px;
+    }
+
+    #addTaskBtn {
+        padding: 6px;
+        height: unset;
+        transition: none;
+    }
+
+    #addTaskBtn span {
+        display: none;
+    }
+
+    .darkblueButton img {
+        padding: 0;
+    }
+
+    .task-card-overlay {
+        gap: 0;
+        padding: 30px;
+        height: 90%;
+        max-height: 800px;
+        justify-content: space-between;
+        overflow: auto;
+        scrollbar-width: none;
+    }
+
+    .add-task-card {
+        padding: 30px;
+    }
+
+    .task-content {
+        gap: 0;
+    }
+
+    .task-actions {
+        margin-top: 0;
+        /* justify-content: unset; */
+    }
+
+    .assignee-item {
+        padding: 0;
+    }
+
+    .subtask-checkbox-container {
+        margin-top: 0;
+    }
+
+    .subtask-checkbox-container p {
+        margin: 8px 0;
+    }
+
+    .subtask-list {
+        margin: 0;
+    }
+
+    .edit-mode {
+        height: 90% !important;
+        max-height: 900px;
+    }
+
+    .form-actions-edit button {
+        font-size: 16px;
+    }
 }

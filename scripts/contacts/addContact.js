@@ -8,7 +8,7 @@
  */
 async function showContactForm(mode) {
   const bg = document.getElementById("manipulateContactBackground");
-  bg.innerHTML = contactDetailsTemp(mode);
+  window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode,'small') : bg.innerHTML = contactDetailsTemp(mode,'big')
 
   if (!checkLocalUser(mode)) return;
   const frame = document.getElementById("addContactFrame");
@@ -203,7 +203,6 @@ async function deleteContact(email, mode) {
   await deleteData(`${ergebnisse[token].type}/${token}`);
   window.location.reload();
 }
-
 
 /**
  * Saves a contact by collecting input values and sending a PATCH request.
