@@ -19,7 +19,7 @@
 
 .add-task-card {
   width: 750px !important;
-  height: 580px !important;
+  /* height: 580px !important; */
   background-color: var(--background-color);
   padding: 60px;
   margin: 0 20px;
@@ -50,7 +50,7 @@
   /* gap: 24px; */
   position: relative;
   width: 500px;
-  max-height: 640px;
+  /* max-height: 640px; */
   background-color: #ffffff;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -88,6 +88,7 @@ p span {
 .task-header h1 {
   font-size: 48px;
   margin: 0;
+  white-space: nowrap;
 }
 
 .user-story-label {
@@ -331,6 +332,10 @@ p span {
   background: #d1d1d1;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 @media (max-width: 800px) {
   .required-label-overlay {
     bottom: 208px;
@@ -355,7 +360,17 @@ p span {
 @media (max-width: 450px) {
   .form-actions-edit,
   .form-actions {
-    transform: scale(0.85) translate(9%, -5%);
+    /* transform: scale(0.85) translate(9%, -5%); */
     gap: 4px !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-task-footer {
+    justify-content: center !important;
+  }
+
+  .add-task-card {
+    padding: 16px;
   }
 }

@@ -281,6 +281,7 @@ select:focus {
   font-weight: 400;
   line-height: 120%;
   color: var(--border-color);
+  width: 100%;
 }
 
 .subtask-input input:focus {
@@ -308,8 +309,8 @@ select:focus {
   width: 100%;
   max-width: 850px;
   margin-top: 24px;
-  position: sticky;
-  bottom: 24px;
+  /* position: sticky;
+  bottom: 24px; */
 }
 
 .form-actions {
@@ -373,6 +374,7 @@ select:focus {
   font-size: 21px;
   font-weight: bold;
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
 .create-task-btn:hover {
