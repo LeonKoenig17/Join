@@ -20,10 +20,10 @@ function contactDetailsTemp(mode,size) {
          Save<img src="../images/check.svg" alt="" class="marginLeft10"/>
        </button>`;
 
-  if(size == 'big'){
+  // if(size == 'big'){
        return `
     <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
-      <img
+      <img id="closeFormImg"
         class="closeFormImg"
         src="../images/close.svg"
         alt="Close"
@@ -41,29 +41,15 @@ function contactDetailsTemp(mode,size) {
 
       <div id="addContactRight">
         <div id="addContactRightDiv">
-          <div id="addContactRightImg">
-            <img src="../images/personwhite.svg" alt="Avatar" />
-          </div>
+          
+            <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
+          
           <div id="addContactRightInputs">
             <div class="flexColumn">
-              <div class="inputDiv">
-                <input type="text" id="nameInput"    placeholder="Name"  class="loginInput"/>
-                <img   src="../images/person.svg" alt="Name" class="inputImg"/>
-              </div>
-              <div class="inputDiv">
-                <input
-                  type="text"
-                  id="emailInput"
-                  placeholder="Email"
-                  class="loginInput"
-                  ${!isAdd ? 'readonly' : ''}
-                />
-                <img src="../images/mail.svg" alt="Email" class="inputImg"/>
-              </div>
-              <div class="inputDiv">
-                <input type="text" id="phoneInput" placeholder="Phone" class="loginInput"/>
-                <img   src="../images/call.svg" alt="Phone" class="inputImg"/>
-              </div>
+             <div class="flexColumn">
+                 <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
+                 <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" ${!isAdd ? 'readonly' : ''}/>
+                 <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
             </div>
             <div class="flex marginTop10">
               <button
@@ -82,69 +68,54 @@ function contactDetailsTemp(mode,size) {
         </div>
       </div>
     </div>
-  `;}
-    else{
-      return `
-    <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
-      <img
-        class="closeFormImg"
-        src="../images/close.svg"
-        alt="Close"
-        onclick="hideContactForm('${mode}')"
-      />
+  `
+  // ;}
+  //   else{
+  //     return `
+  //   <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
+  //     <img
+  //       class="closeFormImg"
+  //       src="../images/close.svg"
+  //       alt="Close"
+  //       onclick="hideContactForm('${mode}')"
+  //     />
 
-      <section id="addContactLeft">
-        <div id="addContactDivMiddle">
-          <img src="../images/joinlogowhite.svg" alt="Logo" />
-          <h1>${title}</h1>
-          <h4>Tasks are better with a team!</h4>
-          <figure></figure>
-        </div>
-      </section>
+  //     <section id="addContactLeft">
+  //       <div id="addContactDivMiddle">
+  //         <img src="../images/joinlogowhite.svg" alt="Logo" />
+  //         <h1>${title}</h1>
+  //         <h4>Tasks are better with a team!</h4>
+  //         <figure></figure>
+  //       </div>
+  //     </section>
 
-      <div id="addContactRight">
-        <div id="addContactRightDiv">
-          <div id="addContactRightImg">
-            <img src="../images/personwhite.svg" alt="Avatar" />
-          </div>
-          <div id="addContactRightInputs">
-            <div class="flexColumn">
-              <div class="inputDiv">
-                <input type="text" id="nameInput"    placeholder="Name"  class="loginInput"/>
-                <img   src="../images/person.svg" alt="Name" class="inputImg"/>
-              </div>
-              <div class="inputDiv">
-                <input
-                  type="text"
-                  id="emailInput"
-                  placeholder="Email"
-                  class="loginInput"
-                  ${!isAdd ? 'readonly' : ''}
-                />
-                <img src="../images/mail.svg" alt="Email" class="inputImg"/>
-              </div>
-              <div class="inputDiv">
-                <input type="text" id="phoneInput" placeholder="Phone" class="loginInput"/>
-                <img   src="../images/call.svg" alt="Phone" class="inputImg"/>
-              </div>
-            </div>
-            <div class="flex marginTop10">
-              <button
-                onmouseover="changeImage('leftBtnImg','cancelblue')"
-                onmouseleave="changeImage('leftBtnImg','canceldarkblue')"
-                onclick="${leftBtnAction}"
-                id="leftBtn"
-                class="contactBtn whiteBtn"
-              >
-                ${leftBtnLabel}
-                <img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10"/>
-              </button>
-              ${rightBtn}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-    }
+  //     <div id="addContactRight">
+        
+
+          
+  //           <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
+          
+
+  //         <div id="addContactRightInputs">
+  //           <div class="flexColumn">
+  //               <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
+  //               <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" ${!isAdd ? 'readonly' : ''}/>
+  //               <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
+  //           </div>
+
+  //           <div class="flexRow marginTop10">
+  //             <button onmouseover="changeImage('leftBtnImg','cancelblue')" onmouseleave="changeImage('leftBtnImg','canceldarkblue')" onclick="${leftBtnAction}" id="leftBtn" class="contactBtn whiteBtn">
+  //               ${leftBtnLabel}
+  //               <img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10"/>
+  //             </button>
+  //             ${rightBtn}
+  //           </div>
+
+  //         </div>
+
+        
+  //     </div>
+  //   </div>
+  // `;
+  //   }
 }

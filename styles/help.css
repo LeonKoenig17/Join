@@ -1,4 +1,41 @@
+body {
+  overflow: hidden;
+}
+
+main::-webkit-scrollbar {
+  width: 10px;
+}
+
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+main {
+  scroll-behavior: smooth;
+  height: calc(100vh - 110px);
+  overflow-y: auto;
+  margin-left: 200px;
+  margin-top: 100px;
+  margin-right: 4px;
+}
+
 .help-main {
+  padding: 30px 80px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .help-main {
   position: absolute;
   gap: 40px;
   display: flex;
@@ -6,19 +43,19 @@
   left: 200px;
   top: 90px;
   margin: 30px 40px 0 40px;
-}
+} */
 
 .legal-main h1 {
   margin: 0;
   position: absolute;
   top: 206px;
   left: 350px;
-  font-size: 61px;
+  font-size: 48px;
 }
 
 .help {
   margin: 0;
-  font-size: 61px;
+  font-size: 48px;
 }
 
 .text-container {
@@ -106,4 +143,25 @@ h3 {
   cursor: pointer;
   transform: scale(1.1);
   transform-origin: center;
+}
+
+@media (max-width: 1000px) {
+
+  main {
+    margin-left: 150px;
+  }
+
+  header span {
+    margin-left: 250px;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .help-main {
+    left: 0;
+    top: 80px;
+    margin: 30px 20px 0 20px;
+  }
+
 }

@@ -8,7 +8,7 @@
  */
 async function showContactForm(mode) {
   const bg = document.getElementById("manipulateContactBackground");
-  window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode,'small') : bg.innerHTML = contactDetailsTemp(mode,'big')
+  window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode, 'small') : bg.innerHTML = contactDetailsTemp(mode, 'big')
 
   if (!checkLocalUser(mode)) return;
   const frame = document.getElementById("addContactFrame");
@@ -20,6 +20,8 @@ async function showContactForm(mode) {
 
   contactFormBtn(mode);
   checkMode();
+  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
+  changeImage("closeFormImg", whichImg);
 }
 
 
@@ -70,7 +72,7 @@ function checkLocalUser(mode) {
   } catch (error) {
 
   }
-  
+
   if (mode === "edit" && thisToken !== myToken) {
     deleteError("editIcon", 18, 30);
     return false;
@@ -232,5 +234,7 @@ async function saveContact(email) {
  * @param {string} variant - The variant string to append to the image filename (e.g., 'Active', 'Inactive').
  */
 function changeImage(element, variant) {
+  console.log(element);
+  console.log(variant);
   document.getElementById(element).src = `../images/${variant}.svg`;
 }

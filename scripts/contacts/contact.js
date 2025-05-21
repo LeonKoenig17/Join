@@ -341,5 +341,10 @@ async function getContactDetails(emailToFind) {
   return { name: "", email: "", phone: "", color: "#cccccc" };
 }
 
+window.addEventListener('resize', function() {
+  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
+  changeImage("closeFormImg", whichImg)}
+);
+
 
 window.addEventListener("DOMContentLoaded", onloadContacts);
