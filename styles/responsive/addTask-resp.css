@@ -73,4 +73,9 @@
   .custom-date-input img {
     left: 90%;
   }
+
+   .form-actions {
+    gap: 8px;
+    margin-top: 24px;
+  }
 }
