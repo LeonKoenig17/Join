@@ -58,7 +58,8 @@
     margin-right: 16px;
     /* margin-bottom: 0; */
     user-select: none;
-    max-height: 250px;
+    max-height: 230px;
+    min-width: 150px;
   }
 
   .task-header h1 {
@@ -103,7 +104,7 @@
   .task-card-overlay {
     gap: 0;
     padding: 30px;
-    max-height: 800px;
+    max-height: 90%;
     justify-content: space-between;
     overflow: auto;
     scrollbar-width: none;
@@ -156,26 +157,8 @@
   }
 }
 
-@media (max-width: 500px) {
-  .task-card-overlay {
-    transform: scale(0.9);
-  }
-  .task-content {
-    gap: 0;
-  }
-  
-  .task-title {
-    font-size: 40px;
-  }
-}
-
 @media (max-width: 370px) {
   .create-task-footer {
     flex-direction: column;
   }
-
-  .task-card-overlay {
-    transform: scale(0.8);
-  }
-
 }
