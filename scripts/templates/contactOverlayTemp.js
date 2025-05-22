@@ -45,20 +45,19 @@ function contactDetailsTemp(mode,size) {
             <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
           
           <div id="addContactRightInputs">
-            <div class="flexColumn">
-             <div class="flexColumn">
+            <div class="flexColumn" style="gap: 20px">
+             <div id="addContactBtnDiv" class="flexColumn">
                  <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
                  <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" ${!isAdd ? 'readonly' : ''}/>
                  <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
             </div>
-            <div class="flex marginTop10">
+            <div class="addContactBtnDiv" style="width: fit-content;">
               <button
                 onmouseover="changeImage('leftBtnImg','cancelblue')"
                 onmouseleave="changeImage('leftBtnImg','canceldarkblue')"
                 onclick="${leftBtnAction}"
                 id="leftBtn"
-                class="contactBtn whiteBtn"
-              >
+                class="contactBtn whiteBtn">
                 ${leftBtnLabel}
                 <img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10"/>
               </button>

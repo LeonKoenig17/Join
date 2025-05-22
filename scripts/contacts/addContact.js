@@ -9,6 +9,7 @@
 async function showContactForm(mode) {
   const bg = document.getElementById("manipulateContactBackground");
   window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode, 'small') : bg.innerHTML = contactDetailsTemp(mode, 'big')
+  hideCancelBtn();
 
   if (!checkLocalUser(mode)) return;
   const frame = document.getElementById("addContactFrame");
@@ -66,7 +67,8 @@ function checkLocalUser(mode) {
     if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
       return true;
     } else {
-      deleteError("editIcon", 18, 30);
+      // deleteErrorContact("editIcon", 18, 30);
+      deleteError('editIcon','deleteError',4,30,`You can't edit<br>other registered users`)
       return false;
     }
   } catch (error) {
@@ -74,7 +76,8 @@ function checkLocalUser(mode) {
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-    deleteError("editIcon", 18, 30);
+      deleteError('editIcon','deleteError',4,30,`You can't edit<br>other registered users`)
+    // deleteErrorContact("editIcon", 18, 30);
     return false;
   }
   return true;
@@ -199,7 +202,8 @@ async function deleteContact(email, mode) {
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
   if (token !== myToken && ergebnisse[token].type === "login") {
-    deleteError(elementId, 18, 30);
+    // deleteErrorContact(elementId, 18, 30);
+    deleteError('deleteIcon','deleteError',4,30,`You can't delete<br>other registered users`)
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -234,7 +238,25 @@ async function saveContact(email) {
  * @param {string} variant - The variant string to append to the image filename (e.g., 'Active', 'Inactive').
  */
 function changeImage(element, variant) {
-  console.log(element);
-  console.log(variant);
-  document.getElementById(element).src = `../images/${variant}.svg`;
+  try {
+  document.getElementById(element).src = `../images/${variant}.svg`;  
+  } catch (error) {
+  }
+}
+
+
+function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
+    try {
+        let element = document.getElementById(firstType);
+        let position = element.getBoundingClientRect();
+        let span = document.getElementById(secondType);
+        document.getElementById(firstType).classList.add("redBorder")
+        span.innerHTML = errorText
+        span.classList.add("visible")
+        span.classList.remove("hide")
+        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+    } catch (error) {
+        return null
+    }
 }

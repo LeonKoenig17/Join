@@ -204,9 +204,6 @@ function chooseTaskDetails(elementId) {
  * @returns {Promise<void>} Resolves when the contact details have been displayed and UI updated.
  */
 async function contactDetails(elementId, thenum) {
-  console.log("contactDetails");
-
-  // window.innerWidth < 800 ? responsiveContentRight('show') : ""
   responsiveContentRight('show')
 
   chosenCard = thenum;
@@ -217,7 +214,8 @@ async function contactDetails(elementId, thenum) {
   const color = detail.color.replace("#", "");
 
   const nav = document.getElementById(elementId);
-  window.innerWidth > 800 ? nav.classList.replace("singleUser", "singleUserChosen") : ""
+  window.innerWidth < 800 ? "" : nav.classList.replace("singleUser", "singleUserChosen")
+  window.innerWidth < 800 ? changeImage('addContactResponsivImg', 'more_vert') : "";
 
   document.getElementById("contactDetails").classList.remove("hide");
   document.getElementById("contactDetailsInitials")
@@ -230,6 +228,8 @@ async function contactDetails(elementId, thenum) {
 
   thisToken = await findUser(detail.email);
   chosen = true;
+
+
 }
 
 function responsiveContentRight(task) {
@@ -238,13 +238,24 @@ function responsiveContentRight(task) {
     document.getElementById("allContacts").classList.add("width0")
     document.getElementById("contentLeft").classList.add("width0")
     document.getElementById("backToList").classList.remove("displayNone")
+    document.getElementById("addContactResponsiv").classList.add("visibleNone")
+    document.getElementById("editContactResponsiv").classList.remove("visibleNone")
   } else {
     document.getElementById("contentRight").classList.remove("showContentRight")
     document.getElementById("allContacts").classList.remove("width0")
     document.getElementById("contentLeft").classList.remove("width0")
     document.getElementById("backToList").classList.add("displayNone")
+    document.getElementById("deleteError").classList.add("hide")
+    changeImage("addContactResponsivImg", "person_add");
+    document.getElementById("addContactResponsiv").classList.remove("visibleNone")
+    document.getElementById("editContactResponsiv").classList.add("visibleNone")
   }
 }
+
+
+
+
+
 
 /**
  * Hides the contact details and resets the selected user state.
@@ -293,7 +304,7 @@ function autoSelect() {
  * @param {number} offsetX - The horizontal offset in pixels to position the error message relative to the element.
  * @param {number} offsetY - The vertical offset in pixels (currently unused, as top is hardcoded).
  */
-function deleteError(type, offsetX) {
+function deleteErrorContact(type, offsetX, offsetY) {
   try {
     const el = document.getElementById(type);
     const pos = el.getBoundingClientRect();
@@ -303,11 +314,12 @@ function deleteError(type, offsetX) {
       : `You can't delete<br>other registered users`;
     span.classList.remove("hide");
     span.style.left = `${Math.round(pos.left + offsetX)}px`;
-    span.style.top = `370px`;
+    span.style.top = `${Math.round(pos.top + offsetY)}px`;
   } catch {
     /* ignore */
   }
 }
+
 
 
 /**
@@ -341,9 +353,27 @@ async function getContactDetails(emailToFind) {
   return { name: "", email: "", phone: "", color: "#cccccc" };
 }
 
-window.addEventListener('resize', function() {
-  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
-  changeImage("closeFormImg", whichImg)}
+function hideCancelBtn() {
+  let task = this.window.innerWidth < 800 ? 'hide' : 'show';
+
+  try {
+    if (task == 'show') {
+      document.getElementById("leftBtn").classList.remove('hide')
+    } else {
+      document.getElementById("leftBtn").classList.add('hide')
+      document.getElementById("rightBtn").style('margin-right: 0;')
+    }
+  } catch (error) {
+    return
+  }
+}
+
+
+window.addEventListener('resize', function () {
+  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
+  changeImage("closeFormImg", whichImg);
+  hideCancelBtn();
+}
 );
 
 

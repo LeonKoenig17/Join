@@ -5,6 +5,19 @@
     border-radius: 1rem;
 }
 
+@media (max-width: 1080px) {
+    #addContactRightImg {
+        height: 70px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #mainContent {
+        left: 150px;
+    }
+
+}
+
 @media (max-width: 800px) {
     body {
         background-color: white;
@@ -97,12 +110,17 @@
         font-size: 27px;
         color: #2A3647;
         cursor: context-menu;
+        margin: 10px 0px;
     }
 
     #contactDetails {
         position: absolute;
         top: 160px;
         left: 10px;
+    }
+
+    #contactDetailsName {
+        font-weight: bold;
     }
 
     .addContactResponsiv {
@@ -142,13 +160,17 @@
 
     #addContactFrame {
         /* display: flex; */
-        width: 400px;
+        /* width: 400px; */
         /* z-index: 10; */
+        max-width: 400px;
+        width: 90%;
+        height: 760px;
     }
 
     #addContactLeft {
         background-color: #2A3647;
-        width: 400px;
+        /* width: 400px; */
+        width: 100%;
         display: flex;
         flex-direction: column;
         height: 350px;
@@ -158,22 +180,25 @@
     }
 
     #addContactRight {
-        height: 500px;
-        width: 800px;
+        height: 408px;
+        /* width: 800px; */
         display: flex;
         border-radius: 0px 0px 50px 50px;
         background-color: white;
         width: 100%;
         flex-direction: column;
+        position: absolute;
+        top: 352px;
     }
 
     #addContactRightDiv {
         display: flex;
         flex-direction: column;
         margin: 0px;
-        height: calc(100% - 2 * 100px);
-        align-items: center;
-        min-width: 400px;
+        /* height: calc(100% - 2 * 100px); */
+        height: 100%;
+        /* align-items: center; */
+        /* min-width: 400px; */
     }
 
     .inputDiv {
@@ -187,18 +212,22 @@
         /* background-color: #D1D1D1; */
         /* height: fit-content; */
         /* width: fit-content; */
-        margin-right: 0;
+        /* margin-right: 0; */
         /* border-radius: 100%; */
         /* padding: 10px; */
         /* border: solid 4px white; */
         /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
-        position: relative;
-        top: -46px;
-        left: 0PX;
+        position: absolute;
+        top: calc(128px / 2 * (-1));
+        left: calc(50% - 128px / 2);
+        height: 100px;
+        margin: 0;
     }
 
     .loginInput {
-        width: 300px;
+        /* width: 300px; */
+        width: 80%;
+        max-width: 300px;
     }
 
     #addContactRightInputs {

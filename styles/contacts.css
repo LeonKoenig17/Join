@@ -173,6 +173,8 @@ header img:hover {
   display: flex;
   flex-direction: row;
   margin-bottom: 50px;
+  /* new */
+  align-items: center;
 }
 
 .contactDetailsPerson section {
@@ -470,29 +472,41 @@ strong {
 }
 
 .loginInput {
+  /* border: solid 1px #D1D1D1;
+  border-radius: 10px;
+  height: 46px;
+  border-width: 1px;
+  max-width: 375px;
+  font-size: 20px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 20px) center;
+  padding: 0px 20px;
+  margin: 10px 0px;
+  outline: none;
+  width: 80%; */
   border: solid 1px #D1D1D1;
   border-radius: 10px;
   height: 46px;
   border-width: 1px;
-  width: 375px;
+  max-width: 375px;
   font-size: 20px;
   background-repeat: no-repeat;
   background-position: calc(100% - 20px) center;
-  padding:0px 20px;
+  padding: 0px 20px;
   margin: 10px 0px;
   outline: none;
-  /* padding-right: 15px; */
+  width: 80%;
 }
 
-.personImgBackground{
+.personImgBackground {
   background-image: url("../images/person.svg");
 }
 
-.mailImgBackground{
+.mailImgBackground {
   background-image: url("../images/mail.svg");
 }
 
-.callImgBackground{
+.callImgBackground {
   background-image: url("../images/call.svg");
 }
 
@@ -517,8 +531,9 @@ strong {
 
 #addContactFrame {
   display: flex;
-  width: 1200px;
+  max-width: 1200px;
   z-index: 10;
+  width: 80%;
 }
 
 .closeFormImg {
@@ -563,6 +578,7 @@ strong {
   color: red;
   font-size: 10px;
   font-weight: normal;
+  z-index: 10;
 }
 
 .contactsParagraph {
