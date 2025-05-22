@@ -9,12 +9,6 @@
   }
 }
 
-@media (max-width: 1000px) {
-  #boardContent {
-    /* justify-content: flex-start; */
-  }
-}
-
 @media (max-width: 800px) {
   main {
     overflow: scroll;
@@ -24,7 +18,6 @@
     transform: scale(1);
     transform-origin: unset;
     position: unset;
-    /* margin-top: 120px; */
     height: auto;
   }
 
@@ -56,7 +49,6 @@
 
   .task {
     margin-right: 16px;
-    /* margin-bottom: 0; */
     user-select: none;
     max-height: 250px;
     min-width: 150px;
