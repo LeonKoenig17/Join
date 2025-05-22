@@ -208,7 +208,7 @@ button {
   transform: scale(1.05);
   background-color: var(--background-dragging-color);
   transition: transform 0.2s ease-in-out;
-  border-radius: 10px;
+  border-radius: 16px;
 }
 
 .task-dropped {

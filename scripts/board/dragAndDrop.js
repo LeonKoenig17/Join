@@ -1,3 +1,5 @@
+let draggedFromContainer = null;
+
 /**
  * Setzt Drag & Drop und Event-Listener für Buttons.
  */
@@ -39,6 +41,7 @@ function handleDrop(e, container) {
       dropHighlight(newTask);
     }
   }, 400);
+  draggedFromContainer = null;
 }
 
 
@@ -47,7 +50,9 @@ function setupContainerHighlighting(container) {
 
   container.addEventListener("dragenter", function () {
     dragCounter++;
+    if (container !== draggedFromContainer) {
     container.classList.add("highlight-container");
+    }
   });
 
   container.addEventListener("dragleave", function () {
@@ -75,6 +80,7 @@ function addDragFunction() {
       e.dataTransfer.setData("text/plain", task.id);
       e.dataTransfer.effectAllowed = "move";
       
+      draggedFromContainer = task.closest(".task-list");
     dragAnimation(task);
     });
   }
