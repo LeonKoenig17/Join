@@ -71,14 +71,14 @@ function addHelpToPopup() {
     if (windowWidth <= 800) {
         document.getElementById("userLinkOptions").innerHTML = `
         <a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
-        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
-        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+        <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
+        <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         `
     } else {
         document.getElementById("userLinkOptions").innerHTML = `
-        <a href="../html/legal-notice.html" class="userLinkOptionsLinks">Legal Notice</a>
-        <a href="../html/privacy-policy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+        <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
+        <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         `
     }
