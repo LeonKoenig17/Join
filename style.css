@@ -27,7 +27,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 13;
 }
 
 header span {
@@ -96,7 +96,7 @@ footer {
     border-radius: 20px 0px 20px 20px;
     z-index: 1;
     transition: border-radius 0.3s ease-in-out,
-                background-image 0.3s ease-in-out;
+        background-image 0.3s ease-in-out;
 
 }
 
@@ -154,7 +154,7 @@ nav img {
 #legal a {
     color: #A8A8A8;
     transition: color 0.3s ease-in-out,
-                font-weight 0.3s ease-in-out;
+        font-weight 0.3s ease-in-out;
 }
 
 #legal a:hover {
@@ -162,14 +162,14 @@ nav img {
     font-weight: bold;
 }
 
-#userLinkOptionsBackground{
-      background-color: transparent;
-      height: 100vh;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index:10
+#userLinkOptionsBackground {
+    background-color: transparent;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10
 }
 
 .active {

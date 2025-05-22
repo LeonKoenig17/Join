@@ -8,19 +8,17 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1001;
+  z-index: 14;
 }
 
 .task-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .add-task-card {
-  width: 850px !important;
-  /* height: 600px !important; */
-  background-color: #ffffff;
+  width: 750px !important;
+  background-color: var(--background-color);
   padding: 60px;
   margin: 0 20px;
   border-radius: 30px;
@@ -29,6 +27,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .edit-task {
@@ -38,15 +38,13 @@
 
 .edit-mode {
   width: 500px !important;
-  /* height: 720px !important; */
-  overflow: auto;
+  height: 640px !important;
   scrollbar-width: none;
 }
 
 .task-card-overlay {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   position: relative;
   width: 500px;
   background-color: #ffffff;
@@ -54,7 +52,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 48px 40px;
   margin: 16px;
-  animation: slideInFromRight 0.5s ease-out;
+  animation: slideInFromRight 0.2s ease-out;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .add-task-card h3 span,
@@ -84,6 +84,7 @@ p span {
 .task-header h1 {
   font-size: 48px;
   margin: 0;
+  white-space: nowrap;
 }
 
 .user-story-label {
@@ -92,6 +93,11 @@ p span {
   padding: 4px 16px;
   border-radius: 8px;
   font-weight: 500;
+}
+
+.overlay-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .close-btn {
@@ -109,8 +115,13 @@ p span {
   transition: background-color 0.2s;
 }
 
-.close-btn:hover {
+.close-btn img {
+  transition: background-color 0.2s;
+}
+
+.close-btn img:hover {
   background-color: #f7f7f7;
+  border-radius: 50%;
 }
 
 .task-title {
@@ -196,7 +207,7 @@ p span {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 10px;
+  padding: 8px 0;
   border-radius: 10px;
   transition: background-color 0.2s;
 }
@@ -218,6 +229,10 @@ p span {
 
 .subtask-checkbox-container:hover {
   background-color: var(--border-color);
+}
+
+.subtask-checkbox-container p {
+  margin: 0;
 }
 
 .subtask-count.not-done:hover {
@@ -272,7 +287,6 @@ p span {
 }
 
 .task-actions {
-  margin-top: 72px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -312,4 +326,74 @@ p span {
   width: 1px;
   height: 24px;
   background: #d1d1d1;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.confirm-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   animation: slideInFromRight 0.2s ease-out;
+  z-index: 15;
+}
+
+.confirm-dialog {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 300px;
+}
+
+.confirm-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
+@media (max-width: 800px) {
+  .required-label-overlay {
+    bottom: 208px;
+  }
+}
+
+@media (max-width: 640px) {
+  #addTask {
+    flex-direction: column;
+  }
+
+  .required-label-overlay {
+    margin-top: 10px;
+    bottom: 0 !important;
+  }
+
+  .half-width {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .form-actions-edit,
+  .form-actions {
+    gap: 4px !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-task-footer {
+    justify-content: center !important;
+  }
+
+  .add-task-card {
+    padding: 16px;
+  }
 }

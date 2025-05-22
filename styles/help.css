@@ -158,10 +158,18 @@ h3 {
 
 @media (max-width: 800px) {
 
-  .help-main {
-    left: 0;
-    top: 80px;
-    margin: 30px 20px 0 20px;
+  main {
+    margin-left: 0;
+    height: calc(100vh - 190px);
   }
 
+  .help-main {
+    padding: 10px 16px 0px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .help {
+    font-size: 40px;
+  }
 }

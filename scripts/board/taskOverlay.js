@@ -40,6 +40,7 @@ function initializeOverlayFeatures() {
 
 
 function showTaskOverlayById(taskId) {
+  document.body.classList.add("no-scroll");
   showTaskOverlay(taskId);
 }
 
@@ -71,6 +72,7 @@ async function showTaskOverlay(taskId) {
 
 
 function showAddTaskOverlay(stage) {
+  document.body.classList.add("no-scroll");
   const overlayHTML = addTaskOverlayTemplate(stage);
   document.body.classList.add("add-task-page");
   const container = document.getElementById("taskOverlay");
@@ -132,7 +134,7 @@ function registerSaveTaskHandler(overlayContainer, taskData) {
 
 async function showEditTaskOverlay(taskId) {
   closeOverlay();
-
+  document.body.classList.add("no-scroll");
   const taskData = await loadTaskById(taskId);
   if (!taskData) return;
 
@@ -158,6 +160,7 @@ async function showEditTaskOverlay(taskId) {
 
 
 function closeOverlay() {
+  document.body.classList.remove("no-scroll");
   const container = document.getElementById("taskOverlay");
   if (container) {
     container.innerHTML = "";

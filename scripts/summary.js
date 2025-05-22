@@ -29,10 +29,6 @@ function bodyVisible() {
   document.body.style.visibility = "visible";
 }
 
-// function init() {
-//   fillUserLinks();
-//   loadAndDisplayTaskCounts(); // Tasks laden und anzeigen
-// }
 
 /**
  * Mappt die `stage`-Nummern auf die entsprechenden Kategorien.
@@ -94,26 +90,6 @@ function countTasks(tasksObj) {
   return counts;
 }
 
-/**
- * Lädt die Tasks aus Firebase, zählt sie und aktualisiert die Summary.
- */
-// async function loadAndDisplayTaskCounts() {
-//   try {
-//     const tasks = await loadData("tasks");
-//     const counts = countTasks(tasks);
-
-//     document.getElementById("allTasks").textContent = counts.all;
-//     document.getElementById("toDoTasks").textContent = counts.toDo;
-//     document.getElementById("inProgressTasks").textContent = counts.inProgress;
-//     document.getElementById("awaitingFeedbackTasks").textContent =
-//       counts.awaitFeedback;
-//     document.getElementById("doneTasks").textContent = counts.done;
-//     document.getElementById("urgentTasks").textContent = counts.urgent;
-//   } catch (error) {
-//     console.error("Fehler beim Laden der Tasks:", error);
-//   }
-// }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   setCurrentDate();
@@ -133,39 +109,7 @@ function setCurrentDate() {
   }
 }
 
-
-// /** Tageszeit-Begrüßung */
-// function setGreeting() {
-//   const currentHour = new Date().getHours();
-//   let greeting = "Good morning,";
-
-//   if (currentHour >= 12 && currentHour < 18) {
-//     greeting = "Good afternoon,";
-//   } else if (currentHour >= 18 || currentHour < 5) {
-//     greeting = "Good evening,";
-//   }
-
-//   const greetingElement = document.getElementById("greeting");
-//   if (greetingElement) {
-//     greetingElement.innerText = greeting;
-//   }
-// }
-
-
-function setGreeting() {
-  const h = new Date().getHours();
-  let greeting =
-    h >= 18 || h < 5 ? "Good evening" :
-      h >= 12 ? "Good afternoon" :
-        "Good morning";
-
-  // Annahme: userName ist bereits aus Firebase geladen und verfügbar
-  const punctuation = (userName === "Guest") ? "!" : ",";
-
-  document.getElementById("greeting").textContent = greeting + punctuation;
-}
-
-
+/** Zeigt den Namen des Benutzers an. */
 /** Overlay bei schmalen Screens ----------------------------- */
 window.addEventListener("load", () => {
   setGreeting();                       // Text setzen
@@ -180,3 +124,16 @@ window.addEventListener("load", () => {
   }
 });
 
+
+function setGreeting() {
+  const name = localStorage.getItem("name"); // Benutzername aus localStorage holen
+
+  const h = new Date().getHours();
+  let greeting =
+    h >= 18 || h < 5 ? "Good evening" :
+      h >= 12 ? "Good afternoon" :
+        "Good morning";
+
+  const punctuation = (name === "sofiam@gmail.com") ? "!" : ",";
+  document.getElementById("greeting").textContent = greeting + punctuation;
+}

@@ -264,11 +264,24 @@ async function deleteTask(taskId) {
   }
 
 
-  function confirmDeleteTask(event, taskId) {
-    event.stopPropagation();
-    if (!window.confirm("Delete permanently?")) return;
-    deleteTask(taskId);
-  }
+  function showDeleteTemplate(event, taskId) {
+  event.stopPropagation();
+  const deleteOverlay = document.getElementById("dialogContainer");
+  deleteOverlay.innerHTML = deleteConfirmTemplate(taskId);
+}
+
+
+function closeConfirmDialog(event) {
+  if (event && event.target.id !== "confirmDialog") return;
+  const deleteOverlay = document.getElementById("dialogContainer");
+  deleteOverlay.innerHTML = "";
+}
+
+
+function deleteTaskConfirmed(taskId) {
+  deleteTask(taskId);
+  closeConfirmDialog();
+}
 
 
 /**

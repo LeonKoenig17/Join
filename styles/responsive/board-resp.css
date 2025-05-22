@@ -1,145 +1,164 @@
 @media (max-width: 1250px) {
-    #mainContent {
-        transform: scale(0.8);
-        transform-origin: left;
-        margin: 16px;
-        position: absolute;
-    }
+  #mainContent {
+    transform: scale(0.8);
+    transform-origin: top left;
+    margin: 0 16px;
+    padding-top: 140px;
+    height: 100vh;
+    position: absolute;
+  }
 }
 
 @media (max-width: 1000px) {
-    #boardContent {
-        justify-content: flex-start;
-    }
+  #boardContent {
+    /* justify-content: flex-start; */
+  }
 }
 
 @media (max-width: 800px) {
-    main {
-        overflow: scroll;
-    }
+  main {
+    overflow: scroll;
+  }
 
-    #mainContent {
-        transform: scale(1);
-        transform-origin: unset;
-        position: unset;
-        margin-top: 120px;
-    }
+  #mainContent {
+    transform: scale(1);
+    transform-origin: unset;
+    position: unset;
+    /* margin-top: 120px; */
+    height: auto;
+  }
 
-    #boardContent {
-        flex-direction: column;
-    }
+  #boardContent {
+    flex-direction: column;
+  }
 
-    .board-column {
-        margin-bottom: 30px;
-    }
+  .board-column {
+    margin-bottom: 30px;
+  }
 
-    .board-column > .column-header {
-        display: flex;
-    }
+  .board-column > .column-header {
+    display: flex;
+  }
 
-    .task-list {
-        display: flex;
-        scrollbar-width: none;
-        overflow-x: auto;
-    }
+  .task-list {
+    display: flex;
+    scrollbar-width: none;
+    overflow-x: auto;
+  }
 
-    .task-list .column-header {
-        display: none;
-    }
+  .task-list .column-header {
+    display: none;
+  }
 
-    .column-header span {
-        font-size: 27px;
-    }
+  .column-header span {
+    font-size: 27px;
+  }
 
-    .task {
-        margin-right: 16px;
-        /* margin-bottom: 0; */
-        user-select: none;
-        max-height: 230px;
-    }
+  .task {
+    margin-right: 16px;
+    /* margin-bottom: 0; */
+    user-select: none;
+    max-height: 250px;
+    min-width: 150px;
+  }
 
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-    }
+  .task-header h1 {
+    font-size: 40px;
+    padding-bottom: 20px;
+  }
 
-    #boardHeader div > #searchInput {
-        display: none;
-    }
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+  }
 
-    .searchInput-resp {
-        display: flex !important;
-    }
+  #searchInput {
+    display: flex !important;
+  }
 
-    .searchInput-resp #taskSearch {
-        width: 100%;
-    }
+  #searchInput #taskSearch {
+    width: 100%;
+    font-size: 20px;
+  }
 
-    .searchInput-resp #taskSearch::placeholder {
-        font-size: 20px;
-    }
+  .searchInput-resp #taskSearch::placeholder {
+    font-size: 20px;
+  }
 
-    #addTaskBtn {
-        padding: 6px;
-        height: unset;
-        transition: none;
-    }
+  #addTaskBtn {
+    padding: 6px;
+    height: unset;
+    transition: none;
+  }
 
-    #addTaskBtn span {
-        display: none;
-    }
+  #addTaskBtn span {
+    display: none;
+  }
 
-    .darkblueButton img {
-        padding: 0;
-    }
+  .darkblueButton img {
+    padding: 0;
+  }
 
-    .task-card-overlay {
-        gap: 0;
-        padding: 30px;
-        height: 90%;
-        max-height: 800px;
-        justify-content: space-between;
-        overflow: auto;
-        scrollbar-width: none;
-    }
+  .task-card-overlay {
+    gap: 0;
+    padding: 30px;
+    max-height: 90%;
+    justify-content: space-between;
+    overflow: auto;
+    scrollbar-width: none;
+  }
 
-    .add-task-card {
-        padding: 30px;
-    }
+  .add-task-card {
+    padding: 20px;
+    max-height: 90%;
+  }
 
-    .task-content {
-        gap: 0;
-    }
+  .task-content {
+    gap: 16px;
+  }
 
-    .task-actions {
-        margin-top: 0;
-        /* justify-content: unset; */
-    }
+  .task-actions {
+    margin-top: 0;
+  }
 
-    .assignee-item {
-        padding: 0;
-    }
+  .assignee-item {
+    padding: 0;
+  }
 
-    .subtask-checkbox-container {
-        margin-top: 0;
-    }
+  .subtask-checkbox-container {
+    margin-top: 0;
+  }
 
-    .subtask-checkbox-container p {
-        margin: 8px 0;
-    }
+  .subtask-checkbox-container p {
+    margin: 8px 0;
+  }
 
-    .subtask-list {
-        margin: 0;
-    }
+  .subtask-list {
+    margin: 0;
+  }
 
-    .edit-mode {
-        height: 90% !important;
-        max-height: 900px;
-    }
+  .edit-mode {
+    height: 90% !important;
+    max-height: 900px;
+  }
 
-    .form-actions-edit button {
-        font-size: 16px;
-    }
+  .form-actions-edit button {
+    font-size: 16px;
+  }
+
+  .noTasks {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 370px) {
+  .create-task-footer {
+    flex-direction: column;
+  }
 }

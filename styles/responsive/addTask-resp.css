@@ -22,12 +22,13 @@
     gap: 10px;
   }
 
-  .form-actions {
-    gap: 16px;
+  .create-task-footer {
+    background-color: var(--background-color) !important;
   }
 
-  .create-task-footer label {
-    transform: scale(0.8);
+  .form-actions {
+    gap: 16px;
+    margin-top: 24px;
   }
 
   .separator {
@@ -40,12 +41,17 @@
     width: 100%;
   }
 
-  .addTask-right {
+  .addTask-right, .addTask-left {
     gap: 0;
   }
 
+  .required-label {
+    position: static;
+  }
+
   .create-task-footer {
-    justify-content: space-between;
+    width: 100%;
+    justify-content: flex-end;
     margin-top: 24px;
   }
 
@@ -60,13 +66,16 @@
   }
 
   .create-task-footer label {
-    display: none;
+    bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .custom-date-input img {
     left: 90%;
   }
 
-
-
+   .form-actions {
+    gap: 8px;
+    margin-top: 24px;
+  }
 }

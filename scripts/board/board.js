@@ -164,52 +164,6 @@ async function applyUserColors() {
 
 
 /**
- * Setzt Drag & Drop und Event-Listener für Buttons.
- */
-function setupDragDrop() {
-  const containers = document.querySelectorAll("#boardContent .task-list");
-
-  containers.forEach(container => {
-    container.addEventListener("dragover", function (e) {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
-    });
-
-    container.addEventListener("drop", function (e) {
-      e.preventDefault();
-      const rawId = e.dataTransfer.getData("text/plain");
-      const taskId = rawId.replace("task", "");
-      updateStage(container, taskId);
-    });
-  });
-
-  const addTaskBtn = document.getElementById("addTaskBtn");
-  if (addTaskBtn) {
-    addTaskBtn.addEventListener("click", function () {
-      showAddTaskOverlay("add");
-    });
-  }
-}
-
-
-/**
- * Macht Tasks draggable.
- */
-function addDragFunction() {
-  const tasks = document.querySelectorAll(".task");
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
-    task.setAttribute("draggable", "true");
-    task.addEventListener("dragstart", function (e) {
-      console.log("Drag started for task:", task.id);
-      e.dataTransfer.setData("text/plain", task.id);
-      e.dataTransfer.effectAllowed = "move";
-    });
-  }
-}
-
-
-/**
  * Öffnet/Schließt das Benutzermenü.
  */
 function showUserLinksOptions() {
@@ -218,14 +172,30 @@ function showUserLinksOptions() {
 
 }
 
-function updateDraggable() {
-    const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
-    const tasks = document.querySelectorAll(".task");
-    tasks.forEach(task => {
-      task.setAttribute("draggable", !isSmallScreen);
-    })
-  }
 
-updateDraggable();
+/**
+ * Move search input field to responsive layout
+ */
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInputField = document.getElementById("searchInput");
+    const originalParent = document.querySelector("#boardHeader div");
+    const newParent = document.getElementById("searchInput-resp-target");
 
-window.addEventListener("resize", updateDraggable);
+    function moveInputFieldOnResize() {
+      console.log("Resize event triggered");
+      const isMobile = window.innerWidth <= 800;
+
+      if (isMobile) {
+        if (!newParent.contains(searchInputField)) {
+          newParent.appendChild(searchInputField);
+        }
+      } else {
+        if (!originalParent.contains(searchInputField)) {
+          originalParent.insertBefore(searchInputField, originalParent.firstChild);
+        }
+      }
+    }
+
+    window.addEventListener("resize", moveInputFieldOnResize);
+    moveInputFieldOnResize(); // Initial run
+});

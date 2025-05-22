@@ -9,9 +9,12 @@ main {
 #mainContent {
   display: flex;
   flex-direction: column;
-  margin: 60px;
+  padding: 60px 0;
+  margin: 0 60px;
   max-width: 1440px;
   height: calc(100vh - 210px);
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 button {
@@ -20,7 +23,6 @@ button {
   justify-content: center;
   padding: 10px 10px;
 }
-
 
 #boardHeader {
   display: flex;
@@ -160,6 +162,7 @@ button {
 
 #toDo, #inProgress, #awaitFeedback, #done {
   height: 100%;
+  padding: 5px;
 }
 
 #boardContent::-webkit-scrollbar {
@@ -199,4 +202,16 @@ button {
 
 .add-task:hover {
   background-image: url("../images/taskPlusHover.svg");
+}
+
+.highlight-container {
+  transform: scale(1.05);
+  background-color: var(--background-dragging-color);
+  transition: transform 0.2s ease-in-out;
+  border-radius: 16px;
+}
+
+.task-dropped {
+  border: 2px solid var(--accent-color);
+  transition: border 0.3s ease;
 }
