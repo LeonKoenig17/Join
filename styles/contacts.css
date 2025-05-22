@@ -609,6 +609,20 @@ strong {
   background-repeat: no-repeat;
 }
 
+.errorSpan {
+    height: 14px;
+    font-size: 10px;
+    color: red;
+    padding-left: 95px;
+    visibility: hidden;
+        width: 100%;
+        /* background-color: blue; */
+}
+
+.errorSpan.visible {
+    visibility: visible;
+}
+
 .hide {
   display: none;
 }

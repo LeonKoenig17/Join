@@ -107,14 +107,14 @@ function dropHighlight(taskElement) {
 
 
 
-function updateDraggable() {
-    const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
-    const tasks = document.querySelectorAll(".task");
-    tasks.forEach(task => {
-      task.setAttribute("draggable", !isSmallScreen);
-    })
-  }
+// function updateDraggable() {
+//     const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
+//     const tasks = document.querySelectorAll(".task");
+//     tasks.forEach(task => {
+//       task.setAttribute("draggable", !isSmallScreen);
+//     })
+//   }
 
-updateDraggable();
+// updateDraggable();
 
-window.addEventListener("resize", updateDraggable);
+// window.addEventListener("resize", updateDraggable);

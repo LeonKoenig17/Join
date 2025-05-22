@@ -9,9 +9,7 @@
     <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/index.css">
-    <script src="./scripts/script.js"></script>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/firebase.js"></script>
+
 
 </head>
 
@@ -31,7 +29,8 @@
                         <input type="text" id="emailInput" placeholder="Email" class="loginInput">
                         <img src="./images/mail.svg" alt="" class="inputImg">
                     </div>
-                    <span id="errorSpanPuffer" class="errorSpan">just a puffer</span>
+                    <span id="emailErrorSpan" class="errorSpan">emailErrorSpan</span>
+
 
                     <div class="inputDiv">
                         <input type="password" id="passwordInput" placeholder="Password" class="loginInput"
@@ -66,6 +65,11 @@
         <span id="loginSuccess" class="animation loginSuccess displayNone">You logged in successfully.</span>
 
     </main>
+
+        <script src="./scripts/script.js"></script>
+    <script src="./scripts/index.js"></script>
+    <script src="./scripts/firebase.js"></script>
+    
 </body>
 
 </html>

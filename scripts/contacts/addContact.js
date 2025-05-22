@@ -23,6 +23,7 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
+  emailInputAddEvent();
 }
 
 
@@ -68,7 +69,7 @@ function checkLocalUser(mode) {
       return true;
     } else {
       // deleteErrorContact("editIcon", 18, 30);
-      deleteError('editIcon','deleteError',4,30,`You can't edit<br>other registered users`)
+      deleteError('editIcon', 'deleteError', 4, 30, `You can't edit<br>other registered users`)
       return false;
     }
   } catch (error) {
@@ -76,7 +77,7 @@ function checkLocalUser(mode) {
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-      deleteError('editIcon','deleteError',4,30,`You can't edit<br>other registered users`)
+    deleteError('editIcon', 'deleteError', 4, 30, `You can't edit<br>other registered users`)
     // deleteErrorContact("editIcon", 18, 30);
     return false;
   }
@@ -203,7 +204,7 @@ async function deleteContact(email, mode) {
 
   if (token !== myToken && ergebnisse[token].type === "login") {
     // deleteErrorContact(elementId, 18, 30);
-    deleteError('deleteIcon','deleteError',4,30,`You can't delete<br>other registered users`)
+    deleteError('deleteIcon', 'deleteError', 4, 30, `You can't delete<br>other registered users`)
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -239,24 +240,40 @@ async function saveContact(email) {
  */
 function changeImage(element, variant) {
   try {
-  document.getElementById(element).src = `../images/${variant}.svg`;  
+    document.getElementById(element).src = `../images/${variant}.svg`;
   } catch (error) {
   }
 }
 
 
 function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
-    try {
-        let element = document.getElementById(firstType);
-        let position = element.getBoundingClientRect();
-        let span = document.getElementById(secondType);
-        document.getElementById(firstType).classList.add("redBorder")
-        span.innerHTML = errorText
-        span.classList.add("visible")
-        span.classList.remove("hide")
-        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
-    } catch (error) {
-        return null
+  try {
+    let element = document.getElementById(firstType);
+    let position = element.getBoundingClientRect();
+    let span = document.getElementById(secondType);
+    document.getElementById(firstType).classList.add("redBorder")
+    span.innerHTML = errorText
+    span.classList.add("visible")
+    span.classList.remove("hide")
+    span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+    span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+  } catch (error) {
+    return null
+  }
+}
+
+function emailInputAddEvent() {
+  emailInput = document.getElementById('emailInput');
+  emailInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
     }
+    if (emailInput.value != "") {
+      clearErrorInput("emailInput", "emailErrorSpan");
+    }
+  });
+
+  emailInput.addEventListener('blur', function () {
+    checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
+});
 }

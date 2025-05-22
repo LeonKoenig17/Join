@@ -123,37 +123,15 @@ function checkMissingInputs(element) {
         document.getElementById(id).classList.add("redBorder");
     }
 
-function hideError(firstType, secondType) {
-    let element = document.getElementById(secondType);
-    // element.classList.remove("displayNone")
-    document.getElementById(firstType).classList.remove("redBorder")
-    document.getElementById(secondType).classList.remove("visible")
-}
 
-function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
-    try {
-        let element = document.getElementById(firstType);
-        let position = element.getBoundingClientRect();
-        let span = document.getElementById(secondType);
-        document.getElementById(firstType).classList.add("redBorder")
-        span.innerHTML = errorText
-        span.classList.add("visible")
-        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
-    } catch (error) {
-        return null
-    }
-}
 
-const nameInput = document.getElementById('nameInput');
-const emailInput = document.getElementById('emailInput');
-const passwordInput = document.getElementById('passwordInput')
-const confirmInput = document.getElementById('confirmPasswordInput')
+
 
 // Auslösen bei "Enter"-Taste
 emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        checkEmailInput();
+        // checkEmailInput();
+        checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
     }
     if (emailInput.value != "") {
         clearErrorInput("emailInput", "emailErrorSpan");
@@ -201,7 +179,7 @@ confirmInput.addEventListener('keydown', function (event) {
 
 // Auslösen beim Verlassen des Feldes (Blur)
 emailInput.addEventListener('blur', function () {
-    checkEmailInput();
+    checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
 });
 
 confirmInput.addEventListener('keydown', function (event) {
