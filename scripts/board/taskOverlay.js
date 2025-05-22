@@ -134,7 +134,7 @@ function registerSaveTaskHandler(overlayContainer, taskData) {
 
 async function showEditTaskOverlay(taskId) {
   closeOverlay();
-
+  document.body.classList.add("no-scroll");
   const taskData = await loadTaskById(taskId);
   if (!taskData) return;
 

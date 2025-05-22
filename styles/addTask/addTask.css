@@ -309,8 +309,6 @@ select:focus {
   width: 100%;
   max-width: 850px;
   margin-top: 24px;
-  /* position: sticky;
-  bottom: 24px; */
 }
 
 .form-actions {
@@ -321,7 +319,6 @@ select:focus {
 .form-actions-edit {
   display: flex;
   justify-content: flex-end;
-  gap: 32px;
   width: 100%;
 }
 
