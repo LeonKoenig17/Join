@@ -223,12 +223,12 @@ async function contactDetails(elementId, thenum) {
   document.getElementById("contactDetailsInitials").innerText = initials;
   document.getElementById("contactDetailsName").innerText = detail.name;
   document.getElementById("contactDetailsMail").innerText = detail.email;
+  document.getElementById("contactDetailsMail").href =`mailto:${detail.email}`
   document.getElementById("contactDetailsPhone").innerText = detail.phone;
   document.getElementById("deleteError").classList.add("hide");
 
   thisToken = await findUser(detail.email);
   chosen = true;
-
 
 }
 

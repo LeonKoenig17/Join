@@ -28,6 +28,33 @@ function moveLogo() {
     }, 2000);
 }
 
+async function loginBackup() {
+    let myPassword = await checkPassword(document.getElementById("emailInput").value);
+    let myEmail = await findUser(document.getElementById("emailInput").value);
+    let email = document.getElementById("emailInput").value;
+    let password = document.getElementById("passwordInput").value;
+
+    if (myEmail == null) {
+        document.getElementById("passwordInput").classList.add("redBorder")
+        document.getElementById("emailInput").classList.add("redBorder")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
+        document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
+        return
+    }
+    if (password == myPassword) {
+        writeLocalStorage();
+        toasterPopup('loginSuccess', '../html/summary');
+    } else {
+        document.getElementById("passwordInput").classList.add("redBorder")
+        document.getElementById("emailInput").classList.add("redBorder")
+        // document.getElementById("errorSpan").classList.remove("displayNone")
+        document.getElementById("errorSpan").classList.add("visible")
+        document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
+
+    }
+}
+
 async function login() {
     let myPassword = await checkPassword(document.getElementById("emailInput").value);
     let myEmail = await findUser(document.getElementById("emailInput").value);
@@ -54,6 +81,8 @@ async function login() {
 
     }
 }
+// checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
+
 
 async function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
@@ -152,12 +181,31 @@ function showLockIconLogin(element) {
     }
 }
 
+emailInput = document.getElementById('emailInput');
+passwordInput = document.getElementById('passwordInput')
 
-document.addEventListener('keydown', function (event) {
+passwordInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         const blueBtn = document.querySelector('.blueBtn');
         if (blueBtn) {
             blueBtn.click();
         }
     }
+});
+
+
+
+// Auslösen bei "Enter"-Taste
+emailInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
+    }
+    if (emailInput.value == "") {
+        clearErrorInput("emailInput", "emailErrorSpan");
+    }
+});
+
+// Auslösen beim Verlassen des Feldes (Blur)
+emailInput.addEventListener('blur', function () {
+    checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
 });
