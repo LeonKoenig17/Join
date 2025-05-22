@@ -59,9 +59,7 @@ function generateTaskOverlay(task) {
           </div>
         </div>
         <div class="task-actions">
-          <button class="action-btn delete-btn" onclick="confirmDeleteTask(event, '${
-            task.id
-          }')">
+          <button class="action-btn delete-btn" onclick="showDeleteTemplate(event, '${task.id}')">
             <img src="../images/subtaskBin.svg" alt="Delete">
             <span>Delete</span>
           </button>
@@ -72,6 +70,21 @@ function generateTaskOverlay(task) {
             <img src="../images/edit-2.svg" alt="Edit">
             <span>Edit</span>
           </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+function deleteConfirmTemplate(taskId) {
+  return `
+    <div id="confirmDialog" class="confirm-dialog-overlay" onclick="closeConfirmDialog(event)">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <h3>Delete permanently?</h3>
+        <div class="confirm-buttons">
+          <button class="close-btn-footer " onclick="closeConfirmDialog()">Cancel</button>
+          <button class="close-btn-footer " onclick="deleteTaskConfirmed('${taskId}')">Delete</button>
         </div>
       </div>
     </div>
