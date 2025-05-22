@@ -229,3 +229,31 @@ function updateDraggable() {
 updateDraggable();
 
 window.addEventListener("resize", updateDraggable);
+
+
+/**
+ * Move search input field to responsive layout
+ */
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInputField = document.getElementById("searchInput");
+    const originalParent = document.querySelector("#boardHeader div");
+    const newParent = document.getElementById("searchInput-resp-target");
+
+    function moveInputFieldOnResize() {
+      console.log("Resize event triggered");
+      const isMobile = window.innerWidth <= 800;
+
+      if (isMobile) {
+        if (!newParent.contains(searchInputField)) {
+          newParent.appendChild(searchInputField);
+        }
+      } else {
+        if (!originalParent.contains(searchInputField)) {
+          originalParent.insertBefore(searchInputField, originalParent.firstChild);
+        }
+      }
+    }
+
+    window.addEventListener("resize", moveInputFieldOnResize);
+    moveInputFieldOnResize(); // Initial run
+});

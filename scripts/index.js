@@ -59,6 +59,8 @@ async function guestLogin() {
     document.getElementById("emailInput").value = 'sofiam@gmail.com'
     document.getElementById("passwordInput").value = '123456789'
 
+    localStorage.setItem("name", "sofiam@gmail.com");
+
     writeLocalStorage();
     toasterPopup('loginSuccess', '../html/summary');
 }
