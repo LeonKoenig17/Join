@@ -162,6 +162,7 @@ button {
 
 #toDo, #inProgress, #awaitFeedback, #done {
   height: 100%;
+  padding: 5px;
 }
 
 #boardContent::-webkit-scrollbar {
@@ -201,4 +202,16 @@ button {
 
 .add-task:hover {
   background-image: url("../images/taskPlusHover.svg");
+}
+
+.highlight-container {
+  transform: scale(1.05);
+  background-color: var(--background-dragging-color);
+  transition: transform 0.2s ease-in-out;
+  border-radius: 10px;
+}
+
+.task-dropped {
+  border: 2px solid var(--accent-color);
+  transition: border 0.3s ease;
 }

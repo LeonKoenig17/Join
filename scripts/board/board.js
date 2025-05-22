@@ -164,52 +164,6 @@ async function applyUserColors() {
 
 
 /**
- * Setzt Drag & Drop und Event-Listener für Buttons.
- */
-function setupDragDrop() {
-  const containers = document.querySelectorAll("#boardContent .task-list");
-
-  containers.forEach(container => {
-    container.addEventListener("dragover", function (e) {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
-    });
-
-    container.addEventListener("drop", function (e) {
-      e.preventDefault();
-      const rawId = e.dataTransfer.getData("text/plain");
-      const taskId = rawId.replace("task", "");
-      updateStage(container, taskId);
-    });
-  });
-
-  const addTaskBtn = document.getElementById("addTaskBtn");
-  if (addTaskBtn) {
-    addTaskBtn.addEventListener("click", function () {
-      showAddTaskOverlay("add");
-    });
-  }
-}
-
-
-/**
- * Macht Tasks draggable.
- */
-function addDragFunction() {
-  const tasks = document.querySelectorAll(".task");
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
-    task.setAttribute("draggable", "true");
-    task.addEventListener("dragstart", function (e) {
-      console.log("Drag started for task:", task.id);
-      e.dataTransfer.setData("text/plain", task.id);
-      e.dataTransfer.effectAllowed = "move";
-    });
-  }
-}
-
-
-/**
  * Öffnet/Schließt das Benutzermenü.
  */
 function showUserLinksOptions() {
@@ -217,18 +171,6 @@ function showUserLinksOptions() {
   document.getElementById("userLinkOptionsBackground").classList.toggle("hide");
 
 }
-
-function updateDraggable() {
-    const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
-    const tasks = document.querySelectorAll(".task");
-    tasks.forEach(task => {
-      task.setAttribute("draggable", !isSmallScreen);
-    })
-  }
-
-updateDraggable();
-
-window.addEventListener("resize", updateDraggable);
 
 
 /**
