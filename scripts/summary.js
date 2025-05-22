@@ -109,18 +109,6 @@ function setCurrentDate() {
   }
 }
 
-
-function setGreeting(userName) {
-  const h = new Date().getHours();
-  let greeting =
-    h >= 18 || h < 5 ? "Good evening" :
-      h >= 12 ? "Good afternoon" :
-        "Good morning";
-
-  const punctuation = (userName === "Guest") ? "!" : ",";
-  document.getElementById("greeting").textContent = greeting + punctuation;
-}
-
 /** Zeigt den Namen des Benutzers an. */
 /** Overlay bei schmalen Screens ----------------------------- */
 window.addEventListener("load", () => {
