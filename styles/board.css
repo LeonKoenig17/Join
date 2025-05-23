@@ -227,7 +227,7 @@ button {
   border-radius: 20px;
   color: white;
   gap: 16px;
-  display: none;
+  display: flex;
   flex-direction: column;
 }
 

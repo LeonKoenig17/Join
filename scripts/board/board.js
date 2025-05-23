@@ -187,10 +187,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function moveInputFieldOnResize() {
       if (isMobile()) {
+        document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "false"));
         if (!newParent.contains(searchInputField)) {
           newParent.appendChild(searchInputField);
         }
       } else {
+        document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "true"));
         if (!originalParent.contains(searchInputField)) {
           originalParent.insertBefore(searchInputField, originalParent.firstChild);
         }

@@ -57,3 +57,17 @@ function columnBtnTemplate(label, key) {
     </div>
   `;
 }
+
+function mobileActionsTemplate() {
+  return `
+    <div id="mobileTaskActions">
+      <h4>Move To</h4>
+      <ul>
+        <li onclick="processMobileInput('toDo')">To Do</li>
+        <li onclick="processMobileInput('inProgress')">In Progess</li>
+        <li onclick="processMobileInput('awaitFeedback')">Await Feedback</li>
+        <li onclick="processMobileInput('done')">Done</li>
+      </ul>
+    </div>
+  `;
+}
