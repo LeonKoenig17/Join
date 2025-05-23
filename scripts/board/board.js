@@ -187,11 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function moveInputFieldOnResize() {
       if (isMobile()) {
-        // document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "false"));
         pressTimer = setTimeout(() => {
           document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "false"));
         }, 600);
-        clearTimeout(pressTimer);
         if (!newParent.contains(searchInputField)) {
           newParent.appendChild(searchInputField);
         }
