@@ -96,7 +96,6 @@ function addMobileDragFunction() {
   const tasks = document.querySelectorAll(".task");
   tasks.forEach(task => {
     task.addEventListener("touchstart", function (e) {
-      // mobileActions.style.display = "none";
       pressTimer = setTimeout(() => {
         const mobileActions = document.getElementById("mobileTaskActions");
         if (mobileActions) mobileActions.remove();
@@ -135,7 +134,6 @@ function dropHighlight(taskElement) {
 
 function doSomethingOnLongPress(task) {
   task.innerHTML += mobileActionsTemplate();
-  // mobileActions.style.display = "flex";
   const savedOnclick = task.onclick;
   task.onclick = null;
   
