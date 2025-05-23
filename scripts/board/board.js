@@ -172,6 +172,11 @@ function showUserLinksOptions() {
 }
 
 
+function isMobile() {
+  return window.innerWidth <= 800;
+}
+
+
 /**
  * Move search input field to responsive layout
  */
@@ -181,10 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newParent = document.getElementById("searchInput-resp-target");
 
     function moveInputFieldOnResize() {
-      console.log("Resize event triggered");
-      const isMobile = window.innerWidth <= 800;
-
-      if (isMobile) {
+      if (isMobile()) {
         if (!newParent.contains(searchInputField)) {
           newParent.appendChild(searchInputField);
         }

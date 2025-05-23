@@ -84,6 +84,25 @@ function addDragFunction() {
     dragAnimation(task);
     });
   }
+
+  if (!isMobile()) return;
+
+  tasks.forEach(task => {
+    task.setAttribute("draggable", "false");
+    task.addEventListener("touchstart", function (e) {
+      pressTimer = setTimeout(() => {
+        doSomethingOnLongPress(task);
+      }, 600);
+    }, {passive: true});
+
+    task.addEventListener("touchend", function (e) {
+      clearTimeout(pressTimer);
+    });
+
+    task.addEventListener("touchmove", function (e) {
+      clearTimeout(pressTimer);
+    })
+  });
 }
 
 function dragAnimation(task) {
@@ -105,16 +124,15 @@ function dropHighlight(taskElement) {
   }, 500);
 }
 
+function doSomethingOnLongPress(task) {
+  const mobileActions = document.getElementById("mobileTaskActions");
+  console.log(task);
+  task.appendChild(mobileActions);
+  mobileActions.style.display = "flex";
 
-
-// function updateDraggable() {
-//     const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
-//     const tasks = document.querySelectorAll(".task");
-//     tasks.forEach(task => {
-//       task.setAttribute("draggable", !isSmallScreen);
-//     })
-//   }
-
-// updateDraggable();
-
-// window.addEventListener("resize", updateDraggable);
+  document.addEventListener("click", function (e) {
+    if (!mobileActions.contains(e.target)) {
+      mobileActions.style.display = "none";
+    }
+  })
+}
