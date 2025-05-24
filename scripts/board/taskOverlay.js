@@ -67,7 +67,7 @@ async function showTaskOverlay(taskId) {
   overlayContainer.style.display = "flex";
 
   initOverlaySetup(overlayContainer, users, taskData);
-  updateSubtaskList();
+  updateSubtaskList(taskId);
 }
 
 

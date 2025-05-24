@@ -32,30 +32,38 @@ function isAddMode() {
 }
 
 
-function updateSubtaskList() {
+function updateSubtaskList(taskId) {
     const list = document.getElementById('subtask-list');
-  if (!list) return;
+    if (!list) return;
 
-  const editMode = isEditMode();
-  const addMode = isAddMode();
+    const subtasksHTML = generateSubtasksHTML();
+    list.innerHTML = subtasksHTML;
 
-  list.innerHTML = subtasks
-    .map((s, i) =>
-      addMode || editMode
-        ? subtasksTemplate(s, i)
-        : taskOverlaySubtaskTemplate(s, i)
-    )
-    .join("");
+    const { done, total } = calculateSubtaskProgress();
+    updateSubtaskCount(taskId, done, total);
+}
 
-  const done = subtasks.filter((s) => s.completed).length;
-  const total = subtasks.length;
+function generateSubtasksHTML() {
+    const editMode = isEditMode();
+    const addMode = isAddMode();
+    return subtasks
+        .map((s, i) => (addMode || editMode ? subtasksTemplate(s, i) : taskOverlaySubtaskTemplate(s, i)))
+        .join("");
+}
 
-  const subtaskCountSpan = document.querySelector(".subtask-count");
-  if (subtaskCountSpan) {
-    subtaskCountSpan.textContent = `${done}/${total} Subtasks`;
-    subtaskCountSpan.classList.toggle("all-done", done === total && total > 0);
-    subtaskCountSpan.classList.toggle("not-done", done !== total);
-  }
+function calculateSubtaskProgress() {
+    const done = subtasks.filter((s) => s.completed).length;
+    const total = subtasks.length;
+    return { done, total };
+}
+
+function updateSubtaskCount(taskId, done, total) {
+    const subtaskCountSpan = document.querySelector(`#task${taskId} .subtask-count`);
+    if (subtaskCountSpan) {
+        subtaskCountSpan.textContent = `${done}/${total} Subtasks`;
+        subtaskCountSpan.classList.toggle("all-done", done === total && total > 0);
+        subtaskCountSpan.classList.toggle("not-done", done !== total);
+    }
 }
 
 /**
@@ -80,30 +88,37 @@ function checkSubProgress(task) {
 
 
 function updateProgressBar() {
-  if (!currentTask?.id) return;
+    if (!currentTask?.id) return;
 
-  const done = subtasks.filter(s => s.completed).length;
-  const total = subtasks.length;
-  const pct = total > 0 ? (done / total) * 100 : 0;
+    const { done, total, pct } = calculateProgress();
+    const taskEl = document.getElementById(`task${currentTask.id}`);
+    if (!taskEl) return;
 
-  const taskEl = document.getElementById(`task${currentTask.id}`);
-  if (!taskEl) return;
+    updateProgressBarUI(taskEl, pct);
+    updateTaskLabel(taskEl, done, total);
+}
 
-  const progContainer = taskEl.querySelector('.subtask-progress-container');
-  if (progContainer) {
-    const bar = progContainer.querySelector('.subtask-progress-bar');
+function calculateProgress() {
+    const done = subtasks.filter(s => s.completed).length;
+    const total = subtasks.length;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+    return { done, total, pct };
+}
+
+function updateProgressBarUI(taskEl, pct) {
+    const bar = taskEl.querySelector('.subtask-progress-bar');
     if (bar) bar.style.width = `${pct}%`;
-  }
+}
 
-  const label = taskEl.querySelector('.subtask-count');
-  if (label) {
-    label.textContent = `${done}/${total} Subtasks`;
-    label.classList.toggle('all-done', done === total && total > 0);
-    label.classList.toggle('not-done', done !== total);
-  }
-
-  taskEl.classList.toggle('all-done', done === total && total > 0);
-  taskEl.classList.toggle('not-done', done !== total);
+function updateTaskLabel(taskEl, done, total) {
+    const label = taskEl.querySelector('.subtask-count');
+    if (label) {
+        label.textContent = `${done}/${total} Subtasks`;
+        label.classList.toggle('all-done', done === total && total > 0);
+        label.classList.toggle('not-done', done !== total);
+    }
+    taskEl.classList.toggle('all-done', done === total && total > 0);
+    taskEl.classList.toggle('not-done', done !== total);
 }
 
 async function toggleSubtaskCompletion(index) {
@@ -118,10 +133,19 @@ async function toggleSubtaskCompletion(index) {
 }
 
 function editSubtask(index) {
-  const subtaskItems = document.querySelectorAll(".subtask-item");
-  const subtaskItem = subtaskItems[index];
+  const subtaskItem = getSubtaskItem(index);
   if (!subtaskItem) return;
 
+  prepareSubtaskForEditing(subtaskItem, index);
+  focusOnEditInput(subtaskItem);
+}
+
+function getSubtaskItem(index) {
+  const subtaskItems = document.querySelectorAll(".subtask-item");
+  return subtaskItems[index] || null;
+}
+
+function prepareSubtaskForEditing(subtaskItem, index) {
   const subtaskText = subtaskItem.querySelector(".subtask-text");
   const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
 
@@ -138,10 +162,12 @@ function editSubtask(index) {
       <img src="../images/checkDark.svg" alt="Save" 
            class="subtask-icon confirm-subtask" data-index="${index}">
     `;
-
-  subtaskText.querySelector(".edit-input").focus();
 }
 
+function focusOnEditInput(subtaskItem) {
+  const editInput = subtaskItem.querySelector(".edit-input");
+  if (editInput) editInput.focus();
+}
 
 function handleEditKeyPress(event, index) {
 
@@ -151,26 +177,41 @@ function handleEditKeyPress(event, index) {
 }
 
 async function saveSubtask(index) {
-  const subtaskItem = document.querySelector(
-    `.subtask-item[data-subtask-index="${index}"]`
-  );
-  if (!subtaskItem) return;
+    const subtaskItem = getSubtaskItemForSave(index);
+    if (!subtaskItem) return;
 
-  const input = subtaskItem.querySelector(".edit-input");
-  if (!input) return;
+    const newValue = getNewSubtaskValue(subtaskItem, index);
+    if (!newValue) return;
 
-  const newValue = input.value.trim();
-  if (!newValue || !subtasks[index]) return;
+    updateSubtaskName(index, newValue);
+    finalizeSubtaskEditing(subtaskItem);
 
-  subtasks[index].name = newValue;
-  subtaskItem.classList.remove("editing");
+    await persistSubtasksIfNeeded();
+}
 
-  updateSubtaskList();
+function getSubtaskItemForSave(index) {
+    return document.querySelector(`.subtask-item[data-subtask-index="${index}"]`) || null;
+}
 
-  if (currentTask?.id) {
-    const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
-    await patchTask(currentTask.id, { subtasks: updatedSubtasks });
-  }
+function getNewSubtaskValue(subtaskItem, index) {
+    const input = subtaskItem.querySelector(".edit-input");
+    return input ? input.value.trim() : null;
+}
+
+function updateSubtaskName(index, newValue) {
+    if (subtasks[index]) subtasks[index].name = newValue;
+}
+
+function finalizeSubtaskEditing(subtaskItem) {
+    subtaskItem.classList.remove("editing");
+    updateSubtaskList();
+}
+
+async function persistSubtasksIfNeeded() {
+    if (currentTask?.id) {
+        const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
+        await patchTask(currentTask.id, { subtasks: updatedSubtasks });
+    }
 }
 
 async function deleteSubtask(index) {
@@ -217,27 +258,40 @@ function setupSubtaskListeners() {
 
 
 function checkSubtaskClass() {
-  document.addEventListener("click", function (e) {
+    document.addEventListener("click", handleSubtaskClick);
+}
+
+function handleSubtaskClick(e) {
     if (e.target.classList.contains("edit-subtask")) {
-      const index = +e.target.dataset.index;
-      editSubtask(index);
+        handleEditSubtask(e);
+    } else if (e.target.classList.contains("delete-subtask")) {
+        handleDeleteSubtask(e);
+    } else if (e.target.classList.contains("confirm-subtask")) {
+        handleConfirmSubtask(e);
+    } else if (e.target.id === "close-subtask-icon") {
+        handleCloseSubtaskInput();
     }
+}
 
-    if (e.target.classList.contains("delete-subtask")) {
-      const index = +e.target.dataset.index;
-      deleteSubtask(index);
-    }
+function handleEditSubtask(e) {
+    const index = +e.target.dataset.index;
+    editSubtask(index);
+}
 
-    if (e.target.classList.contains("confirm-subtask")) {
-      const index = +e.target.dataset.index;
-      saveSubtask(index);
-    }
-    if (e.target.id === "close-subtask-icon") {
-      toggleIcons(false);
-      const subInput = document.getElementById("subtask-input");
-      subInput.value = "";
-    }
-  });
+function handleDeleteSubtask(e) {
+    const index = +e.target.dataset.index;
+    deleteSubtask(index);
+}
+
+function handleConfirmSubtask(e) {
+    const index = +e.target.dataset.index;
+    saveSubtask(index);
+}
+
+function handleCloseSubtaskInput() {
+    toggleIcons(false);
+    const subInput = document.getElementById("subtask-input");
+    if (subInput) subInput.value = "";
 }
 
 document.addEventListener("DOMContentLoaded", () => {

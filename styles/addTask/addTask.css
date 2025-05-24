@@ -50,6 +50,7 @@ label {
 .required-label {
   position: relative;
   bottom: -56px;
+  width: fit-content;
 }
 
 .required-label span,
