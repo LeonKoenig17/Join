@@ -9,6 +9,11 @@
     #addContactRightImg {
         height: 70px;
     }
+
+    #addContactRightInitialsDiv {
+        height: 70px !important;
+        width: 70px !important;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -224,6 +229,21 @@
         margin: 0;
     }
 
+    #addContactRightInitialsDiv {
+        /* background-color: #D1D1D1; */
+        /* height: fit-content; */
+        /* width: fit-content; */
+        /* margin-right: 0; */
+        /* border-radius: 100%; */
+        /* padding: 10px; */
+        /* border: solid 4px white; */
+        /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
+        position: absolute;
+        top: calc(128px / 2 * (-1));
+        left: calc(50% - 128px / 2);
+        height: 100px;
+        margin: 0;
+    }
     .loginInput {
         /* width: 300px; */
         width: 80%;

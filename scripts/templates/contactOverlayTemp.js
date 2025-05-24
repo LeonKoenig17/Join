@@ -42,7 +42,8 @@ function contactDetailsTemp(mode,size) {
       <div id="addContactRight">
         <div id="addContactRightDiv">
           
-            <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
+            <div id="addContactRightInitialsDiv2"><img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" /></div>
+            <div id="addContactRightInitialsDiv" class="hide"><span id="addContactRightInitials">ZZ</span></div>
           
           <div id="addContactRightInputs">
             <div class="flexColumn" style="gap: 20px">

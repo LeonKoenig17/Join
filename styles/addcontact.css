@@ -72,7 +72,7 @@
     width: 100%;
 }
 
-#addContactRightImg {
+#addContactRightImg2 {
     background-color: #D1D1D1;
     height: 100px;
     margin: 0px calc(min(50px, 5%));
@@ -84,9 +84,41 @@
 
 
 
+#addContactRightInitialsDiv {
+    /* height: 100px;
+    width: 100px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border: solid 4px white;
+    padding: 10px;
+    border-radius: 100%;
+    position: relative;
+    left: 0px; */
+    /* background-color: #D1D1D1; */
+    height: 100px;
+    width: 100px;
+    margin: 0px calc(min(50px, 5%));
+    border-radius: 100%;
+    padding: 10px;
+    border: solid 4px white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#addContactRightInitials {
+    font-size: 36px;
+    color: white;
+    /* text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+}
+
 #addContactRightInputs {
     height: fit-content;
-    width: 100%;
+    width: calc(100%-128px);
     min-width: 200px;
     max-width: 600px;
     display: flex;
@@ -187,5 +219,21 @@
     align-items: center;
     width: 100%;
     gap: 15px;
+    /*warum nicht drin*/
     flex-direction: row;
+    /*warum nicht drin*/
+}
+
+#addContactRightInitialsDiv2 {
+    background-color: #D1D1D1;
+    height: 100px;
+    width: 100px;
+    margin: 0px calc(min(50px, 5%));
+    border-radius: 100%;
+    padding: 10px;
+    border: solid 4px white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

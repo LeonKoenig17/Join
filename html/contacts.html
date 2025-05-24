@@ -8,13 +8,20 @@
 
   <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon" />
 
-  <link rel="stylesheet" href="../style.css" />
+  <!-- <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/contacts.css" />
+  <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
+  <link rel="stylesheet" href="../styles/responsive/contacts-resp.css" />
+  <link rel="stylesheet" href="../styles/addcontact.css" />
+  <link rel="stylesheet" href="../styles/standard.css" /> -->
+
+    <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../styles/standard.css" />
   <link rel="stylesheet" href="../styles/addcontact.css" />
   <link rel="stylesheet" href="../styles/contacts.css" />
   <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
   <link rel="stylesheet" href="../styles/responsive/contacts-resp.css" />
-
+  
   <script src="../scripts/userVerification.js"></script>
 </head>
 
@@ -146,7 +153,7 @@
   <div id="manipulateContactBackground" class="visibleNone" onclick="hideContactForm('add')"></div>
 
   <span id="deleteError" class="hide"></span>
-  <span id="emailErrorSpan" class="errorSpan">emailErrorSpan</span>
+  <span id="emailErrorSpan" class="errorSpan absolute">emailErrorSpan</span>
   <!-- <span id="deleteError"></span> -->
   
   <div id="addContactResponsiv" class="addContactResponsiv" onclick="showContactForm('add')">
@@ -158,13 +165,10 @@
 </body>
 
 <script src="../scripts/script.js"></script>
-
 <script src="../scripts/firebase.js"></script>
-
 <script src="../scripts/templates/contactOverlayTemp.js"></script>
 <script src="../scripts/contacts/contactList.js"></script>
 <script src="../scripts/contacts/contact.js"></script>
-
 <script src="../scripts/userLink.js"></script>
 <script src="../scripts/contacts/addContact.js"></script>
 
