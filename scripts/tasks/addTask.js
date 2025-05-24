@@ -5,6 +5,9 @@
 let activePriorityButton = null;
 let priorityButtons = [];
 
+/**
+ * Initialisiert die Add-Task-Seite.
+ */
 function initAddTask(){
   fillUserLinks();
   getCurrentHTML();
@@ -12,6 +15,10 @@ function initAddTask(){
 }
 
 
+/**
+ * Richtet das Formular zur Erstellung eines Tasks ein.
+ * @param {string} stage - Die Phase des Tasks (z. B. 'todo', 'inProgress').
+ */
 function setupTaskForm(stage) {
   const taskForm = document.getElementById("taskForm");
   if (!taskForm) return;
@@ -23,6 +30,10 @@ function setupTaskForm(stage) {
 }
 
 
+/**
+ * Erstellt einen neuen Task basierend auf den Formulardaten.
+ * @param {string} stage - Die Phase des Tasks (z. B. 'todo', 'inProgress').
+ */
 async function createTask(stage) {
   const data = getFormData();
   if (!validateFormData(data)) return;
@@ -42,12 +53,21 @@ async function createTask(stage) {
 }
 
 
+/**
+ * Gibt die Phase eines Tasks basierend auf seinem Status zurück.
+ * @param {string} status - Der Status des Tasks.
+ * @returns {number} Die Phase des Tasks.
+ */
 function getStageFromStatus(status) {
   const map = { todo: 0, inProgress: 1, awaitFeedback: 2, done: 3 };
   return map[status] ?? 0;
 }
 
 
+/**
+ * Holt die Daten aus dem Formular.
+ * @returns {Object|null} Die Formulardaten oder null, wenn ungültig.
+ */
 function getFormData() {
   const elements = getFormElements();
   if (!validateFormElements(elements)) return null;
@@ -68,6 +88,11 @@ function getFormData() {
 }
 
 
+/**
+ * Extrahiert die Werte aus den Formularelementen.
+ * @param {Object} elements - Die Formularelemente.
+ * @returns {Object} Die extrahierten Werte.
+ */
 function getFormValues(elements) {
   const { titleInput, descriptionInput, dateInput, categorySelect } = elements;
 
@@ -80,6 +105,10 @@ function getFormValues(elements) {
 }
 
 
+/**
+ * Holt die Formularelemente.
+ * @returns {Object} Die Formularelemente.
+ */
 function getFormElements() {
   return {
     titleInput: document.getElementById("title"),
@@ -91,6 +120,11 @@ function getFormElements() {
 }
 
 
+/**
+ * Validiert die Formularelemente.
+ * @param {Object} elements - Die Formularelemente.
+ * @returns {boolean} True, wenn gültig, sonst false.
+ */
 function validateFormElements(elements) {
   return (
     elements.titleInput &&
@@ -102,6 +136,11 @@ function validateFormElements(elements) {
 }
 
 
+/**
+ * Validiert die Formulardaten.
+ * @param {Object} data - Die Formulardaten.
+ * @returns {boolean} True, wenn gültig, sonst false.
+ */
 function validateFormData(data) {
   const titleInput = document.getElementById("title");
   
@@ -150,6 +189,10 @@ function validateFormData(data) {
 }
 
 
+/**
+ * Holt die aktive Priorität aus den Buttons.
+ * @returns {string} Die aktive Priorität.
+ */
 function getActivePriority() {
   const buttons = document.querySelectorAll(".priority-buttons .priority");
   for (let btn of buttons) {
@@ -159,6 +202,10 @@ function getActivePriority() {
 }
 
 
+/**
+ * Holt die zugewiesenen Kontakte aus den Checkboxen.
+ * @returns {Array<Object>} Die zugewiesenen Kontakte.
+ */
 function getAssignedContacts() {
   const checkboxes = document.querySelectorAll(".assign-checkbox");
   const contacts = [];
@@ -183,6 +230,10 @@ function getAssignedContacts() {
 }
 
 
+/**
+ * Holt die Daten der Unteraufgaben.
+ * @returns {Array<Object>} Die Unteraufgabendaten.
+ */
 function getSubtasksData() {
   return subtasks
     .filter(s => s.name?.trim())
@@ -190,6 +241,9 @@ function getSubtasksData() {
 }
 
 
+/**
+ * Leert das Formular und setzt es zurück.
+ */
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
@@ -207,6 +261,10 @@ function clearForm() {
 }
 
 
+/**
+ * Initialisiert die Prioritätsbuttons.
+ * @param {Document|HTMLElement} [scope=document] - Der Bereich, in dem die Buttons gesucht werden.
+ */
 function initPriorityButtons(scope = document) {
   priorityButtons = scope.querySelectorAll(".priority-buttons .priority");
   activePriorityButton = scope.querySelector(".priority.active-btn");
@@ -216,6 +274,10 @@ function initPriorityButtons(scope = document) {
 }
 
 
+/**
+ * Setzt die Priorität basierend auf dem ausgewählten Button.
+ * @param {HTMLElement} button - Der ausgewählte Button.
+ */
 function setPriority(button) {
   activePriorityButton = button;
   priorityButtons.forEach((btn) => btn.classList.remove("active-btn"));
@@ -223,6 +285,9 @@ function setPriority(button) {
 }
 
 
+/**
+ * Richtet den Datepicker ein.
+ */
 function setupDatePicker() {
   const dateInput = document.getElementById("due-date");
   if (!dateInput) return;
@@ -243,6 +308,9 @@ function setupDatePicker() {
 }
 
 
+/**
+ * Fügt Event-Listener zu den Formularfeldern hinzu.
+ */
 function setupFieldListeners() {
   ["title", "due-date", "categorySelect"].forEach((id) => {
     const field = document.getElementById(id);
@@ -257,6 +325,10 @@ function setupFieldListeners() {
 }
 
 
+/**
+ * Löscht einen Task basierend auf seiner ID.
+ * @param {string} taskId - Die ID des zu löschenden Tasks.
+ */
 async function deleteTask(taskId) {
     await fetch(BASE_URL + `tasks/${taskId}.json`, { method: "DELETE" });
     closeOverlay();
@@ -264,13 +336,22 @@ async function deleteTask(taskId) {
   }
 
 
-  function showDeleteTemplate(event, taskId) {
+/**
+ * Zeigt das Bestätigungs-Template für das Löschen eines Tasks an.
+ * @param {Event} event - Das auslösende Event.
+ * @param {string} taskId - Die ID des zu löschenden Tasks.
+ */
+function showDeleteTemplate(event, taskId) {
   event.stopPropagation();
   const deleteOverlay = document.getElementById("dialogContainer");
   deleteOverlay.innerHTML = deleteConfirmTemplate(taskId);
 }
 
 
+/**
+ * Schließt den Bestätigungsdialog.
+ * @param {Event} event - Das auslösende Event.
+ */
 function closeConfirmDialog(event) {
   if (event && event.target.id !== "confirmDialog") return;
   const deleteOverlay = document.getElementById("dialogContainer");
@@ -278,6 +359,10 @@ function closeConfirmDialog(event) {
 }
 
 
+/**
+ * Bestätigt das Löschen eines Tasks.
+ * @param {string} taskId - Die ID des zu löschenden Tasks.
+ */
 function deleteTaskConfirmed(taskId) {
   deleteTask(taskId);
   closeConfirmDialog();

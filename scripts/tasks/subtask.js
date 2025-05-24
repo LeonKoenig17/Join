@@ -4,6 +4,10 @@
 
 const subtasks = [];
 
+/**
+ * Initializes the subtasks array with data from the given task.
+ * @param {Object} taskData - The task data containing subtasks.
+ */
 function initSubtasksArray(taskData) {
   subtasks.length = 0;
   if (!Array.isArray(taskData.subtasks)) return;
@@ -13,17 +17,29 @@ function initSubtasksArray(taskData) {
   }
 }
 
+/**
+ * Initializes the subtask module by setting up the subtasks array and updating the UI.
+ * @param {Object} taskData - The task data to initialize the module with.
+ */
 function initializeSubtaskModule(taskData) {
   initSubtasksArray(taskData);
   updateSubtaskList();
   updateProgressBar();
 }
 
+/**
+ * Checks if the current mode is edit mode.
+ * @returns {boolean} True if in edit mode, false otherwise.
+ */
 function isEditMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.querySelector('.add-task-card')?.classList.contains('edit-mode');
 }
 
+/**
+ * Checks if the current mode is add mode.
+ * @returns {boolean} True if in add mode, false otherwise.
+ */
 function isAddMode() {
     const overlay = document.getElementById('taskOverlay');
     return overlay?.classList.contains('add-task-page') || 
@@ -32,6 +48,10 @@ function isAddMode() {
 }
 
 
+/**
+ * Updates the subtask list in the UI and recalculates progress.
+ * @param {string} taskId - The ID of the task to update.
+ */
 function updateSubtaskList(taskId) {
     const list = document.getElementById('subtask-list');
     if (!list) return;
@@ -43,6 +63,10 @@ function updateSubtaskList(taskId) {
     updateSubtaskCount(taskId, done, total);
 }
 
+/**
+ * Generates the HTML for the subtasks based on the current mode.
+ * @returns {string} The generated HTML for the subtasks.
+ */
 function generateSubtasksHTML() {
     const editMode = isEditMode();
     const addMode = isAddMode();
@@ -51,12 +75,22 @@ function generateSubtasksHTML() {
         .join("");
 }
 
+/**
+ * Calculates the progress of the subtasks.
+ * @returns {Object} An object containing the number of completed and total subtasks.
+ */
 function calculateSubtaskProgress() {
     const done = subtasks.filter((s) => s.completed).length;
     const total = subtasks.length;
     return { done, total };
 }
 
+/**
+ * Updates the subtask count display in the UI.
+ * @param {string} taskId - The ID of the task to update.
+ * @param {number} done - The number of completed subtasks.
+ * @param {number} total - The total number of subtasks.
+ */
 function updateSubtaskCount(taskId, done, total) {
     const subtaskCountSpan = document.querySelector(`#task${taskId} .subtask-count`);
     if (subtaskCountSpan) {
@@ -87,6 +121,9 @@ function checkSubProgress(task) {
 }
 
 
+/**
+ * Updates the progress bar for the current task.
+ */
 function updateProgressBar() {
     if (!currentTask?.id) return;
 
@@ -98,6 +135,10 @@ function updateProgressBar() {
     updateTaskLabel(taskEl, done, total);
 }
 
+/**
+ * Calculates the progress percentage of the subtasks.
+ * @returns {Object} An object containing the number of completed subtasks, total subtasks, and progress percentage.
+ */
 function calculateProgress() {
     const done = subtasks.filter(s => s.completed).length;
     const total = subtasks.length;
@@ -105,11 +146,22 @@ function calculateProgress() {
     return { done, total, pct };
 }
 
+/**
+ * Updates the progress bar UI for the given task element.
+ * @param {HTMLElement} taskEl - The task element to update.
+ * @param {number} pct - The progress percentage to set.
+ */
 function updateProgressBarUI(taskEl, pct) {
     const bar = taskEl.querySelector('.subtask-progress-bar');
     if (bar) bar.style.width = `${pct}%`;
 }
 
+/**
+ * Updates the task label with the subtask progress.
+ * @param {HTMLElement} taskEl - The task element to update.
+ * @param {number} done - The number of completed subtasks.
+ * @param {number} total - The total number of subtasks.
+ */
 function updateTaskLabel(taskEl, done, total) {
     const label = taskEl.querySelector('.subtask-count');
     if (label) {
@@ -121,6 +173,10 @@ function updateTaskLabel(taskEl, done, total) {
     taskEl.classList.toggle('not-done', done !== total);
 }
 
+/**
+ * Toggles the completion status of a subtask and updates the UI.
+ * @param {number} index - The index of the subtask to toggle.
+ */
 async function toggleSubtaskCompletion(index) {
   subtasks[index].completed = !subtasks[index].completed;
   updateSubtaskList();
@@ -132,6 +188,10 @@ async function toggleSubtaskCompletion(index) {
   }
 }
 
+/**
+ * Edits a subtask by enabling the editing mode for the given index.
+ * @param {number} index - The index of the subtask to edit.
+ */
 function editSubtask(index) {
   const subtaskItem = getSubtaskItem(index);
   if (!subtaskItem) return;
@@ -176,6 +236,10 @@ function handleEditKeyPress(event, index) {
   }
 }
 
+/**
+ * Saves the changes made to a subtask.
+ * @param {number} index - The index of the subtask to save.
+ */
 async function saveSubtask(index) {
     const subtaskItem = getSubtaskItemForSave(index);
     if (!subtaskItem) return;
@@ -207,13 +271,10 @@ function finalizeSubtaskEditing(subtaskItem) {
     updateSubtaskList();
 }
 
-async function persistSubtasksIfNeeded() {
-    if (currentTask?.id) {
-        const updatedSubtasks = subtasks.map(s => ({ name: s.name, completed: s.completed }));
-        await patchTask(currentTask.id, { subtasks: updatedSubtasks });
-    }
-}
-
+/**
+ * Deletes a subtask and updates the UI.
+ * @param {number} index - The index of the subtask to delete.
+ */
 async function deleteSubtask(index) {
   subtasks.splice(index, 1);
   updateSubtaskList();
@@ -224,6 +285,9 @@ async function deleteSubtask(index) {
   }
 }
 
+/**
+ * Sets up event listeners for subtask-related actions.
+ */
 function setupSubtaskListeners() {
   const addIcon = document.getElementById("add-icon");
   const closeIcon = document.getElementById("close-subtask-icon");
@@ -257,6 +321,9 @@ function setupSubtaskListeners() {
 }
 
 
+/**
+ * Checks and handles subtask-related click events.
+ */
 function checkSubtaskClass() {
     document.addEventListener("click", handleSubtaskClick);
 }
@@ -308,6 +375,10 @@ function activateSubtaskInput() {
   subInput.focus();
 }
 
+/**
+ * Toggles the visibility of subtask-related icons.
+ * @param {boolean} isActive - Whether to show or hide the icons.
+ */
 function toggleIcons(isActive) {
   const addIcon = document.getElementById("add-icon");
   const checkIcon = document.getElementById("check-subtask-icon");
@@ -322,7 +393,9 @@ function toggleIcons(isActive) {
   seperator.classList.toggle("d-none", !isActive);
 }
 
-
+/**
+ * Confirms the entry of a new subtask and updates the UI.
+ */
 function confirmSubtaskEntry() {
   const subInput = document.getElementById("subtask-input");
   if (!subInput) return;

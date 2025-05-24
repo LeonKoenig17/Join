@@ -17,11 +17,18 @@ const noTaskHtml = `
   </div>
 `;
 
+/**
+ * Sets focus on the search input field and initializes the task search.
+ */
 function focusSearchInput() {
   document.getElementById('taskSearch').focus();
   initializeTaskSearch();
 }
 
+/**
+ * Initializes the task search and adds event listeners.
+ * Loads all tasks and renders them based on the search term.
+ */
 async function initializeTaskSearch() {
   if (!searchInput) return;
 
@@ -38,15 +45,13 @@ async function initializeTaskSearch() {
 });
 
   /**
-   * Rendert Aufgaben, die nach einem Suchbegriff gefiltert wurden, auf das Board.
-   * Löscht vorhandene Aufgaben vom Board und füllt es mit Aufgaben, die den Suchkriterien entsprechen, neu.
-   * Wenn kein Suchbegriff angegeben ist, werden alle Aufgaben angezeigt.
+   * Renders tasks filtered by a search term onto the board.
+   * Clears existing tasks from the board and repopulates it with tasks matching the search criteria.
+   * If no search term is provided, all tasks are displayed.
    *
    * @async
-   * @function
-   * @param {string} searchTerm - Der Begriff, nach dem die Aufgaben gefiltert werden.
-   *                              Wenn leer oder null, werden alle Aufgaben angezeigt.
-   * @returns {Promise<void>} Löst sich auf, wenn die Aufgaben gerendert und benutzerspezifische Farben angewendet wurden.
+   * @param {string} [searchTerm] - The term to filter tasks by.
+   *                                If empty or null, all tasks are displayed.
    */
   async function renderFilteredTasks(searchTerm) {
     if (!boardMain || !boardContent) return;
@@ -72,12 +77,13 @@ async function initializeTaskSearch() {
   }
 
   /**
-   * Überprüft, ob eine Aufgabe mit einem Suchbegriff übereinstimmt, indem der Begriff
-   * mit dem Titel, der Beschreibung, dem Fälligkeitsdatum, der Kategorie oder den zugewiesenen Benutzern der Aufgabe verglichen wird.
+   * Checks if a task matches a search term.
+   * Compares the term with the task's title, description, due date,
+   * category, priority, or assigned users.
    *
-   * @param {Object} task - Das Aufgabenobjekt, das überprüft werden soll.
-   * @param {string} term - Der Suchbegriff, mit dem die Aufgabe verglichen wird.
-   * @returns {boolean} - Gibt `true` zurück, wenn die Aufgabe mit dem Suchbegriff übereinstimmt, andernfalls `false`.
+   * @param {Object} task - The task object to check.
+   * @param {string} term - The search term to compare against the task.
+   * @returns {boolean} Returns `true` if the task matches the search term, otherwise `false`.
    */
   function taskMatchesSearch(task, term) {
     const title = task.title?.toLowerCase() || "";
@@ -100,8 +106,9 @@ async function initializeTaskSearch() {
   }
 
   /**
-   * Fügt Platzhalter für leere Aufgabenbereiche hinzu, wenn keine Aufgaben vorhanden sind.
-   * Diese Platzhalter helfen dabei, den Bereich visuell ansprechend zu halten und den Benutzern zu signalisieren,
+   * Adds placeholders for empty task sections if no tasks are present.
+   * These placeholders help keep the section visually appealing and signal to users
+   * that no tasks are available.
    */
   function insertNoTaskPlaceholders() {
     if (!toDo.querySelector('.task')) toDo.innerHTML += noTaskHtml;
@@ -112,15 +119,15 @@ async function initializeTaskSearch() {
 
   
   /**
-   * Fügt die HTML-Darstellung einer Aufgabe der angegebenen Phase im DOM hinzu.
+   * Appends the HTML representation of a task to the specified stage in the DOM.
    *
-   * @param {number} stage - Die Phase, zu der die Aufgabe hinzugefügt werden soll.
-   *                         Gültige Werte sind:
+   * @param {number} stage - The stage to which the task should be added.
+   *                         Valid values are:
    *                         0 - "To Do"
-   *                         1 - "In Bearbeitung"
-   *                         2 - "Feedback ausstehend"
-   *                         3 - "Erledigt"
-   * @param {string} html - Der HTML-String, der die hinzuzufügende Aufgabe repräsentiert.
+   *                         1 - "In Progress"
+   *                         2 - "Awaiting Feedback"
+   *                         3 - "Done".
+   * @param {string} html - The HTML string representing the task to be added.
    */
   function appendTaskToStage(stage, html) {
     switch (stage) {
