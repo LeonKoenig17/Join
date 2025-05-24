@@ -385,8 +385,8 @@ p span {
   .form-actions-edit,
   .form-actions {
     gap: 4px !important;
-    flex-direction: column;
     align-items: center;
+    transform: scale(0.9);
   }
 
   .create-task-footer {
