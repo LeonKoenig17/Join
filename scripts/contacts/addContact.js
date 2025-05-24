@@ -20,9 +20,11 @@ async function showContactForm(mode) {
   frame.classList.replace("visibleNone", "showManipualteFormFrame");
 
   if(mode == 'edit'){
+    toggleClass("addContactRightInitialsDiv","grayBackground")
+    toggleClass("addContactRightInitials","hide")
     toggleClass("addContactRightImg","hide")
-    toggleClass("addContactRightInitialsDiv","hide")
   }
+
   contactFormBtn(mode);
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
@@ -50,6 +52,7 @@ function checkMode() {
     document.getElementById("emailInput").value =document.getElementById("contactDetailsMail").innerText;
     document.getElementById("phoneInput").value = document.getElementById("contactDetailsPhone").innerText;
     document.getElementById("addContactRightInitials").innerHTML = document.getElementById("contactDetailsInitials").innerHTML;
+    document.getElementById("addContactRightInitialsDiv").classList.remove(`grayBackground`)
     document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#','')}`)
   }
 }
