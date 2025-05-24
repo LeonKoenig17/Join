@@ -19,13 +19,25 @@ function moveLogo() {
     }, 500);
 
     setTimeout(() => {
-        logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = 'calc(50px + 40px)'; logoImg.style.top = 'calc(50px + 48px)';
+        if (window.innerHeight > 900) {
+            logoImg.style.width = '80px'; logoImg.style.height = '96px'; logoImg.style.left = '90px'; logoImg.style.top = '98px';
+        } else {
+            logoImg.style.width = '80px'; logoImg.style.height = '80px'; logoImg.style.left = '70px'; logoImg.style.top = '70px';
+        }
     }, 1500);
 
     setTimeout(() => {
+        // logo.classList.add("logo")
         window.innerWidth < 800 ? logoImg.src = '../images/joinlogodark.svg' : ""
         mainDiv.style.opacity = '1';
     }, 2000);
+
+    setTimeout(() => {
+        logoImg.classList.remove("animation")
+        logoImg.style.removeProperty("width"); logoImg.style.removeProperty("height"); logoImg.style.removeProperty("left"); logoImg.style.removeProperty("top"); logoImg.style.removeProperty("transform")
+    }, 3000);
+
+
 }
 
 async function loginBackup() {
@@ -198,7 +210,7 @@ passwordInput.addEventListener('keydown', function (event) {
 // Auslösen bei "Enter"-Taste
 emailInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
+        checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
     }
     if (emailInput.value == "") {
         clearErrorInput("emailInput", "emailErrorSpan");
@@ -207,5 +219,5 @@ emailInput.addEventListener('keydown', function (event) {
 
 // Auslösen beim Verlassen des Feldes (Blur)
 emailInput.addEventListener('blur', function () {
-    checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
+    checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
 });

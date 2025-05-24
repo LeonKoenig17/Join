@@ -1,0 +1,111 @@
+@media (max-width: 800px) {
+
+    body {
+        background: var(--primary-color);
+    }
+
+    main {
+        background-color: var(--background-color);
+    }
+
+    .loginDiv {
+        height: 500px;
+        width: fit-content;
+        border-radius: 30px;
+        padding: 10px 10px;
+    }
+
+    .loginButtonDiv {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .blueBtn {
+        width: 168px;
+        font-size: 16px;
+    }
+
+    .whiteBtn {
+        font-size: 16px;
+    }
+
+    #signUpDiv {
+        top: calc(100% - 150px);
+        width: 100%;
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #signUpDiv a {
+        text-align: center;
+        width: fit-content;
+    }
+
+}
+
+@media (max-width: 650px) {
+    #mainContent {
+        margin: 25px;
+    }
+}
+
+@media (max-width: 550px) {
+    .loginInput {
+        height: 46px;
+        width: 75%;
+        font-size: 20px;
+        padding-left: 20px;
+        padding-right: 50px;
+        margin: 10px 0px;
+        font-size: 16px;
+    }
+
+    .blueBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
+    .whiteBtn {
+        width: 130px;
+        padding: 0 0;
+    }
+
+    .accountHeader {
+        font-size: 47px;
+    }
+
+    .errorSpan {
+        font-size: 8px;
+    }
+}
+
+@media (max-height: 900px) {
+
+    .loginDiv {
+        height: 400px;
+        padding: 5px 5px;
+    }
+
+    #signUpDiv {
+        top: calc(100% - 125px);
+        width: 100%;
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inputDiv {
+        height: 50px;
+    }
+
+    .logo {
+        top: 30px;
+        left: 30px;
+        height: 80px;
+        transform: translate(0%, 0%)
+    }
+}
