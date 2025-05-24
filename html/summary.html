@@ -30,7 +30,7 @@
 </head>
 
 <body onload="getCurrentHTML()">
-  <aside>
+  <aside onclick="hideUserLinksOptions()">
     <div id="logo"><img src="../images/joinlogowhite.svg" alt=""></div>
     <nav id="linkNav">
       <a href="../html/summary.html">
@@ -55,22 +55,24 @@
       <a href="./legalNotice.html">Legal Notice</a>
     </div>
   </aside>
-  <main class="main-summary">
-    <header>
-      <div class="header-container">
-        <div>
-          <img src="../images/joinlogodark.svg" alt="logo dark">
-          <span>Kanban Project Management Tool</span>
-        </div>
-        <div>
-          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-          <a onclick="showUserLinksOptions()" id="userLink"></a>
-        </div>
+  <header onclick="hideUserLinksOptions()">
+    <div class="header-container">
+      <div>
+        <img src="../images/joinlogodark.svg" alt="logo dark">
+        <span>Kanban Project Management Tool</span>
       </div>
-    </header>
-    <div id="userLinkOptionsBackground" class="hide" onclick="showUserLinksOptions()">
-      <div id="userLinkOptions" class="userLinkOptions hide">
+      <div>
+        <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
       </div>
+    </div>
+  </header>
+  <div class="userLinkContainer">
+    <a onclick="showUserLinksOptions()" id="userLink"></a>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+    </div>
+  </div>
+  <main class="main-summary" onclick="hideUserLinksOptions()">
+    </div>
     </div>
     <summary id="summaryContent">
       <div class="frame-40">
@@ -153,7 +155,7 @@
       </div>
     </summary>
   </main>
-  <footer>
+  <footer onclick="hideUserLinksOptions()">
     <a href="./summary.html" class="active">
       <img src="../images/summarywhite.svg" alt="logo">
       <span>Summary</span>
