@@ -215,3 +215,40 @@ button {
   border: 2px solid var(--accent-color);
   transition: border 0.3s ease;
 }
+
+#mobileTaskActions {
+  background-color: var(--primary-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 1000;
+  padding: 6px 8px 16px 8px;
+  border-radius: 20px;
+  color: white;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+#mobileTaskActions h4 {
+  margin: 0;
+  text-align: center;
+}
+
+#actionOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#mobileTaskActions ul {
+  margin: 0;
+  padding-inline-start: 20px;
+}
+
+#mobileTaskActions li {
+  padding: 4px 5px 4px 2px;
+  font-size: 14px;
+  white-space: nowrap;
+}

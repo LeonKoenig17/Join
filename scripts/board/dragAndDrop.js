@@ -44,6 +44,8 @@ function handleDrop(e, container) {
   draggedFromContainer = null;
 }
 
+// updateStage(container, taskId);
+
 
 function setupContainerHighlighting(container) {
   let dragCounter = 0;
@@ -72,18 +74,43 @@ function setupContainerHighlighting(container) {
  * Macht Tasks draggable.
  */
 function addDragFunction() {
-  const tasks = document.querySelectorAll(".task");
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
-    task.setAttribute("draggable", "true");
-    task.addEventListener("dragstart", function (e) {
-      e.dataTransfer.setData("text/plain", task.id);
-      e.dataTransfer.effectAllowed = "move";
-      
-      draggedFromContainer = task.closest(".task-list");
-    dragAnimation(task);
-    });
+  if (!isMobile()) {
+    const tasks = document.querySelectorAll(".task");
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      task.setAttribute("draggable", "true");
+      task.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("text/plain", task.id);
+        e.dataTransfer.effectAllowed = "move";
+        
+        draggedFromContainer = task.closest(".task-list");
+      dragAnimation(task);
+      });
+    }
+  } else {
+    addMobileDragFunction();
   }
+}
+
+function addMobileDragFunction() {
+  const tasks = document.querySelectorAll(".task");
+  tasks.forEach(task => {
+    task.addEventListener("touchstart", function (e) {
+      pressTimer = setTimeout(() => {
+        const mobileActions = document.getElementById("mobileTaskActions");
+        if (mobileActions) mobileActions.remove();
+        doSomethingOnLongPress(task);
+      }, 600);
+    }, { passive: true });
+
+    task.addEventListener("touchend", function (e) {
+      clearTimeout(pressTimer);
+    });
+
+    task.addEventListener("touchmove", function (e) {
+      clearTimeout(pressTimer);
+    });
+  });
 }
 
 function dragAnimation(task) {
@@ -105,16 +132,23 @@ function dropHighlight(taskElement) {
   }, 500);
 }
 
+function doSomethingOnLongPress(task) {
+  task.innerHTML += mobileActionsTemplate();
+  const savedOnclick = task.onclick;
+  task.onclick = null;
+  
+  document.addEventListener("click", function (e) {
+    const mobileActions = document.getElementById("mobileTaskActions");
+    if (!mobileActions.contains(e.target)) {
+      mobileActions.remove();
+      task.onclick = savedOnclick;
+    }
+  })
+}
 
-
-// function updateDraggable() {
-//     const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
-//     const tasks = document.querySelectorAll(".task");
-//     tasks.forEach(task => {
-//       task.setAttribute("draggable", !isSmallScreen);
-//     })
-//   }
-
-// updateDraggable();
-
-// window.addEventListener("resize", updateDraggable);
+function processMobileInput(containerId) {
+  const container = document.getElementById(containerId);
+  const mobileActions = document.getElementById("mobileTaskActions");
+  const taskId = mobileActions.parentElement.id.replace("task", "");
+  updateStage(container, taskId);
+}

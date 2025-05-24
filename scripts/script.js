@@ -51,7 +51,7 @@ function logout() {
 }
 
 
-function toasterPopup(element,target) {
+function toasterPopup(element, target) {
     let mySpan = document.getElementById(element);
     mySpan.classList.remove("displayNone");
     setTimeout(() => {
@@ -60,7 +60,7 @@ function toasterPopup(element,target) {
 
     setTimeout(() => {
         window.location = `${target}.html`;
-        
+
     }, 2000)
 }
 
@@ -68,22 +68,22 @@ function toasterPopup(element,target) {
 function addHelpToPopup() {
     const windowWidth = window.innerWidth;
     try {
-    if (windowWidth <= 800) {
-        document.getElementById("userLinkOptions").innerHTML = `
+        if (windowWidth <= 800) {
+            document.getElementById("userLinkOptions").innerHTML = `
         <a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
         <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
         <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         `
-    } else {
-        document.getElementById("userLinkOptions").innerHTML = `
+        } else {
+            document.getElementById("userLinkOptions").innerHTML = `
         <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
         <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
         `
-    }
+        }
     } catch (error) {
-        
+
     }
 }
 
@@ -107,7 +107,7 @@ function getCurrentHTML() {
                 img.src = img.getAttribute('src').replace('white', 'gray')
             }
         });
-}
+    }
 }
 
 
@@ -115,17 +115,17 @@ function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-function clearErrorInput(firstElement,secondElement){
+function clearErrorInput(firstElement, secondElement) {
     // let email = document.getElementById("emailInput").value;
-        hideError(firstElement, secondElement)
+    hideError(firstElement, secondElement)
 
 }
 
 
-function checkEmailInput(firstElement,secondElement,setoffX,setOffY,errorText) {
+function checkEmailInput(firstElement, secondElement, setoffX, setOffY, errorText) {
     // let email = document.getElementById("emailInput").value;
     let email = document.getElementById(firstElement).value;
-    if(email == ""){return}
+    if (email == "") { return }
     if (emailIsValid(email) == false) {
         // deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
         deleteError(firstElement, secondElement, setoffX, setOffY, errorText);
@@ -138,7 +138,7 @@ function checkEmailInput(firstElement,secondElement,setoffX,setOffY,errorText) {
 
 function checkEmailInputBackup() {
     let email = document.getElementById("emailInput").value;
-    if(email == ""){return}
+    if (email == "") { return }
     if (emailIsValid(email) == false) {
         deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
         return

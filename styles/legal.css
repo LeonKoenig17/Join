@@ -91,11 +91,11 @@ footer a {
   padding-right: 30px;
 }
 
-#userLink {
+/* #userLink {
   position: fixed !important;
   right: 0 !important;
-
-}
+  z-index: 3;
+} */
 
 @media (max-width: 1000px) {
   header {
