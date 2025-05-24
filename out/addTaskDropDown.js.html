@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: addTaskDropDown.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: addTaskDropDown.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// addTaskDropDown.js
+
+/**
+ * Initialisiert das Assign-Dropdown für Aufgaben.
+ */
+async function initAssignedDropdown() {
+  try {
+    const users = await loadFirebaseUsers();
+     const contacts = await loadFirebaseContacts();
+     const options  = [...users, ...contacts];
+    renderDropdownOptions(options);
+    setupDropdownEventListeners(options);
+  } catch (err) {
+    console.error("Fehler beim Initialisieren des Dropdowns:", err);
+  }
+}
+
+/**
+ * Rendert die Optionen im Dropdown.
+ * @param {Array&lt;Object>} users - Die Liste der Benutzer.
+ * @param {Array&lt;Object>} [assignedTo=[]] - Die bereits zugewiesenen Benutzer.
+ */
+function renderDropdownOptions(users, assignedTo = []) {
+  const opts = document.getElementById("assignedDropdownOptions");
+  if (!opts) return;
+
+  opts.innerHTML = users
+    .map((user, index) => {
+      const isChecked = assignedTo.some(a => String(a.id) === String(user.id));
+      return assignedUserTemplate(user, index, isChecked);
+    })
+    .join("");
+}
+
+/**
+ * Setzt die Event-Listener für das Dropdown.
+ * @param {Array&lt;Object>} users - Die Liste der Benutzer.
+ */
+function setupDropdownEventListeners(users) {
+  const sel = document.getElementById("assignedDropdownSelected");
+  const opts = document.getElementById("assignedDropdownOptions");
+  const dd = document.getElementById("assignedDropdown");
+
+  if (!sel || !opts || !dd) {
+    return;
+  }
+
+  addDropdownToggleListener(sel, opts);
+  addDocumentClickListener(dd, opts);
+  addOptionsChangeListener(opts, users);
+}
+
+/**
+ * Fügt einen Klick-Listener hinzu, um das Dropdown umzuschalten.
+ * @param {HTMLElement} sel - Das ausgewählte Dropdown-Element.
+ * @param {HTMLElement} opts - Die Dropdown-Optionen.
+ */
+function addDropdownToggleListener(sel, opts) {
+  sel.addEventListener("click", function (e) {
+    e.stopPropagation();
+    opts.classList.toggle("show");
+  });
+}
+
+/**
+ * Fügt einen Klick-Listener zum Dokument hinzu, um das Dropdown zu schließen.
+ * @param {HTMLElement} dd - Das Dropdown-Element.
+ * @param {HTMLElement} opts - Die Dropdown-Optionen.
+ */
+function addDocumentClickListener(dd, opts) {
+  document.addEventListener("click", function (e) {
+    if (!dd.contains(e.target)) {
+      opts.classList.remove("show");
+    }
+  });
+}
+
+/**
+ * Fügt einen Change-Listener zu den Dropdown-Optionen hinzu.
+ * @param {HTMLElement} opts - Die Dropdown-Optionen.
+ * @param {Array&lt;Object>} users - Die Liste der Benutzer.
+ */
+function addOptionsChangeListener(opts, users) {
+  opts.addEventListener("change", function () {
+    updateAssignedChips(users);
+  });
+}
+
+/**
+ * Aktualisiert die zugewiesenen Chips basierend auf den ausgewählten Benutzern.
+ * @param {Array&lt;Object>} users - Die Liste der Benutzer.
+ */
+function updateAssignedChips(users) {
+  const chipsContainer = document.getElementById("assignedChips");
+  if (!chipsContainer) return;
+
+  const checkboxes = document.querySelectorAll(".assign-checkbox");
+  const chips = Array.from(checkboxes)
+    .filter(cb => cb.checked)
+    .map(cb => createChipHTML(users, cb.dataset.userId));
+
+  chipsContainer.innerHTML = chips.join("");
+}
+
+/**
+ * Erstellt das HTML für einen Chip basierend auf der Benutzer-ID.
+ * @param {Array&lt;Object>} users - Die Liste der Benutzer.
+ * @param {string} userId - Die ID des Benutzers.
+ * @returns {string} Das HTML des Chips.
+ */
+function createChipHTML(users, userId) {
+  const user = users.find(u => String(u.id) === String(userId));
+  if (!user) return "";
+  const initials = getInitials(user.name || user.email);
+  return `&lt;div class="assigned-chip" style="background-color: ${user.color};">${initials}&lt;/div>`;
+}
+
+/**
+ * Gibt die Initialen eines Namens oder einer E-Mail zurück.
+ * @param {string} [fullName=""] - Der vollständige Name oder die E-Mail-Adresse.
+ * @returns {string} Die Initialen.
+ */
+function getInitials(fullName = "") {
+  return fullName
+    .split(" ")
+    .filter(Boolean)
+    .map(n => n[0].toUpperCase())
+    .join("");
+}
+
+/**
+ * Lädt die Benutzer aus Firebase.
+ * @returns {Promise&lt;Array&lt;Object>>} Eine Liste der Benutzer.
+ */
+async function loadFirebaseUsers() {
+  const res      = await fetch(BASE_URL + "/login.json");
+  const usersObj = await res.json();
+  const users    = [];
+
+  if (usersObj) {
+    for (const key in usersObj) {
+      const entry = usersObj[key];
+      const { password, ...rest } = entry;
+      users.push({
+        id:    key,
+        ...rest,
+      });
+    }
+  }
+
+  return users;
+}
+
+/**
+ * Lädt die Kontakte aus Firebase.
+ * @returns {Promise&lt;Array&lt;Object>>} Eine Liste der Kontakte.
+ */
+async function loadFirebaseContacts() {
+  const res         = await fetch(BASE_URL + "/contact.json");
+  const contactsObj = await res.json();
+  const contacts    = [];
+
+  if (contactsObj) {
+    for (const key in contactsObj) {
+      const entry = contactsObj[key];
+      contacts.push({
+        id:    key,
+        ...entry
+      });
+    }
+  }
+
+  return contacts;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addDocumentClickListener">addDocumentClickListener</a></li><li><a href="global.html#addDropdownToggleListener">addDropdownToggleListener</a></li><li><a href="global.html#addOptionsChangeListener">addOptionsChangeListener</a></li><li><a href="global.html#createChipHTML">createChipHTML</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#initAssignedDropdown">initAssignedDropdown</a></li><li><a href="global.html#loadFirebaseContacts">loadFirebaseContacts</a></li><li><a href="global.html#loadFirebaseUsers">loadFirebaseUsers</a></li><li><a href="global.html#renderDropdownOptions">renderDropdownOptions</a></li><li><a href="global.html#setupDropdownEventListeners">setupDropdownEventListeners</a></li><li><a href="global.html#updateAssignedChips">updateAssignedChips</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 24 2025 17:33:37 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

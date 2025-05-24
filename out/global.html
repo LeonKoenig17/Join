@@ -94,6 +94,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="subtasks"><span class="type-signature">(constant) </span>subtasks<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    subtask.js - Verwalten von Subtasks (Checkbox-Logik, UI, ProgressBar)
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -104,7 +170,7 @@
     
 
     
-    <h4 class="name" id="addUserClickHandler"><span class="type-signature"></span>addUserClickHandler<span class="signature">(navElement)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="calculateProgress"><span class="type-signature"></span>calculateProgress<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -112,7 +178,7 @@
 
 
 <div class="description">
-    Attaches a click event listener to the given navigation element.When clicked, it calls the chooseTaskDetails function with the element's id.
+    Calculates the progress percentage of the subtasks.
 </div>
 
 
@@ -121,55 +187,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>navElement</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The navigation element to attach the click handler to.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -205,144 +222,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line181">line 181</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="createGroupDiv"><span class="type-signature"></span>createGroupDiv<span class="signature">(letter)</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a group container div element for a given letter, including a styled letter span and a separator.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>letter</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The letter to display in the group header.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line83">line 83</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -371,7 +251,7 @@
 
         
 <div class="param-desc">
-    The constructed group div element containing the letter and a separator.
+    An object containing the number of completed subtasks, total subtasks, and progress percentage.
 </div>
 
 
@@ -382,7 +262,7 @@
     </dt>
     <dd>
         
-<span class="param-type">HTMLDivElement</span>
+<span class="param-type">Object</span>
 
 
     </dd>
@@ -400,7 +280,7 @@
     
 
     
-    <h4 class="name" id="createSingleUserNav"><span class="type-signature"></span>createSingleUserNav<span class="signature">(user, userNumber)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    <h4 class="name" id="calculateSubtaskProgress"><span class="type-signature"></span>calculateSubtaskProgress<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -408,7 +288,117 @@
 
 
 <div class="description">
-    Creates a navigation element representing a single user, including their initials and details.Appends click event handlers for user interaction.
+    Calculates the progress of the subtasks.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object containing the number of completed and total subtasks.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkSubProgress"><span class="type-signature"></span>checkSubProgress<span class="signature">(task)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Normalisiert task.subtasks und berechnet Count + Progress.
 </div>
 
 
@@ -444,7 +434,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>task</code></td>
             
 
             <td class="type">
@@ -460,14 +450,322 @@
 
             
 
-            <td class="description last">The user object containing user information.</td>
+            <td class="description last"></td>
         </tr>
 
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkSubtaskClass"><span class="type-signature"></span>checkSubtaskClass<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks and handles subtask-related click events.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="confirmSubtaskEntry"><span class="type-signature"></span>confirmSubtaskEntry<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Confirms the entry of a new subtask and updates the UI.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line399">line 399</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deleteSubtask"><span class="type-signature">(async) </span>deleteSubtask<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Deletes a subtask and updates the UI.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>userNumber</code></td>
+                <td class="name"><code>index</code></td>
             
 
             <td class="type">
@@ -483,7 +781,7 @@
 
             
 
-            <td class="description last">The unique number or index for the user.</td>
+            <td class="description last">The index of the subtask to delete.</td>
         </tr>
 
     
@@ -524,7 +822,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line108">line 108</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line278">line 278</a>
     </li></ul></dd>
     
 
@@ -549,28 +847,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The constructed navigation element for the user.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">HTMLElement</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -582,7 +858,7 @@
     
 
     
-    <h4 class="name" id="createUserDetails"><span class="type-signature"></span>createUserDetails<span class="signature">(user, userNumber)</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
+    <h4 class="name" id="editSubtask"><span class="type-signature"></span>editSubtask<span class="signature">(index)</span><span class="type-signature"></span></h4>
     
 
     
@@ -590,7 +866,7 @@
 
 
 <div class="description">
-    Creates a DOM element containing user details including name and email.
+    Edits a subtask by enabling the editing mode for the given index.
 </div>
 
 
@@ -626,102 +902,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The user object containing user information.
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The email address of the user.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userNumber</code></td>
+                <td class="name"><code>index</code></td>
             
 
             <td class="type">
@@ -737,7 +918,7 @@
 
             
 
-            <td class="description last">A unique number used to generate the email element's ID.</td>
+            <td class="description last">The index of the subtask to edit.</td>
         </tr>
 
     
@@ -778,7 +959,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line155">line 155</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="generateSubtasksHTML"><span class="type-signature"></span>generateSubtasksHTML<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generates the HTML for the subtasks based on the current mode.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -807,7 +1076,7 @@
 
         
 <div class="param-desc">
-    The DOM element containing the user's details.
+    The generated HTML for the subtasks.
 </div>
 
 
@@ -818,7 +1087,7 @@
     </dt>
     <dd>
         
-<span class="param-type">HTMLDivElement</span>
+<span class="param-type">string</span>
 
 
     </dd>
@@ -836,7 +1105,7 @@
     
 
     
-    <h4 class="name" id="createUserInitials"><span class="type-signature"></span>createUserInitials<span class="signature">(user)</span><span class="type-signature"> &rarr; {HTMLSpanElement}</span></h4>
+    <h4 class="name" id="initSubtasksArray"><span class="type-signature"></span>initSubtasksArray<span class="signature">(taskData)</span><span class="type-signature"></span></h4>
     
 
     
@@ -844,7 +1113,7 @@
 
 
 <div class="description">
-    Creates a span element containing the user's initials with appropriate styling.
+    Initializes the subtasks array with data from the given task.
 </div>
 
 
@@ -880,7 +1149,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>taskData</code></td>
             
 
             <td class="type">
@@ -896,99 +1165,7 @@
 
             
 
-            <td class="description last">The user object containing user information.
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The full name of the user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>color</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Optional hex color code for the user's initials background.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last">The task data containing subtasks.</td>
         </tr>
 
     
@@ -1029,117 +1206,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line132">line 132</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The span element with the user's initials and color class.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">HTMLSpanElement</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getContactsFromFirebase"><span class="type-signature"></span>getContactsFromFirebase<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Fetches contact and login data from Firebase, merges them, sorts the users,groups them alphabetically, and renders the grouped contact list in the navigation UI.Side Effects:- Modifies global variables: `userNumber`, `groupedUsers`, `dataLogin`, `dataContact`, `dataFull`.- Updates the DOM element with id "allContacts" by clearing its content and appending grouped user elements.Dependencies:- Assumes existence of `fireBaseContent` object with `login` and `contact` properties.- Relies on helper functions: `sortUsers()`, `createGroupDiv(letter)`, and `createSingleUserNav(user, userNumber)`.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line19">line 19</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -1175,7 +1242,7 @@
     
 
     
-    <h4 class="name" id="getInitials"><span class="type-signature"></span>getInitials<span class="signature">(fullName)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="initializeSubtaskModule"><span class="type-signature"></span>initializeSubtaskModule<span class="signature">(taskData)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1183,7 +1250,7 @@
 
 
 <div class="description">
-    Returns the initials of a given full name.Splits the full name by spaces and concatenates the first character of each part,returning the result in uppercase.
+    Initializes the subtask module by setting up the subtasks array and updating the UI.
 </div>
 
 
@@ -1219,13 +1286,13 @@
 
         <tr>
             
-                <td class="name"><code>fullName</code></td>
+                <td class="name"><code>taskData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
             
@@ -1235,7 +1302,7 @@
 
             
 
-            <td class="description last">The full name from which to extract initials.</td>
+            <td class="description last">The task data to initialize the module with.</td>
         </tr>
 
     
@@ -1276,7 +1343,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line198">line 198</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -1301,28 +1368,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The uppercase initials of the full name, or an empty string if no name is provided.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -1334,7 +1379,7 @@
     
 
     
-    <h4 class="name" id="sortUsers"><span class="type-signature"></span>sortUsers<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="isAddMode"><span class="type-signature"></span>isAddMode<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -1342,7 +1387,7 @@
 
 
 <div class="description">
-    Sorts users from the global `dataFull` object alphabetically by their first name,then groups them into the global `groupedUsers` object by the first letter of their name.Each user object contains `name`, `email`, `color`, and `phone` properties.
+    Checks if the current mode is add mode.
 </div>
 
 
@@ -1386,7 +1431,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="contactList.js.html">contactList.js</a>, <a href="contactList.js.html#line53">line 53</a>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -1414,6 +1459,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    True if in add mode, false otherwise.
+</div>
+
 
 
 <dl>
@@ -1422,13 +1471,1373 @@
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">boolean</span>
 
 
     </dd>
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isEditMode"><span class="type-signature"></span>isEditMode<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks if the current mode is edit mode.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    True if in edit mode, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="saveSubtask"><span class="type-signature">(async) </span>saveSubtask<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Saves the changes made to a subtask.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to save.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line243">line 243</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupSubtaskListeners"><span class="type-signature"></span>setupSubtaskListeners<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets up event listeners for subtask-related actions.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line291">line 291</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="toggleIcons"><span class="type-signature"></span>toggleIcons<span class="signature">(isActive)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the visibility of subtask-related icons.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>isActive</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to show or hide the icons.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line382">line 382</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="toggleSubtaskCompletion"><span class="type-signature">(async) </span>toggleSubtaskCompletion<span class="signature">(index)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the completion status of a subtask and updates the UI.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to toggle.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateProgressBar"><span class="type-signature"></span>updateProgressBar<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the progress bar for the current task.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateProgressBarUI"><span class="type-signature"></span>updateProgressBarUI<span class="signature">(taskEl, pct)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the progress bar UI for the given task element.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskEl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task element to update.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pct</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The progress percentage to set.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateSubtaskCount"><span class="type-signature"></span>updateSubtaskCount<span class="signature">(taskId, done, total)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the subtask count display in the UI.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the task to update.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>done</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of completed subtasks.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>total</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The total number of subtasks.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateSubtaskList"><span class="type-signature"></span>updateSubtaskList<span class="signature">(taskId)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the subtask list in the UI and recalculates progress.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the task to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateTaskLabel"><span class="type-signature"></span>updateTaskLabel<span class="signature">(taskEl, done, total)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the task label with the subtask progress.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskEl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task element to update.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>done</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of completed subtasks.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>total</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The total number of subtasks.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="subtask.js.html">subtask.js</a>, <a href="subtask.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1450,13 +2859,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUserClickHandler">addUserClickHandler</a></li><li><a href="global.html#createGroupDiv">createGroupDiv</a></li><li><a href="global.html#createSingleUserNav">createSingleUserNav</a></li><li><a href="global.html#createUserDetails">createUserDetails</a></li><li><a href="global.html#createUserInitials">createUserInitials</a></li><li><a href="global.html#getContactsFromFirebase">getContactsFromFirebase</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#sortUsers">sortUsers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#calculateProgress">calculateProgress</a></li><li><a href="global.html#calculateSubtaskProgress">calculateSubtaskProgress</a></li><li><a href="global.html#checkSubProgress">checkSubProgress</a></li><li><a href="global.html#checkSubtaskClass">checkSubtaskClass</a></li><li><a href="global.html#confirmSubtaskEntry">confirmSubtaskEntry</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#generateSubtasksHTML">generateSubtasksHTML</a></li><li><a href="global.html#initSubtasksArray">initSubtasksArray</a></li><li><a href="global.html#initializeSubtaskModule">initializeSubtaskModule</a></li><li><a href="global.html#isAddMode">isAddMode</a></li><li><a href="global.html#isEditMode">isEditMode</a></li><li><a href="global.html#saveSubtask">saveSubtask</a></li><li><a href="global.html#setupSubtaskListeners">setupSubtaskListeners</a></li><li><a href="global.html#subtasks">subtasks</a></li><li><a href="global.html#toggleIcons">toggleIcons</a></li><li><a href="global.html#toggleSubtaskCompletion">toggleSubtaskCompletion</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateProgressBarUI">updateProgressBarUI</a></li><li><a href="global.html#updateSubtaskCount">updateSubtaskCount</a></li><li><a href="global.html#updateSubtaskList">updateSubtaskList</a></li><li><a href="global.html#updateTaskLabel">updateTaskLabel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 17 2025 17:05:53 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 24 2025 17:34:14 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
