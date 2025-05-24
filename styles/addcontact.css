@@ -119,7 +119,8 @@
 
 #addContactRightInputs {
     height: fit-content;
-    width: calc(100%-128px);
+    /* width: calc(100%-128px); */
+    width: 70%;
     min-width: 200px;
     max-width: 600px;
     display: flex;

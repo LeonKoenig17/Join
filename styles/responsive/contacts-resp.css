@@ -223,10 +223,10 @@
         /* padding: 10px; */
         /* border: solid 4px white; */
         /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
-        position: absolute;
+        /* position: absolute; */
         top: calc(128px / 2 * (-1));
         left: calc(50% - 128px / 2);
-        height: 100px;
+        height: 70px;
         margin: 0;
     }
 
@@ -245,6 +245,7 @@
         height: 100px;
         margin: 0;
     }
+
     .loginInput {
         /* width: 300px; */
         width: 80%;
@@ -270,4 +271,23 @@
         cursor: pointer;
         border-radius: 50%;
     }
+}
+
+@media (max-width: 400px) {
+    #backToList {
+        /* visibility: visible; */
+        /* position: absolute; */
+        /* right: 50px; */
+        top: 40px;
+        /* cursor: pointer; */
+    }
+
+    .contactDetailsPerson div {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 10px;
+    }
+    
 }
