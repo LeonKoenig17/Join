@@ -5,12 +5,12 @@
  * @param {'big'|'small'} size
  * @returns {string} HTML-String
  */
-function contactDetailsTemp(mode,size) {
+function contactDetailsTemp(mode, size) {
   const isAdd = mode === 'add';
-  const title  = isAdd ? 'Add contact' : 'Edit contact';
-  const leftBtnLabel  = isAdd ? 'Cancel' : 'Delete';
-  const leftBtnAction = isAdd 
-    ? `hideContactForm('add')` 
+  const title = isAdd ? 'Add contact' : 'Edit contact';
+  const leftBtnLabel = isAdd ? 'Cancel' : 'Delete';
+  const leftBtnAction = isAdd
+    ? `hideContactForm('add')`
     : `contactForm('delete','edit')`;
   const rightBtn = isAdd
     ? `<button onclick="contactForm('add','add')" id="rightBtn" class="contactBtn blueBtn">
@@ -21,7 +21,7 @@ function contactDetailsTemp(mode,size) {
        </button>`;
 
   // if(size == 'big'){
-       return `
+  return `
     <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
       <img id="closeFormImg"
         class="closeFormImg"
@@ -42,7 +42,11 @@ function contactDetailsTemp(mode,size) {
       <div id="addContactRight">
         <div id="addContactRightDiv">
           
-            <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
+            
+            <div id="addContactRightInitialsDiv" class="grayBackground">
+              <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar"/>
+              <span id="addContactRightInitials" class="hide">ZZ</span>
+            </div>
           
           <div id="addContactRightInputs">
             <div class="flexColumn" style="gap: 20px">
@@ -89,11 +93,11 @@ function contactDetailsTemp(mode,size) {
   //     </section>
 
   //     <div id="addContactRight">
-        
 
-          
+
+
   //           <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
-          
+
 
   //         <div id="addContactRightInputs">
   //           <div class="flexColumn">
@@ -112,7 +116,7 @@ function contactDetailsTemp(mode,size) {
 
   //         </div>
 
-        
+
   //     </div>
   //   </div>
   // `;

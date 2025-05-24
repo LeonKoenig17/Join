@@ -609,6 +609,9 @@ strong {
   background-repeat: no-repeat;
 }
 
+.absolute{
+  position: absolute;
+}
 .errorSpan {
     height: 14px;
     font-size: 10px;

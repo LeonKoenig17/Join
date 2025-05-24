@@ -9,7 +9,7 @@
 async function showContactForm(mode) {
   const bg = document.getElementById("manipulateContactBackground");
   window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode, 'small') : bg.innerHTML = contactDetailsTemp(mode, 'big')
-  hideCancelBtn();
+  mode == "add" ? hideCancelBtn() : "";
 
   if (!checkLocalUser(mode)) return;
   const frame = document.getElementById("addContactFrame");
@@ -19,6 +19,12 @@ async function showContactForm(mode) {
   bg.classList.replace("visibleNone", "showManipualteFormBackground");
   frame.classList.replace("visibleNone", "showManipualteFormFrame");
 
+  if(mode == 'edit'){
+    toggleClass("addContactRightInitialsDiv","grayBackground")
+    toggleClass("addContactRightInitials","hide")
+    toggleClass("addContactRightImg","hide")
+  }
+
   contactFormBtn(mode);
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
@@ -26,7 +32,9 @@ async function showContactForm(mode) {
   emailInputAddEvent();
 }
 
-
+function toggleClass(element,className){
+  document.getElementById(element).classList.toggle(className)
+}
 /**
  * Checks the current mode (add or edit) of the contact form.
  * If the mode is "edit", populates the input fields with the existing contact's details
@@ -40,13 +48,12 @@ async function showContactForm(mode) {
 function checkMode() {
   const mode = document.getElementById("addContactFrame").dataset.mode;
   if (mode === "edit") {
-    document.getElementById("nameInput").value =
-      document.getElementById("contactDetailsName").innerText;
-    document.getElementById("emailInput").value =
-      document.getElementById("contactDetailsMail").innerText;
-    document.getElementById("phoneInput").value = document.getElementById(
-      "contactDetailsPhone"
-    ).innerText;
+    document.getElementById("nameInput").value =document.getElementById("contactDetailsName").innerText;
+    document.getElementById("emailInput").value =document.getElementById("contactDetailsMail").innerText;
+    document.getElementById("phoneInput").value = document.getElementById("contactDetailsPhone").innerText;
+    document.getElementById("addContactRightInitials").innerHTML = document.getElementById("contactDetailsInitials").innerHTML;
+    document.getElementById("addContactRightInitialsDiv").classList.remove(`grayBackground`)
+    document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#','')}`)
   }
 }
 

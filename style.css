@@ -50,6 +50,11 @@ header img:hover {
     align-items: center;
 }
 
+.header-container a {
+    width: 20px;
+    height: 20px;
+}
+
 .header-container div:nth-child(2) {
     display: flex;
     align-items: center;
@@ -61,6 +66,15 @@ header img:hover {
 
 footer {
     display: none;
+}
+
+.userLinkContainer {
+    height: 90px;
+    width: calc(100% - 200px);
+    left: 200px;
+    display: flex;
+    position: absolute;
+    align-items: center;
 }
 
 #userLink {
@@ -77,6 +91,9 @@ footer {
     font-weight: bold;
     margin: 16px;
     transition: background-color 0.3s ease-in-out;
+    position: fixed !important;
+    right: 0 !important;
+    z-index: 99;
 }
 
 #userLink:hover {

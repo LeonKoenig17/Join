@@ -9,6 +9,11 @@
     #addContactRightImg {
         height: 70px;
     }
+
+    #addContactRightInitialsDiv {
+        height: 70px !important;
+        width: 70px !important;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -199,6 +204,7 @@
         height: 100%;
         /* align-items: center; */
         /* min-width: 400px; */
+        justify-content: space-evenly;
     }
 
     .inputDiv {
@@ -209,6 +215,22 @@
     }
 
     #addContactRightImg {
+        /* background-color: #D1D1D1; */
+        /* height: fit-content; */
+        /* width: fit-content; */
+        /* margin-right: 0; */
+        /* border-radius: 100%; */
+        /* padding: 10px; */
+        /* border: solid 4px white; */
+        /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
+        /* position: absolute; */
+        top: calc(128px / 2 * (-1));
+        left: calc(50% - 128px / 2);
+        height: 70px;
+        margin: 0;
+    }
+
+    #addContactRightInitialsDiv {
         /* background-color: #D1D1D1; */
         /* height: fit-content; */
         /* width: fit-content; */
@@ -249,4 +271,23 @@
         cursor: pointer;
         border-radius: 50%;
     }
+}
+
+@media (max-width: 400px) {
+    #backToList {
+        /* visibility: visible; */
+        /* position: absolute; */
+        /* right: 50px; */
+        top: 40px;
+        /* cursor: pointer; */
+    }
+
+    .contactDetailsPerson div {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 10px;
+    }
+    
 }
