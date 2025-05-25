@@ -29,10 +29,6 @@ header {
   left: 200px;
 }
 
-.header-container {
-  margin-right: 70px;
-}
-
 .frame-40 {
   display: flex;
   align-items: center;
