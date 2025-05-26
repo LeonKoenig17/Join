@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../styles/standard.css" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../styles/legal.css" />
+  <link rel="stylesheet" href="../styles/responsive/legalResponsive.css">
   <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
 
   <!-- font -->
@@ -52,23 +53,19 @@
       <a href="./legalNotice.html">Legal Notice</a>
     </div>
   </aside>
-  <header onclick="hideUserLinksOptions()">
+  <header>
     <div class="header-container">
       <div>
         <img src="../images/joinlogodark.svg" alt="logo dark" />
         <span>Kanban Project Management Tool</span>
       </div>
+      <div>
+        <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+      </div>
     </div>
-    </div>
-  </header>
-  <div class="userLinkContainer">
     <a onclick="showUserLinksOptions()" id="userLink"></a>
-    <div id="userLinkOptions" class="userLinkOptions hide">
-    </div>
-  </div>
-  <div id="userLinkOptions" class="userLinkOptions hide">
-  </div>
-  </div>
+    <div id="userLinkOptions" class="userLinkOptions hide"></div>
+  </header>
   <main onclick="hideUserLinksOptions()">
     <div class="legal-main">
       <h1>Privacy Policy</h1>

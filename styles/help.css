@@ -35,16 +35,6 @@ main {
   flex-direction: column;
 }
 
-/* .help-main {
-  position: absolute;
-  gap: 40px;
-  display: flex;
-  flex-direction: column;
-  left: 200px;
-  top: 90px;
-  margin: 30px 40px 0 40px;
-} */
-
 .legal-main h1 {
   margin: 0;
   position: absolute;
@@ -143,33 +133,4 @@ h3 {
   cursor: pointer;
   transform: scale(1.1);
   transform-origin: center;
-}
-
-@media (max-width: 1000px) {
-
-  main {
-    margin-left: 150px;
-  }
-
-  header span {
-    margin-left: 250px;
-  }
-}
-
-@media (max-width: 800px) {
-
-  main {
-    margin-left: 0;
-    height: calc(100vh - 190px);
-  }
-
-  .help-main {
-    padding: 10px 16px 0px 16px;
-  }
-}
-
-@media (max-width: 380px) {
-  .help {
-    font-size: 40px;
-  }
 }

@@ -3,9 +3,11 @@ body {
     display: flex;
     background: var(--background-color);
     height: 100vh;
+    min-height: 700px;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 aside {
@@ -18,10 +20,12 @@ aside {
 }
 
 main {
+    position: relative;
     opacity: 0;
     transition: opacity 0.5s;
     width: 100vw;
     height: 100vh;
+    min-height: 700px;
     position: absolute;
     top: 0;
     left: 0;
@@ -76,6 +80,15 @@ nav {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+.logo {
+    position: absolute;
+    width: 80px;
+    top: 50px;
+    left: 50px;
+    height: 96px;
+    z-index: 2;
 }
 
 nav a,
@@ -309,87 +322,9 @@ input[type=password]:focus {
 .animation {
     transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
     z-index: 2;
-    position: absolute;
+    /* position: absolute; */
 }
 
 .displayNone {
     display: none;
-}
-
-@media (max-width: 800px) {
-
-    body {
-        background: var(--primary-color);
-    }
-
-    main {
-        background-color: var(--background-color);
-    }
-
-    .loginDiv {
-        height: 500px;
-        width: fit-content;
-        border-radius: 30px;
-        padding: 10px 10px;
-    }
-
-    .loginButtonDiv {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .blueBtn {
-        width: 168px;
-        font-size: 16px;
-    }
-
-    .whiteBtn {
-        font-size: 16px;
-    }
-
-    #signUpDiv {
-        top: calc(100% - 150px);
-        width: 100%;
-        left: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #signUpDiv a {
-        text-align: center;
-        width: fit-content;
-    }
-
-}
-
-@media (max-width: 550px) {
-    .loginInput {
-        height: 46px;
-        width: 75%;
-        font-size: 20px;
-        padding-left: 20px;
-        padding-right: 50px;
-        margin: 10px 0px;
-        font-size: 16px;
-    }
-
-    .blueBtn {
-        width: 130px;
-        padding: 0 0;
-    }
-
-    .whiteBtn {
-        width: 130px;
-        padding: 0 0;
-    }
-
-    .accountHeader {
-        font-size: 47px;
-    }
-
-    .errorSpan {
-        font-size: 8px;
-    }
 }

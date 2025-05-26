@@ -53,11 +53,10 @@ aside {
 }
 
 header {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: calc(100vw - 200px);
   position: fixed;
   top: 0;
   left: 200px;
-  z-index: 2
 }
 
 header span {
@@ -89,59 +88,4 @@ footer a {
   justify-content: space-around;
   width: 50%;
   padding-right: 30px;
-}
-
-/* #userLink {
-  position: fixed !important;
-  right: 0 !important;
-  z-index: 3;
-} */
-
-@media (max-width: 1000px) {
-  header {
-    left: 150px;
-  }
-
-  main {
-    margin-left: 150px;
-  }
-}
-
-@media (max-width: 800px) {
-  .legal-main {
-    left: 0;
-    top: 80px;
-    padding: 10px 16px 0px 16px;
-  }
-
-  header {
-    left: 0;
-  }
-
-  main {
-    margin-left: 0;
-    height: calc(100vh - 190px);
-  }
-}
-
-@media (max-width: 600px) {
-  .footer-container-right {
-    width: unset;
-  }
-}
-
-@media (max-width: 380px) {
-  .legal-main h1 {
-    font-size: 40px;
-  }
-
-  .footer-container-right {
-    padding-right: 10px;
-  }
-}
-
-@media (max-width: 350px) {
-  footer a {
-    width: 100px !important;
-  }
 }
