@@ -205,7 +205,6 @@ function chooseTaskDetails(elementId) {
  */
 async function contactDetails(elementId, thenum) {
   responsiveContentRight('show')
-
   chosenCard = thenum;
   const email = document.getElementById(`singleUserMail${thenum}`).innerText;
   localStorage.setItem('selectedContactEmail', email);
@@ -232,7 +231,13 @@ async function contactDetails(elementId, thenum) {
 
 }
 
+function clearErrors(){
+  hideErrorNew("","editErrorSpan")
+  hideErrorNew("","deleteErrorSpan")
+}
+
 function responsiveContentRight(task) {
+  clearErrors()
   if (task == 'show' && window.innerWidth <= 800) {
     document.getElementById("contentRight").classList.add("showContentRight")
     document.getElementById("allContacts").classList.add("width0")
@@ -368,11 +373,18 @@ function hideCancelBtn() {
   }
 }
 
+function moveErrorBtn(){
+  let visibleCheck = document.getElementById("deleteError").classList.contains("visible")
+  if(visibleCheck && window.innerWidth < 400){
+
+  }
+}
 
 window.addEventListener('resize', function () {
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
   changeImage("closeFormImg", whichImg);
   hideCancelBtn();
+  definePosition(setOffs[0],"deleteError",setOffs[1],setOffs[2])
 }
 );
 

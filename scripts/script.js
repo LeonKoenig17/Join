@@ -136,6 +136,14 @@ function checkEmailInput(firstElement, secondElement, setoffX, setOffY, errorTex
     }
 }
 
+function enableDisableBtn(btnName,status){
+    try {
+        document.getElementById(btnName).disabled = status;
+    } catch (error) {
+        
+    }
+}
+
 function checkEmailInputBackup() {
     let email = document.getElementById("emailInput").value;
     if (email == "") { return }

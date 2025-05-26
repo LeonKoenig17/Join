@@ -158,6 +158,11 @@ nav img {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+
 }
 
 .loginInput {
@@ -187,6 +192,10 @@ input[type=password]:focus {
     border-color: var(--text-underline-color);
 }
 
+.buttonRow{
+    display: flex;
+    gap: 16px;
+}
 .loginInputDiv {
     display: flex;
     justify-content: center;
@@ -257,6 +266,7 @@ input[type=password]:focus {
     width: 110px;
     text-decoration: none;
     padding: 10px 20px;
+    text-align: center;
 }
 
 #signUpDiv a:hover {
@@ -297,14 +307,43 @@ input[type=password]:focus {
     height: 14px;
     font-size: 10px;
     color: red;
-    padding-left: 95px;
+    /* padding-left: 95px; */
     visibility: hidden;
-    width: 100%;
+    width: calc(100% - 1 * 95px);
 }
 
 .errorSpan.visible {
     visibility: visible;
 }
+
+.textCenter {
+    text-align: center;
+}
+
+.personImgBackground {
+  background-image: url("../images/person.svg");
+}
+
+.mailImgBackground {
+  background-image: url("../images/mail.svg");
+}
+
+.callImgBackground {
+  background-image: url("../images/call.svg");
+}
+
+.passwordImgBackground {
+  background-image: url("../images/lock.svg");
+}
+
+/* #addContactBtnDiv {
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+} */
 
 .loginSuccess {
     left: 50%;

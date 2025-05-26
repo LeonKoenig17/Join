@@ -1,3 +1,6 @@
+let setOffs = window.innerWidth < 400 ? ["deleteIcon", 4, 30] : ["editIcon", 4, 30];
+
+
 /**
  * Displays the contact form in the specified mode (e.g., 'add' or 'edit').
  * Renders the form template, sets up the form state, and updates the UI accordingly.
@@ -19,10 +22,10 @@ async function showContactForm(mode) {
   bg.classList.replace("visibleNone", "showManipualteFormBackground");
   frame.classList.replace("visibleNone", "showManipualteFormFrame");
 
-  if(mode == 'edit'){
-    toggleClass("addContactRightInitialsDiv","grayBackground")
-    toggleClass("addContactRightInitials","hide")
-    toggleClass("addContactRightImg","hide")
+  if (mode == 'edit') {
+    toggleClass("addContactRightInitialsDiv", "grayBackground")
+    toggleClass("addContactRightInitials", "hide")
+    toggleClass("addContactRightImg", "hide")
   }
 
   contactFormBtn(mode);
@@ -32,7 +35,7 @@ async function showContactForm(mode) {
   emailInputAddEvent();
 }
 
-function toggleClass(element,className){
+function toggleClass(element, className) {
   document.getElementById(element).classList.toggle(className)
 }
 /**
@@ -48,12 +51,12 @@ function toggleClass(element,className){
 function checkMode() {
   const mode = document.getElementById("addContactFrame").dataset.mode;
   if (mode === "edit") {
-    document.getElementById("nameInput").value =document.getElementById("contactDetailsName").innerText;
-    document.getElementById("emailInput").value =document.getElementById("contactDetailsMail").innerText;
+    document.getElementById("nameInput").value = document.getElementById("contactDetailsName").innerText;
+    document.getElementById("emailInput").value = document.getElementById("contactDetailsMail").innerText;
     document.getElementById("phoneInput").value = document.getElementById("contactDetailsPhone").innerText;
     document.getElementById("addContactRightInitials").innerHTML = document.getElementById("contactDetailsInitials").innerHTML;
     document.getElementById("addContactRightInitialsDiv").classList.remove(`grayBackground`)
-    document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#','')}`)
+    document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#', '')}`)
   }
 }
 
@@ -71,12 +74,15 @@ function checkLocalUser(mode) {
 
   if (mode === 'add') { return true }
 
+
+
   try {
     if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
       return true;
     } else {
       // deleteErrorContact("editIcon", 18, 30);
-      deleteError('editIcon', 'deleteError', 4, 30, `You can't edit<br>other registered users`)
+      // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
+      showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
       return false;
     }
   } catch (error) {
@@ -84,7 +90,9 @@ function checkLocalUser(mode) {
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-    deleteError('editIcon', 'deleteError', 4, 30, `You can't edit<br>other registered users`)
+    showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
+
+    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
     // deleteErrorContact("editIcon", 18, 30);
     return false;
   }
@@ -104,6 +112,7 @@ function hideContactForm() {
     .getElementById("addContactFrame")
     .classList.replace("showManipualteFormFrame", "visibleNone");
   document.getElementById("deleteError").classList.add("hide");
+  document.getElementById("emailErrorSpan").classList.remove("visible")
 }
 
 
@@ -151,11 +160,13 @@ async function contactForm(task, mode) {
 
   switch (task) {
     case "add":
+      if (emailIsValid(email) == false) { return };
       await addContactTask();
       actionPerformed = true;
       break;
 
     case "save":
+      if (emailIsValid(email) == false) { return };
       await saveContact(thisEmail);
       actionPerformed = true;
       break;
@@ -211,7 +222,8 @@ async function deleteContact(email, mode) {
 
   if (token !== myToken && ergebnisse[token].type === "login") {
     // deleteErrorContact(elementId, 18, 30);
-    deleteError('deleteIcon', 'deleteError', 4, 30, `You can't delete<br>other registered users`)
+    showErrorNew("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
+    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't delete other registered users`)
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -252,6 +264,13 @@ function changeImage(element, variant) {
   }
 }
 
+function definePosition(firstType, secondType, setOffX, setOffY) {
+  let element = document.getElementById(firstType);
+  let position = element.getBoundingClientRect();
+  let span = document.getElementById(secondType);
+  span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+  span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+}
 
 function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
   try {
@@ -262,8 +281,9 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
     span.innerHTML = errorText
     span.classList.add("visible")
     span.classList.remove("hide")
-    span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-    span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+    definePosition(firstType, secondType, setOffX, setOffY)
+    // span.style.left = Number.parseInt((position.left + setOffX)) + "px";
+    // span.style.top = Number.parseInt((position.top + setOffY)) + "px";
   } catch (error) {
     return null
   }
@@ -281,6 +301,7 @@ function emailInputAddEvent() {
   });
 
   emailInput.addEventListener('blur', function () {
-    checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
-});
+    checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
+  });
 }
+

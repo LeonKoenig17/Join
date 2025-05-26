@@ -40,60 +40,40 @@ function moveLogo() {
 
 }
 
-async function loginBackup() {
-    let myPassword = await checkPassword(document.getElementById("emailInput").value);
-    let myEmail = await findUser(document.getElementById("emailInput").value);
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passwordInput").value;
-
-    if (myEmail == null) {
-        document.getElementById("passwordInput").classList.add("redBorder")
-        document.getElementById("emailInput").classList.add("redBorder")
-        // document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").classList.add("visible")
-        document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
-        return
-    }
-    if (password == myPassword) {
-        writeLocalStorage();
-        toasterPopup('loginSuccess', '../html/summary');
-    } else {
-        document.getElementById("passwordInput").classList.add("redBorder")
-        document.getElementById("emailInput").classList.add("redBorder")
-        // document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").classList.add("visible")
-        document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
-
-    }
-}
-
 async function login() {
-    let myPassword = await checkPassword(document.getElementById("emailInput").value);
-    let myEmail = await findUser(document.getElementById("emailInput").value);
-    let email = document.getElementById("emailInput").value;
-    let password = document.getElementById("passwordInput").value;
+    let emailInput = document.getElementById("emailInput");
+    let passwordInput = document.getElementById("passwordInput");
 
-    if (myEmail == null) {
-        document.getElementById("passwordInput").classList.add("redBorder")
+    if (emailInput.value == "") {
+        await showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Email must be filled")
+    }
+
+    if (passwordInput.value == "") {
+        await showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "Password must be filled")
+    }
+
+    let checkThisPassword = await checkPassword(emailInput.value);
+    let checkThisEmail = await findUser(emailInput.value);
+
+
+    if (checkThisEmail == null) {
         document.getElementById("emailInput").classList.add("redBorder")
-        // document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").classList.add("visible")
-        document.getElementById("errorSpan").innerHTML = 'No account found with this email.'
+        document.getElementById("loginFailErrorSpan").classList.add("visible")
+        document.getElementById("loginFailErrorSpan").innerHTML = 'No account found with this email.'
         return
     }
-    if (password == myPassword) {
+    if (passwordInput.value == checkThisPassword) {
         writeLocalStorage();
+        hideErrorNew("emailInput", "emailErrorSpan")
+        hideErrorNew("passwordInput", "passwordErrorSpan")
+        hideErrorNew("", "loginFailErrorSpan")
         toasterPopup('loginSuccess', '../html/summary');
     } else {
+        showErrorNew("loginButtonDiv", "loginFailErrorSpan", 0, 10, "Check your Email and password. Please try again.")
         document.getElementById("passwordInput").classList.add("redBorder")
         document.getElementById("emailInput").classList.add("redBorder")
-        // document.getElementById("errorSpan").classList.remove("displayNone")
-        document.getElementById("errorSpan").classList.add("visible")
-        document.getElementById("errorSpan").innerHTML = 'Check your Email and password. Please try again.'
-
     }
 }
-// checkEmailInput("emailInput",'emailErrorSpan',10,50,'Your Email-Address is not valid. Please check your input.');
 
 
 async function guestLogin() {
@@ -120,20 +100,16 @@ async function checkPassword(email) {
 
 function acceptPrivacyPolicy(element) {
     chkboxPrivacy = document.getElementById(element);
-    // let myChk = document.getElementById(element);
     let myValue = chkboxPrivacy.src.search("true") > 0 ? "true" : "false";
 
     if (myValue == "false") {
         chkboxPrivacy.src = "../images/checkboxtrueblack.svg"
         document.getElementById("signUpBtn").disabled = false
-        // document.getElementById("signUpBtn").classList.remove("disabled")
         document.getElementById("signUpBtn").removeAttribute("disabled")
     } else {
         chkboxPrivacy.src = "../images/checkboxfalseblack.svg"
         document.getElementById("signUpBtn").classList.add("disabled")
-        // document.getElementById("signUpBtn").setAttribute("disabled")
         document.getElementById("signUpBtn").disabled = true
-
     }
 }
 
@@ -176,10 +152,6 @@ function showLockIconCreateAccount(element) {
     if (password != confirmPassword && element == "confirmPasswordInput") {
         document.getElementById("confirmPasswordInput").classList.add("redBorder")
     }
-    //     deleteError("confirmPasswordInput", "passwordErrorSpan", 10, 50, `Your passwords don't match. Please try again.`);
-    // } else {
-    //     hideError("confirmPasswordInput", "passwordErrorSpan")
-    // }
 }
 
 
@@ -193,31 +165,3 @@ function showLockIconLogin(element) {
     }
 }
 
-emailInput = document.getElementById('emailInput');
-passwordInput = document.getElementById('passwordInput')
-
-passwordInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        const blueBtn = document.querySelector('.blueBtn');
-        if (blueBtn) {
-            blueBtn.click();
-        }
-    }
-});
-
-
-
-// Auslösen bei "Enter"-Taste
-emailInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-    }
-    if (emailInput.value == "") {
-        clearErrorInput("emailInput", "emailErrorSpan");
-    }
-});
-
-// Auslösen beim Verlassen des Feldes (Blur)
-emailInput.addEventListener('blur', function () {
-    checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-});

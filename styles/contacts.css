@@ -18,6 +18,10 @@ nav {
   text-align: center;
 }
 
+.textCenter{
+  text-align: center;
+}
+
 nav a,
 #legal a {
   display: flex;
@@ -154,8 +158,11 @@ header img:hover {
 }
 
 .contentRight {
-  width: 100%;
+  /* width: 100%; */
+  width: calc(100% - 200px - 340px);
   height: calc(100vh - 90px);
+  min-height: 700px;
+  overflow-y: auto;
 }
 
 #contactDetails {
@@ -190,9 +197,11 @@ header img:hover {
 
 .contactDetailsPerson div {
   display: flex;
-  align-items: center;
-  width: 100%;
+  align-items: start;
+  width: auto;
   justify-content: start;
+  margin-right: 15px;
+
 }
 
 .contactDetailsPerson nav {
@@ -219,7 +228,7 @@ main {
   position: absolute;
   left: 200px;
   top: 90px;
-  width: 50%;
+  width: 100%;
 }
 
 #addTask {
@@ -248,6 +257,8 @@ main {
   background-color: white;
   width: 340px;
   height: calc(100vh - 68px);
+  /* min-height: 700px; */
+  /* overflow-y: auto; */
   display: flex;
   justify-content: start;
   flex-direction: column;
@@ -419,12 +430,14 @@ main {
 .frame-40 {
   display: flex;
   align-items: center;
-  width: 600px;
+  max-width: 550px;
+  width: calc(100% - 2 * 50px);
   height: 73px;
   gap: 30px;
   position: relative;
   top: 100px;
-  left: 50px;
+  /* left: 50px; */
+  margin: 0px 50px;
 }
 
 .frame-40 h1 {
@@ -445,8 +458,8 @@ main {
 
 
 .frame-40 p {
-  margin-left: 20px;
-  height: 32px;
+  /* margin-left: 20px; */
+  height: auto;
   line-height: 120%;
   font-weight: 400;
   font-size: 27px;
@@ -462,6 +475,7 @@ main {
 
 .contactInformations p {
   margin-top: 20px;
+  margin-left: 0px;
   font-weight: bold;
 }
 
@@ -508,6 +522,10 @@ strong {
 
 .callImgBackground {
   background-image: url("../images/call.svg");
+}
+
+.passwordImgBackground {
+  background-image: url("../images/lock.svg");
 }
 
 .loginButtonDiv {
@@ -591,6 +609,19 @@ strong {
   align-items: center;
 }
 
+.contactsFrame h1 {
+  order: 1;
+}
+
+.contactsFrame div {
+  order: 2;
+}
+
+.contactsFrame p {
+  margin-left: 27px;
+  order: 3;
+}
+
 .contactsFrameResponsive {
   display: none;
 }
@@ -609,23 +640,36 @@ strong {
   background-repeat: no-repeat;
 }
 
-.absolute{
+
+.absolute {
   position: absolute;
 }
+
 .errorSpan {
-    height: 14px;
-    font-size: 10px;
-    color: red;
-    padding-left: 95px;
-    visibility: hidden;
-        width: 100%;
-        /* background-color: blue; */
+  height: 14px;
+  font-size: 10px;
+  color: red;
+  /* padding-left: 95px; */
+  visibility: hidden;
+  width: calc(100% - 95px);
+  z-index: 3000;
+  /* background-color: blue; */
 }
 
 .errorSpan.visible {
-    visibility: visible;
+  visibility: visible;
 }
 
+.errorSpanContact {
+  height: 14px;
+  font-size: 10px;
+  color: red;
+  /* padding-left: 95px; */
+  visibility: hidden;
+  width: calc(100% - 95px);
+  z-index: 3000;
+  /* background-color: blue; */
+}
 .hide {
   display: none;
 }

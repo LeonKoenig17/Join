@@ -16,9 +16,10 @@
     }
 
     .loginButtonDiv {
-        flex-direction: column;
-        align-items: center;
+        /* flex-direction: column; */
+        /* align-items: center; */
         gap: 16px;
+        display: flex;
     }
 
     .blueBtn {
@@ -44,6 +45,15 @@
         width: fit-content;
     }
 
+      .buttonRow {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  /* .buttonRow button {
+    width: 100%;
+  } */
 }
 
 @media (max-width: 650px) {

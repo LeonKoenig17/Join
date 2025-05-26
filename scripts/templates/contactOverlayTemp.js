@@ -13,7 +13,7 @@ function contactDetailsTemp(mode, size) {
     ? `hideContactForm('add')`
     : `contactForm('delete','edit')`;
   const rightBtn = isAdd
-    ? `<button onclick="contactForm('add','add')" id="rightBtn" class="contactBtn blueBtn">
+    ? `<button onclick="contactForm('add','add')" id="rightBtn" class="contactBtn blueBtn" disabled>
          Create contact<img src="../images/check.svg" alt="" class="marginLeft10"/>
        </button>`
     : `<button onclick="contactForm('save','edit')" id="rightBtn" class="contactBtn blueBtn">
@@ -51,9 +51,12 @@ function contactDetailsTemp(mode, size) {
           <div id="addContactRightInputs">
             <div class="flexColumn" style="gap: 20px">
              <div id="addContactBtnDiv" class="flexColumn">
-                 <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
-                 <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground"/>
+                 <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/ onblur="checkName(this.id)">
+                 <span id="nameErrorSpanContact" class="errorSpanContact"></span>
+                 <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" onblur="checkName(this.id)"/>
+                 <span id="emailErrorSpanContact" class="errorSpanContact"></span>
                  <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
+                 <span id="phoneErrorSpanContact" class="errorSpanContact"></span>
             </div>
             <div class="addContactBtnDiv" style="width: fit-content;">
               <button
