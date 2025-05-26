@@ -26,6 +26,23 @@
   </head>
 
   <body class="add-task-page" onload="initAddTask()">
+    <header>
+      <div class="header-container">
+        <div>
+          <img src="../images/joinlogodark.svg" alt="logo dark" />
+          <span>Kanban Project Management Tool</span>
+        </div>
+        <div>
+          <a href="./help.html">
+            <img src="../images/help20x20.svg" alt="help" />
+          </a>
+        </div>
+      </div>
+      <div class="userLinkContainer">
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
+        <div id="userLinkOptions" class="userLinkOptions hide"></div>
+      </div>
+    </header>
     <aside>
       <div id="logo">
         <img src="../images/joinlogowhite.svg" alt="" />
@@ -54,24 +71,6 @@
       </div>
     </aside>
     <main>
-       <header>
-        <div class="header-container">
-          <div>
-            <img src="../images/joinlogodark.svg" alt="logo dark" />
-            <span>Kanban Project Management Tool</span>
-          </div>
-          <div>
-            <a href="./help.html"
-              ><img src="../images/help20x20.svg" alt="help"
-            /></a>
-          </div>
-        </div>
-        <div class="userLinkContainer">
-          <a onclick="showUserLinksOptions()" id="userLink"></a>
-          <div id="userLinkOptions" class="userLinkOptions hide"></div>
-        </div>
-      </header>
-
       <div id="main">
         <div class="main-container">
           <h1>Add Task</h1>
