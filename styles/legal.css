@@ -53,11 +53,10 @@ aside {
 }
 
 header {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: calc(100vw - 200px);
   position: fixed;
   top: 0;
   left: 200px;
-  z-index: 2
 }
 
 header span {
@@ -91,14 +90,11 @@ footer a {
   padding-right: 30px;
 }
 
-/* #userLink {
-  position: fixed !important;
-  right: 0 !important;
-  z-index: 3;
-} */
-
 @media (max-width: 1000px) {
   header {
+    width: calc(100vw - 150px);
+    position: fixed;
+    top: 0;
     left: 150px;
   }
 

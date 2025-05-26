@@ -203,7 +203,18 @@ nav img {
     display: none;
 }
 
+@media (max-width: 1000px) {
+    .userLinkContainer {
+        width: calc(100vw - 150px);
+    }
+}
 
+@media (max-width: 800px) {
+    .userLinkContainer {
+        width: 100vw;
+        height: 80px;
+    }
+}
 
 @keyframes fadeIn {
     from {
