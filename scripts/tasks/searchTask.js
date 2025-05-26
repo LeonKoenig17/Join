@@ -1,4 +1,5 @@
 let allTasksSearch = {};
+let currentSearchTerm = "";
 
 const searchInput = document.getElementById("taskSearch");
 
@@ -21,59 +22,90 @@ const noTaskHtml = `
  * Sets focus on the search input field and initializes the task search.
  */
 function focusSearchInput() {
-  document.getElementById('taskSearch').focus();
+  searchInput.focus();
+
+  if (currentSearchTerm.length >= 3) {
+    return;
+  }
   initializeTaskSearch();
 }
 
 /**
- * Initializes the task search and adds event listeners.
- * Loads all tasks and renders them based on the search term.
+ * Handles the input event for the search input field.
+ * Updates the current search term and renders tasks based on the input.
  */
-async function initializeTaskSearch() {
-  if (!searchInput) return;
-
-  allTasksSearch = await loadData("tasks");
-  renderFilteredTasks();
-
-  searchInput.addEventListener("input", () => {
+function handleSearchInput() {
   const query = searchInput.value.trim().toLowerCase();
+  currentSearchTerm = query;
   if (query.length === 0) {
     renderFilteredTasks();
   } else if (query.length >= 3) {
     renderFilteredTasks(query);
   }
-});
+}
 
-  /**
-   * Renders tasks filtered by a search term onto the board.
-   * Clears existing tasks from the board and repopulates it with tasks matching the search criteria.
-   * If no search term is provided, all tasks are displayed.
-   *
-   * @async
-   * @param {string} [searchTerm] - The term to filter tasks by.
-   *                                If empty or null, all tasks are displayed.
-   */
-  async function renderFilteredTasks(searchTerm) {
-    if (!boardMain || !boardContent) return;
+/**
+ * Initializes the task search functionality on the board.
+ * Loads all tasks if not already loaded, renders filtered tasks based on the current search input,
+ * and sets up an event listener to filter tasks as the user types.
+ *
+ * @async
+ * @function initializeTaskSearch
+ * @returns {Promise<void>} Resolves when the search initialization and first render are complete.
+ */
+async function initializeTaskSearch() {
+  if (!searchInput) return;
 
-    toDo.innerHTML = "";
-    inProgress.innerHTML = "";
-    awaitFeedback.innerHTML = "";
-    done.innerHTML = "";
+  if (Object.keys(allTasksSearch).length === 0) {
+    allTasksSearch = await loadData("tasks");
+  }
 
-    renderColumnBtns([toDo, inProgress, awaitFeedback, done]);
+  renderFilteredTasks(searchInput.value.trim().toLowerCase());
 
-    for (let id in allTasksSearch) {
-      const task = allTasksSearch[id];
-      if (!task) continue;
+  searchInput.addEventListener("input", handleSearchInput);
+}
 
-      if (!searchTerm || taskMatchesSearch(task, searchTerm)) {
-        const html = generateTaskCard({ ...task, id });
-        appendTaskToStage(task.stage, html);
-      }
+/**
+ * Filters tasks based on the search term and appends them to the appropriate stage.
+ *
+ * @param {string} [searchTerm] - The term to filter tasks by.
+ *                                If empty or null, all tasks are displayed.
+ */
+function filterAndRenderTasks(searchTerm) {
+  for (let id in allTasksSearch) {
+    const task = allTasksSearch[id];
+    if (!task) continue;
+
+    if (!searchTerm || taskMatchesSearch(task, searchTerm)) {
+      const html = generateTaskCard({ ...task, id });
+      appendTaskToStage(task.stage, html);
     }
-    insertNoTaskPlaceholders();
-    await applyUserColors();
+  }
+}
+
+/**
+ * Renders tasks filtered by a search term onto the board.
+ * Clears existing tasks from the board and repopulates it with tasks matching the search criteria.
+ * If no search term is provided, all tasks are displayed.
+ *
+ * @async
+ * @param {string} [searchTerm] - The term to filter tasks by.
+ *                                If empty or null, all tasks are displayed.
+ */
+async function renderFilteredTasks(searchTerm) {
+  if (!boardMain || !boardContent) return;
+
+  toDo.innerHTML = "";
+  inProgress.innerHTML = "";
+  awaitFeedback.innerHTML = "";
+  done.innerHTML = "";
+
+  renderColumnBtns([toDo, inProgress, awaitFeedback, done]);
+
+  filterAndRenderTasks(searchTerm);
+
+  insertNoTaskPlaceholders();
+  await applyUserColors();
   }
 
   /**
@@ -147,4 +179,3 @@ async function initializeTaskSearch() {
         break;
     }
   }
-}

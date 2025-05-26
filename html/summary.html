@@ -2,23 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join/Summary</title>
 
-  <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon">
-  <link rel="stylesheet" href="../styles/standard.css">
-  <link rel="stylesheet" href="../styles/fonts.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../styles/summary.css">
-  <link rel="stylesheet" href="../styles/responsive/style-resp.css">
+  <link rel="shortcut icon" href="../images/joinlogowhite.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/summary.css" />
+  <link rel="stylesheet" href="../styles/responsive/style-resp.css" />
 
   <!-- summary font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" />
 
   <script src="../scripts/userVerification.js"></script>
   <script src="../scripts/userLink.js"></script>
@@ -31,7 +31,7 @@
 
 <body onload="getCurrentHTML()">
   <aside onclick="hideUserLinksOptions()">
-    <div id="logo"><img src="../images/joinlogowhite.svg" alt=""></div>
+    <div id="logo"><img src="../images/joinlogowhite.svg" alt="" /></div>
     <nav id="linkNav">
       <a href="../html/summary.html">
         <img src="../images/summarygray.svg" alt="logo" />
@@ -55,25 +55,22 @@
       <a href="./legalNotice.html">Legal Notice</a>
     </div>
   </aside>
-  <header onclick="hideUserLinksOptions()">
+  <header>
     <div class="header-container">
       <div>
-        <img src="../images/joinlogodark.svg" alt="logo dark">
+        <img src="../images/joinlogodark.svg" alt="logo dark" />
         <span>Kanban Project Management Tool</span>
       </div>
       <div>
         <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
       </div>
     </div>
+    <div class="userLinkContainer">
+      <a onclick="showUserLinksOptions()" id="userLink"></a>
+      <div id="userLinkOptions" class="userLinkOptions hide"></div>
+    </div>
   </header>
-  <div class="userLinkContainer">
-    <a onclick="showUserLinksOptions()" id="userLink"></a>
-    <div id="userLinkOptions" class="userLinkOptions hide">
-    </div>
-  </div>
-  <main class="main-summary" onclick="hideUserLinksOptions()">
-    </div>
-    </div>
+  <main class="main-summary">
     <summary id="summaryContent">
       <div class="frame-40">
         <h1>Join 360</h1>
@@ -82,7 +79,7 @@
           <p>Key Metrics at a Glance</p>
         </div>
       </div>
-      </div>
+
       <div class="summary-container">
         <div class="frame-71" onclick="window.location.href='./board.html'">
           <div class="frame-64">
@@ -101,14 +98,14 @@
             <div class="square-button-v1-left-392">
               <div class="frame-61">
                 <h3 id="awaitingFeedbackTasks"></h3>
-                <p>Awaiting Feedback </p>
+                <p>Awaiting Feedback</p>
               </div>
             </div>
           </div>
           <div class="urgency-summary-v1" onclick="window.location.href='./board.html'">
             <div class="frame-67">
               <div class="frame-59">
-                <img src="../images/urgentwhite.svg">
+                <img src="../images/urgentwhite.svg" />
               </div>
               <div class="frame-63">
                 <h3 id="urgentTasks"></h3>
@@ -125,8 +122,8 @@
             <div id="cr-button-v1" class="cr-button-v1" onclick="window.location.href='./board.html'">
               <div class="cr-frame-59">
                 <div class="frame-59-group-7">
-                  <img src="../images/check.svg">
-                  <img class="d-none" src="../images/check-2.svg">
+                  <img src="../images/check.svg" />
+                  <img class="d-none" src="../images/check-2.svg" />
                 </div>
               </div>
               <div class="group-6">
@@ -137,8 +134,8 @@
             <div id="pr-button-v1" class="pr-button-v1" onclick="window.location.href='./board.html'">
               <div class="cr-frame-59">
                 <div class="frame-59-group-7-edit">
-                  <img src="../images/edit.svg">
-                  <img class="d-none" src="../images/edit-2.svg">
+                  <img src="../images/edit.svg" />
+                  <img class="d-none" src="../images/edit-2.svg" />
                 </div>
               </div>
               <div class="group-6">
@@ -157,19 +154,19 @@
   </main>
   <footer onclick="hideUserLinksOptions()">
     <a href="./summary.html" class="active">
-      <img src="../images/summarywhite.svg" alt="logo">
+      <img src="../images/summarywhite.svg" alt="logo" />
       <span>Summary</span>
     </a>
     <a href="./addTask.html">
-      <img src="../images/addtaskgray.svg" alt="logo">
+      <img src="../images/addtaskgray.svg" alt="logo" />
       <span>Add Task</span>
     </a>
     <a href="./board.html">
-      <img src="../images/boardgray.svg" alt="logo">
+      <img src="../images/boardgray.svg" alt="logo" />
       <span>Board</span>
     </a>
     <a href="./contacts.html">
-      <img src="../images/contactsgray.svg" alt="logo">
+      <img src="../images/contactsgray.svg" alt="logo" />
       <span>Contacts</span>
     </a>
   </footer>

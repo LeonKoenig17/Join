@@ -163,15 +163,6 @@ async function applyUserColors() {
 }
 
 
-/**
- * Öffnet/Schließt das Benutzermenü.
- */
-function showUserLinksOptions() {
-  document.getElementById("userLinkOptions").classList.toggle("hide");
-  document.getElementById("userLinkOptionsBackground").classList.toggle("hide");
-}
-
-
 function isMobile() {
   return window.innerWidth <= 800;
 }
