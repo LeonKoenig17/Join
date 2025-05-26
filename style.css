@@ -48,6 +48,7 @@ header img:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 99;
 }
 
 .header-container a {
