@@ -1,15 +1,18 @@
-@media (max-width: 1250px) {
+@media (max-width: 1164px) {
   #mainContent {
     transform: scale(0.8);
-    transform-origin: top left;
+    transform-origin: top;
     margin: 0 16px;
-    padding-top: 140px;
-    height: 100vh;
     position: absolute;
+    height: 100%;
+  }
+
+  #boardHeader h1 {
+    transform: scale(1.2) translate(10px, 0) !important;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 920px) {
   main {
     overflow: scroll;
   }
@@ -18,15 +21,13 @@
     transform: scale(1);
     transform-origin: unset;
     position: unset;
-    height: auto;
+    gap: 20px;
+    padding: 40px 0;
+    max-height: calc(100vh - 170px);
   }
 
   #boardContent {
     flex-direction: column;
-  }
-
-  .board-column {
-    margin-bottom: 30px;
   }
 
   .board-column > .column-header {

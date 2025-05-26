@@ -13,6 +13,7 @@ aside {
 }
 
 main {
+    margin-top: 90px;
     display: flex;
     flex-direction: column;
     width: calc(100% - 200px);
@@ -20,7 +21,7 @@ main {
 }
 
 header {
-    width: 100%;
+    width: calc(100% - 200px);
     height: 90px;
     background-color: white;
     display: flex;
@@ -28,6 +29,9 @@ header {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 13;
+    position: fixed;
+    top: 0;
+    left: 200px;
 }
 
 header span {
@@ -48,6 +52,7 @@ header img:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 99;
 }
 
 .header-container a {
@@ -204,12 +209,31 @@ nav img {
 }
 
 @media (max-width: 1000px) {
+    header {
+        width: 100%;
+        left:  143px;
+        
+    }
     .userLinkContainer {
         width: calc(100vw - 150px);
     }
 }
 
 @media (max-width: 800px) {
+    header {
+        width: 100%;
+        left: 0;
+    }
+
+    main {
+        width: 100%;
+        margin-top: 90px;
+    }
+
+    aside {
+        width: 150px; /* Adjust aside width for smaller screens */
+    }
+
     .userLinkContainer {
         width: 100vw;
         height: 80px;

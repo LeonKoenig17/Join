@@ -15,6 +15,7 @@ main {
   height: calc(100vh - 210px);
   overflow: auto;
   scrollbar-width: none;
+  gap: 40px;
 }
 
 button {
@@ -28,7 +29,6 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
   width: 100%;
 }
 
@@ -153,7 +153,6 @@ button {
 #boardContent {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
   gap: 24px;
   overflow: visible;
   scrollbar-width: none;
