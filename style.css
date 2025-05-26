@@ -72,6 +72,9 @@ footer {
 .userLinkContainer {
     display: flex;
     align-items: center;
+    height: 90px;
+    width: calc(100vw - 200px);
+    position: absolute;
 }
 
 #userLink {
