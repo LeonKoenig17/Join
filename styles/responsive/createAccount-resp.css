@@ -78,4 +78,21 @@
         left: 30px;
         height: 80px;
     }
+
+    .createAccountDiv {
+        height: 450px;
+        padding: 15px 5px;
+    }
+
+    .loginInputDiv {
+        gap: 1px;
+    }
+
+    #acceptPrivacy {
+        margin: 5px 0px;
+    }
+#legal {
+    position: absolute;
+    bottom: 20px;
+}
 }
