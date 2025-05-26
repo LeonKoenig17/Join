@@ -52,7 +52,7 @@ function contactDetailsTemp(mode, size) {
             <div class="flexColumn" style="gap: 20px">
              <div id="addContactBtnDiv" class="flexColumn">
                  <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
-                 <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" ${!isAdd ? 'readonly' : ''}/>
+                 <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground"/>
                  <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
             </div>
             <div class="addContactBtnDiv" style="width: fit-content;">
