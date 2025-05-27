@@ -91,8 +91,41 @@
     #acceptPrivacy {
         margin: 5px 0px;
     }
-#legal {
-    position: absolute;
-    bottom: 20px;
+
+    #legal {
+        position: absolute;
+        bottom: 20px;
+    }
+}
+
+@media (max-height: 720px) {
+    .createAccountDiv {
+        height: 450px;
+        padding: 5px 5px;
+        transform: translate(0px, 7%);
+    }
+
+    #legal {
+        /* position: absolute; */
+        bottom: 10px;
+    }
+
+    body {
+        /* display: flex; */
+        /* background: var(--background-color); */
+        /* overflow-x: hidden; */
+        /* overflow-y: auto; */
+        height: 100vh;
+        min-height: 630px;
+    }
+    main {
+    /* background-color: var(--background-color); */
+    /* height: 100vh; */
+    min-height: 630px;
+    /* width: 100vw; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* position: relative; */
 }
 }
