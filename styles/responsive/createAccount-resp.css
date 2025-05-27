@@ -56,10 +56,12 @@
 @media(max-width: 400px) {
     .accountHeader {
         font-size: 30px;
+        text-underline-offset: 13px;
     }
 
     #backToLogin {
         left: -75px;
+        top: 20px;
     }
 
     .loginInput {

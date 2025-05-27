@@ -1,6 +1,6 @@
 
 
-function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
+function showError(parentElement, element, offSetX, offSetY, elementText) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
     element.innerHTML = elementText
@@ -13,7 +13,7 @@ function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
 
 }
 
-function hideErrorNew(parentElement, element) {
+function hideError(parentElement, element) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
     try { parentElement.classList.remove("redBorder") } catch (error) { }
@@ -32,18 +32,18 @@ function checkName(elementId) {
     const isEmailValid = isEmail && !emailIsValid(input.value);
 
     if (isEmpty) {
-        showErrorNew(elementId, errorSpanId, 0, 0, "cannot be empty", false);
+        showError(elementId, errorSpanId, 0, 0, "This input field must be filled.", false);
         rightBtn.disabled = true;
         return;
     }
 
     if (isEmailValid) {
-        showErrorNew(elementId, errorSpanId, 0, 0, "not valid", false);
+        showError(elementId, errorSpanId, 0, 0, "Email address is not valid.", false);
         rightBtn.disabled = true;
         return;
     }
 
-    hideErrorNew(elementId, errorSpanId);
+    hideError(elementId, errorSpanId);
     rightBtn.disabled = false;
 }
 
@@ -57,10 +57,10 @@ function checkEnter(event, id) {
 function validateEmpty(inputId, errorSpanId) {
     const input = document.getElementById(inputId);
     if (input.value.trim() === "") {
-        showErrorNew(inputId, errorSpanId, 0, 0, "cannot be empty", false);
+        showError(inputId, errorSpanId, 0, 0, "This input field must be filled.", false);
         return false;
     } else {
-        hideErrorNew(inputId, errorSpanId);
+        hideError(inputId, errorSpanId);
         return true;
     }
 }
@@ -70,10 +70,10 @@ function validateEmail(inputId, errorSpanId) {
     if (!validateEmpty(inputId, errorSpanId)) return false;
 
     if (!emailIsValid(input.value)) {
-        showErrorNew(inputId, errorSpanId, 0, 0, "Your Email-Address is not valid. Please check your input.", false);
+        showError(inputId, errorSpanId, 0, 0, "Email address is not valid.", false);
         return false;
     } else {
-        hideErrorNew(inputId, errorSpanId);
+        hideError(inputId, errorSpanId);
         return true;
     }
 }
@@ -114,105 +114,3 @@ nameInput = document.getElementById('nameInput');
 emailInput = document.getElementById('emailInput');
 passwordInput = document.getElementById('passwordInput')
 confirmPasswordInput = document.getElementById('confirmPasswordInput')
-
-
-// if (nameInput) {
-//     nameInput.addEventListener('blur', function (event) {
-
-//         if (nameInput.value == "") {
-//             showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
-//             return
-//         } else {
-//             hideErrorNew("nameInput", "nameErrorSpan");
-//         }
-//     });
-
-//     nameInput.addEventListener('keydown', function (event) {
-//         if (event.key === 'Enter') {
-//             if (nameInput.value == "") {
-//                 showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
-//                 return
-//             } else {
-//                 hideErrorNew("nameInput", "nameErrorSpan");
-//             }
-//         }
-//     });
-// }
-
-// // Auslösen bei "Enter"-Taste
-// if (emailInput) {
-//     emailInput.addEventListener('keydown', function (event) {
-//         if (event.key === 'Enter') {
-//             if (emailInput.value == "") {
-//                 showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
-//                 return
-//             }
-
-//             if (emailIsValid(emailInput.value) == false) {
-//                 showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
-//             } else {
-//                 hideErrorNew("emailInput", "emailErrorSpan");
-//             }
-
-//         }
-//     });
-
-//     // Auslösen beim Verlassen des Feldes (Blur)
-//     emailInput.addEventListener('blur', function (event) {
-
-//         if (emailInput.value == "") {
-//             showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
-//             return
-//         }
-//         if (emailIsValid(emailInput.value) == false) {
-//             showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
-//         } else {
-//             hideErrorNew("emailInput", "emailErrorSpan");
-//         }
-//     });
-// }
-
-// if (passwordInput) {
-//     passwordInput.addEventListener('keydown', function (event) {
-//         if (event.key === 'Enter') {
-//             if (passwordInput.value = "") {
-//                 showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
-//                 return
-//             }
-
-//             const blueBtn = document.querySelector('.blueBtn');
-//             if (blueBtn) {
-//                 blueBtn.click();
-//             }
-//         }
-//     });
-
-//     passwordInput.addEventListener('blur', function (event) {
-
-//         if (passwordInput.value == "") {
-//             showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
-//             return
-//         } else {
-//             hideErrorNew("passwordInput", "passwordErrorSpan");
-//         }
-//     });
-// }
-
-
-// if (passwordInput) {
-//     confirmPasswordInput.addEventListener('keydown', function (event) {
-//         if (event.key === 'Enter') {
-//             createAccount();
-//         }
-//     });
-
-//     confirmPasswordInput.addEventListener('blur', function () {
-//         showLockIconCreateAccount(this.id);
-//         if (confirmPasswordInput.value == "") {
-//             showErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "cannot be empty", false)
-//             return
-//         } else {
-//             hideErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan");
-//         }
-//     });
-// }
