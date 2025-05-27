@@ -32,7 +32,6 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
-  // emailInputAddEvent();
 }
 
 function toggleClass(element, className) {
@@ -74,26 +73,18 @@ function checkLocalUser(mode) {
 
   if (mode === 'add') { return true }
 
-
-
   try {
     if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
       return true;
     } else {
-      // deleteErrorContact("editIcon", 18, 30);
-      // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
       showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
       return false;
     }
   } catch (error) {
-
   }
 
   if (mode === "edit" && thisToken !== myToken) {
     showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
-
-    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
-    // deleteErrorContact("editIcon", 18, 30);
     return false;
   }
   return true;
@@ -151,9 +142,7 @@ function contactFormBtn(mode) {
  * @returns {Promise<void>} Resolves when the action is completed and the page is reloaded if an action was performed.
  */
 async function contactForm(task, mode) {
-  const thisEmail =
-    document.getElementById("emailInput")?.value ||
-    document.getElementById("contactDetailsMail").innerText;
+  const thisEmail = document.getElementById("emailInput")?.value || document.getElementById("contactDetailsMail").innerText;
 
   let actionPerformed = false;
 
@@ -163,13 +152,11 @@ async function contactForm(task, mode) {
       await addContactTask();
       actionPerformed = true;
       break;
-
     case "save":
       if (emailIsValid(email) == false) { return };
       await saveContact(thisEmail);
       actionPerformed = true;
       break;
-
     case "delete":
       if (await deleteContact(thisEmail, mode)) {
         actionPerformed = true;
@@ -179,9 +166,7 @@ async function contactForm(task, mode) {
 
   if (actionPerformed) {
     localStorage.setItem("lastEditedContact", thisEmail);
-
     hideContactForm();
-
     window.location.reload();
   }
 }
@@ -220,9 +205,7 @@ async function deleteContact(email, mode) {
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
   if (token !== myToken && ergebnisse[token].type === "login") {
-    // deleteErrorContact(elementId, 18, 30);
     showErrorNew("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
-    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't delete other registered users`)
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -281,26 +264,8 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
     span.classList.add("visible")
     span.classList.remove("hide")
     definePosition(firstType, secondType, setOffX, setOffY)
-    // span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-    // span.style.top = Number.parseInt((position.top + setOffY)) + "px";
   } catch (error) {
     return null
   }
 }
-
-// function emailInputAddEvent() {
-//   emailInput = document.getElementById('emailInput');
-//   emailInput.addEventListener('keydown', function (event) {
-//     if (event.key === 'Enter') {
-//       checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-//     }
-//     if (emailInput.value != "") {
-//       clearErrorInput("emailInput", "emailErrorSpan");
-//     }
-//   });
-
-//   emailInput.addEventListener('blur', function () {
-//     checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-//   });
-// }
 

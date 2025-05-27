@@ -384,7 +384,7 @@ window.addEventListener('resize', function () {
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
   changeImage("closeFormImg", whichImg);
   hideCancelBtn();
-  definePosition(setOffs[0],"deleteError",setOffs[1],setOffs[2])
+  // definePosition(setOffs[0],"deleteError",setOffs[1],setOffs[2])
 }
 );
 
