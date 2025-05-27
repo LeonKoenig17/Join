@@ -89,13 +89,6 @@ body {
   justify-content: center;
 }
 
-#legal {
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
 #legal a {
   color: #A8A8A8;
 }
