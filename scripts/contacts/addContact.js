@@ -148,12 +148,12 @@ async function contactForm(task, mode) {
 
   switch (task) {
     case "add":
-      if (emailIsValid(email) == false) { return };
+      if (emailIsValid(thisEmail) == false) { return };
       await addContactTask();
       actionPerformed = true;
       break;
     case "save":
-      if (emailIsValid(email) == false) { return };
+      if (emailIsValid(thisEmail) == false) { return };
       await saveContact(thisEmail);
       actionPerformed = true;
       break;
@@ -180,9 +180,9 @@ async function contactForm(task, mode) {
  * @returns {Promise<void>} Resolves when the contact has been added.
  */
 async function addContactTask() {
-  const name = document.getElementById("nameInput").value;
-  const email = document.getElementById("emailInput").value;
-  const phone = document.getElementById("phoneInput").value;
+  const name = document.getElementById("nameInputContact").value;
+  const email = document.getElementById("emailInputContact").value;
+  const phone = document.getElementById("phoneInputContact").value;
 
   if (!name && !email && !phone) return;
 
@@ -221,8 +221,8 @@ async function deleteContact(email, mode) {
  * @returns {Promise<void>} Resolves when the contact is saved.
  */
 async function saveContact(email) {
-  const name = document.getElementById("nameInput").value;
-  const phone = document.getElementById("phoneInput").value;
+  const name = document.getElementById("nameInputContact").value;
+  const phone = document.getElementById("phoneInputContact").value;
   const token = await findUser(email);
 
   const payload =
