@@ -139,17 +139,12 @@ function renderColumnBtns(containers) {
  */
 async function applyUserColors() {
   try {
-    const [users, contacts] = await Promise.all([
-        loadFirebaseUsers(),
-        loadFirebaseContacts()
-    ]);
-    
-    const allPeople = [...users, ...contacts];
-    const peopleById = allPeople.reduce((map, person) => {
+    const allUsers = await loadAllUsers();
+    const peopleById = allUsers.reduce((map, person) => {
       map[person.id] = person;
       return map;
     }, {});
-  
+
     document.querySelectorAll(".task-assignee").forEach(el => {
       const uid = el.dataset.userId;
       const person = peopleById[uid];

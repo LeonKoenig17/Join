@@ -126,50 +126,31 @@ async function applyUserColors() {
 }
 
 async function fillUserLinks() {
-    let myValue = "";
-    try {
-        myValue = fireBaseContent.login;
-    } catch (error) {
-        myValue = await loadData('login');
+  try {
+    const allUsers = await loadAllUsers();
+    const myToken = localStorage.getItem("token");
+    const currentUser = allUsers.find(user => user.id === myToken);
+
+    if (!currentUser) {
+      console.error("Token or user data is missing or invalid:", { myToken });
+      const userLinkElement = document.getElementById("userLink");
+      if (userLinkElement) userLinkElement.innerHTML = "G";
+      const userNameElement = document.getElementById("userName");
+      if (userNameElement) userNameElement.innerHTML = "";
+      return;
     }
 
-    let myToken = localStorage.getItem('token');
-    if (!myToken || !myValue || !myValue[myToken]) {
-        console.error("Token or user data is missing or invalid:", { myToken, myValue });
-        const userLinkElement = document.getElementById("userLink");
-        if (userLinkElement) userLinkElement.innerHTML = "G";
-        const userNameElement = document.getElementById("userName");
-        if (userNameElement) userNameElement.innerHTML = "";
-        return;
+    const initials = getInitials(currentUser.name);
+    const userLinkElement = document.getElementById("userLink");
+    if (userLinkElement) userLinkElement.innerHTML = initials;
+
+    const userNameElement = document.getElementById("userName");
+    if (userNameElement) {
+      userNameElement.innerHTML = currentUser.name !== "Guest" ? currentUser.name : "";
     }
-
-    let myName = myValue[myToken].name || "Guest";
-
-    try {
-        const initials = getInitials(myName);
-        const userLinkElement = document.getElementById("userLink");
-        if (userLinkElement) userLinkElement.innerHTML = initials;
-    } catch (error) {
-        const userLinkElement = document.getElementById("userLink");
-        if (userLinkElement) userLinkElement.innerHTML = "G";
-    }
-
-    try {
-        const userNameElement = document.getElementsByClassName("userName");
-        if (!userNameElement) {
-            console.warn("Element with ID 'userName' not found. Skipping user name update.");
-            return;
-        }
-
-        if (myName !== "Guest") {
-            userNameElement.innerHTML = myName;
-        } else {
-            userNameElement.innerHTML = "";
-        }
-    } catch (error) {
-        console.error("Error setting user name:", error);
-        return null;
-    }
+  } catch (error) {
+    console.error("Fehler beim Aktualisieren der Benutzerlinks:", error);
+  }
 }
 
 async function loadFromFirebase() {
@@ -216,6 +197,26 @@ function getInitials(element) {
   } else {
     let lastName = (completeName.length == 1) ? "" : completeName[completeName.length - 1];
     return firstName[0] + lastName[0];
+  }
+}
+
+async function loadAllUsers() {
+  try {
+    const [users, contacts] = await Promise.all([
+      loadData("login"),
+      loadData("contacts")
+    ]);
+
+    const allPeople = { ...users, ...contacts };
+    return Object.entries(allPeople).map(([id, person]) => ({
+      id,
+      name: person.name || "",
+      color: person.color || "#A8A8A8",
+      email: person.email || ""
+    }));
+  } catch (error) {
+    console.error("Fehler beim Laden aller Benutzer:", error);
+    return [];
   }
 }
 
