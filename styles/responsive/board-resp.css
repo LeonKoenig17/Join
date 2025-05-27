@@ -4,7 +4,7 @@
     transform-origin: top;
     margin: 0 16px;
     position: absolute;
-    height: 100%;
+    height: 93%;
   }
 
   #boardHeader h1 {
@@ -144,6 +144,7 @@
 }
 
 @media (max-width: 480px) {
+
   .task-card-overlay {
     transform: scale(0.9);
     transform-origin: top;
