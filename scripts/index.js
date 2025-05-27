@@ -3,6 +3,7 @@ function onLoad() {
     loadFromFirebase();
 }
 
+
 function moveLogo() {
     const logoImg = document.getElementById('logoImg');
     const mainDiv = document.getElementById('main');
@@ -41,11 +42,13 @@ async function login() {
     handleLoginFailure();
 }
 
+
 function validateFields(emailInput, passwordInput) {
     const emailValid = validateField(emailInput, "emailErrorSpan", "Email must be filled");
     const passwordValid = validateField(passwordInput, "passwordErrorSpan", "Password must be filled");
     return emailValid && passwordValid;
 }
+
 
 function validateField(input, errorSpanId, message) {
     if (input.value.trim() === "") {
@@ -55,6 +58,7 @@ function validateField(input, errorSpanId, message) {
     return true;
 }
 
+
 async function fetchUserAndPassword(email) {
     const [user, password] = await Promise.all([
         findUser(email),
@@ -63,12 +67,14 @@ async function fetchUserAndPassword(email) {
     return [user, password];
 }
 
+
 function handleNoUserFound(emailInput) {
     emailInput.classList.add("redBorder");
     const span = document.getElementById("loginFailErrorSpan");
     span.classList.add("visible");
     span.innerHTML = "No account found with this email.";
 }
+
 
 function handleLoginSuccess() {
     writeLocalStorage();
@@ -84,7 +90,6 @@ function handleLoginFailure() {
     );
     showError("loginButtonDiv", "loginFailErrorSpan", 0, 10, "Check your Email and password. Please try again.");
 }
-
 
 
 async function guestLogin() {
