@@ -32,12 +32,13 @@
     }
 
     #signUpDiv {
-        top: calc(100% - 150px);
+        top: calc(100% - 110px);
         width: 100%;
         left: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
+        /* bottom: 60px; */
     }
 
     #signUpDiv a {
@@ -45,13 +46,13 @@
         width: fit-content;
     }
 
-      .buttonRow {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
+    .buttonRow {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
 
-  /* .buttonRow button {
+    /* .buttonRow button {
     width: 100%;
   } */
 }
@@ -83,12 +84,17 @@
         padding: 0 0;
     }
 
-    .accountHeader {
-        font-size: 47px;
-    }
+
 
     .errorSpan {
         font-size: 8px;
+    }
+}
+
+@media (max-width: 350px) {
+    .accountHeader {
+        font-size: 30px;
+        text-underline-offset: 13px;
     }
 }
 
@@ -97,15 +103,8 @@
     .loginDiv {
         height: 400px;
         padding: 5px 5px;
-    }
-
-    #signUpDiv {
-        top: calc(100% - 125px);
-        width: 100%;
-        left: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-around;
+        transform: translate(0px, -5%);
     }
 
     .inputDiv {
@@ -117,5 +116,29 @@
         left: 30px;
         height: 80px;
         transform: translate(0%, 0%)
+    }
+
+    #legal {
+        bottom: 10px;
+    }
+}
+
+@media (max-height: 700px) {
+
+    .loginDiv {
+        height: 350px;
+        transform: translate(0px, 3%);
+    }
+
+    #signUpDiv {
+        top: calc(100% - 100px);
+    }
+
+    .buttonRow {
+        gap: 5px;
+    }
+
+    .loginButtonDiv {
+        gap: 2px;
     }
 }

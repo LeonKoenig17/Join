@@ -3,7 +3,7 @@ body {
     display: flex;
     background: var(--background-color);
     height: 100vh;
-    min-height: 700px;
+    min-height: 630px;
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
@@ -25,7 +25,7 @@ main {
     transition: opacity 0.5s;
     width: 100vw;
     height: 100vh;
-    min-height: 700px;
+    min-height: 630px;
     position: absolute;
     top: 0;
     left: 0;
@@ -304,7 +304,7 @@ input[type=password]:focus {
 }
 
 .errorSpan {
-    height: 14px;
+    height: auto;
     font-size: 10px;
     color: red;
     /* padding-left: 95px; */
