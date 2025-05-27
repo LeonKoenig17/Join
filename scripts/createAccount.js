@@ -22,34 +22,34 @@ async function createAccount() {
 
 
     if (myValue != null) {
-        showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Account with this Email already exists.")
+        showError("emailInput", "emailErrorSpan", 0, 0, "Account with this Email already exists.")
         return
     }
 
     if (password != confirmPassword && userName != "" && email != "") {
-        showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "Passwords don't match.")
-        showErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Passwords don't match.")
+        showError("passwordInput", "passwordErrorSpan", 0, 0, "Passwords don't match.")
+        showError("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Passwords don't match.")
         return
     } else {
-        hideErrorNew("passwordInput", "passwordErrorSpan")
-        hideErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan")
+        hideError("passwordInput", "passwordErrorSpan")
+        hideError("confirmPasswordInput", "confirmPasswordErrorSpan")
         
     }
 
     if (password == "") {
-        showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "Cannot be ampty.")
+        showError("passwordInput", "passwordErrorSpan", 0, 0, "Cannot be ampty.")
     }
 
     if (confirmPassword == "") {
-        showErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Cannot be ampty.")
+        showError("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Cannot be ampty.")
     }
 
     if (userName == "") {
-        showErrorNew("nameInput", "nameErrorSpan", 0, 0, "Cannot be ampty.")
+        showError("nameInput", "nameErrorSpan", 0, 0, "Cannot be ampty.")
     }
 
     if (email == "") {
-        showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Cannot be ampty.")
+        showError("emailInput", "emailErrorSpan", 0, 0, "Cannot be ampty.")
     }
 
     if (password == confirmPassword && password != "" && privacyBoolean == "true" && userName != "" && emailIsValid(email) == true && myValue == null) {

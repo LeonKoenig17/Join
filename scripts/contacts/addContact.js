@@ -77,14 +77,14 @@ function checkLocalUser(mode) {
     if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
       return true;
     } else {
-      showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
+      showError("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
       return false;
     }
   } catch (error) {
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-    showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
+    showError("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
     return false;
   }
   return true;
@@ -100,9 +100,9 @@ function hideContactForm() {
   document.getElementById("addContactFrame").classList.replace("showManipualteFormFrame", "visibleNone");
   document.getElementById("deleteError").classList.add("hide");
   document.getElementById("emailErrorSpan").classList.remove("visible")
-  hideErrorNew("","nameErrorSpanContact")
-  hideErrorNew("","emailErrorSpanContact")
-  hideErrorNew("","phoneErrorSpanContact")
+  hideError("","nameErrorSpanContact")
+  hideError("","emailErrorSpanContact")
+  hideError("","phoneErrorSpanContact")
 }
 
 
@@ -205,7 +205,7 @@ async function deleteContact(email, mode) {
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
   if (token !== myToken && ergebnisse[token].type === "login") {
-    showErrorNew("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
+    showError("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);

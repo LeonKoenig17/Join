@@ -1,6 +1,6 @@
 
 
-function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
+function showError(parentElement, element, offSetX, offSetY, elementText) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
     element.innerHTML = elementText
@@ -13,7 +13,7 @@ function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
 
 }
 
-function hideErrorNew(parentElement, element) {
+function hideError(parentElement, element) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
     try { parentElement.classList.remove("redBorder") } catch (error) { }
@@ -32,18 +32,18 @@ function checkName(elementId) {
     const isEmailValid = isEmail && !emailIsValid(input.value);
 
     if (isEmpty) {
-        showErrorNew(elementId, errorSpanId, 0, 0, "This input field must be filled.", false);
+        showError(elementId, errorSpanId, 0, 0, "This input field must be filled.", false);
         rightBtn.disabled = true;
         return;
     }
 
     if (isEmailValid) {
-        showErrorNew(elementId, errorSpanId, 0, 0, "Email address is not valid.", false);
+        showError(elementId, errorSpanId, 0, 0, "Email address is not valid.", false);
         rightBtn.disabled = true;
         return;
     }
 
-    hideErrorNew(elementId, errorSpanId);
+    hideError(elementId, errorSpanId);
     rightBtn.disabled = false;
 }
 
@@ -57,10 +57,10 @@ function checkEnter(event, id) {
 function validateEmpty(inputId, errorSpanId) {
     const input = document.getElementById(inputId);
     if (input.value.trim() === "") {
-        showErrorNew(inputId, errorSpanId, 0, 0, "This input field must be filled.", false);
+        showError(inputId, errorSpanId, 0, 0, "This input field must be filled.", false);
         return false;
     } else {
-        hideErrorNew(inputId, errorSpanId);
+        hideError(inputId, errorSpanId);
         return true;
     }
 }
@@ -70,10 +70,10 @@ function validateEmail(inputId, errorSpanId) {
     if (!validateEmpty(inputId, errorSpanId)) return false;
 
     if (!emailIsValid(input.value)) {
-        showErrorNew(inputId, errorSpanId, 0, 0, "Email address is not valid.", false);
+        showError(inputId, errorSpanId, 0, 0, "Email address is not valid.", false);
         return false;
     } else {
-        hideErrorNew(inputId, errorSpanId);
+        hideError(inputId, errorSpanId);
         return true;
     }
 }
