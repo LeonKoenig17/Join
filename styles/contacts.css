@@ -13,6 +13,11 @@ nav {
   text-align: center;
 }
 
+aside {
+    position: fixed !important;
+    z-index: 20;
+}
+
 nav a,
 #legal a {
   display: flex;
@@ -90,7 +95,6 @@ body {
 }
 
 #legal {
-  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
