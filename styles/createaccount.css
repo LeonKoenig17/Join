@@ -162,6 +162,8 @@ header img:hover {
 .blueBtn:disabled,
 .blueBtn:disabled:hover {
     background-color: gray;
+    box-shadow: 00px 0px 00px rgba(0, 0, 0, 0.25);
+    cursor: auto;
 }
 
 .whiteBtn {

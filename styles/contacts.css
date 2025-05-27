@@ -599,6 +599,10 @@ strong {
   z-index: 10;
 }
 
+.redBorder {
+    border-color: red;
+}
+
 .contactsParagraph {
   margin-left: 20px;
 }

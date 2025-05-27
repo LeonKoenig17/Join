@@ -32,7 +32,7 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
-  emailInputAddEvent();
+  // emailInputAddEvent();
 }
 
 function toggleClass(element, className) {
@@ -51,9 +51,9 @@ function toggleClass(element, className) {
 function checkMode() {
   const mode = document.getElementById("addContactFrame").dataset.mode;
   if (mode === "edit") {
-    document.getElementById("nameInput").value = document.getElementById("contactDetailsName").innerText;
-    document.getElementById("emailInput").value = document.getElementById("contactDetailsMail").innerText;
-    document.getElementById("phoneInput").value = document.getElementById("contactDetailsPhone").innerText;
+    document.getElementById("nameInputContact").value = document.getElementById("contactDetailsName").innerText;
+    document.getElementById("emailInputContact").value = document.getElementById("contactDetailsMail").innerText;
+    document.getElementById("phoneInputContact").value = document.getElementById("contactDetailsPhone").innerText;
     document.getElementById("addContactRightInitials").innerHTML = document.getElementById("contactDetailsInitials").innerHTML;
     document.getElementById("addContactRightInitialsDiv").classList.remove(`grayBackground`)
     document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#', '')}`)
@@ -105,14 +105,13 @@ function checkLocalUser(mode) {
  * and hides the delete error message if it is displayed.
  */
 function hideContactForm() {
-  document
-    .getElementById("manipulateContactBackground")
-    .classList.replace("showManipualteFormBackground", "visibleNone");
-  document
-    .getElementById("addContactFrame")
-    .classList.replace("showManipualteFormFrame", "visibleNone");
+  document.getElementById("manipulateContactBackground").classList.replace("showManipualteFormBackground", "visibleNone");
+  document.getElementById("addContactFrame").classList.replace("showManipualteFormFrame", "visibleNone");
   document.getElementById("deleteError").classList.add("hide");
   document.getElementById("emailErrorSpan").classList.remove("visible")
+  hideErrorNew("","nameErrorSpanContact")
+  hideErrorNew("","emailErrorSpanContact")
+  hideErrorNew("","phoneErrorSpanContact")
 }
 
 
@@ -289,19 +288,19 @@ function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
   }
 }
 
-function emailInputAddEvent() {
-  emailInput = document.getElementById('emailInput');
-  emailInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-    }
-    if (emailInput.value != "") {
-      clearErrorInput("emailInput", "emailErrorSpan");
-    }
-  });
+// function emailInputAddEvent() {
+//   emailInput = document.getElementById('emailInput');
+//   emailInput.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//       checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
+//     }
+//     if (emailInput.value != "") {
+//       clearErrorInput("emailInput", "emailErrorSpan");
+//     }
+//   });
 
-  emailInput.addEventListener('blur', function () {
-    checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-  });
-}
+//   emailInput.addEventListener('blur', function () {
+//     checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
+//   });
+// }
 
