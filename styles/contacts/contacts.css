@@ -421,7 +421,6 @@ strong {
   font-size: 10px;
   color: red;
   visibility: hidden;
-  /* width: calc(100% - 95px); */
   z-index: 3000;
 }
 
