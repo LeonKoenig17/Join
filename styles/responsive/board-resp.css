@@ -143,8 +143,9 @@
   }
 }
 
-@media (max-width: 370px) {
-  .create-task-footer {
-    flex-direction: column;
+@media (max-width: 480px) {
+  .task-card-overlay {
+    transform: scale(0.9);
+    transform-origin: top;
   }
 }
