@@ -98,8 +98,6 @@ function checkLocalUser(mode) {
 function hideContactForm() {
   document.getElementById("manipulateContactBackground").classList.replace("showManipualteFormBackground", "visibleNone");
   document.getElementById("addContactFrame").classList.replace("showManipualteFormFrame", "visibleNone");
-  document.getElementById("deleteError").classList.add("hide");
-  document.getElementById("emailErrorSpan").classList.remove("visible")
   hideError("","nameErrorSpanContact")
   hideError("","emailErrorSpanContact")
   hideError("","phoneErrorSpanContact")

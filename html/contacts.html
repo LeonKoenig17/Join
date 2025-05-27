@@ -20,7 +20,7 @@
 
 </head>
 
-<body onload="onloadContacts()" style="overflow: hidden">
+<body onload="onloadContacts()">
  <header>
       <div class="header-container">
         <div>
@@ -95,8 +95,8 @@
               <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
               <section>
                 <p id="contactDetailsName">Anja Schulz</p>
-                <div class="manipulateBtnDiv">
-                  <div style="display: flex;flex-direction: column; gap: 0px;align-items: start;justify-content: start;">
+                <div>
+                  <div class="manipulateBtnDiv">
                     <nav class="blueHover" onmouseover="changeImage('editIcon','edit-1')"
                       onmouseleave="changeImage('editIcon','edit-2')" onclick="showContactForm('edit')">
                       <img id="editIcon" src="../images/edit-2.svg" alt="" />
@@ -104,7 +104,7 @@
                     </nav>
                     <span id="editErrorSpan" class="errorSpan"></span>
                   </div>
-                  <div style="display: flex;flex-direction: column; gap: 0px;align-items: start;justify-content: start;">
+                  <div class="manipulateBtnDiv">
                   <nav class="blueHover" onmouseover="changeImage('deleteIcon','delete-blue')"
                     onmouseleave="changeImage('deleteIcon','delete')" onclick="contactForm('delete','')">
                     <img id="deleteIcon" src="../images/delete.svg" alt="" />
@@ -151,8 +151,8 @@
 
   <div id="manipulateContactBackground" class="visibleNone" onclick="hideContactForm('add')"></div>
 
-  <span id="deleteError" class="hide"></span>
-  <span id="emailErrorSpan" class="errorSpan absolute">emailErrorSpan</span>
+  <!-- <span id="deleteError" class="hide"></span> -->
+  <!-- <span id="emailErrorSpan" class="errorSpan absolute">emailErrorSpan</span> -->
   <!-- <span id="deleteError"></span> -->
 
   <div id="addContactResponsiv" class="addContactResponsiv" onclick="showContactForm('add')">

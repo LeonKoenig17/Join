@@ -1,115 +1,14 @@
-#logo {
-  display: flex;
-  justify-content: center;
-}
-
-nav {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.textCenter{
+.textCenter {
   text-align: center;
 }
 
 aside {
-    position: fixed !important;
-    z-index: 20;
-}
-
-nav a,
-#legal a {
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-  text-decoration: none;
-  color: #CDCDCD;
-  padding: 8px;
-  padding-left: 45px;
-}
-
-nav a:hover {
-  background-color: #2A3D59;
-}
-
-nav img {
-  padding-right: 8px;
+  position: fixed !important;
+  z-index: 20;
 }
 
 body {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#userLink {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #2A3647;
-  border-radius: 100%;
-  padding: 10px;
-  text-decoration: none;
-  color: #29ABE2;
-  font-weight: bold;
-  margin: 16px;
-}
-
-#userLink:hover {
-  background-color: #E2E6EC;
-  cursor: pointer;
-}
-
-.userLinkOptions {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  position: absolute;
-  right: 50px;
-  top: 90px;
-  background-color: var(--primary-color);
-  padding: 15px 5px;
-  border-radius: 20px 0px 20px 20px;
-  z-index: 1;
-}
-
-.userLinkOptionsLinks {
-  text-decoration: none;
-  color: var(--font-color);
-  padding: 10px 20px;
-  margin: 0;
-  cursor: pointer;
-}
-
-.userLinkOptionsLinks:hover {
-  color: var(--text-underline-color);
-}
-
-#logo {
-  display: flex;
-  justify-content: center;
-}
-
-#legal a {
-  color: #A8A8A8;
-}
-
-#legal a:hover {
-  color: #29ABE2;
-  font-weight: bold;
-}
-
-.active {
-  background-color: #091931 !important;
-  color: white;
-}
-
-.active:hover {
-  cursor: default;
+  overflow: hidden;
 }
 
 #allContacts {
@@ -123,7 +22,6 @@ body {
 }
 
 .contentRight {
-  /* width: 100%; */
   width: calc(100% - 200px - 340px);
   height: calc(100vh - 90px);
   min-height: 700px;
@@ -145,7 +43,6 @@ body {
   display: flex;
   flex-direction: row;
   margin-bottom: 50px;
-  /* new */
   align-items: center;
 }
 
@@ -177,12 +74,16 @@ body {
   padding: 0
 }
 
-main {
+.manipulateBtnDiv {
   display: flex;
-  align-items: start;
   flex-direction: column;
-  width: calc(100% - 200px);
-  background-color: var(--background-color);
+  gap: 0px;
+  align-items: start;
+  justify-content: start;
+}
+
+main {
+  align-items: start;
 }
 
 #mainContent {
@@ -196,34 +97,10 @@ main {
   width: 100%;
 }
 
-#addTask {
-  display: flex;
-  gap: 20px;
-}
-
-.half-width {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-}
-
-.addTask-left {
-  margin-right: 20px;
-}
-
-.forms label {
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--text-color);
-  margin-top: 20px !important;
-}
-
 .contentLeft {
   background-color: white;
   width: 340px;
   height: calc(100vh - 68px);
-  /* min-height: 700px; */
-  /* overflow-y: auto; */
   display: flex;
   justify-content: start;
   flex-direction: column;
@@ -371,22 +248,6 @@ main {
   margin: 20px 0px;
 }
 
-.personAddBtn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: darkblue;
-  width: fit-content;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 50px;
-  gap: 20px;
-  border-radius: 10px;
-  margin: 10px;
-}
-
 .spanLetter {
   text-align: left;
   margin-left: 22px;
@@ -401,7 +262,6 @@ main {
   gap: 30px;
   position: relative;
   top: 100px;
-  /* left: 50px; */
   margin: 0px 50px;
 }
 
@@ -423,7 +283,6 @@ main {
 
 
 .frame-40 p {
-  /* margin-left: 20px; */
   height: auto;
   line-height: 120%;
   font-weight: 400;
@@ -451,18 +310,6 @@ strong {
 }
 
 .loginInput {
-  /* border: solid 1px #D1D1D1;
-  border-radius: 10px;
-  height: 46px;
-  border-width: 1px;
-  max-width: 375px;
-  font-size: 20px;
-  background-repeat: no-repeat;
-  background-position: calc(100% - 20px) center;
-  padding: 0px 20px;
-  margin: 10px 0px;
-  outline: none;
-  width: 80%; */
   border: solid 1px #D1D1D1;
   border-radius: 10px;
   height: 46px;
@@ -478,43 +325,22 @@ strong {
 }
 
 .personImgBackground {
-  background-image: url("../images/person.svg");
+  background-image: url("/images/person.svg");
 }
 
 .mailImgBackground {
-  background-image: url("../images/mail.svg");
+  background-image: url("/images/mail.svg");
 }
 
 .callImgBackground {
-  background-image: url("../images/call.svg");
+  background-image: url("/images/call.svg");
 }
 
 .passwordImgBackground {
-  background-image: url("../images/lock.svg");
-}
-
-.loginButtonDiv {
-  width: 100%;
-  display: flex;
-  justify-content: start;
-}
-
-.addContactDiv {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: 9;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-image: url("/images/lock.svg");
 }
 
 #addContactFrame {
-  display: flex;
-  max-width: 1200px;
   z-index: 10;
   width: 80%;
 }
@@ -555,21 +381,8 @@ strong {
   transition: all 0.1s ease-in-out;
 }
 
-#deleteError {
-  position: absolute;
-  flex-wrap: nowrap;
-  color: red;
-  font-size: 10px;
-  font-weight: normal;
-  z-index: 10;
-}
-
 .redBorder {
-    border-color: red;
-}
-
-.contactsParagraph {
-  margin-left: 20px;
+  border-color: red;
 }
 
 .contactsFrame {
@@ -603,26 +416,13 @@ strong {
   display: none;
 }
 
-.inputBackground {
-  background-image: url('../images/mail.svg');
-  background-position: right;
-  background-repeat: no-repeat;
-}
-
-
-.absolute {
-  position: absolute;
-}
-
 .errorSpan {
   height: 14px;
   font-size: 10px;
   color: red;
-  /* padding-left: 95px; */
   visibility: hidden;
-  width: calc(100% - 95px);
+  /* width: calc(100% - 95px); */
   z-index: 3000;
-  /* background-color: blue; */
 }
 
 .errorSpan.visible {
@@ -633,12 +433,16 @@ strong {
   height: 14px;
   font-size: 10px;
   color: red;
-  /* padding-left: 95px; */
   visibility: hidden;
   width: calc(100% - 95px);
   z-index: 3000;
-  /* background-color: blue; */
 }
+
+#logo {
+  display: flex;
+  justify-content: center;
+}
+
 .hide {
   display: none;
 }
@@ -696,25 +500,3 @@ strong {
     transform: translate(-50%, -50%)
   }
 }
-
-/* @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-} */
