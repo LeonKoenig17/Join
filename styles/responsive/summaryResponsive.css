@@ -26,7 +26,7 @@
     width: calc(100% - 150px);
   }
 
-  summary {
+  .main-summary {
     left: 150px;
   }
 }
@@ -45,8 +45,12 @@
   }
 
   .main-summary {
+    display: flex;
+    height: 100vh;
     align-items: center;
     justify-content: center;
+    left: 0;
+    margin-top: 0;
   }
 
   .frame-71 {
