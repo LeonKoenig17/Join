@@ -101,9 +101,9 @@ function updateSubtaskCount(taskId, done, total) {
 }
 
 /**
- * Normalisiert task.subtasks und berechnet Count + Progress.
- * @param {Object} task
- * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}}
+ * Normalizes task.subtasks and calculates count and progress.
+ * @param {Object} task - The task object containing subtasks.
+ * @returns {{completedSubtasks: number, totalSubtasks: number, progressPercentage: number}} An object with subtask progress details.
  */
 function checkSubProgress(task) {
   const subs = Array.isArray(task.subtasks)
@@ -200,11 +200,21 @@ function editSubtask(index) {
   focusOnEditInput(subtaskItem);
 }
 
+/**
+ * Retrieves the subtask item element for the given index.
+ * @param {number} index - The index of the subtask.
+ * @returns {HTMLElement|null} The subtask item element or null if not found.
+ */
 function getSubtaskItem(index) {
   const subtaskItems = document.querySelectorAll(".subtask-item");
   return subtaskItems[index] || null;
 }
 
+/**
+ * Prepares a subtask item for editing by updating its UI.
+ * @param {HTMLElement} subtaskItem - The subtask item element to prepare.
+ * @param {number} index - The index of the subtask.
+ */
 function prepareSubtaskForEditing(subtaskItem, index) {
   const subtaskText = subtaskItem.querySelector(".subtask-text");
   const subtaskIcons = subtaskItem.querySelector(".subtask-icons");
@@ -224,11 +234,20 @@ function prepareSubtaskForEditing(subtaskItem, index) {
     `;
 }
 
+/**
+ * Focuses on the edit input field of a subtask item.
+ * @param {HTMLElement} subtaskItem - The subtask item element to focus on.
+ */
 function focusOnEditInput(subtaskItem) {
   const editInput = subtaskItem.querySelector(".edit-input");
   if (editInput) editInput.focus();
 }
 
+/**
+ * Handles the key press event for editing a subtask.
+ * @param {KeyboardEvent} event - The key press event.
+ * @param {number} index - The index of the subtask being edited.
+ */
 function handleEditKeyPress(event, index) {
 
   if (event.key === "Enter") {
@@ -250,22 +269,40 @@ async function saveSubtask(index) {
     updateSubtaskName(index, newValue);
     finalizeSubtaskEditing(subtaskItem);
 
-    await persistSubtasksIfNeeded();
 }
 
+/**
+ * Retrieves the subtask item element for saving.
+ * @param {number} index - The index of the subtask.
+ * @returns {HTMLElement|null} The subtask item element or null if not found.
+ */
 function getSubtaskItemForSave(index) {
     return document.querySelector(`.subtask-item[data-subtask-index="${index}"]`) || null;
 }
 
-function getNewSubtaskValue(subtaskItem, index) {
+/**
+ * Retrieves the new value of a subtask from its input field.
+ * @param {HTMLElement} subtaskItem - The subtask item element.
+ * @returns {string|null} The new value of the subtask or null if not found.
+ */
+function getNewSubtaskValue(subtaskItem) {
     const input = subtaskItem.querySelector(".edit-input");
     return input ? input.value.trim() : null;
 }
 
+/**
+ * Updates the name of a subtask.
+ * @param {number} index - The index of the subtask to update.
+ * @param {string} newValue - The new name of the subtask.
+ */
 function updateSubtaskName(index, newValue) {
     if (subtasks[index]) subtasks[index].name = newValue;
 }
 
+/**
+ * Finalizes the editing of a subtask by updating its UI.
+ * @param {HTMLElement} subtaskItem - The subtask item element to finalize.
+ */
 function finalizeSubtaskEditing(subtaskItem) {
     subtaskItem.classList.remove("editing");
     updateSubtaskList();
@@ -366,6 +403,9 @@ document.addEventListener("DOMContentLoaded", () => {
   checkSubtaskClass();
 });
 
+/**
+ * Activates the subtask input field for adding a new subtask.
+ */
 function activateSubtaskInput() {
   const subInput = document.getElementById("subtask-input");
   if (!subInput) return;

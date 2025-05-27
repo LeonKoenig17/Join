@@ -1,3 +1,18 @@
+/**
+ * Generates the HTML markup for a task overlay displaying detailed information about a task,
+ * including its category, title, description, due date, priority, assignees, and subtasks.
+ *
+ * @param {Object} task - The task object containing all relevant task data.
+ * @param {string} [task.id] - The unique identifier for the task.
+ * @param {string} [task.category] - The category of the task.
+ * @param {string} [task.title] - The title of the task.
+ * @param {string} [task.description] - The description of the task.
+ * @param {string} [task.dueDate] - The due date of the task in 'YYYY-MM-DD' format.
+ * @param {string} [task.priority] - The priority level of the task (e.g., 'Low', 'Medium', 'High').
+ * @param {Array|Object} [task.subtasks] - The subtasks associated with the task, as an array or object.
+ * @param {Array} [task.assignedTo] - The list of users assigned to the task.
+ * @returns {string} The HTML string representing the task overlay.
+ */
 function generateTaskOverlay(task) {
   const subs = Array.isArray(task.subtasks)
     ? task.subtasks
@@ -77,6 +92,12 @@ function generateTaskOverlay(task) {
 }
 
 
+/**
+ * Generates an HTML template string for a confirmation dialog to delete a task.
+ *
+ * @param {string} taskId - The unique identifier of the task to be deleted.
+ * @returns {string} The HTML string for the delete confirmation dialog.
+ */
 function deleteConfirmTemplate(taskId) {
   return `
     <div id="confirmDialog" class="confirm-dialog-overlay" onclick="closeConfirmDialog(event)">

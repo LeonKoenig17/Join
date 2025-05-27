@@ -64,56 +64,32 @@ function sendDataToIframe() {
  * @function
  * @returns {void}
  */
-// function getContactsFromFirebase() {
-//   const dataLogin = fireBaseContent.login || {};
-//   const dataContact = fireBaseContent.contact || {};
-//   const dataFull = { ...dataContact, ...dataLogin };
-
-//   const users = Object.values(dataFull)
-//     .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
-//     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
-
-//   const groupedUsers = users.reduce((groups, user) => {
-//     const letter = user.name[0]?.toUpperCase() || "#";
-//     (groups[letter] ||= []).push(user);
-//     return groups;
-//   }, {});
-
-//   const container = document.getElementById("allContacts");
-//   container.innerHTML = "";
-//   let userNumber = 0;
-
-//   Object.keys(groupedUsers).sort().forEach(letter => {
-//     const groupDiv = createGroupDiv(letter);
-//     groupedUsers[letter].forEach(user => {
-//       userNumber++;
-//       const nav = createSingleUserNav(user, userNumber);
-//       groupDiv.appendChild(nav);
-//     });
-//     container.appendChild(groupDiv);
-//   });
-// }
-
-
 function getContactsFromFirebase() {
-  const { login = {}, contact = {} } = fireBaseContent;
-  const users = Object.values({ ...contact, ...login })
-    .map(({ name, email, color, phone }) => ({ name, email, color, phone }))
+  const dataLogin = fireBaseContent.login || {};
+  const dataContact = fireBaseContent.contact || {};
+  const dataFull = { ...dataContact, ...dataLogin };
+
+  const users = Object.values(dataFull)
+    .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
 
-  const grouped = users.reduce((acc, u) => {
-    const letter = u.name[0]?.toUpperCase() || "#";
-    (acc[letter] ||= []).push(u);
-    return acc;
+  const groupedUsers = users.reduce((groups, user) => {
+    const letter = user.name[0]?.toUpperCase() || "#";
+    (groups[letter] ||= []).push(user);
+    return groups;
   }, {});
 
   const container = document.getElementById("allContacts");
   container.innerHTML = "";
-  let count = 0;
+  let userNumber = 0;
 
-  Object.entries(grouped).sort().forEach(([letter, group]) => {
+  Object.keys(groupedUsers).sort().forEach(letter => {
     const groupDiv = createGroupDiv(letter);
-    group.forEach(u => groupDiv.appendChild(createSingleUserNav(u, ++count)));
+    groupedUsers[letter].forEach(user => {
+      userNumber++;
+      const nav = createSingleUserNav(user, userNumber);
+      groupDiv.appendChild(nav);
+    });
     container.appendChild(groupDiv);
   });
 }
@@ -255,8 +231,8 @@ async function contactDetails(elementId, thenum) {
 }
 
 function clearErrors(){
-  hideError("","editErrorSpan")
-  hideError("","deleteErrorSpan")
+  hideErrorNew("","editErrorSpan")
+  hideErrorNew("","deleteErrorSpan")
 }
 
 function responsiveContentRight(task) {
@@ -347,7 +323,6 @@ function deleteErrorContact(type, offsetX, offsetY) {
 }
 
 
-
 /**
  * Retrieves the contact details for a user with the specified email address.
  *
@@ -379,6 +354,13 @@ async function getContactDetails(emailToFind) {
   return { name: "", email: "", phone: "", color: "#cccccc" };
 }
 
+
+/**
+ * Shows or hides the cancel button ("leftBtn") based on the window's width.
+ * If the window width is less than 800 pixels, hides the button and adjusts the right button's margin.
+ * If the window width is 800 pixels or more, shows the button.
+ * Handles errors gracefully if elements are not found.
+ */
 function hideCancelBtn() {
   let task = this.window.innerWidth < 800 ? 'hide' : 'show';
 
@@ -394,12 +376,18 @@ function hideCancelBtn() {
   }
 }
 
+
+/**
+ * Checks if the element with the ID "deleteError" is visible and if the window width is less than 400 pixels.
+ * Intended to handle UI changes for the error button based on visibility and screen size.
+ */
 function moveErrorBtn(){
   let visibleCheck = document.getElementById("deleteError").classList.contains("visible")
   if(visibleCheck && window.innerWidth < 400){
 
   }
 }
+
 
 window.addEventListener('resize', function () {
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";

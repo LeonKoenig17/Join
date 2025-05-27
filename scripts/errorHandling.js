@@ -1,6 +1,6 @@
 
 
-function showError(parentElement, element, offSetX, offSetY, elementText) {
+function showError(parentElement, element, elementText) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
     element.innerHTML = elementText

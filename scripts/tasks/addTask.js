@@ -137,55 +137,57 @@ function validateFormElements(elements) {
 
 
 /**
- * Validiert die Formulardaten.
- * @param {Object} data - Die Formulardaten.
- * @returns {boolean} True, wenn gültig, sonst false.
+ * Validates the form data and updates the UI for invalid fields.
+ * @param {Object} data - The form data to validate.
+ * @returns {boolean} True if the data is valid, otherwise false.
  */
 function validateFormData(data) {
   const titleInput = document.getElementById("title");
-  
   const dateInput = document.getElementById("due-date");
   const categorySelect = document.getElementById("categorySelect");
 
-  if (!titleInput || !dateInput || !categorySelect) {
-    return false;
-  }
+  const isTitleValid = validateField(titleInput, data.title, "title-error");
+  const isDateValid = validateField(dateInput, data.dueDate, "due-date-error");
+  const isCategoryValid = validateCategory(categorySelect, data.category);
 
-  let isValid = true;
-
-  if (!data.title) {
-    titleInput.classList.add("fieldIsRequired");
-    document.getElementById("title-error").textContent =
-      "This field is required";
-    isValid = false;
-  } else {
-    titleInput.classList.remove("fieldIsRequired");
-    document.getElementById("title-error").textContent = "";
-  }
-
-  if (!data.dueDate) {
-    dateInput.classList.add("fieldIsRequired");
-    document.getElementById("due-date-error").textContent =
-      "This field is required";
-    isValid = false;
-  } else {
-    dateInput.classList.remove("fieldIsRequired");
-    document.getElementById("due-date-error").textContent = "";
-  }
-
-  if (categorySelect) {
-    if (!data.category || data.category === "Select a category") {
-    categorySelect.classList.add("fieldIsRequired");
-     document.getElementById("category-error").textContent =
-     "This field is required";
-     isValid = false;
-  } else {
-    categorySelect.classList.remove("fieldIsRequired");
-    document.getElementById("category-error").textContent = "";
-  }
+  return isTitleValid && isDateValid && isCategoryValid;
 }
 
-  return isValid;
+/**
+ * Validates a single field and updates its error message.
+ * @param {HTMLElement} field - The input field to validate.
+ * @param {string} value - The value to check.
+ * @param {string} errorId - The ID of the error message element.
+ * @returns {boolean} True if the field is valid, otherwise false.
+ */
+function validateField(field, value, errorId) {
+  const errorElement = document.getElementById(errorId);
+  if (!value) {
+    field.classList.add("fieldIsRequired");
+    errorElement.textContent = "This field is required";
+    return false;
+  }
+  field.classList.remove("fieldIsRequired");
+  errorElement.textContent = "";
+  return true;
+}
+
+/**
+ * Validates the category field and updates its error message.
+ * @param {HTMLElement} categorySelect - The category select element.
+ * @param {string} category - The selected category value.
+ * @returns {boolean} True if the category is valid, otherwise false.
+ */
+function validateCategory(categorySelect, category) {
+  const errorElement = document.getElementById("category-error");
+  if (!category || category === "Select a category") {
+    categorySelect.classList.add("fieldIsRequired");
+    errorElement.textContent = "This field is required";
+    return false;
+  }
+  categorySelect.classList.remove("fieldIsRequired");
+  errorElement.textContent = "";
+  return true;
 }
 
 
@@ -219,7 +221,7 @@ function getAssignedContacts() {
       const color = cb.dataset.userColor;
 
       if (!id || !name || !email || !color) {
-        console.warn("⚠️ Incomplete contact data:", { id, name, email, color });
+        console.warn("Incomplete contact data:", { id, name, email, color });
         continue;
       }
 
