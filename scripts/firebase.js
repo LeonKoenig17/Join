@@ -132,7 +132,6 @@ async function fillUserLinks() {
     const currentUser = allUsers.find(user => user.id === myToken);
 
     if (!currentUser) {
-      console.error("Token or user data is missing or invalid:", { myToken });
       const userLinkElement = document.getElementById("userLink");
       if (userLinkElement) userLinkElement.innerHTML = "G";
       const userNameElement = document.getElementById("userName");

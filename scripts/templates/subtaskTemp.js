@@ -1,3 +1,11 @@
+/**
+ * Generates an HTML template string for a single subtask item.
+ *
+ * @param {Object} subtask - The subtask object containing subtask details.
+ * @param {string} subtask.name - The name or description of the subtask.
+ * @param {number} index - The index of the subtask in the list.
+ * @returns {string} The HTML string representing the subtask item.
+ */
 function subtasksTemplate(subtask, index) {
   return `
         <div class="subtask-item" data-subtask-index="${index}">
@@ -12,8 +20,15 @@ function subtasksTemplate(subtask, index) {
 }
 
 
+
 /**
- * Renders subtasks in the overlay with custom checkbox icons
+ * Generates an HTML template string for a subtask checkbox element.
+ *
+ * @param {Object} subtask - The subtask object containing its properties.
+ * @param {string} subtask.name - The name or label of the subtask.
+ * @param {boolean} subtask.completed - Indicates if the subtask is completed.
+ * @param {number} index - The index of the subtask in the list.
+ * @returns {string} The HTML string representing the subtask checkbox and label.
  */
 function taskOverlaySubtaskTemplate(subtask, index) {
   const iconSrc = subtask.completed

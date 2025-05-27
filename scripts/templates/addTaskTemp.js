@@ -1,3 +1,8 @@
+/**
+ * Generates the HTML template for the Add Task overlay.
+ * @param {string} stage - The current stage of the task.
+ * @returns {string} - The HTML string for the Add Task overlay.
+ */
 function addTaskOverlayTemplate(stage) {
   const subtasksHTML = subtasks
     .map((subtask, index) => subtasksTemplate(subtask, index))

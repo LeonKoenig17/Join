@@ -1,3 +1,15 @@
+/**
+ * Generates an HTML string representing a task card for the given task object.
+ *
+ * @param {Object} task - The task object containing task details.
+ * @param {number|string} task.id - The unique identifier for the task.
+ * @param {string} [task.category] - The category of the task.
+ * @param {string} [task.title] - The title of the task.
+ * @param {string} [task.description] - The description of the task.
+ * @param {string} [task.priority] - The priority level of the task (e.g., "Low", "Medium", "High").
+ * @param {Array<Object>} [task.assignedTo] - The list of users assigned to the task.
+ * @returns {string} The HTML markup for the task card.
+ */
 function generateTaskCard(task) {
   const { completedSubtasks: done, totalSubtasks: total, progressPercentage } = checkSubProgress(task);
 

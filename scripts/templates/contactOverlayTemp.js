@@ -1,9 +1,8 @@
 /**
- * Liefert das HTML-Overlay für „Add Contact“ (mode='add')
- * bzw. „Edit Contact“ (mode='edit').
- * @param {'add'|'edit'} mode
- * @param {'big'|'small'} size
- * @returns {string} HTML-String
+ * Generates the HTML overlay for adding or editing a contact.
+ * @param {'add'|'edit'} mode - The mode of the overlay ('add' for adding a contact, 'edit' for editing a contact).
+ * @param {'big'|'small'} size - The size of the overlay ('big' or 'small').
+ * @returns {string} - The HTML string for the contact overlay.
  */
 function contactDetailsTemp(mode, size) {
   const isAdd = mode === 'add';
@@ -20,7 +19,6 @@ function contactDetailsTemp(mode, size) {
          Save<img src="../images/check.svg" alt="" class="marginLeft10"/>
        </button>`;
 
-  // if(size == 'big'){
   return `
     <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
       <img id="closeFormImg"
@@ -74,53 +72,4 @@ function contactDetailsTemp(mode, size) {
       </div>
     </div>
   `
-  // ;}
-  //   else{
-  //     return `
-  //   <div id="addContactFrame" class="visibleNone" onclick="event.stopPropagation()">
-  //     <img
-  //       class="closeFormImg"
-  //       src="../images/close.svg"
-  //       alt="Close"
-  //       onclick="hideContactForm('${mode}')"
-  //     />
-
-  //     <section id="addContactLeft">
-  //       <div id="addContactDivMiddle">
-  //         <img src="../images/joinlogowhite.svg" alt="Logo" />
-  //         <h1>${title}</h1>
-  //         <h4>Tasks are better with a team!</h4>
-  //         <figure></figure>
-  //       </div>
-  //     </section>
-
-  //     <div id="addContactRight">
-
-
-
-  //           <img id="addContactRightImg" src="../images/personwhite.svg" alt="Avatar" />
-
-
-  //         <div id="addContactRightInputs">
-  //           <div class="flexColumn">
-  //               <input type="text" id="nameInput" placeholder="Name"  class="loginInput personImgBackground"/>
-  //               <input type="text" id="emailInput" placeholder="Email" class="loginInput mailImgBackground" ${!isAdd ? 'readonly' : ''}/>
-  //               <input type="text" id="phoneInput" placeholder="Phone" class="loginInput callImgBackground"/>
-  //           </div>
-
-  //           <div class="flexRow marginTop10">
-  //             <button onmouseover="changeImage('leftBtnImg','cancelblue')" onmouseleave="changeImage('leftBtnImg','canceldarkblue')" onclick="${leftBtnAction}" id="leftBtn" class="contactBtn whiteBtn">
-  //               ${leftBtnLabel}
-  //               <img id="leftBtnImg" src="../images/canceldarkblue.svg" alt="" class="marginLeft10"/>
-  //             </button>
-  //             ${rightBtn}
-  //           </div>
-
-  //         </div>
-
-
-  //     </div>
-  //   </div>
-  // `;
-  //   }
 }
