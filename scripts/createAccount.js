@@ -87,26 +87,3 @@ function addRedBorder(id) {
 
 
 
-
-
-// Auslösen bei "Enter"-Taste
-// emailInput.addEventListener('keydown', function (event) {
-//     if (event.key === 'Enter') {
-//         checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-//     }
-//     if (emailInput.value != "") {
-//         clearErrorInput("emailInput", "emailErrorSpan");
-//     }
-// });
-
-
-
-
-
-function errorPositions() {
-
-}
-
-// window.addEventListener("resize", errorPositions)
-
-

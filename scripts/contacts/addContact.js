@@ -142,7 +142,7 @@ function contactFormBtn(mode) {
  * @returns {Promise<void>} Resolves when the action is completed and the page is reloaded if an action was performed.
  */
 async function contactForm(task, mode) {
-  const thisEmail = document.getElementById("emailInput")?.value || document.getElementById("contactDetailsMail").innerText;
+  const thisEmail = document.getElementById("emailInputContact")?.value || document.getElementById("contactDetailsMail").innerText;
 
   let actionPerformed = false;
 
@@ -254,18 +254,5 @@ function definePosition(firstType, secondType, setOffX, setOffY) {
   span.style.top = Number.parseInt((position.top + setOffY)) + "px";
 }
 
-function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
-  try {
-    let element = document.getElementById(firstType);
-    let position = element.getBoundingClientRect();
-    let span = document.getElementById(secondType);
-    document.getElementById(firstType).classList.add("redBorder")
-    span.innerHTML = errorText
-    span.classList.add("visible")
-    span.classList.remove("hide")
-    definePosition(firstType, secondType, setOffX, setOffY)
-  } catch (error) {
-    return null
-  }
-}
+
 

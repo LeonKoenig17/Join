@@ -1,62 +1,50 @@
-async function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
+
+
+function showErrorNew(parentElement, element, offSetX, offSetY, elementText) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
-
-    // let position = parentElement.getBoundingClientRect();
+    element.innerHTML = elementText
+    element.classList.add("visible")
 
     try {
         parentElement.classList.add("redBorder")
     } catch (error) {
     }
 
-    element.classList.add("visible")
-    element.innerHTML = elementText
-
-    // element.style.left = Number.parseInt((position.left + offSetX)) + "px";
-    // element.style.top = Number.parseInt((position.top + position.height + offSetY)) + "px";
-    // withWidth ? element.style.width = Number.parseInt((position.width)) + "px" : "";
 }
 
 function hideErrorNew(parentElement, element) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
-
-
     try { parentElement.classList.remove("redBorder") } catch (error) { }
     try { element.classList.remove("visible") } catch (error) { }
     try { element.innerHTML = "" } catch (error) { }
 }
 
-function checkName(element) {
-    input = document.getElementById(element);
-    inputSpan = element.replace("Input", "ErrorSpan")
-    if (input.value == "") {
-        showErrorNew(element, inputSpan, 0, 0, "cannot be empty", false)
-        document.getElementById("rightBtn").disabled = true
-        return
-    } else {
-        hideErrorNew(element, inputSpan);
-        document.getElementById("rightBtn").disabled = false
+
+function checkName(elementId) {
+    const input = document.getElementById(elementId);
+    const errorSpanId = elementId.replace("Input", "ErrorSpan");
+    const rightBtn = document.getElementById("rightBtn");
+
+    const isEmpty = input.value.trim() === "";
+    const isEmail = elementId === "emailInputContact";
+    const isEmailValid = isEmail && !emailIsValid(input.value);
+
+    if (isEmpty) {
+        showErrorNew(elementId, errorSpanId, 0, 0, "cannot be empty", false);
+        rightBtn.disabled = true;
+        return;
     }
 
-    if (element == "emailInputContact") {
-        if (emailIsValid(input.value) == false) {
-            showErrorNew(element, inputSpan, 0, 0, "not valid", false)
-            document.getElementById("rightBtn").disabled = true
-            return
-        } else {
-            hideErrorNew(element, inputSpan);
-            document.getElementById("rightBtn").disabled = false
-        }
+    if (isEmailValid) {
+        showErrorNew(elementId, errorSpanId, 0, 0, "not valid", false);
+        rightBtn.disabled = true;
+        return;
     }
 
-
-
-
-
-
-
-
+    hideErrorNew(elementId, errorSpanId);
+    rightBtn.disabled = false;
 }
 
 
@@ -66,109 +54,165 @@ function checkEnter(event, id) {
     }
 }
 
+function validateEmpty(inputId, errorSpanId) {
+    const input = document.getElementById(inputId);
+    if (input.value.trim() === "") {
+        showErrorNew(inputId, errorSpanId, 0, 0, "cannot be empty", false);
+        return false;
+    } else {
+        hideErrorNew(inputId, errorSpanId);
+        return true;
+    }
+}
+
+function validateEmail(inputId, errorSpanId) {
+    const input = document.getElementById(inputId);
+    if (!validateEmpty(inputId, errorSpanId)) return false;
+
+    if (!emailIsValid(input.value)) {
+        showErrorNew(inputId, errorSpanId, 0, 0, "Your Email-Address is not valid. Please check your input.", false);
+        return false;
+    } else {
+        hideErrorNew(inputId, errorSpanId);
+        return true;
+    }
+}
+
+function addValidationEvents(inputId, errorSpanId, isEmail = false, onEnter = null) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    input.addEventListener('blur', () => {
+        isEmail ? validateEmail(inputId, errorSpanId) : validateEmpty(inputId, errorSpanId);
+    });
+
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const valid = isEmail ? validateEmail(inputId, errorSpanId) : validateEmpty(inputId, errorSpanId);
+            if (valid && onEnter) onEnter();
+        }
+    });
+}
+
+addValidationEvents("nameInput", "nameErrorSpan");
+addValidationEvents("emailInput", "emailErrorSpan", true);
+addValidationEvents("passwordInput", "passwordErrorSpan", false, () => {
+    const blueBtn = document.querySelector('.blueBtn');
+    if (blueBtn) blueBtn.click();
+});
+addValidationEvents("confirmPasswordInput","confirmPasswordErrorSpan",false,typeof createAccount === "function" ? createAccount : null);
+
+confirmPasswordInput = document.getElementById("confirmPasswordInput");
+if (confirmPasswordInput) {
+    confirmPasswordInput.addEventListener('blur', function () {
+        showLockIconCreateAccount(this.id);
+    });
+}
+
 
 nameInput = document.getElementById('nameInput');
 emailInput = document.getElementById('emailInput');
 passwordInput = document.getElementById('passwordInput')
 confirmPasswordInput = document.getElementById('confirmPasswordInput')
 
-if (nameInput) {
-    nameInput.addEventListener('blur', function (event) {
 
-        if (nameInput.value == "") {
-            showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
-            return
-        } else {
-            hideErrorNew("nameInput", "nameErrorSpan");
-        }
-    });
+// if (nameInput) {
+//     nameInput.addEventListener('blur', function (event) {
 
-    nameInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            if (nameInput.value == "") {
-                showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
-                return
-            } else {
-                hideErrorNew("nameInput", "nameErrorSpan");
-            }
-        }
-    });
-}
+//         if (nameInput.value == "") {
+//             showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
+//             return
+//         } else {
+//             hideErrorNew("nameInput", "nameErrorSpan");
+//         }
+//     });
 
-// Auslösen bei "Enter"-Taste
-if (emailInput) {
-    emailInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            if (emailInput.value == "") {
-                showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
-                return
-            }
+//     nameInput.addEventListener('keydown', function (event) {
+//         if (event.key === 'Enter') {
+//             if (nameInput.value == "") {
+//                 showErrorNew("nameInput", "nameErrorSpan", 0, 0, "cannot be empty", false)
+//                 return
+//             } else {
+//                 hideErrorNew("nameInput", "nameErrorSpan");
+//             }
+//         }
+//     });
+// }
 
-            if (emailIsValid(emailInput.value) == false) {
-                showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
-            } else {
-                hideErrorNew("emailInput", "emailErrorSpan");
-            }
+// // Auslösen bei "Enter"-Taste
+// if (emailInput) {
+//     emailInput.addEventListener('keydown', function (event) {
+//         if (event.key === 'Enter') {
+//             if (emailInput.value == "") {
+//                 showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
+//                 return
+//             }
 
-        }
-    });
+//             if (emailIsValid(emailInput.value) == false) {
+//                 showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
+//             } else {
+//                 hideErrorNew("emailInput", "emailErrorSpan");
+//             }
 
-    // Auslösen beim Verlassen des Feldes (Blur)
-    emailInput.addEventListener('blur', function (event) {
+//         }
+//     });
 
-        if (emailInput.value == "") {
-            showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
-            return
-        }
-        if (emailIsValid(emailInput.value) == false) {
-            showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
-        } else {
-            hideErrorNew("emailInput", "emailErrorSpan");
-        }
-    });
-}
+//     // Auslösen beim Verlassen des Feldes (Blur)
+//     emailInput.addEventListener('blur', function (event) {
 
-if (passwordInput) {
-    passwordInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            if (passwordInput.value = "") {
-                showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
-                return
-            }
+//         if (emailInput.value == "") {
+//             showErrorNew("emailInput", "emailErrorSpan", 0, 0, "cannot be empty", false)
+//             return
+//         }
+//         if (emailIsValid(emailInput.value) == false) {
+//             showErrorNew("emailInput", "emailErrorSpan", 0, 0, "Your Email-Address is not valid. Please check your input.", false)
+//         } else {
+//             hideErrorNew("emailInput", "emailErrorSpan");
+//         }
+//     });
+// }
 
-            const blueBtn = document.querySelector('.blueBtn');
-            if (blueBtn) {
-                blueBtn.click();
-            }
-        }
-    });
+// if (passwordInput) {
+//     passwordInput.addEventListener('keydown', function (event) {
+//         if (event.key === 'Enter') {
+//             if (passwordInput.value = "") {
+//                 showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
+//                 return
+//             }
 
-    passwordInput.addEventListener('blur', function (event) {
+//             const blueBtn = document.querySelector('.blueBtn');
+//             if (blueBtn) {
+//                 blueBtn.click();
+//             }
+//         }
+//     });
 
-        if (passwordInput.value == "") {
-            showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
-            return
-        } else {
-            hideErrorNew("passwordInput", "passwordErrorSpan");
-        }
-    });
-}
+//     passwordInput.addEventListener('blur', function (event) {
+
+//         if (passwordInput.value == "") {
+//             showErrorNew("passwordInput", "passwordErrorSpan", 0, 0, "cannot be empty", false)
+//             return
+//         } else {
+//             hideErrorNew("passwordInput", "passwordErrorSpan");
+//         }
+//     });
+// }
 
 
-if (passwordInput) {
-    confirmPasswordInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            createAccount();
-        }
-    });
+// if (passwordInput) {
+//     confirmPasswordInput.addEventListener('keydown', function (event) {
+//         if (event.key === 'Enter') {
+//             createAccount();
+//         }
+//     });
 
-    confirmPasswordInput.addEventListener('blur', function () {
-        showLockIconCreateAccount(this.id);
-        if (confirmPasswordInput.value == "") {
-            showErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "cannot be empty", false)
-            return
-        } else {
-            hideErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan");
-        }
-    });
-}
+//     confirmPasswordInput.addEventListener('blur', function () {
+//         showLockIconCreateAccount(this.id);
+//         if (confirmPasswordInput.value == "") {
+//             showErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "cannot be empty", false)
+//             return
+//         } else {
+//             hideErrorNew("confirmPasswordInput", "confirmPasswordErrorSpan");
+//         }
+//     });
+// }

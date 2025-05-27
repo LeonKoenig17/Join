@@ -64,32 +64,56 @@ function sendDataToIframe() {
  * @function
  * @returns {void}
  */
-function getContactsFromFirebase() {
-  const dataLogin = fireBaseContent.login || {};
-  const dataContact = fireBaseContent.contact || {};
-  const dataFull = { ...dataContact, ...dataLogin };
+// function getContactsFromFirebase() {
+//   const dataLogin = fireBaseContent.login || {};
+//   const dataContact = fireBaseContent.contact || {};
+//   const dataFull = { ...dataContact, ...dataLogin };
 
-  const users = Object.values(dataFull)
-    .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
+//   const users = Object.values(dataFull)
+//     .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
+//     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+
+//   const groupedUsers = users.reduce((groups, user) => {
+//     const letter = user.name[0]?.toUpperCase() || "#";
+//     (groups[letter] ||= []).push(user);
+//     return groups;
+//   }, {});
+
+//   const container = document.getElementById("allContacts");
+//   container.innerHTML = "";
+//   let userNumber = 0;
+
+//   Object.keys(groupedUsers).sort().forEach(letter => {
+//     const groupDiv = createGroupDiv(letter);
+//     groupedUsers[letter].forEach(user => {
+//       userNumber++;
+//       const nav = createSingleUserNav(user, userNumber);
+//       groupDiv.appendChild(nav);
+//     });
+//     container.appendChild(groupDiv);
+//   });
+// }
+
+
+function getContactsFromFirebase() {
+  const { login = {}, contact = {} } = fireBaseContent;
+  const users = Object.values({ ...contact, ...login })
+    .map(({ name, email, color, phone }) => ({ name, email, color, phone }))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
 
-  const groupedUsers = users.reduce((groups, user) => {
-    const letter = user.name[0]?.toUpperCase() || "#";
-    (groups[letter] ||= []).push(user);
-    return groups;
+  const grouped = users.reduce((acc, u) => {
+    const letter = u.name[0]?.toUpperCase() || "#";
+    (acc[letter] ||= []).push(u);
+    return acc;
   }, {});
 
   const container = document.getElementById("allContacts");
   container.innerHTML = "";
-  let userNumber = 0;
+  let count = 0;
 
-  Object.keys(groupedUsers).sort().forEach(letter => {
+  Object.entries(grouped).sort().forEach(([letter, group]) => {
     const groupDiv = createGroupDiv(letter);
-    groupedUsers[letter].forEach(user => {
-      userNumber++;
-      const nav = createSingleUserNav(user, userNumber);
-      groupDiv.appendChild(nav);
-    });
+    group.forEach(u => groupDiv.appendChild(createSingleUserNav(u, ++count)));
     container.appendChild(groupDiv);
   });
 }
@@ -384,7 +408,6 @@ window.addEventListener('resize', function () {
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
   changeImage("closeFormImg", whichImg);
   hideCancelBtn();
-  // definePosition(setOffs[0],"deleteError",setOffs[1],setOffs[2])
 }
 );
 

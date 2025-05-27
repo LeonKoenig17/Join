@@ -1,6 +1,9 @@
 let ergebnisse = "";
 let thisToken = "";
-
+let nameInput = document.getElementById('nameInput');
+let emailInput = document.getElementById('emailInput');
+let passwordInput = document.getElementById('passwordInput')
+let confirmInput = document.getElementById('confirmPasswordInput')
 
 async function writeLocalStorage() {
     let myEmail = await findUser(document.getElementById("emailInput").value);
@@ -115,71 +118,5 @@ function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-function clearErrorInput(firstElement, secondElement) {
-    // let email = document.getElementById("emailInput").value;
-    hideError(firstElement, secondElement)
-
-}
-
-
-function checkEmailInput(firstElement, secondElement, setoffX, setOffY, errorText) {
-    // let email = document.getElementById("emailInput").value;
-    let email = document.getElementById(firstElement).value;
-    if (email == "") { return }
-    if (emailIsValid(email) == false) {
-        // deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
-        deleteError(firstElement, secondElement, setoffX, setOffY, errorText);
-        return
-    } else {
-        // hideError("emailInput", "emailErrorSpan")
-        hideError(firstElement, secondElement)
-    }
-}
-
-function enableDisableBtn(btnName,status){
-    try {
-        document.getElementById(btnName).disabled = status;
-    } catch (error) {
-        
-    }
-}
-
-function checkEmailInputBackup() {
-    let email = document.getElementById("emailInput").value;
-    if (email == "") { return }
-    if (emailIsValid(email) == false) {
-        deleteError("emailInput", "emailErrorSpan", 10, 50, `Your Email-Address is not valid. Please check your input.`);
-        return
-    } else {
-        hideError("emailInput", "emailErrorSpan")
-    }
-}
-
-function hideError(firstType, secondType) {
-    let element = document.getElementById(secondType);
-    // element.classList.remove("displayNone")
-    document.getElementById(firstType).classList.remove("redBorder")
-    document.getElementById(secondType).classList.remove("visible")
-}
-
-function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
-    try {
-        let element = document.getElementById(firstType);
-        let position = element.getBoundingClientRect();
-        let span = document.getElementById(secondType);
-        document.getElementById(firstType).classList.add("redBorder")
-        span.innerHTML = errorText
-        span.classList.add("visible")
-        span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-        span.style.top = Number.parseInt((position.top + setOffY)) + "px";
-    } catch (error) {
-        return null
-    }
-}
-
 window.addEventListener("resize", addHelpToPopup)
 
-let nameInput = document.getElementById('nameInput');
-let emailInput = document.getElementById('emailInput');
-let passwordInput = document.getElementById('passwordInput')
-let confirmInput = document.getElementById('confirmPasswordInput')
