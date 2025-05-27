@@ -210,13 +210,18 @@ nav img {
 
 @media (max-width: 1000px) {
     header {
-        width: 100%;
-        left:  143px;
-        
+        left: 150px;
+
     }
+
     .userLinkContainer {
         width: calc(100vw - 150px);
     }
+
+    header {
+        width: calc(100% - 150px);
+    }
+
 }
 
 @media (max-width: 800px) {
@@ -231,7 +236,8 @@ nav img {
     }
 
     aside {
-        width: 150px; /* Adjust aside width for smaller screens */
+        width: 150px;
+        /* Adjust aside width for smaller screens */
     }
 
     .userLinkContainer {

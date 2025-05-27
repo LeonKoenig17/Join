@@ -1,3 +1,9 @@
+/**
+ * Initialisiert die Summary-Seite, lädt Task-Zahlen und zeigt Hilfepopup an.
+ * @async
+ * @function init
+ * @returns {Promise<void>}
+ */
 async function init() {
   fillUserLinks();
   await loadAndDisplayTaskCounts();
@@ -6,6 +12,14 @@ async function init() {
 
 init(); // Startpunkt
 
+/**
+ * Lädt asynchron die Tasks, zählt sie nach Status und aktualisiert die DOM-Elemente.
+ * Zeigt die Seite nach Abschluss an.
+ *
+ * @async
+ * @function loadAndDisplayTaskCounts
+ * @returns {Promise<void>}
+ */
 async function loadAndDisplayTaskCounts() {
   try {
     const tasks = await loadData("tasks");
