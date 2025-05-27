@@ -72,6 +72,10 @@
     .contentRight {
         width: calc(100% - 150px - 340px);
     }
+
+    .addContactBtnDiv {
+        gap: 0px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -89,11 +93,19 @@
         display: none;
     }
 
+    .contactBtn {
+        margin-right: 0px;
+    }
+
     .contentLeft {
         width: 100%;
         height: calc(100vh - 170px);
         box-shadow: none;
         z-index: 1;
+    }
+
+    .addContactBtnDiv {
+        gap: 15px;
     }
 
     #addContactBtn {
@@ -333,9 +345,10 @@
         /* cursor: pointer; */
     }
 
-    .errorSpan{
+    .errorSpan {
         height: auto;
     }
+
     .userInitialsBig {
         margin-right: 10px;
     }

@@ -32,13 +32,13 @@ function checkName(elementId) {
     const isEmailValid = isEmail && !emailIsValid(input.value);
 
     if (isEmpty) {
-        showError(elementId, errorSpanId, 0, 0, "This input field must be filled.", false);
+        showError(elementId, errorSpanId,"This input field must be filled.");
         rightBtn.disabled = true;
         return;
     }
 
     if (isEmailValid) {
-        showError(elementId, errorSpanId, 0, 0, "Email address is not valid.", false);
+        showError(elementId, errorSpanId,"Email address is not valid.");
         rightBtn.disabled = true;
         return;
     }
@@ -57,7 +57,7 @@ function checkEnter(event, id) {
 function validateEmpty(inputId, errorSpanId) {
     const input = document.getElementById(inputId);
     if (input.value.trim() === "") {
-        showError(inputId, errorSpanId, 0, 0, "This input field must be filled.", false);
+        showError(inputId, errorSpanId,"This input field must be filled.");
         return false;
     } else {
         hideError(inputId, errorSpanId);
@@ -70,7 +70,7 @@ function validateEmail(inputId, errorSpanId) {
     if (!validateEmpty(inputId, errorSpanId)) return false;
 
     if (!emailIsValid(input.value)) {
-        showError(inputId, errorSpanId, 0, 0, "Email address is not valid.", false);
+        showError(inputId, errorSpanId,"Email address is not valid.");
         return false;
     } else {
         hideError(inputId, errorSpanId);

@@ -78,6 +78,7 @@ async function deleteData(path = "") {
     method: "DELETE"
   });
 }
+
 async function loadUsers() {
   try {
     const usersObj = await loadData("login");

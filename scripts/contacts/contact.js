@@ -231,8 +231,8 @@ async function contactDetails(elementId, thenum) {
 }
 
 function clearErrors(){
-  hideErrorNew("","editErrorSpan")
-  hideErrorNew("","deleteErrorSpan")
+  hideError("","editErrorSpan")
+  hideError("","deleteErrorSpan")
 }
 
 function responsiveContentRight(task) {
