@@ -1,6 +1,4 @@
 const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/';
-const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
-
 
 /**
  * Asynchronously loads JSON data from a specified path.
@@ -128,33 +126,50 @@ async function applyUserColors() {
 }
 
 async function fillUserLinks() {
-  let myValue = "";
-  try {
-    myValue = fireBaseContent.login;
-  } catch (error) {
-    myValue = await loadData('login');
-  }
-
-  let myToken = localStorage.getItem('token');
-  let myName = myValue[myToken].name;
-
-  try {
-    const initials = getInitials(myName);
-    document.getElementById("userLink").innerHTML = initials;
-  } catch (error) {
-    document.getElementById("userLink").innerHTML = "G";
-  }
-
-  try {
-    // Nur den Namen anzeigen, wenn es nicht "Guest" ist
-    if (myName !== "Guest") {
-      document.getElementById("userName").innerHTML = myName;
-    } else {
-      document.getElementById("userName").innerHTML = ""; // Leer lassen wenn Guest
+    let myValue = "";
+    try {
+        myValue = fireBaseContent.login;
+    } catch (error) {
+        myValue = await loadData('login');
     }
-  } catch (error) {
-    return null;
-  }
+
+    let myToken = localStorage.getItem('token');
+    if (!myToken || !myValue || !myValue[myToken]) {
+        console.error("Token or user data is missing or invalid:", { myToken, myValue });
+        const userLinkElement = document.getElementById("userLink");
+        if (userLinkElement) userLinkElement.innerHTML = "G";
+        const userNameElement = document.getElementById("userName");
+        if (userNameElement) userNameElement.innerHTML = "";
+        return;
+    }
+
+    let myName = myValue[myToken].name || "Guest";
+
+    try {
+        const initials = getInitials(myName);
+        const userLinkElement = document.getElementById("userLink");
+        if (userLinkElement) userLinkElement.innerHTML = initials;
+    } catch (error) {
+        const userLinkElement = document.getElementById("userLink");
+        if (userLinkElement) userLinkElement.innerHTML = "G";
+    }
+
+    try {
+        const userNameElement = document.getElementsByClassName("userName");
+        if (!userNameElement) {
+            console.warn("Element with ID 'userName' not found. Skipping user name update.");
+            return;
+        }
+
+        if (myName !== "Guest") {
+            userNameElement.innerHTML = myName;
+        } else {
+            userNameElement.innerHTML = "";
+        }
+    } catch (error) {
+        console.error("Error setting user name:", error);
+        return null;
+    }
 }
 
 async function loadFromFirebase() {
@@ -162,13 +177,28 @@ async function loadFromFirebase() {
 }
 
 async function lastColor() {
-  let ergebnisse = await loadData("login")
-  let result = Object.entries(ergebnisse);
-  let myLastColor = result.pop()[1].color;
-  let found = iconColors.indexOf(myLastColor);
+  try {
+    const users = await loadData("login");
+    if (!users) {
+      return '#FF7A00';
+    }
 
-  if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
-  return iconColors[found];
+    const usedColors = Object.values(users).map(user => user.color);
+    const availableColors = [
+      '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
+    ];
+
+    for (const color of availableColors) {
+      if (!usedColors.includes(color)) {
+        return color;
+      }
+    }
+
+    return availableColors[0];
+  } catch (error) {
+    console.error("Fehler beim Abrufen der letzten Farbe:", error);
+    return '#FF7A00';
+  }
 }
 
 /**
