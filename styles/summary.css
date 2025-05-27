@@ -5,17 +5,14 @@ body {
 summary {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 90px;
-  left: 200px;
   gap: 40px;
   margin-top: 40px;
   margin-left: 80px;
 }
 
 .main-summary {
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  left: 200px;
 }
 
 aside {
@@ -53,13 +50,15 @@ header {
 }
 
 .frame-40 h1 {
+  font-size: 48px;
+  margin: 0;
   white-space: nowrap;
 }
 
 .frame-40 p {
   margin: 0;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   color: #2A3647;
   cursor: context-menu;
 }
