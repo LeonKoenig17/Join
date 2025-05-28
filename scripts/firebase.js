@@ -54,13 +54,11 @@ async function patchTask(taskId, data) {
 }
 
 async function patchData(path = "", data = {}) {
-  // const BASE_URL = "https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/tasks";
   await fetch(BASE_URL + path + ".json", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
-  // return await response.json();
 }
 
 /**
