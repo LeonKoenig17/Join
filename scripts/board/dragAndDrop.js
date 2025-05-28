@@ -89,21 +89,24 @@ function setupContainerHighlighting(container) {
  * Makes tasks draggable and sets up dragstart event listeners.
  */
 function addDragFunction() {
-  if (!isMobile()) {
-    const tasks = document.querySelectorAll(".task");
-    tasks.forEach(task => {
-      task.setAttribute("draggable", "true");
-      task.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("text/plain", task.id);
-        e.dataTransfer.effectAllowed = "move";
+  const tasks = document.querySelectorAll(".task");
+  tasks.forEach(task => {
+    // Aktiviert Drag-and-Drop für alle Aufgaben
+    task.setAttribute("draggable", "true");
 
-        draggedFromContainer = task.closest(".task-list");
-        dragAnimation(task);
-      });
+    // Fügt Dragstart-Event hinzu
+    task.addEventListener("dragstart", function (e) {
+      e.dataTransfer.setData("text/plain", task.id);
+      e.dataTransfer.effectAllowed = "move";
+
+      draggedFromContainer = task.closest(".task-list");
+      dragAnimation(task);
     });
-  } else {
-    addMobileDragFunction();
-  }
+
+    setupTouchStart(task);
+    setupTouchMove(task);
+    setupTouchEnd(task);
+  });
 }
 
 /**
@@ -195,7 +198,7 @@ function doSomethingOnLongPress(task) {
 
   document.addEventListener("click", function (e) {
     const mobileActions = document.getElementById("mobileTaskActions");
-    if (!mobileActions.contains(e.target)) {
+    if (mobileActions && !mobileActions.contains(e.target)) {
       mobileActions.remove();
       task.onclick = savedOnclick;
     }

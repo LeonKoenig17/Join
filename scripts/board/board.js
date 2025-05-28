@@ -164,23 +164,12 @@ async function applyUserColors() {
   }
 }
 
-let wasMobile = isMobile();
-
 /**
  * Checks if the current device is a mobile device based on screen width.
  * @returns {boolean} True if the device is mobile, false otherwise.
  */
 function isMobile() {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 800;
-}
-
-function checkMobileChange() {
-  const isCurrentlyMobile = isMobile();
-  if (isCurrentlyMobile !== wasMobile) {
-    wasMobile = isCurrentlyMobile;
-    moveInputFieldOnResize();
-    addDragFunction();
-  }
 }
 
 /**
@@ -192,29 +181,24 @@ function moveInputFieldOnResize() {
   const newParent = document.getElementById("searchInput-resp-target");
 
   if (isMobile()) {
-    pressTimer = setTimeout(() => {
-      document
-        .querySelectorAll(".task")
-        .forEach((task) => task.setAttribute("draggable", "true"));
-    }, 600);
     if (!newParent.contains(searchInputField)) {
       newParent.appendChild(searchInputField);
     }
   } else {
-    document
-      .querySelectorAll(".task")
-      .forEach((task) => task.setAttribute("draggable", "true"));
     if (!originalParent.contains(searchInputField)) {
-      originalParent.insertBefore(
-        searchInputField,
-        originalParent.firstChild
-      );
+      originalParent.insertBefore(searchInputField, originalParent.firstChild);
     }
   }
+
+  document.querySelectorAll(".task").forEach((task) => {
+    task.setAttribute("draggable", "true");
+    setupTouchStart(task);
+    setupTouchMove(task);
+    setupTouchEnd(task);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   moveInputFieldOnResize();
   window.addEventListener("resize", moveInputFieldOnResize);
-  window.addEventListener("resize", checkMobileChange);
 });
