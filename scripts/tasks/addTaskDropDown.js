@@ -1,7 +1,8 @@
 // addTaskDropDown.js
 
 /**
- * Initialisiert das Assign-Dropdown für Aufgaben.
+ * Initializes the assign dropdown for tasks by loading users and contacts from Firebase,
+ * rendering the dropdown options, and setting up event listeners.
  */
 async function initAssignedDropdown() {
   try {
@@ -16,9 +17,9 @@ async function initAssignedDropdown() {
 }
 
 /**
- * Rendert die Optionen im Dropdown.
- * @param {Array<Object>} users - Die Liste der Benutzer.
- * @param {Array<Object>} [assignedTo=[]] - Die bereits zugewiesenen Benutzer.
+ * Renders the options in the dropdown.
+ * @param {Array<Object>} users - The list of users.
+ * @param {Array<Object>} [assignedTo=[]] - The already assigned users.
  */
 function renderDropdownOptions(users, assignedTo = []) {
   const opts = document.getElementById("assignedDropdownOptions");
@@ -33,8 +34,8 @@ function renderDropdownOptions(users, assignedTo = []) {
 }
 
 /**
- * Setzt die Event-Listener für das Dropdown.
- * @param {Array<Object>} users - Die Liste der Benutzer.
+ * Sets up event listeners for the dropdown.
+ * @param {Array<Object>} users - The list of users.
  */
 function setupDropdownEventListeners(users) {
   const sel = document.getElementById("assignedDropdownSelected");
@@ -51,9 +52,9 @@ function setupDropdownEventListeners(users) {
 }
 
 /**
- * Fügt einen Klick-Listener hinzu, um das Dropdown umzuschalten.
- * @param {HTMLElement} sel - Das ausgewählte Dropdown-Element.
- * @param {HTMLElement} opts - Die Dropdown-Optionen.
+ * Adds a click listener to toggle the dropdown.
+ * @param {HTMLElement} sel - The selected dropdown element.
+ * @param {HTMLElement} opts - The dropdown options.
  */
 function addDropdownToggleListener(sel, opts) {
   sel.addEventListener("click", function (e) {
@@ -63,9 +64,9 @@ function addDropdownToggleListener(sel, opts) {
 }
 
 /**
- * Fügt einen Klick-Listener zum Dokument hinzu, um das Dropdown zu schließen.
- * @param {HTMLElement} dd - Das Dropdown-Element.
- * @param {HTMLElement} opts - Die Dropdown-Optionen.
+ * Adds a click listener to the document to close the dropdown when clicking outside.
+ * @param {HTMLElement} dd - The dropdown element.
+ * @param {HTMLElement} opts - The dropdown options.
  */
 function addDocumentClickListener(dd, opts) {
   document.addEventListener("click", function (e) {
@@ -76,9 +77,9 @@ function addDocumentClickListener(dd, opts) {
 }
 
 /**
- * Fügt einen Change-Listener zu den Dropdown-Optionen hinzu.
- * @param {HTMLElement} opts - Die Dropdown-Optionen.
- * @param {Array<Object>} users - Die Liste der Benutzer.
+ * Adds a change listener to the dropdown options.
+ * @param {HTMLElement} opts - The dropdown options.
+ * @param {Array<Object>} users - The list of users.
  */
 function addOptionsChangeListener(opts, users) {
   opts.addEventListener("change", function () {
@@ -87,8 +88,8 @@ function addOptionsChangeListener(opts, users) {
 }
 
 /**
- * Aktualisiert die zugewiesenen Chips basierend auf den ausgewählten Benutzern.
- * @param {Array<Object>} users - Die Liste der Benutzer.
+ * Updates the assigned chips based on the selected users.
+ * @param {Array<Object>} users - The list of users.
  */
 function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
@@ -103,10 +104,10 @@ function updateAssignedChips(users) {
 }
 
 /**
- * Erstellt das HTML für einen Chip basierend auf der Benutzer-ID.
- * @param {Array<Object>} users - Die Liste der Benutzer.
- * @param {string} userId - Die ID des Benutzers.
- * @returns {string} Das HTML des Chips.
+ * Creates the HTML for a chip based on the user ID.
+ * @param {Array<Object>} users - The list of users.
+ * @param {string} userId - The ID of the user.
+ * @returns {string} The HTML of the chip.
  */
 function createChipHTML(users, userId) {
   const user = users.find(u => String(u.id) === String(userId));
@@ -116,9 +117,9 @@ function createChipHTML(users, userId) {
 }
 
 /**
- * Gibt die Initialen eines Namens oder einer E-Mail zurück.
- * @param {string} [fullName=""] - Der vollständige Name oder die E-Mail-Adresse.
- * @returns {string} Die Initialen.
+ * Returns the initials of a name or email.
+ * @param {string} [fullName=""] - The full name or email address.
+ * @returns {string} The initials.
  */
 function getInitials(fullName = "") {
   return fullName
@@ -129,8 +130,8 @@ function getInitials(fullName = "") {
 }
 
 /**
- * Lädt die Benutzer aus Firebase.
- * @returns {Promise<Array<Object>>} Eine Liste der Benutzer.
+ * Loads the users from Firebase.
+ * @returns {Promise<Array<Object>>} A list of users.
  */
 async function loadFirebaseUsers() {
   const res      = await fetch(BASE_URL + "/login.json");
@@ -152,8 +153,8 @@ async function loadFirebaseUsers() {
 }
 
 /**
- * Lädt die Kontakte aus Firebase.
- * @returns {Promise<Array<Object>>} Eine Liste der Kontakte.
+ * Loads the contacts from Firebase.
+ * @returns {Promise<Array<Object>>} A list of contacts.
  */
 async function loadFirebaseContacts() {
   const res         = await fetch(BASE_URL + "/contact.json");
