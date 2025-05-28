@@ -245,7 +245,6 @@ main {
   height: 73px;
   width: 264px;
   line-height: 120%;
-  margin-right: 20px;
   cursor: context-menu;
 }
 
@@ -255,6 +254,9 @@ main {
   border-radius: 1rem;
 }
 
+.marginRight20px{
+  margin-right: 20px;
+}
 
 .frame-40 p {
   height: auto;
@@ -378,6 +380,10 @@ strong {
 #logo {
   display: flex;
   justify-content: center;
+}
+
+.gap20px{
+  gap: 20px;
 }
 
 .hide {

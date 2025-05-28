@@ -252,6 +252,10 @@
     flex-direction: row;
 }
 
+.widthFitContent{
+    width: fit-content;
+}
+
 #addContactRightInitialsDiv2 {
     background-color: #D1D1D1;
     height: 100px;

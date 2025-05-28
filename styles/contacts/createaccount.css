@@ -118,9 +118,9 @@ header img:hover {
     outline: none;
 }
 
-/* .passwordIcon:focus{
-    content:url("../images/visibilityon.svg")
-} */
+.marginRight5px{
+    margin-right: 5px;
+}
 
 .loginInput::placeholder {
     color: #D1D1D1;
@@ -138,6 +138,8 @@ header img:hover {
     font-weight: bold;
     text-decoration: underline 3px var(--text-underline-color);
     text-underline-offset: 20px;
+    position: relative;
+    top: -25px;
 }
 
 .blueBtn {
@@ -257,15 +259,15 @@ input[type=password]:focus {
     color: red;
     padding-left: 95px;
     visibility: hidden;
-        width: 100%;
-        /* background-color: blue; */
+    width: 100%;
+    /* background-color: blue; */
 }
 
 .errorSpan.visible {
     visibility: visible;
 }
 
-.textcenter{
+.textcenter {
     text-align: center;
     padding-left: 0;
 }
