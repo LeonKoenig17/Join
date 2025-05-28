@@ -21,7 +21,7 @@ async function createAccount() {
     const userInputs = getUserInputs();
     const { email, password, confirmPassword, userName, privacyBoolean } = userInputs;
 
-    if (await isEmailTaken(email)) return showError("emailInput", "emailErrorSpan", 0, 0, "Account with this Email already exists.");
+    if (await isEmailTaken(email)) return showError("emailInput", "emailErrorSpan", "Account with this Email already exists.");
 
     if (!arePasswordsMatching(password, confirmPassword)) return handlePasswordMismatch();
 
@@ -71,8 +71,8 @@ function arePasswordsMatching(password, confirmPassword) {
  * Handles the case where passwords do not match by displaying error messages.
  */
 function handlePasswordMismatch() {
-    showError("passwordInput", "passwordErrorSpan", 0, 0, "Passwords don't match.");
-    showError("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Passwords don't match.");
+    showError("passwordInput", "passwordErrorSpan", "Passwords don't match.");
+    showError("confirmPasswordInput", "confirmPasswordErrorSpan", "Passwords don't match.");
 }
 
 /**
@@ -82,10 +82,10 @@ function handlePasswordMismatch() {
  */
 function areInputsValid({ email, password, confirmPassword, userName }) {
     let isValid = true;
-    if (!password) isValid = showError("passwordInput", "passwordErrorSpan", 0, 0, "Cannot be empty.") && false;
-    if (!confirmPassword) isValid = showError("confirmPasswordInput", "confirmPasswordErrorSpan", 0, 0, "Cannot be empty.") && false;
-    if (!userName) isValid = showError("nameInput", "nameErrorSpan", 0, 0, "Cannot be empty.") && false;
-    if (!email) isValid = showError("emailInput", "emailErrorSpan", 0, 0, "Cannot be empty.") && false;
+    if (!password) isValid = showError("passwordInput", "passwordErrorSpan", "Cannot be empty.") && false;
+    if (!confirmPassword) isValid = showError("confirmPasswordInput", "confirmPasswordErrorSpan", "Cannot be empty.") && false;
+    if (!userName) isValid = showError("nameInput", "nameErrorSpan", "Cannot be empty.") && false;
+    if (!email) isValid = showError("emailInput", "emailErrorSpan", "Cannot be empty.") && false;
     return isValid;
 }
 

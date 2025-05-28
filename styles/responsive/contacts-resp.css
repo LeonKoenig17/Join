@@ -14,7 +14,7 @@
     }
 
     .contactsFrame h1 {
-        margin: 20px 0px;
+        margin: 10px 0px;
     }
 
     .contactsFrame div {
@@ -49,6 +49,7 @@
 
     #contactDetailsName {
         margin: 0px;
+        font-size: 47px;
     }
 
 }
@@ -175,7 +176,6 @@
         margin-left: 0px;
         line-height: 120%;
         font-weight: 400;
-        font-size: 27px;
         color: #2A3647;
         cursor: context-menu;
         margin: 10px 0px;
