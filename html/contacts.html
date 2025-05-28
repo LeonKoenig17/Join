@@ -16,55 +16,55 @@
   <link rel="stylesheet" href="../styles/responsive/contacts-resp.css" />
 
   <script src="../scripts/userVerification.js"></script>
-<script src="../scripts/errorHandling.js"></script>
+  <script src="../scripts/errorHandling.js"></script>
 
 </head>
 
 <body onload="onloadContacts()">
- <header>
-      <div class="header-container">
-        <div>
-          <img src="../images/joinlogodark.svg" alt="logo dark" />
-          <span>Kanban Project Management Tool</span>
-        </div>
-        <div>
-          <a href="./help.html">
-            <img src="../images/help20x20.svg" alt="help" />
-          </a>
-        </div>
+  <header>
+    <div class="header-container">
+      <div>
+        <img src="../images/joinlogodark.svg" alt="logo dark" />
+        <span>Kanban Project Management Tool</span>
       </div>
-      <div class="userLinkContainer">
-        <a onclick="showUserLinksOptions()" id="userLink"></a>
-        <div id="userLinkOptions" class="userLinkOptions hide"></div>
+      <div>
+        <a href="./help.html">
+          <img src="../images/help20x20.svg" alt="help" />
+        </a>
       </div>
-    </header>
-    <aside>
-      <div id="logo">
-        <img src="../images/joinlogowhite.svg" alt="" />
-      </div>
-      <nav id="linkNav">
-        <a href="../html/summary.html">
-          <img src="../images/summarygray.svg" alt="logo" />
-          <span>Summary</span>
-        </a>
-        <a href="../html/addTask.html">
-          <img src="../images/addtaskgray.svg" alt="logo" />
-          <span>Add Task</span>
-        </a>
-        <a href="../html/board.html">
-          <img src="../images/boardgray.svg" alt="logo" />
-          <span>Board</span>
-        </a>
-        <a href="../html/contacts.html">
-          <img src="../images/contactsgray.svg" alt="logo" />
-          <span>Contacts</span>
-        </a>
-      </nav>
-      <div id="legal">
-        <a href="./privacyPolicy.html">Privacy Policy</a>
-        <a href="./legalNotice.html">Legal Notice</a>
-      </div>
-    </aside>
+    </div>
+    <div class="userLinkContainer">
+      <a onclick="showUserLinksOptions()" id="userLink"></a>
+      <div id="userLinkOptions" class="userLinkOptions hide"></div>
+    </div>
+  </header>
+  <aside>
+    <div id="logo">
+      <img src="../images/joinlogowhite.svg" alt="" />
+    </div>
+    <nav id="linkNav">
+      <a href="../html/summary.html">
+        <img src="../images/summarygray.svg" alt="logo" />
+        <span>Summary</span>
+      </a>
+      <a href="../html/addTask.html">
+        <img src="../images/addtaskgray.svg" alt="logo" />
+        <span>Add Task</span>
+      </a>
+      <a href="../html/board.html">
+        <img src="../images/boardgray.svg" alt="logo" />
+        <span>Board</span>
+      </a>
+      <a href="../html/contacts.html">
+        <img src="../images/contactsgray.svg" alt="logo" />
+        <span>Contacts</span>
+      </a>
+    </nav>
+    <div id="legal">
+      <a href="./privacyPolicy.html">Privacy Policy</a>
+      <a href="./legalNotice.html">Legal Notice</a>
+    </div>
+  </aside>
 
   <main>
     <div id="mainContent">
@@ -95,7 +95,7 @@
               <span id="contactDetailsInitials" class="userInitialsBig userColor-FF745E"></span>
               <section>
                 <p id="contactDetailsName">Anja Schulz</p>
-                <div>
+                <div id="basicManipulate">
                   <div class="manipulateBtnDiv">
                     <nav class="blueHover" onmouseover="changeImage('editIcon','edit-1')"
                       onmouseleave="changeImage('editIcon','edit-2')" onclick="showContactForm('edit')">
@@ -105,11 +105,11 @@
                     <span id="editErrorSpan" class="errorSpan"></span>
                   </div>
                   <div class="manipulateBtnDiv">
-                  <nav class="blueHover" onmouseover="changeImage('deleteIcon','delete-blue')"
-                    onmouseleave="changeImage('deleteIcon','delete')" onclick="contactForm('delete','')">
-                    <img id="deleteIcon" src="../images/delete.svg" alt="" />
-                    <span class="marginRight20px" id="deleteBtn">Delete</span>
-                  </nav>
+                    <nav class="blueHover" onmouseover="changeImage('deleteIcon','delete-blue')"
+                      onmouseleave="changeImage('deleteIcon','delete')" onclick="contactForm('delete','')">
+                      <img id="deleteIcon" src="../images/delete.svg" alt="" />
+                      <span class="marginRight20px" id="deleteBtn">Delete</span>
+                    </nav>
                     <span id="deleteErrorSpan" class="errorSpan"></span>
                   </div>
                 </div>
@@ -155,9 +155,23 @@
   <div id="addContactResponsiv" class="addContactResponsiv" onclick="showContactForm('add')">
     <img id="addContactResponsivImg" src="../images/person_add.svg" alt="" />
   </div>
-  <div id="editContactResponsiv" class="addContactResponsiv visibleNone" onclick="showContactForm('edit')">
+  <div id="editContactResponsiv" class="addContactResponsiv visibleNone" onclick="showManipulateContactLinksOptions('show')">
     <img id="addContactResponsivImg" src="../images/more_vert.svg" alt="" />
   </div>
+
+    <div id="manipulateOptionsFrame" class="visibleNone" onclick="showManipulateContactLinksOptions('hide')">
+    <div id="manipulateOptions" class="manipulateOptions" onclick="event.stopPropagation()">
+      <nav onclick="showContactForm('edit')" onmouseover="changeImage('manipulateEditIcon','edit-1')" onmouseleave="changeImage('manipulateEditIcon','edit-2')"
+         class="manipulateLinks manipulateSingleTaskDiv">
+        <img id="manipulateEditIcon" src="../images/edit-2.svg" alt="" />
+        <span class="marginRight20px">Edit</span>
+      </nav>
+      <nav onclick="contactForm('delete','')" onmouseover="changeImage('manipulatedeleteIcon','delete-blue')" onmouseleave="changeImage('manipulatedeleteIcon','delete')" class="manipulateLinks manipulateSingleTaskDiv">
+        <img id="manipulatedeleteIcon" src="../images/delete.svg" alt="" />
+        <span class="marginRight20px" id="deleteBtn">Delete</span>
+      </nav>
+    </div>
+</div>
 </body>
 
 <script src="../scripts/script.js"></script>

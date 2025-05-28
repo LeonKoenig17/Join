@@ -215,31 +215,31 @@
 }
 
 #addContactBtn {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary-color);
-  height: fit-content;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  margin: 20px;
-  width: 300px;
-  justify-content: center;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    height: fit-content;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px;
+    width: 300px;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 #addContactBtn img {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 #addContactBtn:hover {
-  background-color: var(--hover-color);
+    background-color: var(--hover-color);
 }
 
 #addContactBtn p {
-  margin: 15px 10px;
+    margin: 15px 10px;
 }
 
 .addContactBtnDiv {
@@ -252,7 +252,7 @@
     flex-direction: row;
 }
 
-.widthFitContent{
+.widthFitContent {
     width: fit-content;
 }
 
@@ -288,7 +288,10 @@
     animation: slideInFromRight 250ms ease forwards;
 }
 
-
+.showManipualteLinks {
+    visibility: visible;
+    animation: slideToRightBorder 250ms ease forwards;
+}
 
 .closeFormImg {
     padding: 5px 5px;
@@ -301,4 +304,115 @@
     background-color: #EEEEEE;
     cursor: pointer;
     border-radius: 50%;
+}
+
+
+.manipulateContactLinkContainer {
+    display: flex;
+    align-items: center;
+    height: 90px;
+    width: calc(100vw - 200px);
+    position: absolute;
+}
+
+#manipulateLink {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #2A3647;
+    border-radius: 100%;
+    padding: 10px;
+    text-decoration: none;
+    color: #29ABE2;
+    font-weight: bold;
+    margin: 16px;
+    transition: background-color 0.3s ease-in-out;
+    position: fixed !important;
+    right: 0 !important;
+    z-index: 99;
+}
+
+#manipulateLink:hover {
+    background-color: #E2E6EC;
+    cursor: pointer;
+}
+
+.manipulateOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    /* top: 0px; */
+    background-color: white;
+    padding: 15px 5px;
+    border-radius: 20px 20px 0px 20px;
+    /* z-index: 201; */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    z-index: 401;
+    /* transition: border-radius 0.3s ease-in-out,
+        background-image 0.3s ease-in-out; */
+
+}
+
+.manipulateLinks {
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    margin: 0;
+    cursor: pointer;
+    /* transition: color 0.3s ease-in-out; */
+}
+
+.manipulateLinks:hover {
+    color: var(--text-underline-color);
+}
+
+.showManipualteLinks {
+    visibility: visible;
+    animation: slideToRightBorder 250ms ease forwards;
+}
+
+.manipulateSingleTaskDiv {
+    /* background-color: red; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding: 10px;
+    width: calc(100% - 30px);
+    margin: 0px 5px;
+}
+
+.manipulateSingleTaskDiv:hover {
+    background-color: #EEEEEE;
+    border-radius: 10px;
+}
+
+#manipulateOptionsFrame {
+    background-color: transparent;
+    height: 100vh;
+    width: 100%;
+    z-index: 200;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index:200;
+}
+
+@keyframes slideToRightBorder {
+    from {
+        right: -200px;
+        /* top: 50%; */
+        /* transform: translate(0%, -50%) */
+    }
+
+    to {
+        right: 20px;
+        /* top: 50%; */
+        /* transform: translate(-50%, -50%) */
+    }
 }

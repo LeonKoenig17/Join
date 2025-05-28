@@ -244,13 +244,14 @@ function changeImage(element, variant) {
   }
 }
 
-function definePosition(firstType, secondType, setOffX, setOffY) {
-  let element = document.getElementById(firstType);
-  let position = element.getBoundingClientRect();
-  let span = document.getElementById(secondType);
-  span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-  span.style.top = Number.parseInt((position.top + setOffY)) + "px";
+/**
+ * Remove or add the class "visibleNone" to the ID "manipulateOptionsFrame".
+ *
+ * @param {string} task - The task to decide whether ‘add’ or ‘remove’ is used.
+ */
+function showManipulateContactLinksOptions(task) {
+  task == "show" ?  
+  document.getElementById("manipulateOptionsFrame").classList.remove("visibleNone")
+  :
+  document.getElementById("manipulateOptionsFrame").classList.add("visibleNone")
 }
-
-
-

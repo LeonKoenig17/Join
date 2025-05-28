@@ -200,7 +200,8 @@
         bottom: 120px;
         height: 70px;
         width: 70px;
-        z-index: 400;
+        /* z-index: 400; */
+        z-index: 10;
         background-color: var(--primary-color);
         border-radius: 50%;
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
@@ -309,15 +310,20 @@
         cursor: pointer;
         border-radius: 50%;
     }
+
+    #basicManipulate {
+        display: none;
+    }
+
+    .contactDetailsPerson {
+        margin-bottom: 10px;
+    }
+
 }
 
 @media (max-width: 400px) {
     #backToList {
-        /* visibility: visible; */
-        /* position: absolute; */
-        /* right: 50px; */
         top: 40px;
-        /* cursor: pointer; */
     }
 
     .errorSpan {
