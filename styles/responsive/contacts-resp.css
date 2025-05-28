@@ -227,9 +227,6 @@
     }
 
     #addContactFrame {
-        /* display: flex; */
-        /* width: 400px; */
-        /* z-index: 10; */
         max-width: 400px;
         width: 90%;
         height: 760px;
@@ -237,7 +234,6 @@
 
     #addContactLeft {
         background-color: #2A3647;
-        /* width: 400px; */
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -249,7 +245,6 @@
 
     #addContactRight {
         height: 408px;
-        /* width: 800px; */
         display: flex;
         border-radius: 0px 0px 50px 50px;
         background-color: white;
@@ -263,10 +258,7 @@
         display: flex;
         flex-direction: column;
         margin: 0px;
-        /* height: calc(100% - 2 * 100px); */
         height: 100%;
-        /* align-items: center; */
-        /* min-width: 400px; */
         justify-content: space-evenly;
     }
 
@@ -278,15 +270,6 @@
     }
 
     #addContactRightImg {
-        /* background-color: #D1D1D1; */
-        /* height: fit-content; */
-        /* width: fit-content; */
-        /* margin-right: 0; */
-        /* border-radius: 100%; */
-        /* padding: 10px; */
-        /* border: solid 4px white; */
-        /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
-        /* position: absolute; */
         top: calc(128px / 2 * (-1));
         left: calc(50% - 128px / 2);
         height: 70px;
@@ -294,16 +277,8 @@
     }
 
     #addContactRightInitialsDiv {
-        /* background-color: #D1D1D1; */
-        /* height: fit-content; */
-        /* width: fit-content; */
-        /* margin-right: 0; */
-        /* border-radius: 100%; */
-        /* padding: 10px; */
-        /* border: solid 4px white; */
-        /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); */
         position: absolute;
-        top: calc(128px / 2 * (-1));
+        top: calc(100px / 2 * (-1));
         left: calc(50% - 128px / 2);
         height: 100px;
         margin: 0;
