@@ -130,10 +130,6 @@
         transform: translate(0px, 3%);
     }
 
-    #signUpDiv {
-        top: calc(100% - 100px);
-    }
-
     .buttonRow {
         gap: 5px;
     }

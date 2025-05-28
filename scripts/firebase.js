@@ -155,30 +155,137 @@ async function loadFromFirebase() {
   fireBaseContent = await loadData();
 }
 
+// async function lastColor() {
+//   try {
+//     const users = await loadData("login");
+//     if (!users) {
+//       return '#FF7A00';
+//     }
+
+//     const usedColors = Object.values(users).map(user => user.color);
+//     const availableColors = [
+//       '#FF7A00','#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
+//     ];
+
+//     for (const color of availableColors) {
+//       if (!usedColors.includes(color)) {
+//         return color;
+//       }
+//     }
+
+//     return availableColors[0];
+//   } catch (error) {
+//     console.error("Fehler beim Abrufen der letzten Farbe:", error);
+//     return '#FF7A00';
+//   }
+// }
+
+
+// async function lastColor() {
+//   try {
+//     const users = await loadData("login");
+    
+//     if (!users) {
+//       return '#FF7A00';
+//     }
+
+//     const usedColors = Object.values(users).map(user => user.color);
+//     const availableColors = ['#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1','#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B','#FFE62B', '#FF4646', '#FFBB2B'];
+
+//     // Schritt 1: Versuche, eine noch nicht verwendete Farbe zu finden
+//     for (const color of availableColors) {
+//       if (!usedColors.includes(color)) {
+//         return color;
+//       }
+//     }
+
+//     // Schritt 2: Alle Farben wurden schon verwendet
+//     // Letzte benutzte Farbe holen
+//     const lastUsedColor = usedColors[usedColors.length - 1];
+
+//     // Index in der verfügbaren Liste finden
+//     const index = availableColors.indexOf(lastUsedColor);
+
+//     if (index === -1) {
+//       // Falls die Farbe nicht in availableColors enthalten ist
+//       return availableColors[0];
+//     }
+
+//     // Nächste Farbe mit Wrap-around
+//     const nextIndex = (index + 1) % availableColors.length;
+//     return availableColors[nextIndex];
+
+//   } catch (error) {
+//     console.error("Fehler beim Abrufen der letzten Farbe:", error);
+//     return '#FF7A00';
+//   }
+// }
+
+// async function lastColor() {
+//   try {
+//     const users = await loadData("login");
+//     if (!users) {
+//       return '#FF7A00';
+//     }
+
+//     const usedColors = Object.values(users).map(user => user.color);
+//     const availableColors = ['#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1','#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B','#FFE62B', '#FF4646', '#FFBB2B'];
+//     const usedSet = new Set(usedColors);
+
+//     const unusedColor = availableColors.find(color => !usedSet.has(color));
+//     if (unusedColor) {
+//       return unusedColor;
+//     }
+
+//     let lastUsedColor = null;
+//     for (let i = usedColors.length - 1; i >= 0; i--) {
+//       if (availableColors.includes(usedColors[i])) {
+//         lastUsedColor = usedColors[i];
+//         break;
+//       }
+//     }
+
+//     if (!lastUsedColor) {
+//       return availableColors[0];
+//     }
+
+//     const index = availableColors.indexOf(lastUsedColor);
+//     const nextIndex = (index + 1) % availableColors.length;
+//     return availableColors[nextIndex];
+
+//   } catch (error) {
+//     console.error("Fehler beim Abrufen der letzten Farbe:", error);
+//     return '#FF7A00';
+//   }
+// }
+
 async function lastColor() {
   try {
     const users = await loadData("login");
-    if (!users) {
-      return '#FF7A00';
-    }
+    if (!users) return '#FF7A00';
 
     const usedColors = Object.values(users).map(user => user.color);
     const availableColors = [
-      '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
+      '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
+      '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF',
+      '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
     ];
 
-    for (const color of availableColors) {
-      if (!usedColors.includes(color)) {
-        return color;
-      }
-    }
+    const unusedColor = availableColors.find(color => !usedColors.includes(color));
+    if (unusedColor) return unusedColor;
 
-    return availableColors[0];
+    const lastUsedColor = [...usedColors].reverse().find(color => availableColors.includes(color));
+    const nextIndex = lastUsedColor
+      ? (availableColors.indexOf(lastUsedColor) + 1) % availableColors.length
+      : 0;
+
+    return availableColors[nextIndex];
   } catch (error) {
     console.error("Fehler beim Abrufen der letzten Farbe:", error);
     return '#FF7A00';
   }
 }
+
 
 /**
  * Returns the initials of a given full name.

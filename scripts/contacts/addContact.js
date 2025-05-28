@@ -184,7 +184,7 @@ async function addContactTask() {
 
   if (!name && !email && !phone) return;
 
-  const color = await lastColor();
+  const color = '#FF7A00'
   await postData("contact", { name, email, phone, color, type: "contact" });
 }
 
@@ -221,14 +221,14 @@ async function deleteContact(email, mode) {
 async function saveContact(email) {
   const name = document.getElementById("nameInputContact").value;
   const phone = document.getElementById("phoneInputContact").value;
-  const token = await findUser(email);
+  // const token = await findUser(email);
 
   const payload =
-    ergebnisse[token].type === "contact"
+    ergebnisse[thisToken].type === "contact"
       ? { name, email, phone }
       : { name, phone };
 
-  await patchData(`${ergebnisse[token].type}/${token}`, payload);
+  await patchData(`${ergebnisse[thisToken].type}/${thisToken}`, payload);
 }
 
 
