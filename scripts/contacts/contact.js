@@ -224,6 +224,7 @@ async function contactDetails(elementId, thenum) {
   document.getElementById("contactDetailsMail").innerText = detail.email;
   document.getElementById("contactDetailsMail").href =`mailto:${detail.email}`
   document.getElementById("contactDetailsPhone").innerText = detail.phone;
+  document.getElementById("deleteError").classList.add("hide");
 
   thisToken = await findUser(detail.email);
   chosen = true;
@@ -231,8 +232,8 @@ async function contactDetails(elementId, thenum) {
 }
 
 function clearErrors(){
-  hideError("","editErrorSpan")
-  hideError("","deleteErrorSpan")
+  hideErrorNew("","editErrorSpan")
+  hideErrorNew("","deleteErrorSpan")
 }
 
 function responsiveContentRight(task) {
@@ -249,15 +250,12 @@ function responsiveContentRight(task) {
     document.getElementById("allContacts").classList.remove("width0")
     document.getElementById("contentLeft").classList.remove("width0")
     document.getElementById("backToList").classList.add("displayNone")
+    document.getElementById("deleteError").classList.add("hide")
     changeImage("addContactResponsivImg", "person_add");
     document.getElementById("addContactResponsiv").classList.remove("visibleNone")
     document.getElementById("editContactResponsiv").classList.add("visibleNone")
   }
 }
-
-
-
-
 
 
 /**
@@ -268,6 +266,7 @@ function responsiveContentRight(task) {
 function hideDetails(elementId) {
   document.getElementById(elementId).classList.replace("singleUserChosen", "singleUser");
   document.getElementById("contactDetails").classList.add("hide");
+  document.getElementById("deleteError").classList.add("hide");
   chosen = false;
 }
 
