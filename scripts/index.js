@@ -74,7 +74,7 @@ function validateFields(emailInput, passwordInput) {
  */
 function validateField(input, errorSpanId, message) {
     if (input.value.trim() === "") {
-        showError(input.id, errorSpanId, 0, 0, message);
+        showError(input.id, errorSpanId, message);
         return false;
     }
     return true;
@@ -128,7 +128,7 @@ function handleLoginFailure() {
     ["emailInput", "passwordInput"].forEach(id =>
         document.getElementById(id).classList.add("redBorder")
     );
-    showError("loginButtonDiv", "loginFailErrorSpan", 0, 10, "Check your Email and password. Please try again.");
+    showError("loginButtonDiv", "loginFailErrorSpan", "Check your Email and password. Please try again.");
 }
 
 

@@ -115,7 +115,11 @@ main {
   flex-direction: column;
 }
 
-
+#contactDetailsName {
+  font-size: 47px;
+  font-weight: bold;
+  margin: 10px;
+}
 
 .capital {
   display: flex;
@@ -240,10 +244,10 @@ main {
 }
 
 .frame-40 h1 {
-  font-size: 61px;
+  font-size: 48px;
   font-weight: 700;
-  height: 73px;
-  width: 264px;
+  height: auto;
+  width: fit-content;
   line-height: 120%;
   cursor: context-menu;
 }
@@ -254,7 +258,7 @@ main {
   border-radius: 1rem;
 }
 
-.marginRight20px{
+.marginRight20px {
   margin-right: 20px;
 }
 
@@ -262,7 +266,7 @@ main {
   height: auto;
   line-height: 120%;
   font-weight: 400;
-  font-size: 27px;
+  font-size: 20px;
   color: #2A3647;
   cursor: context-menu;
 }
@@ -340,7 +344,7 @@ strong {
 }
 
 .contactsFrame p {
-  margin-left: 27px;
+  margin-left: 20px;
   order: 3;
 }
 
@@ -382,7 +386,7 @@ strong {
   justify-content: center;
 }
 
-.gap20px{
+.gap20px {
   gap: 20px;
 }
 
