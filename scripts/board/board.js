@@ -1,6 +1,5 @@
 let allTasks = [];
 
-
 /**
  * Initializes the board by setting up user links, fetching data, rendering tasks,
  * and configuring drag-and-drop functionality.
@@ -14,7 +13,6 @@ async function init() {
   getCurrentHTML();
   addHelpToPopup();
 }
-
 
 /**
  * Sets up listeners for the subtask input field to toggle visibility of action buttons.
@@ -39,7 +37,6 @@ function setupSubtaskInputListeners() {
     });
   }
 }
-
 
 /**
  * Updates the stage of a task in Firebase based on the container it is moved to.
@@ -67,7 +64,6 @@ async function updateStage(container, taskId) {
   }
 }
 
-
 /**
  * Maps container IDs to their corresponding stage indices.
  * @param {string} containerId - The ID of the container.
@@ -87,7 +83,6 @@ function getStageFromContainer(containerId) {
       return 0;
   }
 }
-
 
 /**
  * Fetches all tasks from Firebase and populates the global `allTasks` array.
@@ -109,7 +104,6 @@ async function fetchData() {
   renderTasks();
 }
 
-
 /**
  * Renders all four columns of the board with tasks.
  */
@@ -118,11 +112,11 @@ async function renderTasks() {
   renderColumnBtns(containers);
 
   for (let i = 0; i < 4; i++) {
-    const stageTasks = allTasks.filter(task => task.stage === i);
+    const stageTasks = allTasks.filter((task) => task.stage === i);
     if (stageTasks.length === 0) {
       containers[i].innerHTML += noTaskHtml;
     } else {
-      stageTasks.forEach(task => {
+      stageTasks.forEach((task) => {
         containers[i].innerHTML += generateTaskCard(task);
       });
     }
@@ -131,7 +125,6 @@ async function renderTasks() {
   addDragFunction();
   await applyUserColors();
 }
-
 
 /**
  * Renders buttons for each column of the board.
@@ -148,7 +141,6 @@ function renderColumnBtns(containers) {
   return containers;
 }
 
-
 /**
  * Applies user-specific colors to task assignee avatars.
  */
@@ -160,7 +152,7 @@ async function applyUserColors() {
       return map;
     }, {});
 
-    document.querySelectorAll(".task-assignee").forEach(el => {
+    document.querySelectorAll(".task-assignee").forEach((el) => {
       const uid = el.dataset.userId;
       const person = peopleById[uid];
       if (person && person.color) {
@@ -172,40 +164,45 @@ async function applyUserColors() {
   }
 }
 
-
 /**
  * Checks if the current device is a mobile device based on screen width.
  * @returns {boolean} True if the device is mobile, false otherwise.
  */
 function isMobile() {
-  return window.innerWidth <= 800;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 800;
 }
-
 
 /**
  * Move search input field to responsive layout
  */
 document.addEventListener("DOMContentLoaded", function () {
-    const searchInputField = document.getElementById("searchInput");
-    const originalParent = document.querySelector("#boardHeader div");
-    const newParent = document.getElementById("searchInput-resp-target");
+  const searchInputField = document.getElementById("searchInput");
+  const originalParent = document.querySelector("#boardHeader div");
+  const newParent = document.getElementById("searchInput-resp-target");
 
-    function moveInputFieldOnResize() {
-      if (isMobile()) {
-        pressTimer = setTimeout(() => {
-          document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "false"));
-        }, 600);
-        if (!newParent.contains(searchInputField)) {
-          newParent.appendChild(searchInputField);
-        }
-      } else {
-        document.querySelectorAll(".task").forEach(task => task.setAttribute("draggable", "true"));
-        if (!originalParent.contains(searchInputField)) {
-          originalParent.insertBefore(searchInputField, originalParent.firstChild);
-        }
+  function moveInputFieldOnResize() {
+    if (isMobile()) {
+      pressTimer = setTimeout(() => {
+        document
+          .querySelectorAll(".task")
+          .forEach((task) => task.setAttribute("draggable", "true"));
+      }, 600);
+      if (!newParent.contains(searchInputField)) {
+        newParent.appendChild(searchInputField);
+      }
+    } else {
+      document
+        .querySelectorAll(".task")
+        .forEach((task) => task.setAttribute("draggable", "true"));
+      if (!originalParent.contains(searchInputField)) {
+        originalParent.insertBefore(
+          searchInputField,
+          originalParent.firstChild
+        );
       }
     }
+  }
 
-    window.addEventListener("resize", moveInputFieldOnResize);
-    moveInputFieldOnResize(); // Initial run
+  window.addEventListener("resize", moveInputFieldOnResize);
+  moveInputFieldOnResize(); // Initial run
 });
