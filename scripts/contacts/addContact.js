@@ -32,7 +32,6 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
-  emailInputAddEvent();
 }
 
 function toggleClass(element, className) {
@@ -51,9 +50,9 @@ function toggleClass(element, className) {
 function checkMode() {
   const mode = document.getElementById("addContactFrame").dataset.mode;
   if (mode === "edit") {
-    document.getElementById("nameInput").value = document.getElementById("contactDetailsName").innerText;
-    document.getElementById("emailInput").value = document.getElementById("contactDetailsMail").innerText;
-    document.getElementById("phoneInput").value = document.getElementById("contactDetailsPhone").innerText;
+    document.getElementById("nameInputContact").value = document.getElementById("contactDetailsName").innerText;
+    document.getElementById("emailInputContact").value = document.getElementById("contactDetailsMail").innerText;
+    document.getElementById("phoneInputContact").value = document.getElementById("contactDetailsPhone").innerText;
     document.getElementById("addContactRightInitials").innerHTML = document.getElementById("contactDetailsInitials").innerHTML;
     document.getElementById("addContactRightInitialsDiv").classList.remove(`grayBackground`)
     document.getElementById("addContactRightInitialsDiv").classList.add(`userColor-${ergebnisse[thisToken].color.replace('#', '')}`)
@@ -74,26 +73,18 @@ function checkLocalUser(mode) {
 
   if (mode === 'add') { return true }
 
-
-
   try {
     if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
       return true;
     } else {
-      // deleteErrorContact("editIcon", 18, 30);
-      // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
-      showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
+      showError("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
       return false;
     }
   } catch (error) {
-
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-    showErrorNew("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
-
-    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't edit other registered users`)
-    // deleteErrorContact("editIcon", 18, 30);
+    showError("", "editErrorSpan", 0, 0, "You can't edit other<br>registered users.")
     return false;
   }
   return true;
@@ -105,14 +96,11 @@ function checkLocalUser(mode) {
  * and hides the delete error message if it is displayed.
  */
 function hideContactForm() {
-  document
-    .getElementById("manipulateContactBackground")
-    .classList.replace("showManipualteFormBackground", "visibleNone");
-  document
-    .getElementById("addContactFrame")
-    .classList.replace("showManipualteFormFrame", "visibleNone");
-  document.getElementById("deleteError").classList.add("hide");
-  document.getElementById("emailErrorSpan").classList.remove("visible")
+  document.getElementById("manipulateContactBackground").classList.replace("showManipualteFormBackground", "visibleNone");
+  document.getElementById("addContactFrame").classList.replace("showManipualteFormFrame", "visibleNone");
+  hideError("","nameErrorSpanContact")
+  hideError("","emailErrorSpanContact")
+  hideError("","phoneErrorSpanContact")
 }
 
 
@@ -152,25 +140,21 @@ function contactFormBtn(mode) {
  * @returns {Promise<void>} Resolves when the action is completed and the page is reloaded if an action was performed.
  */
 async function contactForm(task, mode) {
-  const thisEmail =
-    document.getElementById("emailInput")?.value ||
-    document.getElementById("contactDetailsMail").innerText;
+  const thisEmail = document.getElementById("emailInputContact")?.value || document.getElementById("contactDetailsMail").innerText;
 
   let actionPerformed = false;
 
   switch (task) {
     case "add":
-      if (emailIsValid(email) == false) { return };
+      if (emailIsValid(thisEmail) == false) { return };
       await addContactTask();
       actionPerformed = true;
       break;
-
     case "save":
-      if (emailIsValid(email) == false) { return };
+      if (emailIsValid(thisEmail) == false) { return };
       await saveContact(thisEmail);
       actionPerformed = true;
       break;
-
     case "delete":
       if (await deleteContact(thisEmail, mode)) {
         actionPerformed = true;
@@ -180,9 +164,7 @@ async function contactForm(task, mode) {
 
   if (actionPerformed) {
     localStorage.setItem("lastEditedContact", thisEmail);
-
     hideContactForm();
-
     window.location.reload();
   }
 }
@@ -196,9 +178,9 @@ async function contactForm(task, mode) {
  * @returns {Promise<void>} Resolves when the contact has been added.
  */
 async function addContactTask() {
-  const name = document.getElementById("nameInput").value;
-  const email = document.getElementById("emailInput").value;
-  const phone = document.getElementById("phoneInput").value;
+  const name = document.getElementById("nameInputContact").value;
+  const email = document.getElementById("emailInputContact").value;
+  const phone = document.getElementById("phoneInputContact").value;
 
   if (!name && !email && !phone) return;
 
@@ -221,9 +203,7 @@ async function deleteContact(email, mode) {
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
   if (token !== myToken && ergebnisse[token].type === "login") {
-    // deleteErrorContact(elementId, 18, 30);
-    showErrorNew("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
-    // deleteError(setOffs[0], 'deleteError', setOffs[1], setOffs[2], `You can't delete other registered users`)
+    showError("", "deleteErrorSpan", 0, 0, "You can't delete other<br>registered users.")
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -239,8 +219,8 @@ async function deleteContact(email, mode) {
  * @returns {Promise<void>} Resolves when the contact is saved.
  */
 async function saveContact(email) {
-  const name = document.getElementById("nameInput").value;
-  const phone = document.getElementById("phoneInput").value;
+  const name = document.getElementById("nameInputContact").value;
+  const phone = document.getElementById("phoneInputContact").value;
   const token = await findUser(email);
 
   const payload =
@@ -272,36 +252,5 @@ function definePosition(firstType, secondType, setOffX, setOffY) {
   span.style.top = Number.parseInt((position.top + setOffY)) + "px";
 }
 
-function deleteError(firstType, secondType, setOffX, setOffY, errorText) {
-  try {
-    let element = document.getElementById(firstType);
-    let position = element.getBoundingClientRect();
-    let span = document.getElementById(secondType);
-    document.getElementById(firstType).classList.add("redBorder")
-    span.innerHTML = errorText
-    span.classList.add("visible")
-    span.classList.remove("hide")
-    definePosition(firstType, secondType, setOffX, setOffY)
-    // span.style.left = Number.parseInt((position.left + setOffX)) + "px";
-    // span.style.top = Number.parseInt((position.top + setOffY)) + "px";
-  } catch (error) {
-    return null
-  }
-}
 
-function emailInputAddEvent() {
-  emailInput = document.getElementById('emailInput');
-  emailInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-    }
-    if (emailInput.value != "") {
-      clearErrorInput("emailInput", "emailErrorSpan");
-    }
-  });
-
-  emailInput.addEventListener('blur', function () {
-    checkEmailInput("emailInput", 'emailErrorSpan', 10, 50, 'Your Email-Address is not valid. Please check your input.');
-  });
-}
 

@@ -1,3 +1,10 @@
+/**
+ * Generates the HTML template for an assigned user item.
+ * @param {Object} user - The user object containing user details.
+ * @param {number} index - The index of the user in the list.
+ * @param {boolean} [isChecked=false] - Whether the user is already assigned.
+ * @returns {string} - The HTML string for the assigned user item.
+ */
 function assignedUserTemplate(user, index, isChecked = false) {
   return `
     <div class="assigned-user-item">
@@ -22,6 +29,11 @@ function assignedUserTemplate(user, index, isChecked = false) {
 }
 
 
+/**
+ * Generates the HTML for displaying assignees on a task card.
+ * @param {Array} assignees - The list of assignees.
+ * @returns {string} - The HTML string for the assignees.
+ */
 function generateCardAssigneeHTML(assignees) {
   if (!Array.isArray(assignees)) return "";
   return assignees
@@ -43,6 +55,11 @@ function generateCardAssigneeHTML(assignees) {
 }
 
 
+/**
+ * Generates the HTML for displaying assignees in the task overlay.
+ * @param {Array} assignees - The list of assignees.
+ * @returns {string} - The HTML string for the assignees in the overlay.
+ */
 function taskOverlayAssignee(assignees) {
   if (!Array.isArray(assignees)) return "";
   return assignees

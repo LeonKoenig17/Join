@@ -1,6 +1,4 @@
 const BASE_URL = 'https://join-6e686-default-rtdb.europe-west1.firebasedatabase.app/';
-const iconColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FF4646'];
-
 
 /**
  * Asynchronously loads JSON data from a specified path.
@@ -80,6 +78,7 @@ async function deleteData(path = "") {
     method: "DELETE"
   });
 }
+
 async function loadUsers() {
   try {
     const usersObj = await loadData("login");
@@ -128,32 +127,29 @@ async function applyUserColors() {
 }
 
 async function fillUserLinks() {
-  let myValue = "";
   try {
-    myValue = fireBaseContent.login;
-  } catch (error) {
-    myValue = await loadData('login');
-  }
+    const allUsers = await loadAllUsers();
+    const myToken = localStorage.getItem("token");
+    const currentUser = allUsers.find(user => user.id === myToken);
 
-  let myToken = localStorage.getItem('token');
-  let myName = myValue[myToken].name;
+    if (!currentUser) {
+      const userLinkElement = document.getElementById("userLink");
+      if (userLinkElement) userLinkElement.innerHTML = "G";
+      const userNameElement = document.getElementById("userName");
+      if (userNameElement) userNameElement.innerHTML = "";
+      return;
+    }
 
-  try {
-    const initials = getInitials(myName);
-    document.getElementById("userLink").innerHTML = initials;
-  } catch (error) {
-    document.getElementById("userLink").innerHTML = "G";
-  }
+    const initials = getInitials(currentUser.name);
+    const userLinkElement = document.getElementById("userLink");
+    if (userLinkElement) userLinkElement.innerHTML = initials;
 
-  try {
-    // Nur den Namen anzeigen, wenn es nicht "Guest" ist
-    if (myName !== "Guest") {
-      document.getElementById("userName").innerHTML = myName;
-    } else {
-      document.getElementById("userName").innerHTML = ""; // Leer lassen wenn Guest
+    const userNameElement = document.getElementById("userName");
+    if (userNameElement) {
+      userNameElement.innerHTML = currentUser.name !== "Guest" ? currentUser.name : "";
     }
   } catch (error) {
-    return null;
+    console.error("Fehler beim Aktualisieren der Benutzerlinks:", error);
   }
 }
 
@@ -162,13 +158,28 @@ async function loadFromFirebase() {
 }
 
 async function lastColor() {
-  let ergebnisse = await loadData("login")
-  let result = Object.entries(ergebnisse);
-  let myLastColor = result.pop()[1].color;
-  let found = iconColors.indexOf(myLastColor);
+  try {
+    const users = await loadData("login");
+    if (!users) {
+      return '#FF7A00';
+    }
 
-  if (found == (iconColors.length - 1)) { found = 0 } else { found = found + 1 }
-  return iconColors[found];
+    const usedColors = Object.values(users).map(user => user.color);
+    const availableColors = [
+      '#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
+    ];
+
+    for (const color of availableColors) {
+      if (!usedColors.includes(color)) {
+        return color;
+      }
+    }
+
+    return availableColors[0];
+  } catch (error) {
+    console.error("Fehler beim Abrufen der letzten Farbe:", error);
+    return '#FF7A00';
+  }
 }
 
 /**
@@ -186,6 +197,26 @@ function getInitials(element) {
   } else {
     let lastName = (completeName.length == 1) ? "" : completeName[completeName.length - 1];
     return firstName[0] + lastName[0];
+  }
+}
+
+async function loadAllUsers() {
+  try {
+    const [users, contacts] = await Promise.all([
+      loadData("login"),
+      loadData("contacts")
+    ]);
+
+    const allPeople = { ...users, ...contacts };
+    return Object.entries(allPeople).map(([id, person]) => ({
+      id,
+      name: person.name || "",
+      color: person.color || "#A8A8A8",
+      email: person.email || ""
+    }));
+  } catch (error) {
+    console.error("Fehler beim Laden aller Benutzer:", error);
+    return [];
   }
 }
 

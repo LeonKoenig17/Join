@@ -224,7 +224,6 @@ async function contactDetails(elementId, thenum) {
   document.getElementById("contactDetailsMail").innerText = detail.email;
   document.getElementById("contactDetailsMail").href =`mailto:${detail.email}`
   document.getElementById("contactDetailsPhone").innerText = detail.phone;
-  document.getElementById("deleteError").classList.add("hide");
 
   thisToken = await findUser(detail.email);
   chosen = true;
@@ -232,8 +231,8 @@ async function contactDetails(elementId, thenum) {
 }
 
 function clearErrors(){
-  hideErrorNew("","editErrorSpan")
-  hideErrorNew("","deleteErrorSpan")
+  hideError("","editErrorSpan")
+  hideError("","deleteErrorSpan")
 }
 
 function responsiveContentRight(task) {
@@ -250,7 +249,6 @@ function responsiveContentRight(task) {
     document.getElementById("allContacts").classList.remove("width0")
     document.getElementById("contentLeft").classList.remove("width0")
     document.getElementById("backToList").classList.add("displayNone")
-    document.getElementById("deleteError").classList.add("hide")
     changeImage("addContactResponsivImg", "person_add");
     document.getElementById("addContactResponsiv").classList.remove("visibleNone")
     document.getElementById("editContactResponsiv").classList.add("visibleNone")
@@ -270,7 +268,6 @@ function responsiveContentRight(task) {
 function hideDetails(elementId) {
   document.getElementById(elementId).classList.replace("singleUserChosen", "singleUser");
   document.getElementById("contactDetails").classList.add("hide");
-  document.getElementById("deleteError").classList.add("hide");
   chosen = false;
 }
 
@@ -326,7 +323,6 @@ function deleteErrorContact(type, offsetX, offsetY) {
 }
 
 
-
 /**
  * Retrieves the contact details for a user with the specified email address.
  *
@@ -358,6 +354,13 @@ async function getContactDetails(emailToFind) {
   return { name: "", email: "", phone: "", color: "#cccccc" };
 }
 
+
+/**
+ * Shows or hides the cancel button ("leftBtn") based on the window's width.
+ * If the window width is less than 800 pixels, hides the button and adjusts the right button's margin.
+ * If the window width is 800 pixels or more, shows the button.
+ * Handles errors gracefully if elements are not found.
+ */
 function hideCancelBtn() {
   let task = this.window.innerWidth < 800 ? 'hide' : 'show';
 
@@ -373,6 +376,11 @@ function hideCancelBtn() {
   }
 }
 
+
+/**
+ * Checks if the element with the ID "deleteError" is visible and if the window width is less than 400 pixels.
+ * Intended to handle UI changes for the error button based on visibility and screen size.
+ */
 function moveErrorBtn(){
   let visibleCheck = document.getElementById("deleteError").classList.contains("visible")
   if(visibleCheck && window.innerWidth < 400){
@@ -380,11 +388,11 @@ function moveErrorBtn(){
   }
 }
 
+
 window.addEventListener('resize', function () {
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
   changeImage("closeFormImg", whichImg);
   hideCancelBtn();
-  definePosition(setOffs[0],"deleteError",setOffs[1],setOffs[2])
 }
 );
 
