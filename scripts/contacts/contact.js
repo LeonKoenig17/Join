@@ -204,31 +204,82 @@ function chooseTaskDetails(elementId) {
  * @returns {Promise<void>} Resolves when the contact details have been displayed and UI updated.
  */
 async function contactDetails(elementId, thenum) {
-  responsiveContentRight('show')
+  responsiveContentRight('show');
   chosenCard = thenum;
-  const email = document.getElementById(`singleUserMail${thenum}`).innerText;
+
+  const emailElement = document.getElementById(`singleUserMail${thenum}`);
+  if (!emailElement) {
+    console.error(`Email element with ID singleUserMail${thenum} not found.`);
+    return;
+  }
+  const email = emailElement.innerText;
   localStorage.setItem('selectedContactEmail', email);
+
   const detail = await getContactDetails(email);
+  if (!detail) {
+    console.error(`Details for email ${email} not found.`);
+    return;
+  }
+
   const initials = getInitials(detail.name);
   const color = detail.color.replace("#", "");
 
   const nav = document.getElementById(elementId);
-  window.innerWidth < 800 ? "" : nav.classList.replace("singleUser", "singleUserChosen")
-  window.innerWidth < 800 ? changeImage('addContactResponsivImg', 'more_vert') : "";
+  if (nav) {
+    if (window.innerWidth >= 800) {
+      nav.classList.replace("singleUser", "singleUserChosen");
+    }
+  } else {
+    console.error(`Navigation element with ID ${elementId} not found.`);
+  }
 
-  document.getElementById("contactDetails").classList.remove("hide");
-  document.getElementById("contactDetailsInitials")
-    .className = `userInitialsBig userColor-${color}`;
-  document.getElementById("contactDetailsInitials").innerText = initials;
-  document.getElementById("contactDetailsName").innerText = detail.name;
-  document.getElementById("contactDetailsMail").innerText = detail.email;
-  document.getElementById("contactDetailsMail").href =`mailto:${detail.email}`
-  document.getElementById("contactDetailsPhone").innerText = detail.phone;
-  document.getElementById("deleteError").classList.add("hide");
+  const contactDetailsElement = document.getElementById("contactDetails");
+  if (contactDetailsElement) {
+    contactDetailsElement.classList.remove("hide");
+  } else {
+    console.error("Contact details element not found.");
+    return;
+  }
+
+  const initialsElement = document.getElementById("contactDetailsInitials");
+  if (initialsElement) {
+    initialsElement.className = `userInitialsBig userColor-${color}`;
+    initialsElement.innerText = initials;
+  } else {
+    console.error("Initials element not found.");
+  }
+
+  const nameElement = document.getElementById("contactDetailsName");
+  if (nameElement) {
+    nameElement.innerText = detail.name;
+  } else {
+    console.error("Name element not found.");
+  }
+
+  const mailElement = document.getElementById("contactDetailsMail");
+  if (mailElement) {
+    mailElement.innerText = detail.email;
+    mailElement.href = `mailto:${detail.email}`;
+  } else {
+    console.error("Mail element not found.");
+  }
+
+  const phoneElement = document.getElementById("contactDetailsPhone");
+  if (phoneElement) {
+    phoneElement.innerText = detail.phone;
+  } else {
+    console.error("Phone element not found.");
+  }
+
+  const deleteErrorElement = document.getElementById("deleteError");
+  if (deleteErrorElement) {
+    deleteErrorElement.classList.add("hide");
+  } else {
+    console.error("Delete error element not found.");
+  }
 
   thisToken = await findUser(detail.email);
   chosen = true;
-
 }
 
 function clearErrors(){
@@ -237,23 +288,32 @@ function clearErrors(){
 }
 
 function responsiveContentRight(task) {
-  clearErrors()
-  if (task == 'show' && window.innerWidth <= 800) {
-    document.getElementById("contentRight").classList.add("showContentRight")
-    document.getElementById("allContacts").classList.add("width0")
-    document.getElementById("contentLeft").classList.add("width0")
-    document.getElementById("backToList").classList.remove("displayNone")
-    document.getElementById("addContactResponsiv").classList.add("visibleNone")
-    document.getElementById("editContactResponsiv").classList.remove("visibleNone")
+  clearErrors();
+
+  const contentRight = document.getElementById("contentRight");
+  const allContacts = document.getElementById("allContacts");
+  const contentLeft = document.getElementById("contentLeft");
+  const backToList = document.getElementById("backToList");
+  const addContactResponsiv = document.getElementById("addContactResponsiv");
+  const editContactResponsiv = document.getElementById("editContactResponsiv");
+
+  if (task === 'show' && window.innerWidth <= 800) {
+    if (contentRight) contentRight.classList.add("showContentRight");
+    if (allContacts) allContacts.classList.add("width0");
+    if (contentLeft) contentLeft.classList.add("width0");
+    if (backToList) backToList.classList.remove("displayNone");
+    if (addContactResponsiv) addContactResponsiv.classList.add("visibleNone");
+    if (editContactResponsiv) editContactResponsiv.classList.remove("visibleNone");
   } else {
-    document.getElementById("contentRight").classList.remove("showContentRight")
-    document.getElementById("allContacts").classList.remove("width0")
-    document.getElementById("contentLeft").classList.remove("width0")
-    document.getElementById("backToList").classList.add("displayNone")
-    document.getElementById("deleteError").classList.add("hide")
+    if (contentRight) contentRight.classList.remove("showContentRight");
+    if (allContacts) allContacts.classList.remove("width0");
+    if (contentLeft) contentLeft.classList.remove("width0");
+    if (backToList) backToList.classList.add("displayNone");
+    const deleteError = document.getElementById("deleteError");
+    if (deleteError) deleteError.classList.add("hide");
     changeImage("addContactResponsivImg", "person_add");
-    document.getElementById("addContactResponsiv").classList.remove("visibleNone")
-    document.getElementById("editContactResponsiv").classList.add("visibleNone")
+    if (addContactResponsiv) addContactResponsiv.classList.remove("visibleNone");
+    if (editContactResponsiv) editContactResponsiv.classList.add("visibleNone");
   }
 }
 
@@ -264,9 +324,27 @@ function responsiveContentRight(task) {
  * @param {string} elementId - The ID of the element representing the selected user.
  */
 function hideDetails(elementId) {
-  document.getElementById(elementId).classList.replace("singleUserChosen", "singleUser");
-  document.getElementById("contactDetails").classList.add("hide");
-  document.getElementById("deleteError").classList.add("hide");
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.classList.replace("singleUserChosen", "singleUser");
+  } else {
+    console.error(`Element with ID ${elementId} not found.`);
+  }
+
+  const contactDetails = document.getElementById("contactDetails");
+  if (contactDetails) {
+    contactDetails.classList.add("hide");
+  } else {
+    console.error("Contact details element not found.");
+  }
+
+  const deleteError = document.getElementById("deleteError");
+  if (deleteError) {
+    deleteError.classList.add("hide");
+  } else {
+    console.error("Delete error element not found.");
+  }
+
   chosen = false;
 }
 
@@ -386,6 +464,21 @@ function moveErrorBtn(){
 
   }
 }
+
+
+function ensureDeleteErrorExists() {
+  let deleteError = document.getElementById("deleteError");
+  if (!deleteError) {
+    deleteError = document.createElement("span");
+    deleteError.id = "deleteError";
+    deleteError.classList.add("hide");
+    document.body.appendChild(deleteError);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  ensureDeleteErrorExists();
+});
 
 
 window.addEventListener('resize', function () {

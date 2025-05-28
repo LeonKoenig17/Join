@@ -364,7 +364,6 @@ strong {
   height: 14px;
   font-size: 10px;
   color: red;
-  visibility: hidden;
   z-index: 3000;
 }
 
