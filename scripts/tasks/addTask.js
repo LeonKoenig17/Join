@@ -246,6 +246,11 @@ function getSubtasksData() {
 /**
  * Clears and resets the task form.
  */
+/**
+ * Clears all input fields and resets the form to its initial state for adding a new task.
+ * This includes clearing text fields, resetting dropdowns, removing active button states,
+ * clearing assigned users and subtasks, and resetting error messages.
+ */
 function clearForm() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
@@ -257,9 +262,28 @@ function clearForm() {
   document.getElementById("categorySelect").selectedIndex = 0;
   document.getElementById("assignedChips").innerHTML = "";
   subtasks.length = 0;
-    document.getElementById("subtask-list").innerHTML = "";
+  document.getElementById("subtask-list").innerHTML = "";
+
+  resetFieldAndError("title", "title-error");
+  resetFieldAndError("due-date", "due-date-error");
+  resetFieldAndError("categorySelect", "category-error");
 
   updateSubtaskList();
+}
+
+
+/**
+ * Resets the visual error indication and error message for a given input field.
+ *
+ * @param {string} fieldId - The ID of the input field to reset.
+ * @param {string} errorId - The ID of the element displaying the error message.
+ */
+function resetFieldAndError(fieldId, errorId) {
+  const field = document.getElementById(fieldId);
+  if (field) field.classList.remove("fieldIsRequired");
+
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) errorElement.textContent = "";
 }
 
 
