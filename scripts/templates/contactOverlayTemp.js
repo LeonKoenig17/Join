@@ -46,7 +46,7 @@ function contactDetailsTemp(mode, size) {
             </div>
           
           <div id="addContactRightInputs">
-            <div class="flexColumn" style="gap: 20px">
+            <div class="flexColumn gap20px">
              <div id="addContactBtnDiv" class="flexColumn">
                  <input type="text" id="nameInputContact" placeholder="Name"  class="loginInput personImgBackground"/ onblur="checkName(this.id)" onkeydown="checkEnter(event, this.id)">
                  <span id="nameErrorSpanContact" class="errorSpanContact"></span>
@@ -55,7 +55,7 @@ function contactDetailsTemp(mode, size) {
                  <input type="text" id="phoneInputContact" placeholder="Phone" class="loginInput callImgBackground"/>
                  <span id="phoneErrorSpanContact" class="errorSpanContact"></span>
             </div>
-            <div class="addContactBtnDiv" style="width: fit-content;">
+            <div class="addContactBtnDiv widthFitContent">
               <button
                 onmouseover="changeImage('leftBtnImg','cancelblue')"
                 onmouseleave="changeImage('leftBtnImg','canceldarkblue')"
