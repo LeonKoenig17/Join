@@ -5,6 +5,9 @@ let emailInput = document.getElementById('emailInput');
 let passwordInput = document.getElementById('passwordInput')
 let confirmInput = document.getElementById('confirmPasswordInput')
 
+/**
+ * writes and saves data to local storage
+ */
 async function writeLocalStorage() {
     let myEmail = await findUser(document.getElementById("emailInput").value);
     let email = document.getElementById("emailInput").value;
@@ -13,7 +16,11 @@ async function writeLocalStorage() {
     localStorage.setItem("token", myEmail)
 }
 
-
+/**
+ * finds the name of the user that is being loaded
+ * 
+ * @param {String} name 
+ */
 async function findName(name) {
     let ergebnisse = await loadData("login")
     for (let userId in ergebnisse) {
@@ -24,7 +31,11 @@ async function findName(name) {
     return null;
 }
 
-
+/**
+ * finds the user in the database based on the email
+ * 
+ * @param {String} email
+ */
 async function findUser(email) {
     let ergebnisseLogin = ""
     let ergebnisseContacts = ""
@@ -46,14 +57,21 @@ async function findUser(email) {
     return null;
 }
 
-
+/**
+ * logs out the current user and deletes data saves in local storage
+ */
 function logout() {
     localStorage.setItem("user", "")
     localStorage.setItem("token", "")
     window.location = '../index.html';
 }
 
-
+/**
+ * displays a popup at target location
+ * 
+ * @param {HTMLElement} element 
+ * @param {HTMLElement} target 
+ */
 function toasterPopup(element, target) {
     let mySpan = document.getElementById(element);
     mySpan.classList.remove("displayNone");
@@ -67,7 +85,9 @@ function toasterPopup(element, target) {
     }, 2000)
 }
 
-
+/**
+ * adds the popup to the site based on window dimensions
+ */
 function addHelpToPopup() {
     const windowWidth = window.innerWidth;
     try {
@@ -90,7 +110,9 @@ function addHelpToPopup() {
     }
 }
 
-
+/**
+ * gets the current url path and modifies it
+ */
 function getCurrentHTML() {
     let path = window.location.pathname;
     let page = path.split("/").pop();

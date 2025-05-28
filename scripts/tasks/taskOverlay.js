@@ -1,5 +1,6 @@
 /**
- * taskOverlay.js - Verwalten von Anzeige-, Bearbeitungs- und Erstellungs-Overlays für Tasks
+ * taskOverlay.js - managing display, editing and creation overlays of tasks
+ * 
  */
 
 let currentTask = null;
@@ -7,11 +8,11 @@ let isEditing = false;
 
 
 /**
- * Initialisiert alle Overlay-Komponenten für Edit/Add.
+ * Initalises all overlay components of edit / add
  *
- * @param {HTMLElement} overlayContainer  Container-Element des Overlays
- * @param {Array}       assignees         Gemergtes Array aus Usern + Contacts
- * @param {Object}      taskData          Aktuelle Task-Daten
+ * @param {HTMLElement} overlayContainer  container element of the overlay
+ * @param {Array}       assignees         array containing data of users and contacts
+ * @param {Object}      taskData          current task data
  */
 function initOverlaySetup(overlayContainer, assignees, taskData) {
   initPriorityButtons(overlayContainer);
@@ -23,7 +24,9 @@ function initOverlaySetup(overlayContainer, assignees, taskData) {
   toggleIcons(false);
 }
 
-
+/**
+ * Initialises overlay features like buttons, calender and colors depending on the page being loaded
+ */
 function initializeOverlayFeatures() {
   const taskOverlay = document.getElementById("taskOverlay");
   if (taskOverlay) {
@@ -44,7 +47,10 @@ function showTaskOverlayById(taskId) {
   showTaskOverlay(taskId);
 }
 
-
+/**
+ * shows a detailed overview about the task that was clicked
+ * @param {String} taskId - task specific id string saved in the database
+ */
 async function showTaskOverlay(taskId) {
   const [users, allTasks] = await Promise.all([
     loadFirebaseUsers(),
@@ -70,7 +76,11 @@ async function showTaskOverlay(taskId) {
   updateSubtaskList(taskId);
 }
 
-
+/**
+ * shows the overlay to add a new task based on the stage of the clicked task container
+ * 
+ * @param {Integer} stage 
+ */
 function showAddTaskOverlay(stage) {
   document.body.classList.add("no-scroll");
   const overlayHTML = addTaskOverlayTemplate(stage);
@@ -100,7 +110,7 @@ function showAddTaskOverlay(stage) {
 
 
 /**
- * Lädt Task oder liefert null, wenn nicht vorhanden.
+ * loads a tasks and returns null if it does not exist
  */
 async function loadTaskById(id) {
   if (currentTask?.id === id) return currentTask;
@@ -111,8 +121,7 @@ async function loadTaskById(id) {
 
 
 /**
- * Registriert den Klick-Handler des Speichern-Buttons,
- * um die Task-Daten zu sammeln und zu patchen.
+ * sets the handler for the save button to get and patch task data
  *
  * @param {HTMLElement} overlayContainer  Container des Overlays
  * @param {Object}      taskData          Aktuelle Task-Daten
@@ -131,7 +140,11 @@ function registerSaveTaskHandler(overlayContainer, taskData) {
   });
 }
 
-
+/**
+ * shows the overlay to edit the task that was clicked
+ * 
+ * @param {String} taskId 
+ */
 async function showEditTaskOverlay(taskId) {
   closeOverlay();
   document.body.classList.add("no-scroll");
@@ -158,7 +171,9 @@ async function showEditTaskOverlay(taskId) {
   currentTask = taskData;
 }
 
-
+/**
+ * closes an overlay on button press
+ */
 function closeOverlay() {
   document.body.classList.remove("no-scroll");
   const container = document.getElementById("taskOverlay");

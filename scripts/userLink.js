@@ -2,14 +2,18 @@ function donothing(event) {
     event.stopPropagation();
 }
 
-
+/**
+ * shows small overlay with options to link to another page
+ */
 function showUserLinksOptions() {
     document.getElementById("userLinkOptions").classList.toggle("hide");
     addHelpToPopup();
     closeUserLinksOnOutsideClick();
 }
 
-
+/**
+ * hides small overlay with options to link to another page
+ */
 function hideUserLinksOptions() {
     const el = document.getElementById("userLinkOptions");
     if (!el.classList.contains("hide")) {
@@ -17,7 +21,9 @@ function hideUserLinksOptions() {
     }
 }
 
-
+/**
+ * adds the option to link to the "Help" page according to window dimensions
+ */
 function addHelpToPopup() {
     const windowWidth = window.innerWidth;
     try {
@@ -40,7 +46,9 @@ function addHelpToPopup() {
     }
 }
 
-
+/**
+ * closes the options overlay when clicking outside of its borders
+ */
 function closeUserLinksOnOutsideClick() {
     document.addEventListener("click", (event) => {
         const popup = document.getElementById("userLinkOptions");

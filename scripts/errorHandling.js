@@ -1,5 +1,11 @@
 
-
+/**
+ * displays an error if required fields are not filled
+ * 
+ * @param {HTMLElement} parentElement 
+ * @param {HTMLElement} element 
+ * @param {String} elementText 
+ */
 function showError(parentElement, element, elementText) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
@@ -13,6 +19,7 @@ function showError(parentElement, element, elementText) {
 
 }
 
+
 function hideError(parentElement, element) {
     parentElement = document.getElementById(parentElement);
     element = document.getElementById(element);
@@ -21,7 +28,11 @@ function hideError(parentElement, element) {
     try { element.innerHTML = "" } catch (error) { }
 }
 
-
+/**
+ * checks if the name field is filled and meets requirements
+ * 
+ * @param {String} elementId 
+ */
 function checkName(elementId) {
     const input = document.getElementById(elementId);
     const errorSpanId = elementId.replace("Input", "ErrorSpan");
@@ -47,7 +58,12 @@ function checkName(elementId) {
     rightBtn.disabled = false;
 }
 
-
+/**
+ * validates name field input when Enter key is pressed
+ * 
+ * @param {Event} event 
+ * @param {String} id 
+ */
 function checkEnter(event, id) {
     if (event.key === "Enter") {
         checkName(id);
@@ -65,6 +81,12 @@ function validateEmpty(inputId, errorSpanId) {
     }
 }
 
+/**
+ * validates the input of the email inputfield
+ * 
+ * @param {String} inputId 
+ * @param {String} errorSpanId 
+ */
 function validateEmail(inputId, errorSpanId) {
     const input = document.getElementById(inputId);
     if (!validateEmpty(inputId, errorSpanId)) return false;
@@ -78,6 +100,14 @@ function validateEmail(inputId, errorSpanId) {
     }
 }
 
+/**
+ * shows visual feedback if field inputs are not valid
+ * 
+ * @param {String} inputId 
+ * @param {String} errorSpanId 
+ * @param {Boolean} isEmail 
+ * @param {Event} onEnter 
+ */
 function addValidationEvents(inputId, errorSpanId, isEmail = false, onEnter = null) {
     const input = document.getElementById(inputId);
     if (!input) return;
