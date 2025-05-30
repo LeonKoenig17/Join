@@ -63,7 +63,6 @@ body {
   width: auto;
   justify-content: start;
   margin-right: 15px;
-
 }
 
 .contactDetailsPerson nav {
@@ -71,7 +70,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: start;
-  padding: 0
+  padding: 0;
+  align-items: center;
 }
 
 .manipulateBtnDiv {

@@ -2,7 +2,7 @@
  * Initializes the summary page by loading task counts and displaying the help popup.
  * @async
  * @function init
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Resolves when the initialization is complete.
  */
 async function init() {
   fillUserLinks();
@@ -10,13 +10,13 @@ async function init() {
   addHelpToPopup();
 }
 
-init(); // Startpunkt
+init();
 
 /**
  * Asynchronously loads tasks, counts them by status, updates the DOM elements, and makes the page visible.
  * @async
  * @function loadAndDisplayTaskCounts
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Resolves when task counts are loaded and displayed.
  */
 async function loadAndDisplayTaskCounts() {
   try {
@@ -36,16 +36,20 @@ async function loadAndDisplayTaskCounts() {
   bodyVisible();
 }
 
-// Wenn Firebase fertig ist (z. B. nach Auth)
+
+/**
+ * Makes the body of the page visible after Firebase authentication is complete.
+ * @function bodyVisible
+ */
 function bodyVisible() {
   document.body.style.visibility = "visible";
 }
 
-
 /**
  * Maps the `stage` numbers to their corresponding categories.
+ * @function getStageDescription
  * @param {number} stage - The stage number of the task.
- * @returns {string} - The description of the stage.
+ * @returns {string} The description of the stage.
  */
 function getStageDescription(stage) {
   switch (stage) {
@@ -64,6 +68,7 @@ function getStageDescription(stage) {
 
 /**
  * Counts tasks by stage and priority.
+ * @function countTasks
  * @param {Object} tasksObj - The object returned by `loadData('tasks')`.
  * @returns {{all: number, toDo: number, inProgress: number, awaitFeedback: number, done: number, urgent: number}} An object containing task counts by category.
  */
@@ -102,7 +107,6 @@ function countTasks(tasksObj) {
   return counts;
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   setCurrentDate();
   setGreeting();
@@ -110,6 +114,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /** Zeigt das aktuelle Datum an. */
+/**
+ * Displays the current date in the format 'Month Day, Year'.
+ * @function setCurrentDate
+ */
 function setCurrentDate() {
   const currentDate = new Date();
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
@@ -121,17 +129,15 @@ function setCurrentDate() {
   }
 }
 
-/** Zeigt den Namen des Benutzers an. */
-/** Overlay bei schmalen Screens ----------------------------- */
+
 window.addEventListener("load", () => {
-  setGreeting();                       // Text setzen
+  setGreeting();
 
   const box = document.getElementById("greetingScreen");
   if (box && window.innerWidth <= 1000) {
-    box.classList.add("fullscreen");   // Overlay anzeigen
+    box.classList.add("fullscreen");
     setTimeout(() => {
-      box.classList.remove("fullscreen"); // nach 2 s wieder weg
-      // Media‑Query macht den Rest (display:none)
+      box.classList.remove("fullscreen");
     }, 2000);
   }
 });
@@ -139,10 +145,10 @@ window.addEventListener("load", () => {
 
 /**
  * Sets the greeting message based on the time of day and the user's name.
+ * @function setGreeting
  */
 function setGreeting() {
-  const name = localStorage.getItem("name"); // Benutzername aus localStorage holen
-
+  const name = localStorage.getItem("name");
   const h = new Date().getHours();
   let greeting =
     h >= 18 || h < 5 ? "Good evening" :

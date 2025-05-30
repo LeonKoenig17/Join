@@ -346,16 +346,11 @@
     position: fixed;
     right: 20px;
     bottom: 100px;
-    /* top: 0px; */
     background-color: white;
     padding: 15px 5px;
     border-radius: 20px 20px 0px 20px;
-    /* z-index: 201; */
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     z-index: 401;
-    /* transition: border-radius 0.3s ease-in-out,
-        background-image 0.3s ease-in-out; */
-
 }
 
 .manipulateLinks {
@@ -364,7 +359,6 @@
     padding: 10px 20px;
     margin: 0;
     cursor: pointer;
-    /* transition: color 0.3s ease-in-out; */
 }
 
 .manipulateLinks:hover {
@@ -377,7 +371,6 @@
 }
 
 .manipulateSingleTaskDiv {
-    /* background-color: red; */
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -385,6 +378,7 @@
     padding: 10px;
     width: calc(100% - 30px);
     margin: 0px 5px;
+    align-items: center;
 }
 
 .manipulateSingleTaskDiv:hover {

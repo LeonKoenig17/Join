@@ -180,12 +180,12 @@ button {
 
 .noTasks {
   text-align: center;
-  background-color: #e7e7e7;
+  background-color: var(--background-dragging-color);
   color: #a8a8a8;
-  padding: 14px 0;
+  padding: 14px 20px;
   border-radius: 10px;
-  border: 1px dashed #a8a8a8;
-  width: 288px;
+  border: 1px dashed var(--font-color);
+  min-width: 140px;
 }
 
 .add-task {
