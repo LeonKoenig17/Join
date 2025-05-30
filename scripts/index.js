@@ -150,6 +150,7 @@ async function guestLogin() {
  * @returns {Promise<string|null>} The password if found, otherwise null.
  */
 async function checkPassword(email) {
+    email = email.toLowerCase();
     let ergebnisse = fireBaseContent.login;
     for (let userId in ergebnisse) {
         if (ergebnisse[userId].email === email) {

@@ -140,8 +140,8 @@ function contactFormBtn(mode) {
  * @returns {Promise<void>} Resolves when the action is completed and the page is reloaded if an action was performed.
  */
 async function contactForm(task, mode) {
-  const thisEmail = document.getElementById("emailInputContact")?.value || document.getElementById("contactDetailsMail").innerText;
-
+  let thisEmail = document.getElementById("emailInputContact")?.value || document.getElementById("contactDetailsMail").innerText;
+  thisEmail = thisEmail.toLowerCase();
   let actionPerformed = false;
 
   switch (task) {
@@ -179,7 +179,7 @@ async function contactForm(task, mode) {
  */
 async function addContactTask() {
   const name = document.getElementById("nameInputContact").value;
-  const email = document.getElementById("emailInputContact").value;
+  const email = document.getElementById("emailInputContact").value.toLowerCase();
   const phone = document.getElementById("phoneInputContact").value;
 
   if (!name && !email && !phone) return;

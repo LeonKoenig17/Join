@@ -242,6 +242,7 @@ input[type=password]:focus {
     width: 168px;
     text-wrap: nowrap;
     padding: 0px 20px;
+    cursor: pointer;
 }
 
 .whiteBtn:hover {

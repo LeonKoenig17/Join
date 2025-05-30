@@ -37,6 +37,7 @@ async function findName(name) {
  * @param {String} email
  */
 async function findUser(email) {
+    email = email.toLowerCase()
     let ergebnisseLogin = ""
     let ergebnisseContacts = ""
 
