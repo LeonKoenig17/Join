@@ -73,7 +73,12 @@ function generateCardAssigneeHTML(assignees) {
  */
 function taskOverlayAssignee(assignees) {
   if (!Array.isArray(assignees)) return "";
-  return assignees
+
+  const maxVisibleAssignees = 3;
+  const visibleAssignees = assignees.slice(0, maxVisibleAssignees);
+  const remainingCount = assignees.length - maxVisibleAssignees;
+
+  const assigneeHTML = visibleAssignees
     .map((user) => {
       if (!user) return "";
       const initials = getInitials(user.name || user.email);
@@ -90,6 +95,12 @@ function taskOverlayAssignee(assignees) {
     `;
     })
     .join("");
+
+  const moreAssigneesHTML = remainingCount > 0
+    ? `<div class="assignee-item more-assignees">+${remainingCount}</div>`
+    : "";
+
+  return assigneeHTML + moreAssigneesHTML;
 }
 
 
