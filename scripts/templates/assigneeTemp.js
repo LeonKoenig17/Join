@@ -36,22 +36,33 @@ function assignedUserTemplate(user, index, isChecked = false) {
  */
 function generateCardAssigneeHTML(assignees) {
   if (!Array.isArray(assignees)) return "";
-  return assignees
+
+  const maxVisibleAssignees = 3;
+  const visibleAssignees = assignees.slice(0, maxVisibleAssignees);
+  const remainingCount = assignees.length - maxVisibleAssignees;
+
+  const assigneeHTML = visibleAssignees
     .map((person) => {
       if (!person || (!person.id && !person.userId)) return "";
       const userId = person.id || person.userId;
       const name = person.name || person.email || "?";
       const initials = getInitials(name);
       return `
-            <div class="assignee task-assignee" 
-                 data-user-id="${userId}"
-                 data-user-name="${name}"
-                 data-user-color="${person.color || "#A8A8A8"}">
-                ${initials}
-            </div>
-        `;
+        <div class="assignee task-assignee" 
+             data-user-id="${userId}"
+             data-user-name="${name}"
+             data-user-color="${person.color || "#A8A8A8"}">
+          ${initials}
+        </div>
+      `;
     })
     .join("");
+
+  const moreAssigneesHTML = remainingCount > 0
+    ? `<div class="assignee task-assignee more-assignees">+${remainingCount}</div>`
+    : "";
+
+  return assigneeHTML + moreAssigneesHTML;
 }
 
 
