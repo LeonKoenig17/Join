@@ -76,9 +76,3 @@
     width: 80px;
   }
 }
-
-@media (max-width: 350px) {
-  footer a {
-    font-size: 12px;
-  }
-}

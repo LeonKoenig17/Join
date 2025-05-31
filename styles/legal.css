@@ -44,6 +44,7 @@ main {
   min-height: 309px;
   cursor: context-menu;
   word-break: break-word;
+  max-width: 1440px;
 }
 
 aside {
