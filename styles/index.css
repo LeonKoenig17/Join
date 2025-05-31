@@ -178,6 +178,7 @@ nav img {
     padding-right: 50px;
     margin: 10px 0px;
     outline: none;
+    cursor: pointer;
 }
 
 .loginInput::placeholder {
@@ -192,10 +193,11 @@ input[type=password]:focus {
     border-color: var(--text-underline-color);
 }
 
-.buttonRow{
+.buttonRow {
     display: flex;
     gap: 16px;
 }
+
 .loginInputDiv {
     display: flex;
     justify-content: center;
@@ -208,6 +210,7 @@ input[type=password]:focus {
     font-weight: bold;
     text-decoration: underline 3px var(--text-underline-color);
     text-underline-offset: 20px;
+    cursor: context-menu;
 }
 
 .blueBtn {
@@ -255,6 +258,7 @@ input[type=password]:focus {
 .signUpSpan {
     margin-right: 20px;
     font-size: 16px;
+    cursor: context-menu;
 }
 
 #signUpDiv a {
@@ -323,19 +327,19 @@ input[type=password]:focus {
 }
 
 .personImgBackground {
-  background-image: url("../images/person.svg");
+    background-image: url("../images/person.svg");
 }
 
 .mailImgBackground {
-  background-image: url("../images/mail.svg");
+    background-image: url("../images/mail.svg");
 }
 
 .callImgBackground {
-  background-image: url("../images/call.svg");
+    background-image: url("../images/call.svg");
 }
 
 .passwordImgBackground {
-  background-image: url("../images/lock.svg");
+    background-image: url("../images/lock.svg");
 }
 
 /* #addContactBtnDiv {
