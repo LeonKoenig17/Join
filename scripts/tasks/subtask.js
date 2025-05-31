@@ -5,6 +5,10 @@
 const subtasks = [];
 
 /**
+ * Initialization Functions
+ */
+
+/**
  * Initializes the subtasks array with data from the given task.
  * @param {Object} taskData - The task data containing subtasks.
  */
@@ -28,6 +32,10 @@ function initializeSubtaskModule(taskData) {
 }
 
 /**
+ * Mode Check Functions
+ */
+
+/**
  * Checks if the current mode is edit mode.
  * @returns {boolean} True if in edit mode, false otherwise.
  */
@@ -47,6 +55,9 @@ function isAddMode() {
            window.location.pathname.includes('addTask.html');
 }
 
+/**
+ * Subtask List and Progress Functions
+ */
 
 /**
  * Updates the subtask list in the UI and recalculates progress.
@@ -174,6 +185,10 @@ function updateTaskLabel(taskEl, done, total) {
 }
 
 /**
+ * Subtask Actions
+ */
+
+/**
  * Toggles the completion status of a subtask and updates the UI.
  * @param {number} index - The index of the subtask to toggle.
  */
@@ -223,7 +238,8 @@ function prepareSubtaskForEditing(subtaskItem, index) {
 
   subtaskText.innerHTML = `
       <input type="text" class="edit-input" maxlength="40" value="${subtasks[index].name}" 
-         data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})">
+         data-index="${index}" onkeypress="handleEditKeyPress(event, ${index})" 
+         onblur="handleInputBlur(event, ${index})">
     `;
 
   subtaskIcons.innerHTML = `
@@ -323,6 +339,10 @@ async function deleteSubtask(index) {
 }
 
 /**
+ * Event Listeners
+ */
+
+/**
  * Sets up event listeners for subtask-related actions.
  */
 function setupSubtaskListeners() {
@@ -398,10 +418,9 @@ function handleCloseSubtaskInput() {
     if (subInput) subInput.value = "";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  setupSubtaskListeners();
-  checkSubtaskClass();
-});
+/**
+ * UI Helper Functions
+ */
 
 /**
  * Activates the subtask input field for adding a new subtask.
@@ -448,3 +467,22 @@ function confirmSubtaskEntry() {
       subInput.value = "";
   }
 }
+
+/**
+ * Handles the blur event of the input field for subtasks.
+ * @param {Event} event - The blur event.
+ * @param {number} index - The index of the subtask.
+ */
+function handleInputBlur(event, index) {
+    const input = event.target;
+    if (input.value.trim() === "") {
+        deleteSubtask(index);
+    } else {
+        saveSubtask(index);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupSubtaskListeners();
+  checkSubtaskClass();
+});
