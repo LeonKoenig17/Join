@@ -481,13 +481,4 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.addEventListener('resize', function () {
-  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close";
-  changeImage("closeFormImg", whichImg);
-  hideCancelBtn();
-  this.window.innerWidth > 800 ? showManipulateContactLinksOptions('hide') : "";
-}
-);
-
-
 window.addEventListener("DOMContentLoaded", onloadContacts);
