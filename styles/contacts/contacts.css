@@ -24,7 +24,7 @@ body {
 .contentRight {
   width: calc(100% - 200px - 340px);
   height: calc(100vh - 90px);
-  min-height: 700px;
+  /* min-height: 700px; */
   overflow-y: auto;
 }
 
