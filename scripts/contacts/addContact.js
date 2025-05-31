@@ -32,6 +32,30 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
+
+  excludeNumbers();
+  restrictToTel();
+}
+
+/**
+ * prevents input of numbers in the name field
+ */
+function excludeNumbers() {
+  const name = document.getElementById("nameInputContact");
+  name.addEventListener("keypress", function (e) {
+    if (e.key >= '0' && e.key <= '9') {
+      e.preventDefault();
+    }
+  })
+  name.addEventListener("input", function (e) {
+    this.value = this.value.replace(/[0-9]/g, "");
+  });
+}
+
+function restrictToTel() {
+  document.getElementById("phoneInputContact").addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9+]/g, '');
+  })
 }
 
 function toggleClass(element, className) {

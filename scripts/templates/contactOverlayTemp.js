@@ -52,7 +52,7 @@ function contactDetailsTemp(mode, size) {
                  <span id="nameErrorSpanContact" class="errorSpanContact"></span>
                  <input type="text" id="emailInputContact" placeholder="Email" class="loginInput mailImgBackground" onblur="checkName(this.id)" onkeydown="checkEnter(event, this.id)"/>
                  <span id="emailErrorSpanContact" class="errorSpanContact"></span>
-                 <input type="text" id="phoneInputContact" placeholder="Phone" class="loginInput callImgBackground"/>
+                 <input type="text" minlength="10" id="phoneInputContact" placeholder="Phone" class="loginInput callImgBackground"/>
                  <span id="phoneErrorSpanContact" class="errorSpanContact"></span>
             </div>
             <div class="addContactBtnDiv widthFitContent">
