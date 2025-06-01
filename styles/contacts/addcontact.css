@@ -394,7 +394,16 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index:200;
+    z-index: 200;
+}
+
+#editErrorSpanResponsive {
+    position: absolute;
+    right: 0px;
+    bottom: 220px;
+    width: 125px;
+    margin-right: 20px;
+    height: auto;
 }
 
 @keyframes slideToRightBorder {
