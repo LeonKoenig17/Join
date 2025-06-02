@@ -76,13 +76,30 @@ function addDocumentClickListener(dd, opts) {
   });
 }
 
+
 /**
- * Adds a change listener to the dropdown options.
- * @param {HTMLElement} opts - The dropdown options.
- * @param {Array<Object>} users - The list of users.
+ * Adds event listeners to a select or options element for handling user assignment changes.
+ *
+ * - On "change" event, updates the assigned user chips.
+ * - On "click" event within an element with the class 'assigned-user-details', toggles the associated checkbox
+ *   (unless the checkbox itself was clicked), and updates the assigned user chips.
+ *
+ * @param {HTMLElement} opts - The select or container element to attach listeners to.
+ * @param {Array<Object>} users - The list of user objects to be used when updating assigned chips.
  */
 function addOptionsChangeListener(opts, users) {
   opts.addEventListener("change", function () {
+    updateAssignedChips(users);
+  });
+
+
+  opts.addEventListener("click", function (e) {
+    const details = e.target.closest('.assigned-user-details');
+    if (!details) return;
+    const checkbox = details.querySelector('.assign-checkbox');
+    if (!checkbox) return;
+    if (e.target === checkbox) return;
+    checkbox.checked = !checkbox.checked;
     updateAssignedChips(users);
   });
 }
@@ -95,6 +112,16 @@ function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
   if (!chipsContainer) return;
 
+  // Entferne die Eventlistener-Logik aus dieser Funktion!
+  // Die Eventlistener werden zentral in addOptionsChangeListener gesetzt.
+
+  updateChips(users);
+}
+
+function updateChips(users) {
+  const chipsContainer = document.getElementById("assignedChips");
+  if (!chipsContainer) return;
+
   const checkboxes = document.querySelectorAll(".assign-checkbox");
   const chips = Array.from(checkboxes)
     .filter(cb => cb.checked)
@@ -103,13 +130,8 @@ function updateAssignedChips(users) {
   chipsContainer.innerHTML = chips.join("");
 }
 
-/**
- * Creates the HTML for a chip based on the user ID.
- * @param {Array<Object>} users - The list of users.
- * @param {string} userId - The ID of the user.
- * @returns {string} The HTML of the chip.
- */
 function createChipHTML(users, userId) {
+  // IDs als String vergleichen, damit es immer klappt
   const user = users.find(u => String(u.id) === String(userId));
   if (!user) return "";
   const initials = getInitials(user.name || user.email);
