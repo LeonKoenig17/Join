@@ -13,6 +13,7 @@ async function init() {
   getCurrentHTML();
   addHelpToPopup();
   initializeTaskSearch();
+  hideNoSubtasks();
 }
 
 /**
@@ -199,3 +200,16 @@ document.addEventListener("DOMContentLoaded", function () {
   moveInputFieldOnResize();
   window.addEventListener("resize", moveInputFieldOnResize);
 });
+
+/**
+ * hides subtask section when no subtasks are assigned
+ */
+function hideNoSubtasks() {
+  const tasks = document.querySelectorAll(".task");
+  tasks.forEach(task => {
+    const subcount = task.querySelector("span");
+    if ((subcount.innerHTML.match(/0/g) || []).length == 2) {
+      task.querySelector(".task-subtasks").style.display = "none";
+    }
+  })
+}
