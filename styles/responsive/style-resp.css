@@ -12,11 +12,11 @@
     width: calc(100% - 150px);
   }
 
-  header {
+  /* header {
         width: calc(100% - 250px);
         left: 150px;
         padding-left: 100px;
-    }
+    } */
 }
 
 
@@ -34,11 +34,20 @@
     width: 100%;
   }
 
-    header {
-        left: 0;
-        padding-left: 0;
-        width: 100%;
-    }
+  #main {
+    padding: 0;
+  }
+
+  header {
+    /* left: 0; */
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .header-container {
+    padding: 0;
+    width: 100%;
+  }
 
   /* help button hidden */
   .header-container div:nth-child(2) a:first-child {

@@ -22,7 +22,8 @@ main {
 }
 
 header {
-  width: calc(100% - 300px);
+  width: 100%;
+  /* max-width: 1440px; */
   height: 90px;
   background-color: white;
   display: flex;
@@ -32,19 +33,20 @@ header {
   z-index: 13;
   position: fixed;
   top: 0;
-  padding-left: 300px;
+  padding-left: 200px;
 }
 
 
 
 .header-container {
-  width: 100%;
+  width: calc(100% - 260px);
+  max-width: 1440px;
   height: 100%;
-  max-width: 1620px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 99;
+  padding-left: 60px;
 }
 
 .header-right {
