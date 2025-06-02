@@ -16,10 +16,6 @@ summary {
   max-width: 1720px;
 }
 
-aside {
-  position: fixed !important;
-  z-index: 20;
-}
 
 .frame-40 {
   display: flex;

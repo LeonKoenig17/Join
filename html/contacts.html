@@ -21,23 +21,21 @@
 </head>
 
 <body onload="onloadContacts()">
-  <header>
-    <div class="header-container">
-      <div>
-        <img src="../images/joinlogodark.svg" alt="logo dark" />
-        <span>Kanban Project Management Tool</span>
+ <header>
+      <div class="header-container">
+        <div class="header-left">
+          <img src="../images/joinlogodark.svg" alt="logo dark" />
+          <span>Kanban Project Management Tool</span>
+        </div>
+        <section class="header-right">
+          <div class="help-icon">
+            <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+          </div>
+          <a onclick="showUserLinksOptions()" id="userLink"></a>
+        </section>
       </div>
-      <div>
-        <a href="./help.html">
-          <img src="../images/help20x20.svg" alt="help" />
-        </a>
-      </div>
-    </div>
-    <div class="userLinkContainer">
-      <a onclick="showUserLinksOptions()" id="userLink"></a>
       <div id="userLinkOptions" class="userLinkOptions hide"></div>
-    </div>
-  </header>
+    </header>
   <aside>
     <div id="logo">
       <img src="../images/joinlogowhite.svg" alt="" />

@@ -1,10 +1,4 @@
 @media (max-width: 1000px) {
-  header {
-    width: calc(100vw - 250px);
-    position: fixed;
-    top: 0;
-    left: 150px;
-  }
 
   main {
     margin-left: 150px;
@@ -15,10 +9,6 @@
   .legal-main {
     left: 0;
     padding: 10px 16px 0px 16px;
-  }
-
-  header {
-    left: 0;
   }
 
   main {

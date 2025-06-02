@@ -3,10 +3,6 @@
   main {
     margin-left: 150px;
   }
-
-  header span {
-    margin-left: 250px;
-  }
 }
 
 @media (max-width: 800px) {

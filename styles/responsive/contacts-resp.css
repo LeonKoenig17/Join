@@ -127,10 +127,6 @@
         height: calc(100vh - 166px);
     }
 
-    header {
-        z-index: 200;
-    }
-
     .userInitialsBig {
         height: 74px;
         width: 74px;

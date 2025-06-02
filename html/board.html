@@ -38,20 +38,18 @@
   <body onload="init()">
     <header>
       <div class="header-container">
-        <div>
+        <div class="header-left">
           <img src="../images/joinlogodark.svg" alt="logo dark" />
           <span>Kanban Project Management Tool</span>
         </div>
-        <div>
-          <a href="./help.html">
-            <img src="../images/help20x20.svg" alt="help" />
-          </a>
-        </div>
+        <section class="header-right">
+          <div class="help-icon">
+            <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+          </div>
+          <a onclick="showUserLinksOptions()" id="userLink"></a>
+        </section>
       </div>
-      <div class="userLinkContainer">
-        <a onclick="showUserLinksOptions()" id="userLink"></a>
-        <div id="userLinkOptions" class="userLinkOptions hide"></div>
-      </div>
+      <div id="userLinkOptions" class="userLinkOptions hide"></div>
     </header>
     <aside>
       <div id="logo">

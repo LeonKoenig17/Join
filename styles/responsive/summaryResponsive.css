@@ -21,12 +21,6 @@
     display: flex !important;
   }
 
-  header {
-    width: calc(100% - 250px);
-    left: 150px;
-    padding-left: 100px;
-  }
-
   .main-summary {
     left: 150px;
   }
@@ -38,12 +32,6 @@
     align-items: center;
     position: unset;
     margin: 0;
-  }
-
-  header {
-    left: 0;
-    padding-left: 0;
-    width: 100%
   }
 
   .main-summary {
