@@ -20,11 +20,15 @@ main::-webkit-scrollbar-thumb:hover {
 }
 
 main {
+  display: flex;
+  align-items: flex-end;
+  max-width: 1720px;
+  position: relative;
   scroll-behavior: smooth;
   height: calc(100vh - 110px);
   overflow-y: auto;
   margin-left: 200px;
-  margin-top: 100px;
+  margin-top: 90px;
   margin-right: 4px;
 }
 
@@ -33,6 +37,7 @@ main {
   gap: 40px;
   display: flex;
   flex-direction: column;
+  position: absolute;
 }
 
 .legal-main h1 {
@@ -44,7 +49,7 @@ main {
   min-height: 309px;
   cursor: context-menu;
   word-break: break-word;
-  max-width: 1440px;
+  max-width: 1640px;
 }
 
 aside {
@@ -54,14 +59,10 @@ aside {
 }
 
 header {
-  width: calc(100vw - 200px);
   position: fixed;
   top: 0;
   left: 200px;
-}
-
-header span {
-  margin-left: 100px;
+  padding-left: 100px;
 }
 
 .d-none {
@@ -89,4 +90,12 @@ footer a {
   justify-content: space-around;
   width: 50%;
   padding-right: 30px;
+}
+
+.header-container img {
+  display: none;
+}
+
+.userLinkOptions {
+  position: sticky !important;
 }

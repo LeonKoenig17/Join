@@ -18,16 +18,21 @@
     display: none;
   }
 
+  .userLinkOptions {
+    top: 90px;
+  }
+
   main {
     width: 100%;
   }
 
   header {
     height: 80px;
+    width: 100vw;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    padding-left: 0;
   }
 
   /* help button hidden */
@@ -43,6 +48,10 @@
     display: block;
     height: 40px;
     padding: 16px;
+  }
+
+  .help-icon {
+    display: none;
   }
 
   footer {

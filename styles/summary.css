@@ -13,17 +13,12 @@ summary {
 .main-summary {
   position: absolute;
   left: 200px;
+  max-width: 1720px;
 }
 
 aside {
   position: fixed !important;
   z-index: 20;
-}
-
-header {
-  position: fixed;
-  width: calc(100% - 200px);
-  left: 200px;
 }
 
 .frame-40 {

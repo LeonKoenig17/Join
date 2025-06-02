@@ -26,3 +26,11 @@
     font-size: 40px;
   }
 }
+
+@media (max-width: 1000px) {
+  header {
+    left: 0px;
+    padding-left: 0;
+    width: 100%;
+  }
+}

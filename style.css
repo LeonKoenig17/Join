@@ -21,7 +21,7 @@ main {
 }
 
 header {
-    width: calc(100% - 200px);
+    width: calc(100% - 300px);
     height: 90px;
     background-color: white;
     display: flex;
@@ -31,11 +31,10 @@ header {
     z-index: 13;
     position: fixed;
     top: 0;
-    left: 200px;
+    padding-left: 300px;
 }
 
 header span {
-    margin-left: 100px;
     cursor: context-menu;
 }
 
@@ -49,13 +48,20 @@ header img:hover {
 
 .header-container {
     width: 100%;
+    height: 100%;
+    max-width: 1620px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 99;
 }
 
-.header-container a {
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.help-icon {
     width: 20px;
     height: 20px;
 }
@@ -63,12 +69,15 @@ header img:hover {
 .header-container div:nth-child(2) {
     display: flex;
     align-items: center;
-    width: 100px;
 }
 
-.header-container div:first-child img {
+.header-left img {
     display: none;
 }
+
+/* .header-container div:first-child img {
+    display: none;
+} */
 
 footer {
     display: none;
@@ -96,9 +105,9 @@ footer {
     font-weight: bold;
     margin: 16px;
     transition: background-color 0.3s ease-in-out;
-    position: fixed !important;
+    /* position: fixed !important;
     right: 0 !important;
-    z-index: 99;
+    z-index: 99; */
 }
 
 #userLink:hover {
@@ -107,12 +116,12 @@ footer {
 }
 
 .userLinkOptions {
+    top: 0px;
     display: flex;
     flex-direction: column;
     align-items: start;
     position: absolute;
-    right: 50px;
-    top: 90px;
+    right: 20px;
     background-color: var(--primary-color);
     padding: 15px 5px;
     border-radius: 20px 0px 20px 20px;

@@ -1,6 +1,6 @@
 @media (max-width: 1000px) {
   header {
-    width: calc(100vw - 150px);
+    width: calc(100vw - 250px);
     position: fixed;
     top: 0;
     left: 150px;
@@ -14,7 +14,6 @@
 @media (max-width: 800px) {
   .legal-main {
     left: 0;
-    top: 80px;
     padding: 10px 16px 0px 16px;
   }
 
@@ -23,9 +22,11 @@
   }
 
   main {
+    margin-top: 80px;
     margin-left: 0;
     height: calc(100vh - 190px);
   }
+
 }
 
 @media (max-width: 600px) {
