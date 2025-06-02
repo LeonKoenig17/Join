@@ -1,7 +1,7 @@
 #main {
   display: flex;
   flex-direction: column;
-  padding: 60px;
+  padding: 40px 40px 0 80px;
 }
 
 .main-container {
@@ -273,7 +273,6 @@ select:focus {
   font-size: 16px;
   font-weight: 400;
   line-height: 120%;
-  color: var(--border-color);
   width: 100%;
 }
 
@@ -328,11 +327,11 @@ select:focus {
 .close-btn-footer {
   display: flex;
   justify-content: space-between;
-  width: 125px;
+  width: 110px;
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);
   color: var(--text-color);
-  padding: 10px 19px;
+  padding: 10px;
   border-radius: 10px;
   font-size: 21px;
   cursor: pointer;

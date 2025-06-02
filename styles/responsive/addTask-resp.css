@@ -1,22 +1,20 @@
-@media (max-width: 1056px) {
+@media (max-width: 800px) {
   #main {
-    transform: scale(0.9);
+    padding: 40px 40px 100px 40px !important;
   }
 }
-
-
 
 @media (max-width: 640px) {
   h1 {
     font-size: 40px;
   }
 
-  #main {
-    transform: scale(0.85) translate(0, -5%);
-  }
-
   .main-container {
     gap: 24px;
+  }
+
+  .main-container h1 {
+    margin: 0;
   }
 
   #addTask {
@@ -43,7 +41,8 @@
     width: 100%;
   }
 
-  .addTask-right, .addTask-left {
+  .addTask-right,
+  .addTask-left {
     gap: 0;
   }
 
@@ -52,9 +51,7 @@
   }
 
   .create-task-footer {
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 24px;
+    margin-top: 0;
   }
 
   .custom-date-input img {
@@ -76,8 +73,18 @@
     left: 90%;
   }
 
-   .form-actions {
+  .form-actions {
     gap: 8px;
     margin-top: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  .close-btn-footer {
+   padding: 7px;
+  }
+
+  .create-task-btn {
+    padding: 7px 10px;
   }
 }
