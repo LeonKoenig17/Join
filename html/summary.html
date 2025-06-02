@@ -57,20 +57,21 @@
   </aside>
   <header>
     <div class="header-container">
-      <div>
+      <div class="header-left">
         <img src="../images/joinlogodark.svg" alt="logo dark" />
         <span>Kanban Project Management Tool</span>
       </div>
-      <div>
-        <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-      </div>
+      <section class="header-right">
+        <div class="help-icon">
+          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+        </div>
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
+        <!-- <div id="userLinkOptions" class="userLinkOptions hide"></div> -->
     </div>
-    <div class="userLinkContainer">
-      <a onclick="showUserLinksOptions()" id="userLink"></a>
-      <div id="userLinkOptions" class="userLinkOptions hide"></div>
-    </div>
+    </section>
   </header>
   <main class="main-summary">
+    <div id="userLinkOptions" class="userLinkOptions hide"></div>
     <summary id="summaryContent">
       <div class="frame-40">
         <h1>Join 360</h1>

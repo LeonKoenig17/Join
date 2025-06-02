@@ -54,18 +54,18 @@
   </aside>
   <header>
     <div class="header-container">
-      <div>
+      <div class="header-left">
         <img src="../images/joinlogodark.svg" alt="logo dark" />
         <span>Kanban Project Management Tool</span>
       </div>
-      <div>
-        <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-      </div>
+      <section class="header-right">
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
     </div>
-    <a onclick="showUserLinksOptions()" id="userLink"></a>
-    <div id="userLinkOptions" class="userLinkOptions hide"></div>
+    </section>
   </header>
   <main>
+    <div id="userLinkOptions" class="userLinkOptions hide">
+    </div>
     <div class="legal-main">
       <h1>Privacy Policy</h1>
       <div class="pp-container">
