@@ -13,7 +13,6 @@ async function init() {
   getCurrentHTML();
   addHelpToPopup();
   initializeTaskSearch();
-  hideNoSubtasks();
 }
 
 /**
