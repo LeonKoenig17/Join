@@ -20,6 +20,18 @@ function generateTaskCard(task) {
     : desc;
 
   const stateCls = (total > 0 && done === total) ? 'all-done' : 'not-done';
+
+  const subtasksSection = total > 0 ? `
+    <div class="task-subtasks">
+      <div class="subtask-progress-container">
+        <div class="subtask-progress-bar" style="width: ${progressPercentage}%"></div>
+      </div>
+      <span class="subtask-count ${stateCls}">
+        ${done}/${total} Subtasks
+      </span>
+    </div>
+  ` : "";
+
   return `
     <div id="task${task.id}" data-task-id="${task.id}" tabindex="0" class="task" draggable="true"
          onclick="showTaskOverlayById('${task.id}')">
@@ -30,16 +42,8 @@ function generateTaskCard(task) {
       </div>
       <h3 class="task-title">${task.title || ""}</h3>
       <p class="task-description">${shortDesc}</p>
-      
       <div class="task-footer">
-        <div class="task-subtasks">
-          <div class="subtask-progress-container">
-            <div class="subtask-progress-bar" style="width: ${progressPercentage}%"></div>
-          </div>
-            <span class="subtask-count ${stateCls}">
-            ${done}/${total} Subtasks
-          </span>
-        </div>
+        ${subtasksSection}
         <div class="task-bottom-info">
           <div class="task-assignees">
             ${generateCardAssigneeHTML(task.assignedTo)}
