@@ -61,6 +61,8 @@ function addDropdownToggleListener(sel, opts) {
     e.stopPropagation();
     opts.classList.toggle("show");
   });
+
+  sel.tabIndex = 0;
 }
 
 /**

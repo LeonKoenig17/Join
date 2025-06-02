@@ -41,16 +41,17 @@
 }
 
 .assigned-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background-color: var(--hover-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
   font-weight: bold;
   font-size: 12px;
+  margin-top: -16px;
 }
 
 .dropdown-options {
