@@ -329,7 +329,7 @@ function setPriority(button) {
 function setupDatePicker() {
   const dateInput = document.getElementById("due-date");
   if (!dateInput) return;
-  const icon = document.querySelector(".custom-date-input img");
+  const container = document.querySelector(".custom-date-input");
 
   const today = new Date().toISOString().split("T")[0];
   dateInput.min = today;
@@ -337,8 +337,8 @@ function setupDatePicker() {
   const year = new Date().getFullYear();
   dateInput.max = `${year}-12-31`;
 
-  if (icon) {
-    icon.addEventListener("click", () => {
+  if (container) {
+    container.addEventListener("click", () => {
       if (dateInput.showPicker) dateInput.showPicker();
       else dateInput.focus();
     });
