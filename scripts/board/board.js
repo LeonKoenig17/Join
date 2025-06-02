@@ -113,13 +113,10 @@ async function renderTasks() {
 
   for (let i = 0; i < 4; i++) {
     const stageTasks = allTasks.filter((task) => task.stage === i);
-    if (stageTasks.length === 0) {
-      containers[i].innerHTML += noTaskHtml;
-    } else {
-      stageTasks.forEach((task) => {
-        containers[i].innerHTML += generateTaskCard(task);
-      });
-    }
+   
+    stageTasks.forEach((task) => {
+      containers[i].innerHTML += generateTaskCard(task);
+    });
   }
 
   addDragFunction();
