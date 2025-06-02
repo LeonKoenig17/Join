@@ -48,6 +48,11 @@ button {
   margin-bottom: 16px;
 }
 
+.board-column {
+  width: 100%;
+  min-width: 200px;
+}
+
 .board-column > .column-header {
   display: none;
 }
@@ -160,7 +165,7 @@ button {
 }
 
 #toDo, #inProgress, #awaitFeedback, #done {
-  height: 100%;
+  height: calc(100% - 52px);
   padding: 5px;
 }
 

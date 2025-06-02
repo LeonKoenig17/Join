@@ -8,12 +8,11 @@ let priorityButtons = [];
 /**
  * Initializes the Add Task page by setting up user links, loading the current HTML, and adding help popups.
  */
-function initAddTask(){
+function initAddTask() {
   fillUserLinks();
   getCurrentHTML();
   addHelpToPopup();
 }
-
 
 /**
  * Sets up the task form for creating a new task.
@@ -28,7 +27,6 @@ function setupTaskForm(stage) {
     createTask(stage);
   });
 }
-
 
 /**
  * Creates a new task based on the form data.
@@ -52,7 +50,6 @@ async function createTask(stage) {
   }
 }
 
-
 /**
  * Returns the stage of a task based on its status.
  * @param {string} status - The status of the task.
@@ -62,7 +59,6 @@ function getStageFromStatus(status) {
   const map = { todo: 0, inProgress: 1, awaitFeedback: 2, done: 3 };
   return map[status] ?? 0;
 }
-
 
 /**
  * Retrieves data from the task form.
@@ -87,7 +83,6 @@ function getFormData() {
   };
 }
 
-
 /**
  * Extracts values from the form elements.
  * @param {Object} elements - The form elements.
@@ -104,7 +99,6 @@ function getFormValues(elements) {
   };
 }
 
-
 /**
  * Retrieves the form elements.
  * @returns {Object} The form elements.
@@ -118,7 +112,6 @@ function getFormElements() {
     priorityButtons: document.querySelectorAll(".priority-buttons .priority"),
   };
 }
-
 
 /**
  * Validates the form elements.
@@ -134,7 +127,6 @@ function validateFormElements(elements) {
     elements.priorityButtons.length > 0
   );
 }
-
 
 /**
  * Validates the form data and updates the UI for invalid fields.
@@ -190,7 +182,6 @@ function validateCategory(categorySelect, category) {
   return true;
 }
 
-
 /**
  * Retrieves the active priority from the buttons.
  * @returns {string} The active priority.
@@ -202,7 +193,6 @@ function getActivePriority() {
   }
   return "";
 }
-
 
 /**
  * Retrieves the assigned contacts from the checkboxes.
@@ -231,17 +221,15 @@ function getAssignedContacts() {
   return contacts;
 }
 
-
 /**
  * Retrieves the data of subtasks.
  * @returns {Array<Object>} The subtask data.
  */
 function getSubtasksData() {
   return subtasks
-    .filter(s => s.name?.trim())
-    .map(s => ({ name: s.name, completed: false }));
+    .filter((s) => s.name?.trim())
+    .map((s) => ({ name: s.name, completed: false }));
 }
-
 
 /**
  * Clears and resets the task form.
@@ -252,17 +240,10 @@ function getSubtasksData() {
  * clearing assigned users and subtasks, and resetting error messages.
  */
 function clearForm() {
-  document.getElementById("title").value = "";
-  document.getElementById("description").value = "";
-  document.getElementById("due-date").value = "";
-
-  document.querySelectorAll(".priority").forEach((btn) =>
-    btn.classList.remove("active-btn")
-  );
-  document.getElementById("categorySelect").selectedIndex = 0;
-  document.getElementById("assignedChips").innerHTML = "";
-  subtasks.length = 0;
-  document.getElementById("subtask-list").innerHTML = "";
+  resetInputFields();
+  resetPriorityButtons();
+  resetCheckedChips();
+  resetCategory();
 
   resetFieldAndError("title", "title-error");
   resetFieldAndError("due-date", "due-date-error");
@@ -270,6 +251,40 @@ function clearForm() {
 
   updateSubtaskList();
 }
+
+
+function resetInputFields() {
+  document.getElementById("title").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("due-date").value = "";
+}
+
+
+function resetPriorityButtons() {
+  document
+    .querySelectorAll(".priority")
+    .forEach((btn) => btn.classList.remove("active-btn"));
+  const mediumButton = document.querySelector(".priority.priority-medium");
+  if (mediumButton) mediumButton.classList.add("active-btn");
+}
+
+
+function resetCheckedChips() {
+  document.getElementById("assignedChips").innerHTML = "";
+  subtasks.length = 0;
+  document.getElementById("subtask-list").innerHTML = "";
+
+  const checkboxes = document.querySelectorAll("input.assign-checkbox");
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+}
+
+
+function resetCategory() {
+  document.getElementById("categorySelect").selectedIndex = 0;
+}
+
 
 
 /**
@@ -286,7 +301,6 @@ function resetFieldAndError(fieldId, errorId) {
   if (errorElement) errorElement.textContent = "";
 }
 
-
 /**
  * Initializes the priority buttons.
  * @param {Document|HTMLElement} [scope=document] - The scope in which to search for buttons.
@@ -299,7 +313,6 @@ function initPriorityButtons(scope = document) {
   });
 }
 
-
 /**
  * Sets the priority based on the selected button.
  * @param {HTMLElement} button - The selected button.
@@ -310,29 +323,27 @@ function setPriority(button) {
   button.classList.add("active-btn");
 }
 
-
 /**
  * Sets up the date picker for the task form.
  */
 function setupDatePicker() {
   const dateInput = document.getElementById("due-date");
   if (!dateInput) return;
-  const icon = document.querySelector(".custom-date-input img");
+  const container = document.querySelector(".custom-date-input");
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   dateInput.min = today;
 
   const year = new Date().getFullYear();
   dateInput.max = `${year}-12-31`;
 
-  if (icon) {
-    icon.addEventListener("click", () => {
+  if (container) {
+    container.addEventListener("click", () => {
       if (dateInput.showPicker) dateInput.showPicker();
       else dateInput.focus();
     });
   }
 }
-
 
 /**
  * Adds event listeners to the form fields.
@@ -350,17 +361,15 @@ function setupFieldListeners() {
   });
 }
 
-
 /**
  * Deletes a task based on its ID.
  * @param {string} taskId - The ID of the task to delete.
  */
 async function deleteTask(taskId) {
-    await fetch(BASE_URL + `tasks/${taskId}.json`, { method: "DELETE" });
-    closeOverlay();
-    window.location.reload();
-  }
-
+  await fetch(BASE_URL + `tasks/${taskId}.json`, { method: "DELETE" });
+  closeOverlay();
+  window.location.reload();
+}
 
 /**
  * Displays the confirmation template for deleting a task.
@@ -373,7 +382,6 @@ function showDeleteTemplate(event, taskId) {
   deleteOverlay.innerHTML = deleteConfirmTemplate(taskId);
 }
 
-
 /**
  * Closes the confirmation dialog.
  * @param {Event} event - The triggering event.
@@ -384,7 +392,6 @@ function closeConfirmDialog(event) {
   deleteOverlay.innerHTML = "";
 }
 
-
 /**
  * Confirms the deletion of a task.
  * @param {string} taskId - The ID of the task to delete.
@@ -394,7 +401,6 @@ function deleteTaskConfirmed(taskId) {
   closeConfirmDialog();
 }
 
-
 /**
  * Initializes the Add Task page on load.
  */
@@ -402,7 +408,7 @@ function initAddTaskPage() {
   initPriorityButtons();
   setupDatePicker();
   setupFieldListeners();
-  setupTaskForm('todo');
-  initAssignedDropdown().then(users => updateAssignedChips(users));
+  setupTaskForm("todo");
+  initAssignedDropdown().then((users) => updateAssignedChips(users));
 }
-document.addEventListener('DOMContentLoaded', initAddTaskPage);
+document.addEventListener("DOMContentLoaded", initAddTaskPage);

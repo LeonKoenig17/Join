@@ -126,8 +126,12 @@ function addMobileDragFunction() {
  * @param {HTMLElement} task - The task element.
  */
 function setupTouchStart(task) {
-  task.addEventListener("touchstart", function () {
-    pressTimer = setTimeout(() => handleLongPress(task), 600);
+  task.addEventListener("touchstart", function (e) {
+    const mobileActions = document.getElementById("mobileTaskActions");
+    if (mobileActions && !mobileActions.contains(e.target)) {
+      mobileActions.remove();
+    }
+    pressTimer = setTimeout(() => doSomethingOnLongPress(task), 600);
   }, { passive: true });
 }
 
@@ -149,16 +153,6 @@ function setupTouchMove(task) {
   task.addEventListener("touchmove", function () {
     clearTimeout(pressTimer);
   });
-}
-
-/**
- * Handles a long press on a task for mobile devices.
- * @param {HTMLElement} task - The task element.
- */
-function handleLongPress(task) {
-  const mobileActions = document.getElementById("mobileTaskActions");
-  if (mobileActions) mobileActions.remove();
-  doSomethingOnLongPress(task);
 }
 
 /**
@@ -199,7 +193,6 @@ function doSomethingOnLongPress(task) {
   document.addEventListener("click", function (e) {
     const mobileActions = document.getElementById("mobileTaskActions");
     if (mobileActions && !mobileActions.contains(e.target)) {
-      mobileActions.remove();
       task.onclick = savedOnclick;
     }
   });

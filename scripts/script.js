@@ -141,5 +141,3 @@ function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-window.addEventListener("resize", addHelpToPopup)
-

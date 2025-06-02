@@ -24,7 +24,7 @@ body {
 .contentRight {
   width: calc(100% - 200px - 340px);
   height: calc(100vh - 90px);
-  min-height: 700px;
+  /* min-height: 700px; */
   overflow-y: auto;
 }
 
@@ -144,12 +144,12 @@ main {
   color: white;
   border: solid 3px white;
   border-radius: 50%;
-  height: 80px;
-  width: 80px;
+  height: calc(120px - 6px);
+  width: calc(120px - 6px);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
+  font-size: 47px;
   padding: 0;
   margin-right: 30px;
 }
@@ -305,7 +305,7 @@ strong {
 }
 
 input:focus {
-    border-color: var(--text-underline-color);
+  border-color: var(--text-underline-color);
 }
 
 .personImgBackground {
@@ -380,8 +380,9 @@ input:focus {
   font-size: 10px;
   color: red;
   visibility: hidden;
-  width: calc(100% - 95px);
+  width: 80%;
   z-index: 3000;
+  max-width: 375px;
 }
 
 #logo {
@@ -412,6 +413,7 @@ input:focus {
 .zindex1 {
   z-index: 1;
 }
+
 
 @keyframes fadeBackground {
   from {

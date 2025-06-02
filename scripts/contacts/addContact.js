@@ -32,6 +32,30 @@ async function showContactForm(mode) {
   checkMode();
   let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
   changeImage("closeFormImg", whichImg);
+
+  excludeNumbers();
+  restrictToTel();
+}
+
+/**
+ * prevents input of numbers in the name field
+ */
+function excludeNumbers() {
+  const name = document.getElementById("nameInputContact");
+  name.addEventListener("keypress", function (e) {
+    if (e.key >= '0' && e.key <= '9') {
+      e.preventDefault();
+    }
+  })
+  name.addEventListener("input", function (e) {
+    this.value = this.value.replace(/[0-9]/g, "");
+  });
+}
+
+function restrictToTel() {
+  document.getElementById("phoneInputContact").addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9+]/g, '');
+  })
 }
 
 function toggleClass(element, className) {
@@ -84,7 +108,9 @@ function checkLocalUser(mode) {
   }
 
   if (mode === "edit" && thisToken !== myToken) {
-    showError("", "editErrorSpan","You can't edit other<br>registered users.")
+    window.innerWidth < 800 ? 
+    showError("", "editErrorSpanResponsive","You can't edit other registered users.") :
+    showError("", "editErrorSpan","You can't edit other<br>registered users.") ;
     return false;
   }
   return true;
@@ -203,7 +229,9 @@ async function deleteContact(email, mode) {
   const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
   if (token !== myToken && ergebnisse[token].type === "login") {
-    showError("", "deleteErrorSpan", "You can't delete other<br>registered users.")
+    window.innerWidth < 800?
+    showError("", "editErrorSpanResponsive", "You can't delete other registered users."):
+    showError("", "deleteErrorSpan", "You can't delete other<br>registered users.");
     return;
   }
   await deleteData(`${ergebnisse[token].type}/${token}`);
@@ -250,8 +278,11 @@ function changeImage(element, variant) {
  * @param {string} task - The task to decide whether ‘add’ or ‘remove’ is used.
  */
 function showManipulateContactLinksOptions(task) {
-  task == "show" ?  
+  
+  if(task == "show"){
   document.getElementById("manipulateOptionsFrame").classList.remove("visibleNone")
-  :
+  }else{
   document.getElementById("manipulateOptionsFrame").classList.add("visibleNone")
+  hideError("","editErrorSpanResponsive")
+  }
 }
