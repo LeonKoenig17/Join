@@ -119,7 +119,6 @@ function renderFilteredTasks(searchTerm = "") {
   [toDo, inProgress, awaitFeedback, done].forEach((column) => {
     let placeholder = column.querySelector(".noTasks");
 
-    // wenn kein Platzhalter vorhanden, erstelle einen
     if (!placeholder) {
       placeholder = document.createElement("div");
       placeholder.classList.add("noTasks");
