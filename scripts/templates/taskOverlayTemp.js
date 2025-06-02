@@ -26,6 +26,18 @@ function generateTaskOverlay(task) {
 
   const assigneesHTML = taskOverlayAssignee(task.assignedTo || []);
 
+  const subtasksSection =
+    subs.length > 0
+      ? `
+    <div class="subtasks-section">
+      <span class="detail-label">Subtasks</span>
+      <div id="subtask-list" class="subtask-list">
+        ${subtasksOverlayHTML}
+      </div>
+    </div>
+  `
+      : "";
+
   return `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="task-card-overlay">
@@ -66,12 +78,7 @@ function generateTaskOverlay(task) {
               </div>
             </div>
           </div>
-          <div class="subtasks-section">
-            <span class="detail-label">Subtasks</span>
-            <div id="subtask-list" class="subtask-list">
-              ${subtasksOverlayHTML}
-            </div>
-          </div>
+          ${subtasksSection}
         </div>
         <div class="task-actions">
           <button class="action-btn delete-btn" onclick="showDeleteTemplate(event, '${task.id}')">
@@ -79,9 +86,7 @@ function generateTaskOverlay(task) {
             <span>Delete</span>
           </button>
           <div class="action-separator"></div>
-          <button class="action-btn edit-btn" onclick="closeOverlay(); setTimeout(() => showEditTaskOverlay('${
-            task.id
-          }'), 150)">
+          <button class="action-btn edit-btn" onclick="closeOverlay(); setTimeout(() => showEditTaskOverlay('${task.id}'), 150)">
             <img src="../images/edit-2.svg" alt="Edit">
             <span>Edit</span>
           </button>
