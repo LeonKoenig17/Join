@@ -71,6 +71,17 @@ async function patchData(path = "", data = {}) {
 }
 
 
+async function putData(path = "", data = {}) {
+  const targetURL = BASE_URL + path + ".json";
+  const response = await fetch(targetURL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+}
+
+
 /**
  * Deletes data from the specified path on the server.
  *

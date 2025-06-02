@@ -21,7 +21,7 @@ function generateTaskCard(task) {
 
   const stateCls = (total > 0 && done === total) ? 'all-done' : 'not-done';
   return `
-    <div id="task${task.id}" tabindex="0" class="task" draggable="true"
+    <div id="task${task.id}" data-task-id="${task.id}" tabindex="0" class="task" draggable="true"
          onclick="showTaskOverlayById('${task.id}')">
       <div class="task-category ${
         task.category ? task.category.toLowerCase().replace(" ", "-") : ""

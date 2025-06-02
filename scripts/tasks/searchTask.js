@@ -12,12 +12,6 @@ const awaitFeedback = document.getElementById("awaitFeedback");
 const done = document.getElementById("done");
 
 
-const noTaskHtml = `
-  <div class="noTasks">
-    <span>No tasks To do</span>
-  </div>
-`;
-
 /**
  * Sets focus on the search input field and initializes the task search.
  */
@@ -65,23 +59,6 @@ async function initializeTaskSearch() {
   searchInput.addEventListener("input", handleSearchInput);
 }
 
-/**
- * Filters tasks based on the search term and appends them to the appropriate stage.
- *
- * @param {string} [searchTerm] - The term to filter tasks by.
- *                                If empty or null, all tasks are displayed.
- */
-function filterAndRenderTasks(searchTerm) {
-  for (let id in allTasksSearch) {
-    const task = allTasksSearch[id];
-    if (!task) continue;
-
-    if (!searchTerm || taskMatchesSearch(task, searchTerm)) {
-      const html = generateTaskCard({ ...task, id });
-      appendTaskToStage(task.stage, html);
-    }
-  }
-}
 
 /**
  * Renders tasks filtered by a search term onto the board.
@@ -92,21 +69,22 @@ function filterAndRenderTasks(searchTerm) {
  * @param {string} [searchTerm] - The term to filter tasks by.
  *                                If empty or null, all tasks are displayed.
  */
-async function renderFilteredTasks(searchTerm) {
-  if (!boardMain || !boardContent) return;
+function renderFilteredTasks(searchTerm = "") {
+  const allTaskElements = document.querySelectorAll(".task");
 
-  toDo.innerHTML = "";
-  inProgress.innerHTML = "";
-  awaitFeedback.innerHTML = "";
-  done.innerHTML = "";
+  allTaskElements.forEach((taskElement) => {
+    const taskId = taskElement.dataset.taskId;
+    const task = allTasksSearch[taskId];
 
-  renderColumnBtns([toDo, inProgress, awaitFeedback, done]);
+    if (!task) return;
 
-  filterAndRenderTasks(searchTerm);
+    const matches = !searchTerm || taskMatchesSearch(task, searchTerm);
+    taskElement.style.display = matches ? "block" : "none";
+  });
 
+  // optional: leere-Column-Hinweise aktualisieren
   insertNoTaskPlaceholders();
-  await applyUserColors();
-  }
+}
 
   /**
    * Checks if a task matches a search term.
@@ -137,17 +115,22 @@ async function renderFilteredTasks(searchTerm) {
     );
   }
 
-  /**
-   * Adds placeholders for empty task sections if no tasks are present.
-   * These placeholders help keep the section visually appealing and signal to users
-   * that no tasks are available.
-   */
   function insertNoTaskPlaceholders() {
-    if (!toDo.querySelector('.task')) toDo.innerHTML += noTaskHtml;
-  if (!inProgress.querySelector('.task')) inProgress.innerHTML += noTaskHtml;
-  if (!awaitFeedback.querySelector('.task')) awaitFeedback.innerHTML += noTaskHtml;
-  if (!done.querySelector('.task')) done.innerHTML += noTaskHtml;
-  }
+  [toDo, inProgress, awaitFeedback, done].forEach((column) => {
+    let placeholder = column.querySelector(".noTasks");
+
+    // wenn kein Platzhalter vorhanden, erstelle einen
+    if (!placeholder) {
+      placeholder = document.createElement("div");
+      placeholder.classList.add("noTasks");
+      placeholder.innerText = "No tasks to do";
+      column.appendChild(placeholder);
+    }
+
+    const visibleTasks = column.querySelectorAll(".task:not([style*='display: none'])");
+    placeholder.style.display = visibleTasks.length === 0 ? "flex" : "none";
+  });
+}
 
   
   /**

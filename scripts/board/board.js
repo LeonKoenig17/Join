@@ -46,24 +46,23 @@ function setupSubtaskInputListeners() {
  */
 async function updateStage(container, taskId) {
   const newStage = getStageFromContainer(container.id);
-  const tasksResponse = await fetch(BASE_URL + "/tasks.json");
-  const tasks = await tasksResponse.json();
+  const task = allTasksSearch[taskId];
 
-  const task = tasks[taskId];
   if (task) {
     task.stage = newStage;
 
-    const targetURL = BASE_URL + "/tasks/" + taskId + ".json";
+   await putData("tasks/" + taskId, task);
 
-    await fetch(targetURL, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task),
-    });
+    const taskElement = document.getElementById("task" + taskId);
+    if (taskElement) {
+      container.appendChild(taskElement);
+      insertNoTaskPlaceholders();
+    }
 
-    await fetchData();
+    allTasksSearch[taskId].stage = newStage;
   }
 }
+
 
 /**
  * Maps container IDs to their corresponding stage indices.
