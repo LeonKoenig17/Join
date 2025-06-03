@@ -1,0 +1,237 @@
+        @font-face {
+            font-family: "Inter";
+            src: url(../fonts/Inter/Inter-VariableFont_opsz\,wght.ttf);
+        }
+
+
+
+        :root {
+
+            --primary-color: #2A3647;
+            --background-color: #F6F7F8;
+            --background-dragging-color: #ebeaeab0;
+            --text-underline-color: #29ABE2;
+            --text-color: #004d40;
+            --accent-color: #0288d1;
+            --border-color: #00796b;
+            --shadow-color: #004d40;
+            --highlight-color: #b2ebf2;
+            --text-color: #2A3647;
+            --shadow-color: #00000040;
+            --hover-color: #29ABE2;
+            --border-color: #D1D1D1;
+            --border-color-focus-filled: #29ABE2;
+            --border-color-required: #FF8190;
+            --priority-color-low: #7AE229;
+            --priority-color-medium: #FFA800;
+            --priority-color-urgent: #FF3D00;
+            --link-color: #007CEE;
+            --font-color: #cdcdcd;
+        }
+
+        .userColor-FF7A00 {
+            background-color: #FF7A00;
+        }
+
+        .userColor-FF5EB3 {
+            background-color: #FF5EB3;
+        }
+
+        .userColor-6E52FF {
+            background-color: #6E52FF;
+        }
+
+        .userColor-9327FF {
+            background-color: #9327FF;
+        }
+
+        .userColor-00BEE8 {
+            background-color: #00BEE8;
+        }
+
+        .userColor-1FD7C1 {
+            background-color: #1FD7C1;
+        }
+
+        .userColor-FF745E {
+            background-color: #FF745E;
+        }
+
+        .userColor-FFA35E {
+            background-color: #FFA35E;
+        }
+
+        .userColor-FC71FF {
+            background-color: #FC71FF;
+        }
+
+        .userColor-FFC701 {
+            background-color: #FFC701;
+        }
+
+        .userColor-0038FF {
+            background-color: #0038FF;
+        }
+
+        .userColor-C3FF2B {
+            background-color: #C3FF2B;
+        }
+
+        .userColor-FFE62B {
+            background-color: #FFE62B;
+        }
+
+        .userColor-FF4646 {
+            background-color: #FF4646;
+        }
+
+        .userColor-FFBB2B {
+            background-color: #FFBB2B;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .animation {
+            transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+            z-index: 2;
+            position: absolute;
+        }
+
+        body * {
+            font-family: "Inter";
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #mainContent {
+            width: 100%;
+            max-width: 1440px;
+            height: 100vh;
+            background-color: red;
+        }
+
+        aside {
+            background-color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            /* width: fit-content; */
+            width: 200px;
+            height: calc(100%);
+            position: absolute;
+            top: 0px;
+        }
+
+        aside nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        aside nav a, aside div a {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #cdcdcd;
+            padding: 8px;
+            padding-left: 45px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        aside nav a img {
+            padding-right: 8px;
+        }
+
+        aside div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        aside div a {
+            color: #a8a8a8;
+            transition: color 0.3s ease-in-out, font-weight 0.3s ease-in-out;
+        }
+
+        #asideLogo {
+            height: 122px;
+            width: auto;
+        }
+
+        header {
+            background-color: white;
+            height: 90px;
+            max-width: 1440px;
+            width: calc(100% - 200px);
+            /* padding-left: 200px; */
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 13;
+            margin-left: 200px;
+        }
+
+        header p {
+            padding-left: 60px;
+        }
+
+        /* header section {
+            padding-right: 50px;
+        } */
+
+        header section div {
+            display: flex;
+            align-items: center;
+        }
+
+        header section div span {
+            color: var(--hover-color);
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 50%;
+            border: 3px solid #2a3647;
+            cursor: pointer;
+            ;
+            padding: 10px;
+            margin-left: 16px;
+            margin-right: 16px;
+            transition: background-color 0.1s ease-in-out;
+        }
+
+        header section div span:hover {
+            background-color: #e2e6ec;
+        }
+
+        header nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary-color);
+            position: absolute;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px 0px 15px 15px;
+            padding: 10px;
+            top: 20px;
+            right: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .displayNone {
+            display: none;
+        }
