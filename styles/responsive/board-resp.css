@@ -12,6 +12,13 @@
   }
 }
 
+@media (max-width: 1000px) {
+  .header-container {
+    padding-left: 50px !important;
+  }
+}
+
+
 @media (max-width: 928px) {
   main {
     overflow: scroll;
@@ -31,7 +38,7 @@
     flex-direction: column;
   }
 
-  .board-column > .column-header {
+  .board-column>.column-header {
     display: flex;
   }
 
@@ -54,7 +61,7 @@
     user-select: none;
     max-height: 250px;
     min-width: 200px;
-    max-width: 200px; 
+    max-width: 200px;
   }
 
   .task-header h1 {
@@ -142,6 +149,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media (max-width: 800px) {
+  .header-container {
+    padding-left: 0px !important;
   }
 }
 

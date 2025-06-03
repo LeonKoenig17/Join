@@ -1,6 +1,16 @@
+@media (max-width: 1000px) {
+  .header-container {
+    padding-left: 50px;
+  }
+}
+
 @media (max-width: 800px) {
   #main {
     padding: 40px 40px 100px 40px !important;
+  }
+
+  .header-container {
+    padding-left: 0px;
   }
 }
 
@@ -81,7 +91,7 @@
 
 @media (max-width: 400px) {
   .close-btn-footer {
-   padding: 7px;
+    padding: 7px;
   }
 
   .create-task-btn {

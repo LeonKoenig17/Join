@@ -10,6 +10,7 @@
 
   main {
     width: calc(100% - 150px);
+    left: 150px;
   }
 
   /* header {
@@ -28,6 +29,7 @@
 
   main {
     width: 100%;
+    left: 0;
   }
 
   #main {

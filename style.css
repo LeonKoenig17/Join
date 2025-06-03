@@ -14,10 +14,13 @@ aside {
 }
 
 main {
+  position: absolute;
+  left: 200px;
   margin-top: 90px;
   display: flex;
   flex-direction: column;
   width: calc(100% - 200px);
+  max-width: 1720px;
   background-color: var(--background-color);
 }
 

@@ -21,21 +21,20 @@
 </head>
 
 <body onload="onloadContacts()">
- <header>
-      <div class="header-container">
-        <div class="header-left">
-          <img src="../images/joinlogodark.svg" alt="logo dark" />
-          <span>Kanban Project Management Tool</span>
-        </div>
-        <section class="header-right">
-          <div class="help-icon">
-            <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
-          </div>
-          <a onclick="showUserLinksOptions()" id="userLink"></a>
-        </section>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img src="../images/joinlogodark.svg" alt="logo dark" />
+        <span>Kanban Project Management Tool</span>
       </div>
-      <div id="userLinkOptions" class="userLinkOptions hide"></div>
-    </header>
+      <section class="header-right">
+        <div class="help-icon">
+          <a href="./help.html"><img src="../images/help20x20.svg" alt="help" /></a>
+        </div>
+        <a onclick="showUserLinksOptions()" id="userLink"></a>
+      </section>
+    </div>
+  </header>
   <aside>
     <div id="logo">
       <img src="../images/joinlogowhite.svg" alt="" />
@@ -65,6 +64,7 @@
   </aside>
 
   <main>
+    <div id="userLinkOptions" class="userLinkOptions hide"></div>
     <div id="mainContent">
       <div id="contentLeft" class="contentLeft">
         <section>
@@ -153,24 +153,26 @@
   <div id="addContactResponsiv" class="addContactResponsiv" onclick="showContactForm('add')">
     <img id="addContactResponsivImg" src="../images/person_add.svg" alt="" />
   </div>
-  <div id="editContactResponsiv" class="addContactResponsiv visibleNone" onclick="showManipulateContactLinksOptions('show')">
+  <div id="editContactResponsiv" class="addContactResponsiv visibleNone"
+    onclick="showManipulateContactLinksOptions('show')">
     <img id="addContactResponsivImg" src="../images/more_vert.svg" alt="" />
   </div>
 
-    <div id="manipulateOptionsFrame" class="visibleNone" onclick="showManipulateContactLinksOptions('hide')">
-      <span id="editErrorSpanResponsive" class="errorSpan"></span>
+  <div id="manipulateOptionsFrame" class="visibleNone" onclick="showManipulateContactLinksOptions('hide')">
+    <span id="editErrorSpanResponsive" class="errorSpan"></span>
     <div id="manipulateOptions" class="manipulateOptions" onclick="event.stopPropagation()">
-      <nav onclick="showContactForm('edit')" onmouseover="changeImage('manipulateEditIcon','edit-1')" onmouseleave="changeImage('manipulateEditIcon','edit-2')"
-         class="manipulateLinks manipulateSingleTaskDiv">
+      <nav onclick="showContactForm('edit')" onmouseover="changeImage('manipulateEditIcon','edit-1')"
+        onmouseleave="changeImage('manipulateEditIcon','edit-2')" class="manipulateLinks manipulateSingleTaskDiv">
         <img id="manipulateEditIcon" src="../images/edit-2.svg" alt="" />
         <span class="marginRight20px">Edit</span>
       </nav>
-      <nav onclick="contactForm('delete','')" onmouseover="changeImage('manipulatedeleteIcon','delete-blue')" onmouseleave="changeImage('manipulatedeleteIcon','delete')" class="manipulateLinks manipulateSingleTaskDiv">
+      <nav onclick="contactForm('delete','')" onmouseover="changeImage('manipulatedeleteIcon','delete-blue')"
+        onmouseleave="changeImage('manipulatedeleteIcon','delete')" class="manipulateLinks manipulateSingleTaskDiv">
         <img id="manipulatedeleteIcon" src="../images/delete.svg" alt="" />
         <span class="marginRight20px" id="deleteBtn">Delete</span>
       </nav>
     </div>
-</div>
+  </div>
 </body>
 
 <script src="../scripts/script.js"></script>

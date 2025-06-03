@@ -27,7 +27,6 @@ main {
   scroll-behavior: smooth;
   height: calc(100vh - 110px);
   overflow-y: auto;
-  margin-left: 200px;
   margin-top: 90px;
   margin-right: 4px;
 }
