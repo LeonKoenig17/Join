@@ -451,3 +451,7 @@ summary {
   animation: fadeOut 0.5s ease-out 1.5s forwards;
   /* startet nach 1,5 s */
 }
+
+.header-container {
+  padding-left: 100px;
+}

@@ -23,7 +23,7 @@ main {
 
 header {
   width: calc(100vw - 200px);
-  height: 80px;
+  height: 90px;
   background-color: white;
   display: flex;
   justify-content: space-between;

@@ -13,6 +13,7 @@
 @media (max-width: 800px) {
 
   main {
+    margin-top: 80px;
     margin-left: 0;
     height: calc(100vh - 160px);
   }

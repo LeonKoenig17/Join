@@ -24,9 +24,18 @@
   .main-summary {
     left: 150px;
   }
+
+  .header-container {
+    padding-left: 50px;
+  }
 }
 
 @media (max-width: 800px) {
+
+  .header-container {
+    padding-left: 0;
+  }
+
   summary {
     display: flex;
     align-items: center;
@@ -75,6 +84,9 @@
     align-items: center;
   }
 
+  .userLinkOptions {
+    top: 80px;
+  }
 }
 
 @media (max-width: 480px) {
