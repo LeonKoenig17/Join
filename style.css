@@ -22,31 +22,27 @@ main {
 }
 
 header {
-  width: 100%;
-  /* max-width: 1440px; */
-  height: 90px;
+  width: calc(100vw - 200px);
+  height: 80px;
   background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 13;
+  z-index: 1;
   position: fixed;
   top: 0;
   padding-left: 200px;
 }
 
-
-
 .header-container {
-  width: calc(100% - 260px);
-  max-width: 1440px;
+  width: 100%;
+  max-width: 1620px;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 99;
-  padding-left: 60px;
 }
 
 .header-right {

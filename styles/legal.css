@@ -28,7 +28,7 @@ main {
   height: calc(100vh - 110px);
   overflow-y: auto;
   margin-left: 200px;
-  margin-top: 90px;
+  margin-top: 80px;
   margin-right: 4px;
 }
 
@@ -58,13 +58,6 @@ aside {
   z-index: 3;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  left: 200px;
-  padding-left: 100px;
-}
-
 .d-none {
   display: none;
 }
@@ -90,6 +83,10 @@ footer a {
   justify-content: space-around;
   width: 50%;
   padding-right: 30px;
+}
+
+.header-container {
+  padding-left: 100px;
 }
 
 .header-container img {

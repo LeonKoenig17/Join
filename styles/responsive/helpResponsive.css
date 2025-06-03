@@ -3,13 +3,18 @@
   main {
     margin-left: 150px;
   }
+
+  .header-container {
+    padding-left: 50px;
+  }
+
 }
 
 @media (max-width: 800px) {
 
   main {
     margin-left: 0;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 160px);
   }
 
   .help-main {
@@ -20,13 +25,5 @@
 @media (max-width: 380px) {
   .help {
     font-size: 40px;
-  }
-}
-
-@media (max-width: 1000px) {
-  header {
-    left: 0px;
-    padding-left: 0;
-    width: 100%;
   }
 }
