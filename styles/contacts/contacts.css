@@ -414,6 +414,9 @@ input:focus {
   z-index: 1;
 }
 
+.zindex2 {
+  z-index: 2;
+}
 .header-container {
   padding-left: 100px;
 }
