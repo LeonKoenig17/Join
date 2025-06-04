@@ -186,13 +186,6 @@ function moveInputFieldOnResize() {
       originalParent.insertBefore(searchInputField, originalParent.firstChild);
     }
   }
-
-  document.querySelectorAll(".task").forEach((task) => {
-    task.setAttribute("draggable", "true");
-    setupTouchStart(task);
-    setupTouchMove(task);
-    setupTouchEnd(task);
-  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {

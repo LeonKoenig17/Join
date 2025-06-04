@@ -38,7 +38,8 @@ function generateTaskCard(task) {
       <div class="task-category ${
         task.category ? task.category.toLowerCase().replace(" ", "-") : ""
       }">
-        ${task.category || ""}
+        <span>${task.category || ""}</span>
+        <button onclick="openDragOverlay(event, this.parentElement.parentElement.id)"></button>
       </div>
       <h3 class="task-title">${task.title || ""}</h3>
       <p class="task-description">${shortDesc}</p>
@@ -76,7 +77,7 @@ function columnBtnTemplate(label, key) {
 
 function mobileActionsTemplate() {
   return `
-    <div id="mobileTaskActions">
+    <div id="mobileTaskActions" onclick="event.stopPropagation()">
       <h4>Move To</h4>
       <ul>
         <li onclick="processMobileInput('toDo')">To Do</li>

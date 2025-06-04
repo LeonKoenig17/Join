@@ -260,3 +260,7 @@ button {
   font-size: 14px;
   white-space: nowrap;
 }
+
+#mobileTaskActions li:hover {
+  cursor: pointer;
+}

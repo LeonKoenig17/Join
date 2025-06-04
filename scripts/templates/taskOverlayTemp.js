@@ -44,7 +44,9 @@ function generateTaskOverlay(task) {
         <div class="task-header">
           <div class="task-category ${
             task.category ? task.category.toLowerCase().replace(" ", "-") : ""
-          }">${task.category || ""}</div>
+          }">
+          <span>${task.category || ""}</span>
+          </div>
           <button class="close-btn" onclick="closeOverlay()">
             <img src="../images/close.svg" alt="Close">
           </button>

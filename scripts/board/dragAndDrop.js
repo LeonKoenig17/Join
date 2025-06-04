@@ -96,63 +96,44 @@ function addDragFunction() {
 
     // Fügt Dragstart-Event hinzu
     task.addEventListener("dragstart", function (e) {
+      const mobileActions = document.getElementById("mobileTaskActions");
+      if (mobileActions) mobileActions.remove();
       e.dataTransfer.setData("text/plain", task.id);
       e.dataTransfer.effectAllowed = "move";
 
       draggedFromContainer = task.closest(".task-list");
       dragAnimation(task);
     });
-
-    setupTouchStart(task);
-    setupTouchMove(task);
-    setupTouchEnd(task);
   });
 }
 
 /**
- * Adds drag-and-drop functionality for mobile devices.
+ * opens the overlay to move the tapped task to a different section
+ * @param {Event} e 
+ * @param {String} taskId 
  */
-function addMobileDragFunction() {
-  const tasks = document.querySelectorAll(".task");
-  tasks.forEach(task => {
-    setupTouchStart(task);
-    setupTouchEnd(task);
-    setupTouchMove(task);
-  });
-}
-
-/**
- * Sets up the touchstart event for a task.
- * @param {HTMLElement} task - The task element.
- */
-function setupTouchStart(task) {
-  task.addEventListener("touchstart", function (e) {
+function openDragOverlay(e, taskId) {
+  const mobileActions = document.getElementById("mobileTaskActions");
+  if (mobileActions) {mobileActions.remove()}
+  const task = document.getElementById(taskId);
+  
+  
+  task.innerHTML += mobileActionsTemplate();
+  document.addEventListener("click", function (e) {
     const mobileActions = document.getElementById("mobileTaskActions");
     if (mobileActions && !mobileActions.contains(e.target)) {
       mobileActions.remove();
     }
-    pressTimer = setTimeout(() => doSomethingOnLongPress(task), 600);
-  }, { passive: true });
+  });
+  e.stopPropagation();
 }
 
 /**
- * Sets up the touchend event for a task.
+ * Handles actions for a long press on a task for mobile devices.
  * @param {HTMLElement} task - The task element.
  */
-function setupTouchEnd(task) {
-  task.addEventListener("touchend", function () {
-    clearTimeout(pressTimer);
-  });
-}
-
-/**
- * Sets up the touchmove event for a task.
- * @param {HTMLElement} task - The task element.
- */
-function setupTouchMove(task) {
-  task.addEventListener("touchmove", function () {
-    clearTimeout(pressTimer);
-  });
+function doSomethingOnLongPress(task) {
+  
 }
 
 /**
@@ -182,23 +163,6 @@ function dropHighlight(taskElement) {
 }
 
 /**
- * Handles actions for a long press on a task for mobile devices.
- * @param {HTMLElement} task - The task element.
- */
-function doSomethingOnLongPress(task) {
-  task.innerHTML += mobileActionsTemplate();
-  const savedOnclick = task.onclick;
-  task.onclick = null;
-
-  document.addEventListener("click", function (e) {
-    const mobileActions = document.getElementById("mobileTaskActions");
-    if (mobileActions && !mobileActions.contains(e.target)) {
-      task.onclick = savedOnclick;
-    }
-  });
-}
-
-/**
  * Processes mobile input to update the stage of a task.
  * @param {string} containerId - The ID of the container to move the task to.
  */
@@ -207,4 +171,5 @@ function processMobileInput(containerId) {
   const mobileActions = document.getElementById("mobileTaskActions");
   const taskId = mobileActions.parentElement.id.replace("task", "");
   updateStage(container, taskId);
+  mobileActions.remove();
 }
