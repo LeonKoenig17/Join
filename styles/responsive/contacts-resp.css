@@ -6,6 +6,10 @@
 }
 
 @media (max-width: 1000px) {
+    .header-container {
+        padding-left: 50px;
+    }
+
     .contactsFrame {
         /* display: flex; */
         flex-direction: column;
@@ -14,7 +18,7 @@
     }
 
     .contactsFrame h1 {
-        margin: 10px 0px;
+        margin: 0;
     }
 
     .contactsFrame div {
@@ -23,7 +27,8 @@
 
     .contactsFrame p {
         order: 2;
-        margin: 10px 0px;
+        margin: 0;
+        margin-bottom: 10px;
     }
 
     .frame-40-vektor {
@@ -66,13 +71,7 @@
 }
 
 @media (max-width: 1000px) {
-    #mainContent {
-        left: 150px;
-    }
 
-    .contentRight {
-        width: calc(100% - 150px - 340px);
-    }
 
     .addContactBtnDiv {
         gap: 0px;
@@ -88,13 +87,20 @@
 }
 
 @media (max-width: 800px) {
+    header {
+        z-index: 2;
+    }
+
+    .header-container {
+        padding-left: 0;
+    }
+
     body {
         background-color: white;
     }
 
     #mainContent {
         left: 0;
-        top: 86px;
         width: 100%;
     }
 
@@ -108,7 +114,7 @@
 
     .contentLeft {
         width: 100%;
-        height: calc(100vh - 170px);
+        height: calc(100vh - 160px);
         box-shadow: none;
         z-index: 1;
     }
@@ -343,8 +349,8 @@
     }
 }
 
-@media (min-width: 800px){
-    #manipulateOptionsFrame{
+@media (min-width: 800px) {
+    #manipulateOptionsFrame {
         display: none;
     }
 }

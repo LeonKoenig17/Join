@@ -22,7 +22,6 @@ body {
 }
 
 .contentRight {
-  width: calc(100% - 200px - 340px);
   height: calc(100vh - 90px);
   /* min-height: 700px; */
   overflow-y: auto;
@@ -92,8 +91,6 @@ main {
   background-color: var(--background-color);
   margin: 0;
   position: absolute;
-  left: 200px;
-  top: 90px;
   width: 100%;
 }
 
@@ -204,6 +201,10 @@ main {
   text-align: left;
 }
 
+.userLinkOptions {
+  z-index: 2;
+}
+
 .emailText {
   padding: 0;
   color: var(--link-color);
@@ -235,7 +236,6 @@ main {
   display: flex;
   align-items: center;
   max-width: 550px;
-  width: calc(100% - 2 * 50px);
   height: 73px;
   gap: 30px;
   position: relative;
@@ -412,6 +412,10 @@ input:focus {
 
 .zindex1 {
   z-index: 1;
+}
+
+.header-container {
+  padding-left: 100px;
 }
 
 
