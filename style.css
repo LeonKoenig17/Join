@@ -10,7 +10,8 @@ aside {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  z-index: 20;
+  z-index: 10;
+  position: relative;
 }
 
 main {
@@ -76,7 +77,7 @@ footer {
   align-items: center;
   height: 90px;
   width: calc(100vw - 200px);
-  position: absolute;
+  position: relative;
 }
 
 #userLink {
@@ -93,9 +94,6 @@ footer {
   font-weight: bold;
   margin: 16px;
   transition: background-color 0.3s ease-in-out;
-  /* position: fixed !important;
-    right: 0 !important;
-    z-index: 99; */
 }
 
 #userLink:hover {
@@ -104,17 +102,21 @@ footer {
 }
 
 .userLinkOptions {
-  top: 0px;
+  position: absolute;
+  top: 0%;
+  right: 1%;
+  left: auto;
   display: flex;
   flex-direction: column;
   align-items: start;
-  position: absolute;
-  right: 20px;
   background-color: var(--primary-color);
   padding: 15px 5px;
   border-radius: 20px 0px 20px 20px;
-  z-index: 1;
+  z-index: 5;
   transition: border-radius 0.3s ease-in-out, background-image 0.3s ease-in-out;
+  min-width: 120px;
+  max-width: 90vw;
+  width: max-content;
 }
 
 .userLinkOptionsLinks {

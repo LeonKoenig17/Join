@@ -12,10 +12,14 @@ main {
   padding: 60px 0;
   margin: 0 60px;
   max-width: 1440px;
-  height: calc(100vh - 210px);
+  height: calc(95vh - 210px);
   overflow: auto;
   scrollbar-width: none;
   gap: 40px;
+}
+
+.header-container {
+    padding-left: 100px;
 }
 
 button {
@@ -49,8 +53,8 @@ button {
 }
 
 .board-column {
-  width: 100%;
-  min-width: 200px;
+  flex: 1 1 0;
+  min-width: 120px;
 }
 
 .board-column > .column-header {

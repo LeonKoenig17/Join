@@ -19,12 +19,19 @@
     font-size: 40px;
   }
 
+    html {
+   scrollbar-width: none;
+  }
+
   .main-container {
     gap: 24px;
   }
 
-  .main-container h1 {
-    margin: 0;
+  .main-container > h1 {
+    position: sticky;
+    top: 88px;
+    background: var(--background-color);
+    z-index: 4;
   }
 
   #addTask {
@@ -51,17 +58,14 @@
     width: 100%;
   }
 
-  .addTask-right,
-  .addTask-left {
-    gap: 0;
-  }
-
   .required-label {
     position: static;
   }
 
   .create-task-footer {
     margin-top: 0;
+    position: sticky;
+    bottom: 88px;
   }
 
   .custom-date-input img {

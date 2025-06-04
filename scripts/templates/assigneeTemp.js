@@ -37,7 +37,7 @@ function assignedUserTemplate(user, index, isChecked = false) {
 function generateCardAssigneeHTML(assignees) {
   if (!Array.isArray(assignees)) return "";
 
-  const maxVisibleAssignees = 3;
+  const maxVisibleAssignees = 2;
   const visibleAssignees = assignees.slice(0, maxVisibleAssignees);
   const remainingCount = assignees.length - maxVisibleAssignees;
 

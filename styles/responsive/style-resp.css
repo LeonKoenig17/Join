@@ -20,8 +20,6 @@
     } */
 }
 
-
-
 @media (max-width: 800px) {
   aside {
     display: none;
@@ -95,5 +93,13 @@
     border-radius: 16px;
     white-space: nowrap;
     width: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .userLinkOptions {
+    position: fixed !important;
+    top: 7%;
+    right: 0;
   }
 }

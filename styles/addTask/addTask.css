@@ -11,6 +11,10 @@
   flex-direction: column;
 }
 
+.header-container {
+    padding-left: 100px;
+}
+
 #addTask {
   display: flex;
   gap: 20px;
@@ -301,6 +305,8 @@ select:focus {
   width: 100%;
   max-width: 850px;
   margin-top: 24px;
+  position: sticky;
+  bottom: 0;
 }
 
 .form-actions {
@@ -327,7 +333,7 @@ select:focus {
 .close-btn-footer {
   display: flex;
   justify-content: space-between;
-  width: 110px;
+  width: 124px;
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);
   color: var(--text-color);
@@ -345,7 +351,6 @@ select:focus {
 
 .close-btn-footer:hover {
   background-image: url(/images/cancelblue.svg);
-  padding: 10px 19px;
   border-color: var(--accent-color);
   color: var(--hover-color);
   box-shadow: 00px 3px 10px rgba(0, 0, 0, 0.25);
@@ -413,8 +418,4 @@ select.fieldIsRequired {
 .input-base-icon-active {
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
-}
-
-.header-container {
-  padding-left: 100px;
 }
