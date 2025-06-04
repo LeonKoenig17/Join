@@ -13,7 +13,7 @@ function addTaskOverlayTemplate(stage) {
   return `
     <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
       <div class="add-task-card ">
-        <div class="task-header">
+        <div class="task-header sticky-header">
           <h1>Add Task</h1>
           <button class="close-btn" onclick="closeOverlay()"><img src="../images/close.svg" alt="close"></button>
         </div>

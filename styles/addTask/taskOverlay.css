@@ -76,14 +76,17 @@ p span {
   }
 }
 
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
+}
+
 .task-header {
   display: flex;
   align-items: flex-start;
   text-align: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background-color: var(--background-color);
 }
 
 .task-header h1 {

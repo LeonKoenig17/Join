@@ -19,7 +19,7 @@ function editTaskOverlayTemplate(task) {
   return `
 <div class="task-overlay" id="taskOverlay" onclick="handleOverlayClick(event)">
   <div class="add-task-card edit-mode">
-    <div class="task-header">
+    <div class="task-header sticky-header">
       <div class="user-story-label task-category">Edit Task</div>
       <button class="close-btn" onclick="closeOverlay()">
         <img src="../images/close.svg" alt="close">
