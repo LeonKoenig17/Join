@@ -227,23 +227,34 @@ function responsiveContentRight(task) {
   const show = task === 'show' && window.innerWidth <= 800;
 
   if (show) {
-    elems.contentRight?.classList.add("showContentRight");
-    elems.allContacts?.classList.add("width0");
-    elems.contentLeft?.classList.add("width0");
-    elems.backToList?.classList.remove("displayNone");
-    elems.addContactResponsiv?.classList.add("visibleNone");
-    elems.editContactResponsiv?.classList.remove("visibleNone");
+    toggleClasses(elems, [
+      ["contentRight", "showContentRight", true],
+      ["allContacts", "width0", true],
+      ["contentLeft", "width0", true],
+      ["backToList", "displayNone", false],
+      ["addContactResponsiv", "visibleNone", true],
+      ["editContactResponsiv", "visibleNone", false],
+    ]);
   } else {
-    elems.contentRight?.classList.remove("showContentRight");
-    elems.allContacts?.classList.remove("width0");
-    elems.contentLeft?.classList.remove("width0");
-    elems.backToList?.classList.add("displayNone");
+    toggleClasses(elems, [
+      ["contentRight", "showContentRight", false],
+      ["allContacts", "width0", false],
+      ["contentLeft", "width0", false],
+      ["backToList", "displayNone", true],
+      ["addContactResponsiv", "visibleNone", false],
+      ["editContactResponsiv", "visibleNone", true],
+    ]);
     document.getElementById("deleteError")?.classList.add("hide");
     changeImage("addContactResponsivImg", "person_add");
-    elems.addContactResponsiv?.classList.remove("visibleNone");
-    elems.editContactResponsiv?.classList.add("visibleNone");
   }
 }
+
+function toggleClasses(elems, actions) {
+  actions.forEach(([id, cls, add]) =>
+    elems[id]?.classList[add ? "add" : "remove"](cls)
+  );
+}
+
 
 
 
