@@ -14,29 +14,43 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
+  header {
+    z-index: 5;
+  }
+
+  #main {
+    padding: 0 !important;
+  }
+
   h1 {
     font-size: 40px;
   }
 
-    html {
-   scrollbar-width: none;
+  html {
+    scrollbar-width: none;
   }
 
   .main-container {
     gap: 24px;
+    height: 125vh;
   }
 
-  .main-container > h1 {
+  .main-container>h1 {
+    height: 110px;
+    top: 80px;
     position: sticky;
-    top: 88px;
+    display: flex;
+    align-items: center;
     background: var(--background-color);
+    margin: 0 40px;
     z-index: 4;
   }
 
   #addTask {
     flex-direction: column;
     gap: 10px;
+    padding: 0 40px;
   }
 
   .create-task-footer {
@@ -45,7 +59,10 @@
 
   .form-actions {
     gap: 16px;
-    margin-top: 24px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
   }
 
   .separator {
@@ -59,13 +76,14 @@
   }
 
   .required-label {
+    padding-left: 40px;
     position: static;
   }
 
   .create-task-footer {
     margin-top: 0;
     position: sticky;
-    bottom: 88px;
+    bottom: 80px;
   }
 
   .custom-date-input img {
@@ -74,6 +92,7 @@
 }
 
 @media (max-width: 500px) {
+
   .create-task-footer {
     justify-content: flex-end;
   }
@@ -89,7 +108,6 @@
 
   .form-actions {
     gap: 8px;
-    margin-top: 24px;
   }
 }
 
