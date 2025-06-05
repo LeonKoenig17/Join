@@ -352,16 +352,23 @@ function setupSubtaskListeners() {
   const subInput = document.getElementById("subtask-input");
   if (!addIcon || !subInput || !closeIcon || !checkIcon) return;
 
-  addIcon.addEventListener("click", () => {
-    if (subInput.value.trim() !== "") {
-      confirmSubtaskEntry();
-      toggleIcons(false);
-    } else {
-      activateSubtaskInput();
-    }
-  });
+  addIcon.addEventListener("click", onAddIconClick);
+  subInput.addEventListener("keypress", onSubInputKeyPress);
+  checkIcon.addEventListener("click", onCheckIconClick);
+}
 
- subInput.addEventListener("keypress", (e) => {
+function onAddIconClick() {
+  const subInput = document.getElementById("subtask-input");
+  if (subInput.value.trim() !== "") {
+    confirmSubtaskEntry();
+    toggleIcons(false);
+  } else {
+    activateSubtaskInput();
+  }
+}
+
+function onSubInputKeyPress(e) {
+  const subInput = e.target;
   if (e.key === "Enter") {
     e.preventDefault();
     e.stopPropagation();
@@ -369,14 +376,13 @@ function setupSubtaskListeners() {
     subInput.value = "";
     toggleIcons(false);
   }
-});
-  
-  checkIcon.addEventListener("click", () => {
-    subInput.value = "";
-    toggleIcons(false);
-  });
 }
 
+function onCheckIconClick() {
+  const subInput = document.getElementById("subtask-input");
+  subInput.value = "";
+  toggleIcons(false);
+}
 
 /**
  * Checks and handles subtask-related click events.
@@ -418,9 +424,6 @@ function handleCloseSubtaskInput() {
     if (subInput) subInput.value = "";
 }
 
-/**
- * UI Helper Functions
- */
 
 /**
  * Activates the subtask input field for adding a new subtask.

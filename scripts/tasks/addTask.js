@@ -201,24 +201,27 @@ function getActivePriority() {
 function getAssignedContacts() {
   const checkboxes = document.querySelectorAll(".assign-checkbox");
   const contacts = [];
-
-  for (let i = 0; i < checkboxes.length; i++) {
-    const cb = checkboxes[i];
+  checkboxes.forEach(cb => {
     if (cb.checked) {
-      const id = cb.dataset.userId;
-      const name = cb.dataset.userName;
-      const email = cb.dataset.userEmail;
-      const color = cb.dataset.userColor;
-
-      if (!id || !name || !email || !color) {
-        console.warn("Incomplete contact data:", { id, name, email, color });
-        continue;
-      }
-
-      contacts.push({ id, name, email, color });
+      const contact = extractContactData(cb);
+      if (contact) contacts.push(contact);
     }
-  }
+  });
   return contacts;
+}
+
+/**
+ * Extracts contact data from a checkbox element.
+ * @param {HTMLElement} cb - The checkbox element.
+ * @returns {Object|null} The extracted contact data or null if incomplete.
+ */
+function extractContactData(cb) {
+  const { userId: id, userName: name, userEmail: email, userColor: color } = cb.dataset;
+  if (!id || !name || !email || !color) {
+    console.warn("Incomplete contact data:", { id, name, email, color });
+    return null;
+  }
+  return { id, name, email, color };
 }
 
 /**
@@ -244,21 +247,24 @@ function clearForm() {
   resetPriorityButtons();
   resetCheckedChips();
   resetCategory();
-
-  resetFieldAndError("title", "title-error");
-  resetFieldAndError("due-date", "due-date-error");
-  resetFieldAndError("categorySelect", "category-error");
-
+  resetAllFieldErrors();
   updateSubtaskList();
 }
 
+/**
+ * Resets all field errors for the form.
+ */
+function resetAllFieldErrors() {
+  resetFieldAndError("title", "title-error");
+  resetFieldAndError("due-date", "due-date-error");
+  resetFieldAndError("categorySelect", "category-error");
+}
 
 function resetInputFields() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   document.getElementById("due-date").value = "";
 }
-
 
 function resetPriorityButtons() {
   document
@@ -268,24 +274,33 @@ function resetPriorityButtons() {
   if (mediumButton) mediumButton.classList.add("active-btn");
 }
 
-
 function resetCheckedChips() {
-  document.getElementById("assignedChips").innerHTML = "";
-  subtasks.length = 0;
-  document.getElementById("subtask-list").innerHTML = "";
-
-  const checkboxes = document.querySelectorAll("input.assign-checkbox");
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = false;
-  });
+  clearAssignedChips();
+  clearSubtasks();
+  clearSubtaskList();
+  uncheckAllAssignCheckboxes();
 }
 
+function clearAssignedChips() {
+  document.getElementById("assignedChips").innerHTML = "";
+}
+
+function clearSubtasks() {
+  if (typeof subtasks !== "undefined") subtasks.length = 0;
+}
+
+function clearSubtaskList() {
+  document.getElementById("subtask-list").innerHTML = "";
+}
+
+function uncheckAllAssignCheckboxes() {
+  const checkboxes = document.querySelectorAll("input.assign-checkbox");
+  checkboxes.forEach(checkbox => { checkbox.checked = false; });
+}
 
 function resetCategory() {
   document.getElementById("categorySelect").selectedIndex = 0;
 }
-
-
 
 /**
  * Resets the visual error indication and error message for a given input field.
@@ -405,6 +420,7 @@ function deleteTaskConfirmed(taskId) {
  * Initializes the Add Task page on load.
  */
 function initAddTaskPage() {
+
   initPriorityButtons();
   setupDatePicker();
   setupFieldListeners();

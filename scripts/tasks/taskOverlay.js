@@ -52,28 +52,33 @@ function showTaskOverlayById(taskId) {
  * @param {String} taskId - task specific id string saved in the database
  */
 async function showTaskOverlay(taskId) {
-  const [users, allTasks] = await Promise.all([
-    loadFirebaseUsers(),
-    loadData("tasks")
-  ]) || [[], {}];
-
+  const [users, allTasks] = await loadOverlayData();
   const rawTask = allTasks?.[taskId];
-  if (!rawTask) {
-    console.warn(`Task ${taskId} nicht gefunden`);
-    return;
-  }
+  if (!rawTask) return warnTaskNotFound(taskId);
+  const taskData = prepareTaskData(taskId, rawTask, users);
+  const overlayContainer = document.getElementById("taskOverlay");
+  renderOverlay(overlayContainer, taskData);
+  initOverlaySetup(overlayContainer, users, taskData);
+  updateSubtaskList(taskId);
+}
+
+function warnTaskNotFound(taskId) {
+  console.warn(`Task ${taskId} nicht gefunden`);
+}
+function loadOverlayData() {
+  return Promise.all([loadFirebaseUsers(), loadData("tasks")]) || [[], {}];
+}
+function prepareTaskData(taskId, rawTask, users) {
   const taskData = { id: taskId, ...rawTask };
   checkUserColor(taskData, users);
   initSubtasksArray(taskData);
   currentTask = taskData;
-
-  const overlayContainer = document.getElementById("taskOverlay");
-  overlayContainer.innerHTML     = generateTaskOverlay(taskData);
-  overlayContainer.classList.remove("d-none");
-  overlayContainer.style.display = "flex";
-
-  initOverlaySetup(overlayContainer, users, taskData);
-  updateSubtaskList(taskId);
+  return taskData;
+}
+function renderOverlay(container, taskData) {
+  container.innerHTML = generateTaskOverlay(taskData);
+  container.classList.remove("d-none");
+  container.style.display = "flex";
 }
 
 /**
@@ -82,22 +87,28 @@ async function showTaskOverlay(taskId) {
  * @param {Integer} stage 
  */
 function showAddTaskOverlay(stage) {
-  document.body.classList.add("no-scroll");
-  const overlayHTML = addTaskOverlayTemplate(stage);
-  document.body.classList.add("add-task-page");
+  document.body.classList.add("no-scroll", "add-task-page");
+  renderAddTaskOverlay(stage);
+  setupAddTaskOverlay(stage);
+  loadAndInitAssignees();
+}
+
+function renderAddTaskOverlay(stage) {
   const container = document.getElementById("taskOverlay");
   if (container) {
-    container.innerHTML     = overlayHTML;
+    container.innerHTML = addTaskOverlayTemplate(stage);
     container.classList.remove("d-none");
     container.style.display = "flex";
   }
-
+}
+function setupAddTaskOverlay(stage) {
   initPriorityButtons();
   initializeOverlayFeatures();
   setupTaskForm(stage);
   setupSubtaskListeners();
   checkSubtaskClass();
-
+}
+function loadAndInitAssignees() {
   Promise.all([loadFirebaseUsers(), loadFirebaseContacts()])
     .then(([users, contacts]) => {
       const assignees = [...users, ...contacts];
@@ -150,25 +161,30 @@ async function showEditTaskOverlay(taskId) {
   document.body.classList.add("no-scroll");
   const taskData = await loadTaskById(taskId);
   if (!taskData) return;
+  const assignees = await loadEditAssignees();
+  renderEditTaskOverlay(taskData, assignees);
+  setupEditTaskOverlay(document.getElementById("taskOverlay"), assignees, taskData);
+  currentTask = taskData;
+}
 
+async function loadEditAssignees() {
   const [users, contacts] = await Promise.all([
     loadFirebaseUsers(),
     loadFirebaseContacts()
   ]);
-  const assignees = [...users, ...contacts];
-
+  return [...users, ...contacts];
+}
+function renderEditTaskOverlay(taskData, assignees) {
   const overlayContainer = document.getElementById("taskOverlay");
-  overlayContainer.innerHTML     = editTaskOverlayTemplate(taskData, assignees);
+  overlayContainer.innerHTML = editTaskOverlayTemplate(taskData, assignees);
   overlayContainer.classList.remove("d-none");
   overlayContainer.style.display = "flex";
-
+}
+function setupEditTaskOverlay(overlayContainer, assignees, taskData) {
   initOverlaySetup(overlayContainer, assignees, taskData);
-
   setupSubtaskListeners();
   checkSubtaskClass();
   registerSaveTaskHandler(overlayContainer, taskData);
-
-  currentTask = taskData;
 }
 
 /**

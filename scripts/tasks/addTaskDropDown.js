@@ -16,6 +16,7 @@ async function initAssignedDropdown() {
   }
 }
 
+
 /**
  * Renders the options in the dropdown.
  * @param {Array<Object>} users - The list of users.
@@ -32,6 +33,7 @@ function renderDropdownOptions(users, assignedTo = []) {
     })
     .join("");
 }
+
 
 /**
  * Sets up event listeners for the dropdown.
@@ -51,6 +53,7 @@ function setupDropdownEventListeners(users) {
   addOptionsChangeListener(opts, users);
 }
 
+
 /**
  * Adds a click listener to toggle the dropdown.
  * @param {HTMLElement} sel - The selected dropdown element.
@@ -64,6 +67,7 @@ function addDropdownToggleListener(sel, opts) {
 
   sel.tabIndex = 0;
 }
+
 
 /**
  * Adds a click listener to the document to close the dropdown when clicking outside.
@@ -94,7 +98,6 @@ function addOptionsChangeListener(opts, users) {
     updateAssignedChips(users);
   });
 
-
   opts.addEventListener("click", function (e) {
     const details = e.target.closest('.assigned-user-details');
     if (!details) return;
@@ -106,6 +109,7 @@ function addOptionsChangeListener(opts, users) {
   });
 }
 
+
 /**
  * Updates the assigned chips based on the selected users.
  * @param {Array<Object>} users - The list of users.
@@ -114,11 +118,9 @@ function updateAssignedChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
   if (!chipsContainer) return;
 
-  // Entferne die Eventlistener-Logik aus dieser Funktion!
-  // Die Eventlistener werden zentral in addOptionsChangeListener gesetzt.
-
   updateChips(users);
 }
+
 
 function updateChips(users) {
   const chipsContainer = document.getElementById("assignedChips");
@@ -132,13 +134,15 @@ function updateChips(users) {
   chipsContainer.innerHTML = chips.join("");
 }
 
+
 function createChipHTML(users, userId) {
-  // IDs als String vergleichen, damit es immer klappt
+
   const user = users.find(u => String(u.id) === String(userId));
   if (!user) return "";
   const initials = getInitials(user.name || user.email);
   return `<div class="assigned-chip" style="background-color: ${user.color};">${initials}</div>`;
 }
+
 
 /**
  * Returns the initials of a name or email.
@@ -172,7 +176,6 @@ async function loadFirebaseUsers() {
       });
     }
   }
-
   return users;
 }
 
@@ -194,6 +197,5 @@ async function loadFirebaseContacts() {
       });
     }
   }
-
   return contacts;
 }

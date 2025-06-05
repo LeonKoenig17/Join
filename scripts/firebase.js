@@ -147,7 +147,6 @@ async function applyUserColors() {
 }
 
 
-
 /**
  * Fills user links in the UI based on the current user.
  *
@@ -157,21 +156,29 @@ async function applyUserColors() {
 async function fillUserLinks() {
   try {
     const users = await loadAllUsers();
-    const user = users.find(u => u.id === localStorage.getItem("token"));
-    const nameEl = document.getElementById("userName");
-    const linkEl = document.getElementById("userLink");
-
-    if (!user) {
-      linkEl && (linkEl.innerHTML = "G");
-      nameEl && (nameEl.innerHTML = "");
-      return;
-    }
-
-    linkEl && (linkEl.innerHTML = getInitials(user.name));
-    nameEl && (nameEl.innerHTML = user.name !== "Guest" ? user.name : "");
+    const user = getCurrentUser(users);
+    setUserLinkUI(user);
   } catch (e) {
     console.error("Fehler beim Aktualisieren der Benutzerlinks:", e);
   }
+}
+
+
+function getCurrentUser(users) {
+  return users.find(u => u.id === localStorage.getItem("token"));
+}
+
+
+function setUserLinkUI(user) {
+  const nameEl = document.getElementById("userName");
+  const linkEl = document.getElementById("userLink");
+  if (!user) {
+    linkEl && (linkEl.innerHTML = "G");
+    nameEl && (nameEl.innerHTML = "");
+    return;
+  }
+  linkEl && (linkEl.innerHTML = getInitials(user.name));
+  nameEl && (nameEl.innerHTML = user.name !== "Guest" ? user.name : "");
 }
 
 
@@ -198,23 +205,34 @@ async function lastColor() {
   try {
     const users = await loadData("login");
     if (!users) return '#FF7A00';
-
     const usedColors = Object.values(users).map(u => u.color);
-    const colors = ['#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
-                    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF',
-                    '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
-
-    const unused = colors.find(c => !usedColors.includes(c));
+    const colors = getColorPalette();
+    const unused = findUnusedColor(colors, usedColors);
     if (unused) return unused;
-
-    const last = [...usedColors].reverse().find(c => colors.includes(c));
-    return colors[(colors.indexOf(last) + 1) % colors.length];
+    return getNextColor(colors, usedColors);
   } catch (e) {
     console.error("Fehler beim Abrufen der letzten Farbe:", e);
     return '#FF7A00';
   }
 }
 
+
+function getColorPalette() {
+  return ['#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
+    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF',
+    '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
+}
+
+
+function findUnusedColor(colors, usedColors) {
+  return colors.find(c => !usedColors.includes(c));
+}
+
+
+function getNextColor(colors, usedColors) {
+  const last = [...usedColors].reverse().find(c => colors.includes(c));
+  return colors[(colors.indexOf(last) + 1) % colors.length];
+}
 
 
 /**
