@@ -17,15 +17,18 @@ let groupedUsers = {};
  * - Relies on helper functions: `sortUsers()`, `createGroupDiv(letter)`, and `createSingleUserNav(user, userNumber)`.
  */
 function getContactsFromFirebase() {
-    userNumber   = 0;
+    userNumber = 0;
     groupedUsers = {};
 
-    dataLogin   = fireBaseContent.login;
+    dataLogin = fireBaseContent.login;
     dataContact = fireBaseContent.contact;
-    dataFull    = { ...dataContact, ...dataLogin };
+    dataFull = { ...dataContact, ...dataLogin };
 
     sortUsers();
+    renderGroupedUsers();
+}
 
+function renderGroupedUsers() {
     const allContactsNav = document.getElementById("allContacts");
     allContactsNav.innerHTML = "";
 
@@ -64,6 +67,11 @@ function sortUsers() {
         return firstNameA.localeCompare(firstNameB);
     });
 
+    groupUsersByFirstLetter(users);
+}
+
+function groupUsersByFirstLetter(users) {
+    groupedUsers = {};
     users.forEach(user => {
         const firstLetter = user.name[0].toUpperCase();
         if (!groupedUsers[firstLetter]) {

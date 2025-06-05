@@ -109,29 +109,22 @@ async function deleteData(path = "") {
 async function loadUsers() {
   try {
     const usersObj = await loadData("login");
-    const result = [];
-
-    if (!usersObj) {
-      return result;
-    }
-
-    for (const [id, user] of Object.entries(usersObj)) {
-      const color = user.color || '#A8A8A8';
-
-      result.push({
-        id: id,
-        name: user.name || '',
-        email: user.email || '',
-        color: color
-      });
-    }
-
-    return result;
-  } catch (error) {
-    console.error("Fehler beim Laden der Benutzer:", error);
+    return usersObj ? parseUsers(usersObj) : [];
+  } catch (e) {
+    console.error("Fehler beim Laden der Benutzer:", e);
     return [];
   }
 }
+
+function parseUsers(obj) {
+  return Object.entries(obj).map(([id, u]) => ({
+    id,
+    name: u.name || '',
+    email: u.email || '',
+    color: u.color || '#A8A8A8'
+  }));
+}
+
 
 
 /**
@@ -143,22 +136,16 @@ async function loadUsers() {
 async function applyUserColors() {
   try {
     const users = await loadUsers();
-    const userElements = document.querySelectorAll('.task-assignee');
-
-    userElements.forEach(function (el) {
-      const userId = el.getAttribute('data-user-id');
-
-      for (const user of users) {
-        if (user.id === userId) {
-          el.style.backgroundColor = user.color;
-          break;
-        }
-      }
+    const map = Object.fromEntries(users.map(u => [u.id, u.color]));
+    document.querySelectorAll('.task-assignee').forEach(el => {
+      const id = el.getAttribute('data-user-id');
+      if (map[id]) el.style.backgroundColor = map[id];
     });
-  } catch (error) {
-    console.error("Fehler beim Anwenden der Benutzerfarben:", error);
+  } catch (e) {
+    console.error("Fehler beim Anwenden der Benutzerfarben:", e);
   }
 }
+
 
 
 /**
@@ -169,30 +156,24 @@ async function applyUserColors() {
  */
 async function fillUserLinks() {
   try {
-    const allUsers = await loadAllUsers();
-    const myToken = localStorage.getItem("token");
-    const currentUser = allUsers.find(user => user.id === myToken);
+    const users = await loadAllUsers();
+    const user = users.find(u => u.id === localStorage.getItem("token"));
+    const nameEl = document.getElementById("userName");
+    const linkEl = document.getElementById("userLink");
 
-    if (!currentUser) {
-      const userLinkElement = document.getElementById("userLink");
-      if (userLinkElement) userLinkElement.innerHTML = "G";
-      const userNameElement = document.getElementById("userName");
-      if (userNameElement) userNameElement.innerHTML = "";
+    if (!user) {
+      linkEl && (linkEl.innerHTML = "G");
+      nameEl && (nameEl.innerHTML = "");
       return;
     }
 
-    const initials = getInitials(currentUser.name);
-    const userLinkElement = document.getElementById("userLink");
-    if (userLinkElement) userLinkElement.innerHTML = initials;
-
-    const userNameElement = document.getElementById("userName");
-    if (userNameElement) {
-      userNameElement.innerHTML = currentUser.name !== "Guest" ? currentUser.name : "";
-    }
-  } catch (error) {
-    console.error("Fehler beim Aktualisieren der Benutzerlinks:", error);
+    linkEl && (linkEl.innerHTML = getInitials(user.name));
+    nameEl && (nameEl.innerHTML = user.name !== "Guest" ? user.name : "");
+  } catch (e) {
+    console.error("Fehler beim Aktualisieren der Benutzerlinks:", e);
   }
 }
+
 
 
 /**
@@ -218,27 +199,22 @@ async function lastColor() {
     const users = await loadData("login");
     if (!users) return '#FF7A00';
 
-    const usedColors = Object.values(users).map(user => user.color);
-    const availableColors = [
-      '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
-      '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF',
-      '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'
-    ];
+    const usedColors = Object.values(users).map(u => u.color);
+    const colors = ['#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1',
+                    '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF',
+                    '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
 
-    const unusedColor = availableColors.find(color => !usedColors.includes(color));
-    if (unusedColor) return unusedColor;
+    const unused = colors.find(c => !usedColors.includes(c));
+    if (unused) return unused;
 
-    const lastUsedColor = [...usedColors].reverse().find(color => availableColors.includes(color));
-    const nextIndex = lastUsedColor
-      ? (availableColors.indexOf(lastUsedColor) + 1) % availableColors.length
-      : 0;
-
-    return availableColors[nextIndex];
-  } catch (error) {
-    console.error("Fehler beim Abrufen der letzten Farbe:", error);
+    const last = [...usedColors].reverse().find(c => colors.includes(c));
+    return colors[(colors.indexOf(last) + 1) % colors.length];
+  } catch (e) {
+    console.error("Fehler beim Abrufen der letzten Farbe:", e);
     return '#FF7A00';
   }
 }
+
 
 
 /**

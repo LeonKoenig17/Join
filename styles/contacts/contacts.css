@@ -25,6 +25,7 @@ body {
   height: calc(100vh - 90px);
   /* min-height: 700px; */
   overflow-y: auto;
+  width: 100%;
 }
 
 #contactDetails {
@@ -50,6 +51,7 @@ body {
   flex-direction: column;
   align-items: start;
   justify-content: space-around;
+  width: calc(100% - 147px);
 }
 
 .contactDetailsPerson img {
@@ -417,6 +419,7 @@ input:focus {
 .zindex2 {
   z-index: 2;
 }
+
 .header-container {
   padding-left: 100px;
 }

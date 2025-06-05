@@ -117,12 +117,7 @@ function validateEmail(inputId, errorSpanId) {
  * @param {Boolean} isEmail
  * @param {Event} onEnter
  */
-function addValidationEvents(
-  inputId,
-  errorSpanId,
-  isEmail = false,
-  onEnter = null
-) {
+function addValidationEvents(inputId,errorSpanId,isEmail = false,onEnter = null) {
   const input = document.getElementById(inputId);
   if (!input) return;
 

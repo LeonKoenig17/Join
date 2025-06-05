@@ -10,31 +10,44 @@ let setOffs = window.innerWidth < 400 ? ["deleteIcon", 4, 30] : ["editIcon", 4, 
  * @returns {Promise<void>} Resolves when the form is shown and initialized.
  */
 async function showContactForm(mode) {
-  const bg = document.getElementById("manipulateContactBackground");
-  window.innerWidth < 800 ? bg.innerHTML = contactDetailsTemp(mode, 'small') : bg.innerHTML = contactDetailsTemp(mode, 'big')
-  mode == "add" ? hideCancelBtn() : "";
-
+  renderFormBackground(mode);
   if (!checkLocalUser(mode)) return;
-  const frame = document.getElementById("addContactFrame");
 
-  frame.dataset.mode = mode;
-
-  bg.classList.replace("visibleNone", "showManipualteFormBackground");
-  frame.classList.replace("visibleNone", "showManipualteFormFrame");
-
-  if (mode == 'edit') {
-    toggleClass("addContactRightInitialsDiv", "grayBackground")
-    toggleClass("addContactRightInitials", "hide")
-    toggleClass("addContactRightImg", "hide")
-  }
+  prepareFormFrame(mode);
+  if (mode === 'edit') showEditUI();
 
   contactFormBtn(mode);
   checkMode();
-  let whichImg = this.window.innerWidth < 800 ? "closeWhite" : "close"
-  changeImage("closeFormImg", whichImg);
-
+  updateCloseIcon();
   excludeNumbers();
   restrictToTel();
+}
+
+function renderFormBackground(mode) {
+  const bg = document.getElementById("manipulateContactBackground");
+  bg.innerHTML = window.innerWidth < 800
+    ? contactDetailsTemp(mode, 'small')
+    : contactDetailsTemp(mode, 'big');
+  if (mode === "add") hideCancelBtn();
+}
+
+function prepareFormFrame(mode) {
+  const frame = document.getElementById("addContactFrame");
+  frame.dataset.mode = mode;
+
+  document.getElementById("manipulateContactBackground").classList.replace("visibleNone", "showManipualteFormBackground");
+  frame.classList.replace("visibleNone", "showManipualteFormFrame");
+}
+
+function showEditUI() {
+  toggleClass("addContactRightInitialsDiv", "grayBackground");
+  toggleClass("addContactRightInitials", "hide");
+  toggleClass("addContactRightImg", "hide");
+}
+
+function updateCloseIcon() {
+  const whichImg = window.innerWidth < 800 ? "closeWhite" : "close";
+  changeImage("closeFormImg", whichImg);
 }
 
 /**
@@ -94,28 +107,42 @@ function checkMode() {
  */
 function checkLocalUser(mode) {
   const myToken = localStorage.getItem("token");
+  if (mode === 'add') return true;
 
-  if (mode === 'add') { return true }
-
-  try {
-    if (mode === 'edit' && fireBaseContent.contact[thisToken].type == 'contact') {
-      return true;
-    } else {
-      showError("", "editErrorSpan","You can't edit other<br>registered users.")
-      return false;
-    }
-  } catch (error) {
-  }
+  if (isFirebaseContactAuthorized(mode)) return true;
 
   if (mode === "edit" && thisToken !== myToken) {
-    window.innerWidth < 800 ? 
-    showError("", "editErrorSpanResponsive","You can't edit other registered users.") :
-    showError("", "editErrorSpan","You can't edit other<br>registered users.") ;
+    displayEditErrorResponsive();
     return false;
   }
+
+  if (mode === "delete" && thisToken !== myToken) {
+    displayDeleteErrorResponsive();
+    return false;
+  }
+
   return true;
 }
 
+function isFirebaseContactAuthorized(mode) {
+  try {
+    return ['edit', 'delete'].includes(mode) &&
+           fireBaseContent.contact[thisToken]?.type === 'contact';
+  } catch {
+    return false;
+  }
+}
+
+
+function displayEditErrorResponsive() {
+  const errorId = window.innerWidth < 800 ? "editErrorSpanResponsive" : "editErrorSpan";
+  showError("", errorId, "You can't edit other<br>registered users.");
+}
+
+function displayDeleteErrorResponsive() {
+  const errorId = window.innerWidth < 800 ? "editErrorSpanResponsive" : "deleteErrorSpan";
+  showError("", errorId, "You can't delete other<br>registered users.");
+}
 
 /**
  * Hides the contact form and its background overlay by replacing their visible classes with a hidden class,
@@ -166,34 +193,53 @@ function contactFormBtn(mode) {
  * @returns {Promise<void>} Resolves when the action is completed and the page is reloaded if an action was performed.
  */
 async function contactForm(task, mode) {
-  let thisEmail = document.getElementById("emailInputContact")?.value || document.getElementById("contactDetailsMail").innerText;
-  thisEmail = thisEmail.toLowerCase();
+  let email = getCurrentEmail().toLowerCase();
   let actionPerformed = false;
 
   switch (task) {
     case "add":
-      if (emailIsValid(thisEmail) == false) { return };
-      await addContactTask();
-      actionPerformed = true;
+      actionPerformed = await handleAdd(email);
       break;
     case "save":
-      if (emailIsValid(thisEmail) == false) { return };
-      await saveContact(thisEmail);
-      actionPerformed = true;
+      actionPerformed = await handleSave(email);
       break;
     case "delete":
-      if (await deleteContact(thisEmail, mode)) {
-        actionPerformed = true;
-      }
+      actionPerformed = await handleDelete(email, task);
       break;
   }
 
   if (actionPerformed) {
-    localStorage.setItem("lastEditedContact", thisEmail);
-    hideContactForm();
-    window.location.reload();
+    finalizeContactAction(email);
   }
 }
+
+function getCurrentEmail() {
+  return document.getElementById("emailInputContact")?.value || 
+         document.getElementById("contactDetailsMail").innerText;
+}
+
+async function handleAdd(email) {
+  if (!emailIsValid(email)) return false;
+  await addContactTask();
+  return true;
+}
+
+async function handleSave(email) {
+  if (!emailIsValid(email)) return false;
+  await saveContact(email);
+  return true;
+}
+
+async function handleDelete(email, mode) {
+  return await deleteContact(email, mode);
+}
+
+function finalizeContactAction(email) {
+  localStorage.setItem("lastEditedContact", email);
+  hideContactForm();
+  window.location.reload();
+}
+
 
 /**
  * Asynchronously adds a new contact by collecting input values for name, email, and phone.
@@ -226,14 +272,17 @@ async function addContactTask() {
 async function deleteContact(email, mode) {
   const token = await findUser(email);
   const myToken = localStorage.getItem("token");
-  const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
 
-  if (token !== myToken && ergebnisse[token].type === "login") {
-    window.innerWidth < 800?
-    showError("", "editErrorSpanResponsive", "You can't delete other registered users."):
-    showError("", "deleteErrorSpan", "You can't delete other<br>registered users.");
-    return;
-  }
+  if (!checkLocalUser(mode)) return;
+
+  // const elementId = mode === "edit" ? "leftBtn" : "deleteIcon";
+
+  // if (token !== myToken && ergebnisse[token].type === "login") {
+  //   window.innerWidth < 800?
+  //   showError("", "editErrorSpanResponsive", "You can't delete other registered users."):
+  //   showError("", "deleteErrorSpan", "You can't delete other<br>registered users.");
+  //   return;
+  // }
   await deleteData(`${ergebnisse[token].type}/${token}`);
   window.location.reload();
 }

@@ -65,32 +65,22 @@ function sendDataToIframe() {
  * @returns {void}
  */
 function getContactsFromFirebase() {
-  const dataLogin = fireBaseContent.login || {};
-  const dataContact = fireBaseContent.contact || {};
-  const dataFull = { ...dataContact, ...dataLogin };
-
-  const users = Object.values(dataFull)
+  const data = { ...fireBaseContent.contact, ...fireBaseContent.login };
+  const users = Object.values(data)
     .map(u => ({ name: u.name, email: u.email, color: u.color, phone: u.phone }))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
-
-  const groupedUsers = users.reduce((groups, user) => {
-    const letter = user.name[0]?.toUpperCase() || "#";
-    (groups[letter] ||= []).push(user);
-    return groups;
+  const grouped = users.reduce((g, u) => {
+    const l = u.name[0]?.toUpperCase() || "#";
+    (g[l] ||= []).push(u);
+    return g;
   }, {});
-
-  const container = document.getElementById("allContacts");
-  container.innerHTML = "";
-  let userNumber = 0;
-
-  Object.keys(groupedUsers).sort().forEach(letter => {
-    const groupDiv = createGroupDiv(letter);
-    groupedUsers[letter].forEach(user => {
-      userNumber++;
-      const nav = createSingleUserNav(user, userNumber);
-      groupDiv.appendChild(nav);
-    });
-    container.appendChild(groupDiv);
+  const c = document.getElementById("allContacts");
+  c.innerHTML = "";
+  let n = 0;
+  Object.keys(grouped).sort().forEach(l => {
+    const d = createGroupDiv(l);
+    grouped[l].forEach(u => d.appendChild(createSingleUserNav(u, ++n)));
+    c.appendChild(d);
   });
 }
 
@@ -135,29 +125,15 @@ function createSingleUserNav(user, userNumber) {
   nav.classList.add("singleUser");
 
   const initials = document.createElement("span");
-  initials.classList.add("userInitials");
-  const colorClass = user.color
-    ? `userColor-${user.color.replace("#", "")}`
-    : "userColor-default";
-  initials.classList.add(colorClass);
+  initials.className = `userInitials ${user.color ? "userColor-" + user.color.replace("#", "") : "userColor-default"}`;
   initials.textContent = getInitials(user.name);
   nav.appendChild(initials);
 
   const details = document.createElement("div");
   details.classList.add("userDetails");
 
-  const nameEl = document.createElement("span");
-  nameEl.classList.add("userName");
-  nameEl.textContent = user.name;
-  details.appendChild(nameEl);
-
-  const emailEl = document.createElement("a");
-  emailEl.id = `singleUserMail${userNumber}`;
-  emailEl.href = `mailto:${user.email}`;
-  emailEl.classList.add("emailText");
-  emailEl.textContent = user.email;
-  details.appendChild(emailEl);
-
+  details.innerHTML = `<span class="userName">${user.name}</span>
+    <a id="singleUserMail${userNumber}" href="mailto:${user.email}" class="emailText">${user.email}</a>`;
   nav.appendChild(details);
 
   nav.addEventListener("click", () => chooseTaskDetails(nav.id));
@@ -207,80 +183,37 @@ async function contactDetails(elementId, thenum) {
   responsiveContentRight('show');
   chosenCard = thenum;
 
-  const emailElement = document.getElementById(`singleUserMail${thenum}`);
-  if (!emailElement) {
-    console.error(`Email element with ID singleUserMail${thenum} not found.`);
-    return;
-  }
-  const email = emailElement.innerText;
+  const email = document.getElementById(`singleUserMail${thenum}`)?.innerText;
+  if (!email) return console.error(`Email element singleUserMail${thenum} not found.`);
+
   localStorage.setItem('selectedContactEmail', email);
-
   const detail = await getContactDetails(email);
-  if (!detail) {
-    console.error(`Details for email ${email} not found.`);
-    return;
-  }
+  if (!detail) return console.error(`Details for ${email} not found.`);
 
-  const initials = getInitials(detail.name);
-  const color = detail.color.replace("#", "");
-
-  const nav = document.getElementById(elementId);
-  if (nav) {
-    if (window.innerWidth >= 800) {
-      nav.classList.replace("singleUser", "singleUserChosen");
-    }
-  } else {
-    console.error(`Navigation element with ID ${elementId} not found.`);
-  }
-
-  const contactDetailsElement = document.getElementById("contactDetails");
-  if (contactDetailsElement) {
-    contactDetailsElement.classList.remove("hide");
-  } else {
-    console.error("Contact details element not found.");
-    return;
-  }
-
-  const initialsElement = document.getElementById("contactDetailsInitials");
-  if (initialsElement) {
-    initialsElement.className = `userInitialsBig userColor-${color}`;
-    initialsElement.innerText = initials;
-  } else {
-    console.error("Initials element not found.");
-  }
-
-  const nameElement = document.getElementById("contactDetailsName");
-  if (nameElement) {
-    nameElement.innerText = detail.name;
-  } else {
-    console.error("Name element not found.");
-  }
-
-  const mailElement = document.getElementById("contactDetailsMail");
-  if (mailElement) {
-    mailElement.innerText = detail.email;
-    mailElement.href = `mailto:${detail.email}`;
-  } else {
-    console.error("Mail element not found.");
-  }
-
-  const phoneElement = document.getElementById("contactDetailsPhone");
-  if (phoneElement) {
-    phoneElement.innerText = detail.phone;
-  } else {
-    console.error("Phone element not found.");
-  }
-
-  const deleteErrorElement = document.getElementById("deleteError");
-  if (deleteErrorElement) {
-    deleteErrorElement.classList.add("hide");
-  } else {
-    console.error("Delete error element not found.");
-  }
-
+  updateContactUI(elementId, detail);
   thisToken = await findUser(detail.email);
   chosen = true;
 }
+
+function updateContactUI(elementId, detail) {
+  const nav = document.getElementById(elementId);
+  if (nav && window.innerWidth >= 800) nav.classList.replace("singleUser", "singleUserChosen");
+
+  const el = id => document.getElementById(id);
+  el("contactDetails")?.classList.remove("hide");
+  el("contactDetailsInitials") && Object.assign(el("contactDetailsInitials"), {
+    className: `userInitialsBig userColor-${detail.color.replace("#", "")}`,
+    innerText: getInitials(detail.name)
+  });
+  if (el("contactDetailsName")) el("contactDetailsName").innerText = detail.name;
+  if (el("contactDetailsMail")) {
+    el("contactDetailsMail").innerText = detail.email;
+    el("contactDetailsMail").href = `mailto:${detail.email}`;
+  }
+  if (el("contactDetailsPhone")) el("contactDetailsPhone").innerText = detail.phone;
+  el("deleteError")?.classList.add("hide");
+}
+
 
 function clearErrors(){
   hideError("","editErrorSpan")
@@ -289,33 +222,29 @@ function clearErrors(){
 
 function responsiveContentRight(task) {
   clearErrors();
+  const ids = ["contentRight", "allContacts", "contentLeft", "backToList", "addContactResponsiv", "editContactResponsiv"];
+  const elems = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+  const show = task === 'show' && window.innerWidth <= 800;
 
-  const contentRight = document.getElementById("contentRight");
-  const allContacts = document.getElementById("allContacts");
-  const contentLeft = document.getElementById("contentLeft");
-  const backToList = document.getElementById("backToList");
-  const addContactResponsiv = document.getElementById("addContactResponsiv");
-  const editContactResponsiv = document.getElementById("editContactResponsiv");
-
-  if (task === 'show' && window.innerWidth <= 800) {
-    if (contentRight) contentRight.classList.add("showContentRight");
-    if (allContacts) allContacts.classList.add("width0");
-    if (contentLeft) contentLeft.classList.add("width0");
-    if (backToList) backToList.classList.remove("displayNone");
-    if (addContactResponsiv) addContactResponsiv.classList.add("visibleNone");
-    if (editContactResponsiv) editContactResponsiv.classList.remove("visibleNone");
+  if (show) {
+    elems.contentRight?.classList.add("showContentRight");
+    elems.allContacts?.classList.add("width0");
+    elems.contentLeft?.classList.add("width0");
+    elems.backToList?.classList.remove("displayNone");
+    elems.addContactResponsiv?.classList.add("visibleNone");
+    elems.editContactResponsiv?.classList.remove("visibleNone");
   } else {
-    if (contentRight) contentRight.classList.remove("showContentRight");
-    if (allContacts) allContacts.classList.remove("width0");
-    if (contentLeft) contentLeft.classList.remove("width0");
-    if (backToList) backToList.classList.add("displayNone");
-    const deleteError = document.getElementById("deleteError");
-    if (deleteError) deleteError.classList.add("hide");
+    elems.contentRight?.classList.remove("showContentRight");
+    elems.allContacts?.classList.remove("width0");
+    elems.contentLeft?.classList.remove("width0");
+    elems.backToList?.classList.add("displayNone");
+    document.getElementById("deleteError")?.classList.add("hide");
     changeImage("addContactResponsivImg", "person_add");
-    if (addContactResponsiv) addContactResponsiv.classList.remove("visibleNone");
-    if (editContactResponsiv) editContactResponsiv.classList.add("visibleNone");
+    elems.addContactResponsiv?.classList.remove("visibleNone");
+    elems.editContactResponsiv?.classList.add("visibleNone");
   }
 }
+
 
 
 /**

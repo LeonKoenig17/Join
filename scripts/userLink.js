@@ -25,25 +25,20 @@ function hideUserLinksOptions() {
  * adds the option to link to the "Help" page according to window dimensions
  */
 function addHelpToPopup() {
-    const windowWidth = window.innerWidth;
-    try {
-        if (windowWidth <= 800) {
-            document.getElementById("userLinkOptions").innerHTML = `
-        <a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
-        <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
-        <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
-        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
-        `
-        } else {
-            document.getElementById("userLinkOptions").innerHTML = `
-        <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
-        <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
-        <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>
-        `
-        }
-    } catch (error) {
-        console.error("Error updating popup content:", error);
-    }
+  const width = window.innerWidth;
+  const container = document.getElementById("userLinkOptions");
+  if (!container) return;
+
+  try {
+    container.innerHTML = width <= 800
+      ? `<a href="../html/help.html" class="userLinkOptionsLinks">Help</a>
+         <a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
+         <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>`
+      : `<a href="../html/legalNotice.html" class="userLinkOptionsLinks">Legal Notice</a>
+         <a href="../html/privacyPolicy.html" class="userLinkOptionsLinks">Privacy Policy</a>
+         <a onclick="logout()" class="userLinkOptionsLinks">Log out</a>`;
+  } catch (e) {}
 }
 
 /**
